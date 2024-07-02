@@ -86,5 +86,5 @@ Lints all affected projects and attempts to automatically fix issues using Nx.
 - Use styled components for styling react mobile frontend (https://styled-components.com/docs)
 - If you want to install additional libraries for ready-to-go react components, consult it with the team (We don't want overkill things, but we need one library for some ready components and one for animations! Do the research, puppies!).
 - We need translations for our frontend mobile app to avoid hardcoded strings! Find some good library (liker I8next but idk about that on mobile without next.js) Lena did the task about that. Please take care of it in your spare time
-
+- .env should be setup for a future (We should do the task for it)
 # We test frontend on production ONLY <3
