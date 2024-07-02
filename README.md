@@ -11,6 +11,9 @@
 ```npm install --global yarn@1.22.19```
 
 ## Installation
+1. Clone the project
+
+```git clone https://github.com/NikolasSzwargot/weddesign.workspace.git```
 
 2. Install dependencies
 
