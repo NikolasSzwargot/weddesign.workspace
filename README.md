@@ -10,6 +10,10 @@
 
 ```npm install --global yarn@1.22.19```
 
+- Android configuration
+
+```https://reactnative.dev/docs/set-up-your-environment```
+
 ## Installation
 1. Clone the project
 
