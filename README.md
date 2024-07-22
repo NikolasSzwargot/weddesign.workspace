@@ -18,14 +18,12 @@
 
 ## Installation
 1. Clone the project
+
 ```git clone https://github.com/NikolasSzwargot/weddesign.workspace.git```
 
 2. Install dependencies
-```yarn install```
 
-3. Install prisma ORM
-```yarn add prisma```
-```yarn add @prisma/client```
+```yarn install```
 
 ## Scripts
 This project uses several scripts to manage different tasks. Below is a list of the available scripts and their descriptions:
@@ -87,7 +85,7 @@ Lints all affected projects using Nx. It also runs TypeScript's type checking.
 
 Lints all affected projects and attempts to automatically fix issues using Nx.
 
-## Additional information:
+## Additional informations:
 
 - Project uses nx (https://nx.dev)
 - Project uses atomic design (https://atomicdesign.bradfrost.com/chapter-2/)
@@ -96,7 +94,7 @@ Lints all affected projects and attempts to automatically fix issues using Nx.
 - Use React Native for mobile frontend (https://reactnative.dev/docs/getting-started)
 - Use styled components for styling react mobile frontend (https://styled-components.com/docs)
 - If you want to install additional libraries for ready-to-go react components, consult it with the team (We don't want overkill things, but we need one library for some ready components and one for animations! Do the research, puppies!).
-- We need translations for our frontend mobile app to avoid hardcoded strings! Find some good library (liker I18N, but I don't know about that on mobile without next.js) Lena did the task about that. Please take care of it in your spare time
+- We need translations for our frontend mobile app to avoid hardcoded strings! Find some good library (liker I8next but idk about that on mobile without next.js) Lena did the task about that. Please take care of it in your spare time
 - .env should be setup for a future (We should do the task for it)
-- We should also set up some automatic CLI like gitHub actions in the future! (IT IS A MUST-HAVE, NO DISCUSSION)
+- We should also setup some automatic CLI like github actions in the future! (IT IS A MUST HAVE, NO DISCUSSION)
 # We test frontend on production ONLY <3

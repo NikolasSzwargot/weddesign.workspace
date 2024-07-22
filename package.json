@@ -26,6 +26,7 @@
     "@nestjs/platform-express": "^10.0.2",
     "@nestjs/platform-fastify": "^10.3.9",
     "@nestjs/swagger": "^7.4.0",
+    "@prisma/client": "^5.17.0",
     "axios": "^1.6.0",
     "i18next": "^23.11.5",
     "install": "^0.13.0",
