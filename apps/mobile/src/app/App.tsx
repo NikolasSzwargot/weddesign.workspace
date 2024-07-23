@@ -6,6 +6,7 @@ import {ThemeProvider} from 'styled-components';
 import {weddesignTheme} from '@weddesign/themes';
 
 import i18n from '../i18n';
+import { WeddesignNavigator } from '../navigation';
 
 const StyledText = styled.Text`
     color: aqua;
@@ -15,13 +16,7 @@ export const App = () => {
     const {t} = useTranslation(['mainScreen', 'errors']);
     return (
         <ThemeProvider theme={weddesignTheme}>
-            <View>
-                <StyledText>{'styled text'}</StyledText>
-                <Text>{t('mainScreen:Welcome')}</Text>
-                <Text>{t('errors:Error1')}</Text>
-                <Button title="en" onPress={() => i18n.changeLanguage('en')} />
-                <Button title="pl" onPress={() => i18n.changeLanguage('pl')} />
-            </View>
+            <WeddesignNavigator
         </ThemeProvider>
     );
 };
