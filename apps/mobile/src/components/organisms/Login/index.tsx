@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import { Container, LoginPageInput } from './styles';
+import {Container, LoginPageInput} from './styles';
 
 const Login = () => {
     const [email, setEmail] = useState('');
