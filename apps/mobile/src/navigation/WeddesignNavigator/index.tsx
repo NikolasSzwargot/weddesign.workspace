@@ -1,16 +1,17 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+// import {HomePage} from '@mobile/components';
 
+// const Stack = createStackNavigator();
 
-const Stack = createStackNavigator();
 const WeddesignNavigator = () => {
     return (
-        <></>
-        // <NavigationContainer>
-        //     <Stack.Navigator initialRouteName="home">
-        //
-        //     </Stack.Navigator>
-        // </NavigationContainer>
+        <NavigationContainer>
+            <></>
+            {/*<></>*/}
+            {/*//     <Stack.Navigator initialRouteName="Home">*/}
+            {/*//         <Stack.Screen name="Home" component={HomePage} />*/}
+            {/*//     </Stack.Navigator>*/}
+        </NavigationContainer>
     );
 };
 
