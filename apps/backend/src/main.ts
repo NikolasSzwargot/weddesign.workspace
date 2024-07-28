@@ -7,10 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
   const config = new DocumentBuilder()
-    .setTitle('weddesign API')
-    .setDescription('Weddesign API description')
+    .setTitle('wedDesign API')
+    .setDescription('WedDesign API description')
     .setVersion('1.0')
-    .addTag('weddesign')
+    .addTag('wedDesign')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
