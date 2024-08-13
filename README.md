@@ -10,6 +10,8 @@
 
 ```npm install --global yarn@1.22.19```
 
+- Docker Desktop v4.32.0
+
 - Android configuration
 
 ```https://reactnative.dev/docs/set-up-your-environment```
