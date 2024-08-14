@@ -28,6 +28,7 @@
     "@nestjs/swagger": "^7.4.0",
     "@prisma/client": "^5.17.0",
     "axios": "^1.6.0",
+    "bcrypt": "^5.1.1",
     "i18next": "^23.11.5",
     "install": "^0.13.0",
     "lint": "^0.8.19",
