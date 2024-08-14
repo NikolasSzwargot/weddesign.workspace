@@ -10,7 +10,7 @@
         "declaration": true
     },
     "files": [],
-    "include": [],
+    "include": ["src/**/*", "src/types/images.d.ts"],
     "references": [
         {
             "path": "./tsconfig.app.json"

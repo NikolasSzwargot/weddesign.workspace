@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
-import {RoundButton, BackgroundEllipse} from '@weddesign/components';
+import {RoundButton, BackgroundEllipse, Header} from '@weddesign/components';
 import {Colors} from '@weddesign/enums';
 
 const Home = () => {
     return (
         <Container>
             <BackgroundEllipse />
+            <Header />
             <ButtonRow>
                 <RoundButton color={Colors.PinkLight} label="Lista gości" />
                 <RoundButton color={Colors.PinkLighter} label="Budżet" />

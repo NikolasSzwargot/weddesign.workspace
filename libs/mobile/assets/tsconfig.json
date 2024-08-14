@@ -1,16 +1,19 @@
 {
     "extends": "../../../tsconfig.base.json",
     "compilerOptions": {
-        "module": "commonjs",
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "noImplicitOverride": true,
-        "noPropertyAccessFromIndexSignature": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true
+      "jsx": "react-jsx",
+      "allowJs": true,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "noImplicitOverride": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true
     },
     "files": [],
-    "include": [],
+    "include": ["src/**/*", "src/index.d.ts"],
     "references": [
         {
             "path": "./tsconfig.lib.json"
