@@ -9,7 +9,11 @@ type GlobalStylesProps = {
 const WeddesignGlobalStyles: React.FC<GlobalStylesProps> = ({children}) => {
     return (
         <View style={styles.container}>
-            <StatusBar barStyle={null} />
+            <StatusBar
+                translucent={true}
+                backgroundColor={'transparent'}
+                barStyle={'dark-content'}
+            />
             {children}
         </View>
     );

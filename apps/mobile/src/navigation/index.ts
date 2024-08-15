@@ -1,1 +1,1 @@
-export {default as WeddesignNavigator} from './WeddesignNavigator';
+export * from './WeddesignNavigator';

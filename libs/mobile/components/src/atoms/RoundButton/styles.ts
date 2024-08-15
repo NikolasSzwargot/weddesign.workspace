@@ -4,6 +4,8 @@ import {Colors} from '@weddesign/enums';
 export const OpacityContainer = styled.View`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 export const ButtonContainer = styled.TouchableOpacity<{color?: Colors}>`
     width: 60px;
@@ -13,10 +15,4 @@ export const ButtonContainer = styled.TouchableOpacity<{color?: Colors}>`
     align-items: center;
     margin: 10px;
     background-color: ${({color}) => color || Colors.Black};
-`;
-
-export const Label = styled.Text<{color?: Colors}>`
-    color: ${({color}) => color || Colors.Black};
-    text-align: center;
-    font-size: 12px;
 `;

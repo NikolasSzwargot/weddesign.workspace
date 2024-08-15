@@ -1,16 +1,21 @@
-import {HeaderWrapper, MoreIconWrapper, Title} from './styles';
+import {HeaderWrapper, ItemWrapper, TitleWrapper} from './styles';
 import {Icons, MockImages} from '@weddesign/assets';
-import {Image} from 'react-native-elements';
+import {Text} from '@weddesign/themes';
 
 const Header = () => {
     console.log('mock: ', MockImages.Profile);
     return (
         <HeaderWrapper>
-            <MoreIconWrapper>
+            <ItemWrapper>
                 <Icons.More />
-            </MoreIconWrapper>
-            <Title>{'Weddesign'}</Title>
-            <Image source={MockImages.Profile} />
+            </ItemWrapper>
+            <TitleWrapper>
+                <Text.Bold size={20}>{'Weddesign'}</Text.Bold>
+            </TitleWrapper>
+            {/*@TODO: Fix images*/}
+            <ItemWrapper>
+                <Text.Regular>{''}</Text.Regular>
+            </ItemWrapper>
         </HeaderWrapper>
     );
 };

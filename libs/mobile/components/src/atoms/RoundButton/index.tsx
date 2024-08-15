@@ -1,5 +1,6 @@
-import {ButtonContainer, Label, OpacityContainer} from './styles';
+import {ButtonContainer, OpacityContainer} from './styles';
 import {Colors} from '@weddesign/enums';
+import {Text} from '@weddesign/themes';
 
 type RoundButtonProps = {
     color?: Colors;
@@ -11,7 +12,9 @@ const RoundButton = ({color, label, onPress = () => {}}: RoundButtonProps) => {
     return (
         <OpacityContainer>
             <ButtonContainer color={color} onPress={onPress}></ButtonContainer>
-            <Label color={color}>{label}</Label>
+            <Text.Regular size={11} style={{color: color ?? Colors.Black}}>
+                {label}
+            </Text.Regular>
         </OpacityContainer>
     );
 };

@@ -26,13 +26,11 @@ module.exports = {
         rules: [
             {
                 test: /\.(png|jpe?g|svg|gif)$/,
+                type: 'asset/inline',
+                include: [/libs\/mobile/],
                 use: [
                     {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'assets/images/',
-                        },
+                        loader: 'url-loader',
                     },
                 ],
             },

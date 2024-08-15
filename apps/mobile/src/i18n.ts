@@ -1,32 +1,33 @@
 import i18n, {InitOptions} from 'i18next';
 import {initReactI18next} from 'react-i18next';
 
-import enMainScreen from '../locales/en/mainScreen.json';
+//@TODO: These imports are pain in the ass. make module out of the locales so it will export one object
 import enErrors from '../locales/en/errors.json';
-import plMainScreen from '../locales/pl/mainScreen.json';
 import plErrors from '../locales/pl/errors.json';
+import plHome from '../locales/pl/home.json';
+import enHome from '../locales/en/home.json';
 
 const resources = {
     en: {
-        mainScreen: enMainScreen,
         errors: enErrors,
+        home: enHome,
     },
     pl: {
-        mainScreen: plMainScreen,
         errors: plErrors,
+        home: plHome,
     },
 };
 
 const options: InitOptions = {
     compatibilityJSON: 'v3',
-    fallbackLng: 'en',
+    fallbackLng: 'pl',
     resources,
     ns: ['mainScreen', 'errors'],
     defaultNS: 'mainScreen',
     interpolation: {
         escapeValue: false,
     },
-    lng: 'en',
+    lng: 'pl',
 };
 
 i18n.use(initReactI18next).init(options);

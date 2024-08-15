@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {Colors} from '@weddesign/enums';
 
 export const HeaderWrapper = styled.View`
     display: flex;
@@ -9,17 +8,18 @@ export const HeaderWrapper = styled.View`
     width: 100%;
     height: 56px;
     padding: 10px 20px;
-    position: absolute;
     top: 10px;
+    margin-top: 10px;
     background: transparent;
 `;
 
-export const Title = styled.Text`
-    font-size: 20px;
-    font-weight: bold;
-    color: ${Colors.Black};
+export const ItemWrapper = styled.View`
+    padding: 10px;
+    flex: 1;
 `;
 
-export const MoreIconWrapper = styled.View`
-    padding: 10px;
+export const TitleWrapper = styled.View`
+    flex: 2;
+    justify-content: center;
+    align-items: center;
 `;

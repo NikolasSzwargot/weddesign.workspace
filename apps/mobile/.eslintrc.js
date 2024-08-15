@@ -1,11 +1,19 @@
 // eslint-disable-next-line no-undef
 module.exports = {
+    env: {
+        'react-native/react-native': true,
+        es2021: true,
+    },
     root: true,
     globals: {
         JSX: true,
         NodeJS: true,
     },
-    extends: ['eslint:recommended', 'prettier', 'plugin:prettier/recommended'],
+    extends: [
+        'eslint:recommended',
+        'plugin:react/recommended',
+        'plugin:react-native/all',
+    ],
     parser: '@typescript-eslint/parser',
     plugins: [
         '@typescript-eslint',
@@ -14,11 +22,12 @@ module.exports = {
         'import',
         'eslint-plugin-node',
         'unused-imports',
+        'react-native',
     ],
     ignorePatterns: ['./typings', './next', './node_modules'],
     rules: {
         camelcase: 'off',
-        'react/jsx-no-literals': 'error',
+        'react/jsx-no-literals': 'off',
         'no-empty-pattern': 'off',
         'no-eval': 'error',
         'import/first': 'error',

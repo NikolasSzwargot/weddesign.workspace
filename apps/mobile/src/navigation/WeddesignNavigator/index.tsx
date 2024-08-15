@@ -1,18 +1,21 @@
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {HomePage} from '@mobile/components';
 // import {HomePage} from '@mobile/components';
 
-// const Stack = createStackNavigator();
+export type RootParamList = {
+    Home: undefined;
+};
 
-const WeddesignNavigator = () => {
+const Root = createStackNavigator<RootParamList>();
+
+export const WeddesignNavigator = () => {
     return (
         <NavigationContainer>
-            <></>
-            {/*<></>*/}
-            {/*//     <Stack.Navigator initialRouteName="Home">*/}
-            {/*//         <Stack.Screen name="Home" component={HomePage} />*/}
-            {/*//     </Stack.Navigator>*/}
+            <Root.Navigator>
+                <Root.Screen name={'Home'} component={HomePage} />
+            </Root.Navigator>
         </NavigationContainer>
     );
 };
-
-export default WeddesignNavigator;

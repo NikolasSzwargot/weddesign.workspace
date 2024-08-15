@@ -1,19 +1,12 @@
-declare module '*.png' {
-  const value: string;
-  export default value;
-}
+declare module '*.png';
 
-declare module '*.jpg' {
-  const value: string;
-  export default value;
-}
+declare module '*.jpg';
 
-declare module '*.jpeg' {
-  const value: string;
-  export default value;
-}
+declare module '*.jpeg';
 
-declare module '*.gif' {
-  const value: string;
+declare module '*.gif';
+
+declare module '*.json' {
+  const value: any;
   export default value;
 }
