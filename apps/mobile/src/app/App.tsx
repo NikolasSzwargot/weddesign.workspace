@@ -1,6 +1,6 @@
 import {WeddesignGlobalStyles, weddesignTheme} from '@weddesign/themes';
 import {ThemeProvider} from 'styled-components/native';
-import {HomePage} from '@mobile/components';
+import {Home, HomePage} from '@mobile/components';
 import {StatusBar} from 'react-native';
 
 // import {WeddesignNavigator} from '@mobile/navigation';
@@ -15,7 +15,7 @@ export const App = () => {
                     barStyle={'dark-content'}
                 />
                 {/*<WeddesignNavigator />*/}
-                <HomePage />
+                <Home />
             </WeddesignGlobalStyles>
         </ThemeProvider>
     );
