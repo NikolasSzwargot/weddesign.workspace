@@ -15,7 +15,9 @@
           {
             "enforceBuildableLibDependency": true
           }
-        ]
+        ],
+        "linebreak-style": "off",
+        "end-of-line": "off"
       }
     },
     {
