@@ -3,7 +3,8 @@
   "ignorePatterns": ["**/*"],
   "plugins": ["@nx"],
   "rules": {
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "end-of-line": "off"
   },
   "overrides": [
     {
