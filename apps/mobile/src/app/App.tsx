@@ -1,24 +1,32 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import {View, Text, Button} from 'react-native';
-import {useTranslation} from 'react-i18next';
+import {WeddesignGlobalStyles, weddesignTheme} from '@weddesign/themes';
+import {ThemeProvider} from 'styled-components/native';
+import {HomePage} from '@mobile/components';
+import {StatusBar} from 'react-native';
+import {NativeRouter, Route, Routes} from "react-router-native";
+import {LogBox} from 'react-native'
 
-import i18n from '../i18n';
-
-const StyledText = styled.Text`
-    color: aqua;
-`;
+//@NOTE: Ignoring that worning, irrevelant to our rc native version
+LogBox.ignoreLogs([
+  'Support for defaultProps will be removed from function components'
+]);
 
 export const App = () => {
-    const {t} = useTranslation(['mainScreen', 'errors']);
     return (
-        <View>
-            <StyledText>{'styled text'}</StyledText>
-            <Text>{t('mainScreen:Welcome')}</Text>
-            <Text>{t('errors:Error1')}</Text>
-            <Button title="en" onPress={() => i18n.changeLanguage('en')} />
-            <Button title="pl" onPress={() => i18n.changeLanguage('pl')} />
-        </View>
+        <ThemeProvider theme={weddesignTheme}>
+            <WeddesignGlobalStyles>
+                <StatusBar
+                    translucent={true}
+                    backgroundColor={'transparent'}
+                    barStyle={'dark-content'}
+                />
+              <NativeRouter>
+                <Routes>
+                  <Route path={'/'} element={<HomePage />}/>
+                </Routes>
+              </NativeRouter>
+            </WeddesignGlobalStyles>
+        </ThemeProvider>
     );
 };
 export default App;

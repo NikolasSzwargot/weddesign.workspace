@@ -6,11 +6,35 @@ module.exports = {
     resolve: {
         alias: {
             'react-native$': 'react-native-web',
+            'react-native-elements$': 'react-native-web',
         },
-        extensions: ['.web.tsx', '.web.ts', '.web.jsx', '.web.js'],
+        extensions: [
+            '.web.tsx',
+            '.web.ts',
+            '.web.jsx',
+            '.web.js',
+            '.tsx',
+            '.ts',
+            '.jsx',
+            '.js',
+        ],
     },
     devServer: {
         port: 4200,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(png|jpe?g|svg|gif)$/,
+                type: 'asset/inline',
+                include: [/libs\/mobile/],
+                use: [
+                    {
+                        loader: 'url-loader',
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new NxAppWebpackPlugin({

@@ -57,5 +57,7 @@ module.exports = {
                 'newlines-between': 'always',
             },
         ],
+        'linebreak-style': 'off',
+        'end-of-line': 'off',
     },
 };
