@@ -1,1 +1,1 @@
-export * from './lib/getDaysDifference';
+export {getDaysDifference} from './lib/getDaysDifference';
