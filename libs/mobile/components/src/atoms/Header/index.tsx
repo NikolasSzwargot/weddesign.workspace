@@ -1,9 +1,8 @@
 import {HeaderWrapper, ItemWrapper, TitleWrapper} from './styles';
-import {Icons, MockImages} from '@weddesign/assets';
+import {Icons} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 
 const Header = () => {
-    console.log('mock: ', MockImages.Profile);
     return (
         <HeaderWrapper>
             <ItemWrapper>
