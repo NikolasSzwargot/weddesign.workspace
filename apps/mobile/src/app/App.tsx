@@ -1,9 +1,15 @@
 import React from 'react';
 import {WeddesignGlobalStyles, weddesignTheme} from '@weddesign/themes';
 import {ThemeProvider} from 'styled-components/native';
-import {Home} from '@mobile/components';
+import {HomePage} from '@mobile/components';
 import {StatusBar} from 'react-native';
-// import {WeddesignNavigator} from '@mobile/navigation';
+import {NativeRouter, Route, Routes} from "react-router-native";
+import {LogBox} from 'react-native'
+
+//@NOTE: Ignoring that worning, irrevelant to our rc native version
+LogBox.ignoreLogs([
+  'Support for defaultProps will be removed from function components'
+]);
 
 export const App = () => {
     return (
@@ -14,9 +20,11 @@ export const App = () => {
                     backgroundColor={'transparent'}
                     barStyle={'dark-content'}
                 />
-                {/*<WeddesignNavigator />*/}
-                {/*<Home />*/}
-              <Home />
+              <NativeRouter>
+                <Routes>
+                  <Route path={'/'} element={<HomePage />}/>
+                </Routes>
+              </NativeRouter>
             </WeddesignGlobalStyles>
         </ThemeProvider>
     );

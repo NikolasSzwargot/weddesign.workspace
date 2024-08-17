@@ -56,6 +56,7 @@
     "react-native-styled-components": "^2.1.0",
     "react-native-vector-icons": "^10.1.0",
     "react-navigation-stack": "react-navigation/stack",
+    "react-router-native": "^6.26.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "screen": "^0.2.10",
