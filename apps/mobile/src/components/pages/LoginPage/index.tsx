@@ -1,6 +1,11 @@
+import React from 'react';
 import {Login} from '@mobile/components';
+import {LoginScreens} from '@weddesign/enums';
 
-const LoginPage = () => {
+type loginPageProps = {
+    screen: LoginScreens;
+};
+const LoginPage = ({screen}: loginPageProps) => {
     return <Login />;
 };
 

@@ -4,8 +4,8 @@ import {Colors} from '@weddesign/enums';
 import {Header} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
-import {MockedUser} from '@mobile/mocks';
 import {getDaysDifference} from '@weddesign/utils';
+import {MockedUser} from '@mobile/mocks';
 
 import {ButtonRow, Container, HomeWrapper, MainFrame} from './styles';
 

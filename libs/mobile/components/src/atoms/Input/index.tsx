@@ -1,4 +1,4 @@
-import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
+import {NativeSyntheticEvent, TextInputChangeEventData} from 'react-native';
 import {StyledInput} from './styles';
 
 type InputProps = {

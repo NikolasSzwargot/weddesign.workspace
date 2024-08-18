@@ -1,3 +1,4 @@
+import React from 'react';
 import {useState} from 'react';
 
 import {Container, LoginPageInput} from './styles';
@@ -13,6 +14,7 @@ const Login = () => {
                     setEmail(text);
                 }}
                 placeholder={'Podaj email'}
+                inputMode={'email'}
             />
             <LoginPageInput
                 value={password}
