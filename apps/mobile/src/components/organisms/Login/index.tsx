@@ -1,13 +1,22 @@
 import React from 'react';
 import {useState} from 'react';
+import {ProgressBar} from '@weddesign/components';
+import {LoginScreens} from '@weddesign/enums';
 
-import {Container, LoginPageInput} from './styles';
+import {Container, LoginPageInput, ProgressBarContainer} from './styles';
+
+type LoginProps = {
+    screen: LoginScreens;
+};
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     return (
         <Container>
+            <ProgressBarContainer>
+                <ProgressBar progress={50} />
+            </ProgressBarContainer>
             <LoginPageInput
                 value={email}
                 onChange={(text: string) => {
