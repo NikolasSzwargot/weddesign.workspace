@@ -51,7 +51,8 @@ const GuestsStatusBar = ({guests}: StatusBarProps) => {
                 {countByStatus[2]} na {totalGuests} gości potwierdziło swoje
                 przybycie
             </StatusText>
-        </StatusBarWrapper>);
+        </StatusBarWrapper>
+    );
 };
 
 export default GuestsStatusBar;
