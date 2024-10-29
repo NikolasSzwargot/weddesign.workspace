@@ -1,0 +1,8 @@
+{
+  "statusBarText": "{{confirmed}} na {{total}} gości potwierdziło swoje przybycie",
+  "counters": {
+    "kid": "dzieci",
+    "accommodation": "noclegi",
+    "vege": "wege"
+  }
+}

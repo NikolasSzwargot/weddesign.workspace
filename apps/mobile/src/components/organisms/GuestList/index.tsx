@@ -9,6 +9,7 @@ import {
 } from '@weddesign/components';
 import {guestsData} from '@mobile/mocks';
 import {groupGuestsByFirstLetter} from '@weddesign/utils';
+import {useTranslation} from 'react-i18next';
 
 import {
     Container,
@@ -30,6 +31,8 @@ const counterCounts = {
 };
 
 const GuestList = () => {
+    const {t} = useTranslation('guestList');
+
     return (
         <Container>
             <GuestListBackgroundEllipse />
@@ -37,13 +40,24 @@ const GuestList = () => {
                 <Header />
 
                 <StatusBarWrapper>
-                    <GuestsStatusBar guests={guestsData} />
+                    <GuestsStatusBar
+                        guests={guestsData}
+                        confirmationText={t('statusBarText', {
+                            confirmed: guestsData.filter(
+                                (guest) => guest.statusId === 2,
+                            ).length,
+                            total: guestsData.length,
+                        })}
+                    />
                 </StatusBarWrapper>
 
                 <CounterWrapper>
-                    <Counter count={counterCounts[1]} label="dzieci" />
-                    <Counter count={counterCounts[2]} label="noclegi" />
-                    <Counter count={counterCounts[3]} label="wege" />
+                    <Counter count={counterCounts[1]} label={t('counters.kid')} />
+                    <Counter
+                        count={counterCounts[2]}
+                        label={t('counters.accommodation')}
+                    />
+                    <Counter count={counterCounts[3]} label={t('counters.vege')} />
                 </CounterWrapper>
 
                 <SectionList

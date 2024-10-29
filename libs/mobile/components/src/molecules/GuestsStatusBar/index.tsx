@@ -9,9 +9,10 @@ import {
 
 type StatusBarProps = {
     guests: Guest[];
+    confirmationText: string;
 };
 
-const GuestsStatusBar = ({guests}: StatusBarProps) => {
+const GuestsStatusBar = ({guests, confirmationText}: StatusBarProps) => {
     const totalGuests = guests.length;
     const countByStatus = {
         1: guests.filter((guest) => guest.statusId === 1).length,
@@ -47,10 +48,7 @@ const GuestsStatusBar = ({guests}: StatusBarProps) => {
                     color="#dadada"
                 />
             </StatusBarContainer>
-            <StatusText>
-                {countByStatus[2]} na {totalGuests} gości potwierdziło swoje
-                przybycie
-            </StatusText>
+            <StatusText>{confirmationText}</StatusText>
         </StatusBarWrapper>
     );
 };
