@@ -6,4 +6,5 @@ export type Guest = {
     isChild: boolean;
     canGetThere: boolean;
     statusId: number;
+    nocleg: boolean;
 };

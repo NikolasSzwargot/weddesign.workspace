@@ -6,6 +6,7 @@ type Guest = {
     isChild: boolean;
     canGetThere: boolean;
     statusId: number;
+    nocleg: boolean;
 };
 
 export const groupGuestsByFirstLetter = (guests: Guest[]) => {

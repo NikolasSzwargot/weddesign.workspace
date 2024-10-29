@@ -9,6 +9,7 @@ export const guestsData: Guest[] = [
         isChild: false,
         canGetThere: true,
         statusId: 1,
+        nocleg: true,
     },
     {
         firstName: 'Jakub',
@@ -18,6 +19,7 @@ export const guestsData: Guest[] = [
         isChild: true,
         canGetThere: true,
         statusId: 2,
+        nocleg: false,
     },
     {
         firstName: 'Lena',
@@ -27,6 +29,7 @@ export const guestsData: Guest[] = [
         isChild: false,
         canGetThere: false,
         statusId: 3,
+        nocleg: true,
     },
     {
         firstName: 'Nikolas',
@@ -36,5 +39,6 @@ export const guestsData: Guest[] = [
         isChild: false,
         canGetThere: true,
         statusId: 4,
+        nocleg: false,
     },
 ];

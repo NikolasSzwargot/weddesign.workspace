@@ -25,6 +25,14 @@ export const StatusBarWrapper = styled.View`
     margin-top: 20px;
 `;
 
+export const CounterWrapper = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 16px;
+    padding-right: 16px;
+`;
+
 export const SeparatorContainer = styled.View`
     flex-direction: row;
     align-items: center;
