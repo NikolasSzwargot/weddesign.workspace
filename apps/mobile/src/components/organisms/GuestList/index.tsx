@@ -1,16 +1,16 @@
 import React from 'react';
 import {SectionList} from 'react-native';
-import {Header, GuestListBackgroundEllipse, GuestItem} from '@weddesign/components';
+import {Header, GuestListBackgroundEllipse, GuestItem, GuestsStatusBar} from '@weddesign/components';
 import {guestsData} from '@mobile/mocks';
 import {groupGuestsByFirstLetter} from '@weddesign/utils';
 
 import {
-    Container,
-    GuestListWrapper,
-    LongSeparatorLine,
-    SeparatorContainer,
-    SeparatorText,
-    ShortSeparatorLine,
+  Container,
+  GuestListWrapper,
+  LongSeparatorLine,
+  SeparatorContainer,
+  SeparatorText,
+  ShortSeparatorLine, StatusBarWrapper,
 } from './styles';
 
 const sections = groupGuestsByFirstLetter(guestsData);
@@ -21,6 +21,9 @@ const GuestList = () => {
             <GuestListBackgroundEllipse />
             <GuestListWrapper>
                 <Header />
+                <StatusBarWrapper>
+                    <GuestsStatusBar guests={guestsData}/>
+                </StatusBarWrapper>
                 <SectionList
                     sections={sections}
                     keyExtractor={(item) => item.firstName}

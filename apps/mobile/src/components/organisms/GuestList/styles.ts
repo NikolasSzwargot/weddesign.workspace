@@ -17,6 +17,14 @@ export const GuestListWrapper = styled.View`
     margin-top: 20px;
 `;
 
+export const StatusBarWrapper = styled.View`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100vw;
+    margin-top: 20px;
+`;
+
 export const SeparatorContainer = styled.View`
     flex-direction: row;
     align-items: center;
