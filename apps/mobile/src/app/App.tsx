@@ -1,8 +1,11 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+// import {StatusBar} from 'react-native';
 import {LogBox} from 'react-native';
-import {CommonProviders} from '@mobile/components';
-import {Routes} from '@mobile/components';
+
+// import {CommonProviders} from '@mobile/components';
+// import {Routes} from '@mobile/components';
+
+import GuestListPage from '../components/pages/GuestListPage';
 
 //@NOTE: Ignoring that warning, irrevelant to our rc native version
 LogBox.ignoreLogs([
@@ -11,14 +14,17 @@ LogBox.ignoreLogs([
 
 export const App = () => {
     return (
-        <CommonProviders>
-            <StatusBar
-                translucent={true}
-                backgroundColor={'transparent'}
-                barStyle={'dark-content'}
-            />
-            <Routes />
-        </CommonProviders>
+        // <CommonProviders>
+        //     <StatusBar
+        //         translucent={true}
+        //         backgroundColor={'transparent'}
+        //         barStyle={'dark-content'}
+        //     />
+        //     <Routes />
+        // </CommonProviders>
+        <GuestListPage />
+        // <HomePage />
+        // <LoginPage />
     );
 };
 export default App;
