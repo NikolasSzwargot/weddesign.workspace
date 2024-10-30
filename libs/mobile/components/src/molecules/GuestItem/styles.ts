@@ -4,8 +4,9 @@ export const GuestItemContainer = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
-    //border-bottom-width: 1px;
+    margin-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     border-bottom-color: #ececec;
 `;
 

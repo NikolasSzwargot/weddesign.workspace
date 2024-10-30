@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchBar from 'react-native-platform-searchbar';
+import {SearchBarContainer} from './styles';
 
 type CustomSearchBarProps = {
     searchQuery: string;
@@ -13,11 +14,14 @@ const CustomSearchBar = ({
     placeholder,
 }: CustomSearchBarProps) => {
     return (
-        <SearchBar
-            placeholder={placeholder}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-        />
+        <SearchBarContainer>
+            <SearchBar
+                style={{flex: 1, height: 44}}
+                placeholder={placeholder}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+            />
+        </SearchBarContainer>
     );
 };
 

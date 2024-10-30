@@ -7,3 +7,4 @@ export {default as ProgressBar} from './ProgressBar';
 export {default as GuestListBackgroundEllipse} from './GuestListBackgroundEllipse';
 export {default as Counter} from './Counter';
 export {default as CustomSearchBar} from './CustomSearchBar';
+export {default as IconButton} from './IconButton';

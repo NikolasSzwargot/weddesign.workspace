@@ -7,10 +7,12 @@ import {
     GuestsStatusBar,
     Counter,
     CustomSearchBar,
+    IconButton,
 } from '@weddesign/components';
 import {guestsData} from '@mobile/mocks';
 import {groupGuestsByFirstLetter} from '@weddesign/utils';
 import {useTranslation} from 'react-i18next';
+import {Icons} from '@weddesign/assets';
 
 import {
     Container,
@@ -81,6 +83,14 @@ const GuestList = () => {
                             searchQuery={searchQuery}
                             setSearchQuery={setSearchQuery}
                             placeholder={t('searchPlaceholder')}
+                        />
+                        <IconButton
+                            Icon={Icons.Filter}
+                            onPress={() => console.log('clicked Filter')}
+                        />
+                        <IconButton
+                            Icon={Icons.AddGuest}
+                            onPress={() => console.log('clicked AddGuest')}
                         />
                     </SearchBarWrapper>
 
