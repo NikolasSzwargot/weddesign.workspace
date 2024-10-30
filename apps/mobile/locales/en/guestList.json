@@ -4,5 +4,6 @@
     "kid": "kid",
     "accommodation": "overnight",
     "vege": "vege"
-  }
+  },
+  "searchPlaceholder": "Search"
 }

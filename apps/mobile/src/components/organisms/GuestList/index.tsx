@@ -1,11 +1,12 @@
-import React from 'react';
-import {SectionList} from 'react-native';
+import React, {useState} from 'react';
+import {SectionList, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import {
     Header,
     GuestListBackgroundEllipse,
     GuestItem,
     GuestsStatusBar,
     Counter,
+    CustomSearchBar,
 } from '@weddesign/components';
 import {guestsData} from '@mobile/mocks';
 import {groupGuestsByFirstLetter} from '@weddesign/utils';
@@ -16,13 +17,12 @@ import {
     CounterWrapper,
     GuestListWrapper,
     LongSeparatorLine,
+    SearchBarWrapper,
     SeparatorContainer,
     SeparatorText,
     ShortSeparatorLine,
     StatusBarWrapper,
 } from './styles';
-
-const sections = groupGuestsByFirstLetter(guestsData);
 
 const counterCounts = {
     1: guestsData.filter((guest) => guest.isChild === true).length,
@@ -32,49 +32,74 @@ const counterCounts = {
 
 const GuestList = () => {
     const {t} = useTranslation('guestList');
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const filteredGuests = guestsData.filter((guest) =>
+        `${guest.firstName} ${guest.lastName}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()),
+    );
+
+    const sections = groupGuestsByFirstLetter(filteredGuests);
 
     return (
-        <Container>
-            <GuestListBackgroundEllipse />
-            <GuestListWrapper>
-                <Header />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Container>
+                <GuestListBackgroundEllipse />
+                <GuestListWrapper>
+                    <Header />
 
-                <StatusBarWrapper>
-                    <GuestsStatusBar
-                        guests={guestsData}
-                        confirmationText={t('statusBarText', {
-                            confirmed: guestsData.filter(
-                                (guest) => guest.statusId === 2,
-                            ).length,
-                            total: guestsData.length,
-                        })}
+                    <StatusBarWrapper>
+                        <GuestsStatusBar
+                            guests={guestsData}
+                            confirmationText={t('statusBarText', {
+                                confirmed: guestsData.filter(
+                                    (guest) => guest.statusId === 2,
+                                ).length,
+                                total: guestsData.length,
+                            })}
+                        />
+                    </StatusBarWrapper>
+
+                    <CounterWrapper>
+                        <Counter
+                            count={counterCounts[1]}
+                            label={t('counters.kid')}
+                        />
+                        <Counter
+                            count={counterCounts[2]}
+                            label={t('counters.accommodation')}
+                        />
+                        <Counter
+                            count={counterCounts[3]}
+                            label={t('counters.vege')}
+                        />
+                    </CounterWrapper>
+
+                    <SearchBarWrapper>
+                        <CustomSearchBar
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                            placeholder={t('searchPlaceholder')}
+                        />
+                    </SearchBarWrapper>
+
+                    <SectionList
+                        sections={sections}
+                        keyExtractor={(item) => item.firstName}
+                        renderItem={({item}) => <GuestItem guest={item} />}
+                        renderSectionHeader={({section: {title}}) => (
+                            <SeparatorContainer>
+                                <ShortSeparatorLine />
+                                <SeparatorText>{title}</SeparatorText>
+                                <LongSeparatorLine />
+                            </SeparatorContainer>
+                        )}
+                        showsVerticalScrollIndicator={false}
                     />
-                </StatusBarWrapper>
-
-                <CounterWrapper>
-                    <Counter count={counterCounts[1]} label={t('counters.kid')} />
-                    <Counter
-                        count={counterCounts[2]}
-                        label={t('counters.accommodation')}
-                    />
-                    <Counter count={counterCounts[3]} label={t('counters.vege')} />
-                </CounterWrapper>
-
-                <SectionList
-                    sections={sections}
-                    keyExtractor={(item) => item.firstName}
-                    renderItem={({item}) => <GuestItem guest={item} />}
-                    renderSectionHeader={({section: {title}}) => (
-                        <SeparatorContainer>
-                            <ShortSeparatorLine />
-                            <SeparatorText>{title}</SeparatorText>
-                            <LongSeparatorLine />
-                        </SeparatorContainer>
-                    )}
-                    showsVerticalScrollIndicator={false}
-                />
-            </GuestListWrapper>
-        </Container>
+                </GuestListWrapper>
+            </Container>
+        </TouchableWithoutFeedback>
     );
 };
 

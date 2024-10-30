@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     flex: 1;
+    min-height: 800px;
     justify-content: center;
     align-items: center;
     //background-color: #fff;
@@ -58,4 +59,10 @@ export const SeparatorText = styled.Text`
     //margin-left: 50px;
     font-size: 16px;
     color: #e0e0e0;
+`;
+
+export const SearchBarWrapper = styled.View`
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
 `;

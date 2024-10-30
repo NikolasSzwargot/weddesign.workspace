@@ -4,5 +4,6 @@
     "kid": "dzieci",
     "accommodation": "noclegi",
     "vege": "wege"
-  }
+  },
+  "searchPlaceholder": "Wyszukaj"
 }
