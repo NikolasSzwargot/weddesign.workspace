@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SectionList, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {SectionList, TouchableWithoutFeedback, Keyboard, View} from 'react-native';
 import {
     Header,
     GuestListBackgroundEllipse,
@@ -32,6 +32,14 @@ const counterCounts = {
     3: guestsData.filter((guest) => guest.isVege === true).length,
 };
 
+const renderSectionHeader = ({section: {title}}) => (
+    <SeparatorContainer>
+        <ShortSeparatorLine />
+        <SeparatorText>{title}</SeparatorText>
+        <LongSeparatorLine />
+    </SeparatorContainer>
+);
+
 const GuestList = () => {
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
@@ -45,71 +53,69 @@ const GuestList = () => {
     const sections = groupGuestsByFirstLetter(filteredGuests);
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Container>
-                <GuestListBackgroundEllipse />
-                <GuestListWrapper>
-                    <Header />
+        <Container>
+            <GuestListBackgroundEllipse />
+            <GuestListWrapper>
+                <TouchableWithoutFeedback
+                    onPress={Keyboard.dismiss}
+                    accessible={false}
+                >
+                    <View>
+                        <Header />
 
-                    <StatusBarWrapper>
-                        <GuestsStatusBar
-                            guests={guestsData}
-                            confirmationText={t('statusBarText', {
-                                confirmed: guestsData.filter(
-                                    (guest) => guest.statusId === 2,
-                                ).length,
-                                total: guestsData.length,
-                            })}
-                        />
-                    </StatusBarWrapper>
+                        <StatusBarWrapper>
+                            <GuestsStatusBar
+                                guests={guestsData}
+                                confirmationText={t('statusBarText', {
+                                    confirmed: guestsData.filter(
+                                        (guest) => guest.statusId === 2,
+                                    ).length,
+                                    total: guestsData.length,
+                                })}
+                            />
+                        </StatusBarWrapper>
 
-                    <CounterWrapper>
-                        <Counter
-                            count={counterCounts[1]}
-                            label={t('counters.kid')}
-                        />
-                        <Counter
-                            count={counterCounts[2]}
-                            label={t('counters.accommodation')}
-                        />
-                        <Counter
-                            count={counterCounts[3]}
-                            label={t('counters.vege')}
-                        />
-                    </CounterWrapper>
+                        <CounterWrapper>
+                            <Counter
+                                count={counterCounts[1]}
+                                label={t('counters.kid')}
+                            />
+                            <Counter
+                                count={counterCounts[2]}
+                                label={t('counters.accommodation')}
+                            />
+                            <Counter
+                                count={counterCounts[3]}
+                                label={t('counters.vege')}
+                            />
+                        </CounterWrapper>
 
-                    <SearchBarWrapper>
-                        <CustomSearchBar
-                            searchQuery={searchQuery}
-                            setSearchQuery={setSearchQuery}
-                            placeholder={t('searchPlaceholder')}
-                        />
-                        <IconButton
-                            Icon={Icons.Filter}
-                            onPress={() => console.log('clicked Filter')}
-                        />
-                        <IconButton
-                            Icon={Icons.AddGuest}
-                            onPress={() => console.log('clicked AddGuest')}
-                        />
-                    </SearchBarWrapper>
-
-                    <SectionList
-                        sections={sections}
-                        keyExtractor={(item) => item.firstName}
-                        renderItem={({item}) => <GuestItem guest={item} />}
-                        renderSectionHeader={({section: {title}}) => (
-                            <SeparatorContainer>
-                                <ShortSeparatorLine />
-                                <SeparatorText>{title}</SeparatorText>
-                                <LongSeparatorLine />
-                            </SeparatorContainer>
-                        )}
-                        showsVerticalScrollIndicator={false}
-                    />
-                </GuestListWrapper>
-            </Container>
-        </TouchableWithoutFeedback>
+                        <SearchBarWrapper>
+                            <CustomSearchBar
+                                searchQuery={searchQuery}
+                                setSearchQuery={setSearchQuery}
+                                placeholder={t('searchPlaceholder')}
+                            />
+                            <IconButton
+                                Icon={Icons.Filter}
+                                onPress={() => console.log('clicked Filter')}
+                            />
+                            <IconButton
+                                Icon={Icons.AddGuest}
+                                onPress={() => console.log('clicked AddGuest')}
+                            />
+                        </SearchBarWrapper>
+                    </View>
+                </TouchableWithoutFeedback>
+                <SectionList
+                    sections={sections}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) => <GuestItem guest={item} />}
+                    renderSectionHeader={renderSectionHeader}
+                    showsVerticalScrollIndicator={true}
+                />
+            </GuestListWrapper>
+        </Container>
     );
 };
 
