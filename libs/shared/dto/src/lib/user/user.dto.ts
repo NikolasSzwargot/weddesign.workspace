@@ -12,4 +12,7 @@ export class UserDto {
 
   @ApiProperty({ required: true })
   weddingDate: Date;
+
+  @ApiProperty({ required: true })
+  language: string;
 }
