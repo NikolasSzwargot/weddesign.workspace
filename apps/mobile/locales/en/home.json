@@ -1,0 +1,11 @@
+{
+  "welcome": "Hello {{groomName}} and {{brideName}}",
+  "counter": "{{days}} days left until the big day",
+  "nextTask": "Next task",
+  "buttons": {
+    "guests": "Guest list",
+    "budget": "Budget",
+    "subcontractors": "Subcontractors",
+    "tasks": "Tasks"
+  }
+}

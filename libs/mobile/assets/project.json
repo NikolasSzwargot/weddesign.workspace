@@ -1,0 +1,19 @@
+{
+    "name": "assets",
+    "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/mobile/assets/src",
+    "projectType": "library",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@nx/js:swc",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/libs/mobile/assets",
+                "main": "libs/mobile/assets/src/index.ts",
+                "tsConfig": "libs/mobile/assets/tsconfig.lib.json",
+                "assets": ["libs/mobile/assets/*.md"]
+            }
+        }
+    }
+}
