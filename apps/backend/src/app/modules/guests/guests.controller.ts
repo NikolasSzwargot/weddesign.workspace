@@ -1,10 +1,14 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
-import { CreateGuestDto } from './dto/create-guest.dto';
+import { CreateGuestDto } from '@shared/dto';
+import { GuestsStatusesService } from './services/guest-statuses.service';
 
 @Controller('guests')
 export class GuestsController {
-  constructor(private readonly guestsService: GuestsService) {}
+  constructor(
+    private readonly guestsService: GuestsService,
+    private readonly guestStatusesService: GuestsStatusesService
+  ) {}
 
   @Post('createGuest')
   create(@Body() createGuestDto: CreateGuestDto) {
@@ -24,5 +28,20 @@ export class GuestsController {
   @Delete('deleteGuest')
   remove(@Param('id') id: string) {
     return this.guestsService.remove(+id);
+  }
+
+  @Get('getStatuses')
+  findAllStatuses() {
+    return this.guestStatusesService.findAll();
+  }
+
+  @Get('getStatusById')
+  getStatusById(@Param('id') id: number) {
+    return this.guestStatusesService.findById(id);
+  }
+
+  @Get('getStatusByName')
+  getStatusByName(@Param('name') name: string) {
+    return this.guestStatusesService.findByName(name);
   }
 }

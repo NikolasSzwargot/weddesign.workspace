@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGuestDto } from '../dto/create-guest.dto';
+import { CreateGuestDto } from '@shared/dto';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -16,6 +16,7 @@ export class GuestsService {
         isCompanion: createGuestDto.isCompanion,
         isChild: createGuestDto.isChild,
         isVege: createGuestDto.isVege,
+        overnight: createGuestDto.overnight,
       },
     });
   }

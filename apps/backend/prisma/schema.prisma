@@ -11,8 +11,8 @@ model GuestStatus {
   id        Int      @id @default(autoincrement())
   name      String   @unique
   Guest     Guest[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @default(now()) @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@map("guestStatuses")
 }
@@ -25,6 +25,7 @@ model Guest {
   isCompanion   Boolean     @default(false)
   isChild       Boolean     @default(false)
   canGetThere   Boolean     @default(false)
+  overnight     Boolean     @default(false)
   guestStatusId Int         @default(1)
   status        GuestStatus @relation(fields: [guestStatusId], references: [id])
   createdAt     DateTime    @default(now())
@@ -34,13 +35,13 @@ model Guest {
 }
 
 model UserLogin {
-  id       Int    @id @default(autoincrement())
-  userId   Int
-  login    String @unique
-  password String
-  user     User   @relation(fields: [userId], references: [id])
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @default(now()) @updatedAt
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  login     String   @unique
+  password  String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@map("usersLogins")
 }
@@ -51,9 +52,10 @@ model User {
   firstNameGroom String
   lastName       String
   weddingDate    DateTime
+  language       String      @default("en")
   UserLogin      UserLogin[]
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @default(now()) @updatedAt
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @default(now()) @updatedAt
 
   @@map("users")
 }

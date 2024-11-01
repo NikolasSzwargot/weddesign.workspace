@@ -1,9 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { RegisterAccountDto } from '../dto/registerAccount.dto';
 import { PrismaClient } from '@prisma/client';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from 'bcrypt';
-import { LoginDto } from '../dto/login.dto';
+import { LoginDto, RegisterAccountDto } from '@shared/dto';
 
 @Injectable()
 export class AuthService {
@@ -30,6 +29,9 @@ export class AuthService {
     const account = await this.prisma.userLogin.findFirst({
       where: { login: loginDto.login },
     });
+    if (account == null) {
+      return false;
+    }
     return bcrypt.compare(loginDto.password, account.password);
   }
 }

@@ -6,6 +6,9 @@ async function main() {
   await prisma.guestStatus.createMany({
     data: [
       {
+        name: 'rejected',
+      },
+      {
         name: 'pending',
       },
       {

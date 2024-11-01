@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lib/components": ["libs/mobile/components/src/*"]
+      "@lib/components": ["libs/mobile/components/src/*"],
+      "@shared/dto": ["libs/shared/dto/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
