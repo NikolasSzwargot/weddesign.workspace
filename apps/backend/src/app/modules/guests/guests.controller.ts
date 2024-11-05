@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Query, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Query, BadRequestException } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
 import { CreateGuestDto } from './dto/create-guest.dto';
 import { Guest } from '@prisma/client';
