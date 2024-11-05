@@ -20,5 +20,8 @@ export class CreateGuestDto {
   canGetThere: boolean;
 
   @ApiProperty()
+  overnight: boolean;
+
+  @ApiProperty()
   statusId: number;
 }

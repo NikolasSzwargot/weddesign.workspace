@@ -6,7 +6,7 @@ async function main() {
   await prisma.guestStatus.createMany({
     data: [
       {
-        name: 'pending',
+        name: 'created',
       },
       {
         name: 'invited',
@@ -15,7 +15,7 @@ async function main() {
         name: 'accepted',
       },
       {
-        name: 'created',
+        name: 'rejected',
       },
     ],
   });
