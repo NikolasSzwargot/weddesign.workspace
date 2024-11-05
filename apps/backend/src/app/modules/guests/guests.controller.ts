@@ -51,7 +51,7 @@ export class GuestsController {
   }
 
   @Get('allGuestsGrouped')
-  async getAllGuestsGrouped(): Promise<Record<string, Guest[]>> {
+  async getAllGuestsGrouped(): Promise<{ data: Guest[]; title: string }[]> {
     return await this.guestService.getGuestsGroupedByFirstLetter();
   }
 }

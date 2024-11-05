@@ -71,7 +71,7 @@ export class GuestsService {
     return this.prisma.guest.delete({ where: { id: id } });
   }
 
-  async getGuestsGroupedByFirstLetter(): Promise<Record<string, Guest[]>> {
+  async getGuestsGroupedByFirstLetter(): Promise<{ data: Guest[]; title: string }[]> {
     const guests = await this.findAll();
 
     const groupedGuests: Record<string, Guest[]> = {};
@@ -89,6 +89,11 @@ export class GuestsService {
       groupedGuests[letter].sort((a, b) => (a.firstName + a.lastName).localeCompare(b.firstName + b.lastName));
     }
 
-    return groupedGuests;
+    return Object.keys(groupedGuests)
+      .sort()
+      .map((letter) => ({
+        title: letter,
+        data: groupedGuests[letter],
+      }));
   }
 }
