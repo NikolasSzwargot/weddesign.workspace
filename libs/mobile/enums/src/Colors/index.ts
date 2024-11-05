@@ -5,9 +5,11 @@ export enum Colors {
     Pink = '#ff8fab',
     PinkDark = '#fb6f92',
     White = '#ffffff',
+    LightGray = '#e0e0e0',
     Black = '#000000',
     LightBlue = '#91bee8',
-    LightGreen = '#91d5c9',
+    LightGreen = '#96d5a9',
     LightPurple = '#9a95c4',
     Yellow = '#fbbc05',
+    BananaGold = '#f4d16e',
 }
