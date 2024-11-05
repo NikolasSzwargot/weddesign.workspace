@@ -1,7 +1,7 @@
 import React from 'react';
 import {WeddesignGlobalStyles, weddesignTheme} from '@weddesign/themes';
 import {ThemeProvider} from 'styled-components/native';
-import {HomePage} from '@mobile/components';
+import {HomePage, BudgetMainPage} from '@mobile/components';
 import {StatusBar} from 'react-native';
 import {NativeRouter, Route, Routes} from 'react-router-native';
 import {LogBox} from 'react-native';
@@ -26,7 +26,7 @@ export const App = () => {
                     />
                     <NativeRouter>
                         <Routes>
-                            <Route path={'/'} element={<HomePage />} />
+                            <Route path={'/'} element={<BudgetMainPage />} />
                         </Routes>
                     </NativeRouter>
                 </WeddesignGlobalStyles>
