@@ -19,7 +19,12 @@ export class GuestsController {
   }
 
   @Get('getGuest')
-  async findOne(@Param('id') id: number): Promise<Guest> {
+  async findOne(@Query('id') idString: string): Promise<Guest> {
+    const id = parseInt(idString);
+    if (isNaN(id) && idString) {
+      throw new BadRequestException('Id should be a number');
+    }
+
     return await this.guestService.findOne(id);
   }
 
@@ -46,7 +51,11 @@ export class GuestsController {
   }
 
   @Delete('deleteGuest')
-  async remove(@Param('id') id: number): Promise<Guest> {
+  async remove(@Query('id') idString: string): Promise<Guest> {
+    const id = parseInt(idString);
+    if (isNaN(id) && idString) {
+      throw new BadRequestException('Id should be a number');
+    }
     return await this.guestService.remove(id);
   }
 
