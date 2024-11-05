@@ -8,17 +8,17 @@ import { ApiQuery } from '@nestjs/swagger';
 export class GuestsController {
   constructor(private readonly guestService: GuestsService) {}
 
-  @Post('createGuest')
+  @Post('create')
   async create(@Body() createGuestDto: CreateGuestDto): Promise<Guest> {
     return await this.guestService.create(createGuestDto);
   }
 
-  @Get('getAllGuests')
+  @Get('all')
   async findAll(): Promise<Guest[]> {
     return await this.guestService.findAll();
   }
 
-  @Get('getGuest')
+  @Get()
   async findOne(@Query('id') idString: string): Promise<Guest> {
     const id = parseInt(idString);
     if (isNaN(id) && idString) {
@@ -50,7 +50,7 @@ export class GuestsController {
     return { count };
   }
 
-  @Delete('deleteGuest')
+  @Delete()
   async remove(@Query('id') idString: string): Promise<Guest> {
     const id = parseInt(idString);
     if (isNaN(id) && idString) {
@@ -59,7 +59,7 @@ export class GuestsController {
     return await this.guestService.remove(id);
   }
 
-  @Get('allGuestsGrouped')
+  @Get('grouped')
   async getAllGuestsGrouped(): Promise<{ data: Guest[]; title: string }[]> {
     return await this.guestService.getGuestsGroupedByFirstLetter();
   }
