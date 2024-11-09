@@ -9,16 +9,12 @@ export const Container = styled.View`
     align-items: center;
 `;
 
-export const ProgressLogoContainer = styled.View`
-    top: 5%;
-    width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-`;
-
 export const LoginPageInput = styled(Input)`
     margin: 5px 10px 5px 10px;
     color: black;
+`;
+
+export const ProgressBarContainer = styled.View`
+    top: 5%;
+    width: 90%;
 `;
