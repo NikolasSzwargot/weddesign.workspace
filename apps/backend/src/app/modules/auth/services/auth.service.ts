@@ -25,7 +25,7 @@ export class AuthService {
     });
   }
 
-  async checkLoginAndPassword(loginDto: LoginDto) {
+  async checkLoginAndPassword(loginDto: LoginDto): Promise<boolean> {
     const account = await this.prisma.userLogin.findFirst({
       where: { login: loginDto.login },
     });

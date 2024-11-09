@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { GuestStatus, PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class GuestsStatusesService {
   private prisma = new PrismaClient();
 
-  findAll() {
+  async findAll(): Promise<GuestStatus[]> {
     return this.prisma.guestStatus.findMany();
   }
 
-  findById(id: number) {
+  async findById(id: number): Promise<GuestStatus> {
     return this.prisma.guestStatus.findUnique({ where: { id: id } });
   }
 
-  findByName(name: string) {
+  async findByName(name: string): Promise<GuestStatus> {
     return this.prisma.guestStatus.findUnique({ where: { name: name } });
   }
 }

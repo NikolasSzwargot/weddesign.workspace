@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@lib/components": ["libs/mobile/components/src/*"],
-      "@shared/dto": ["libs/shared/dto/src/index.ts"]
+      "@shared/dto": ["libs/shared/dto/src/index.ts"],
       "@mobile/assets": ["apps/mobile/src/assets/index.ts"],
       "@mobile/components": ["apps/mobile/src/components/index.ts"],
       "@mobile/navigation": ["apps/mobile/src/navigation/index.ts"],

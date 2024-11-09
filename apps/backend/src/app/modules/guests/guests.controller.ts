@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Delete, Query, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Query, BadRequestException, Param } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
 import { CreateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
-import { Guest } from '@prisma/client';
 import { ApiQuery } from '@nestjs/swagger';
+import { Guest, GuestStatus } from '@prisma/client';
 
 @Controller('guests')
 export class GuestsController {
@@ -68,18 +68,18 @@ export class GuestsController {
     return await this.guestService.getGuestsGroupedByFirstLetter();
   }
 
-  @Get('getStatuses')
-  findAllStatuses() {
-    return this.guestStatusesService.findAll();
+  @Get('status/all')
+  async findAllStatuses(): Promise<GuestStatus[]> {
+    return await this.guestStatusesService.findAll();
   }
 
-  @Get('getStatusById')
-  getStatusById(@Param('id') id: number) {
-    return this.guestStatusesService.findById(id);
+  @Get('status/id')
+  async getStatusById(@Param('id') id: number): Promise<GuestStatus> {
+    return await this.guestStatusesService.findById(id);
   }
 
-  @Get('getStatusByName')
-  getStatusByName(@Param('name') name: string) {
-    return this.guestStatusesService.findByName(name);
+  @Get('status/name')
+  async getStatusByName(@Param('name') name: string): Promise<GuestStatus> {
+    return await this.guestStatusesService.findByName(name);
   }
 }
