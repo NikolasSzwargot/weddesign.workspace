@@ -1,12 +1,16 @@
 import { Controller, Get, Post, Body, Delete, Query, BadRequestException } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
-import { CreateGuestDto } from './dto/create-guest.dto';
+import { CreateGuestDto } from '@shared/dto';
+import { GuestsStatusesService } from './services/guest-statuses.service';
 import { Guest } from '@prisma/client';
 import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('guests')
 export class GuestsController {
-  constructor(private readonly guestService: GuestsService) {}
+  constructor(
+    private readonly guestService: GuestsService,
+    private readonly guestStatusesService: GuestsStatusesService
+  ) {}
 
   @Post('create')
   async create(@Body() createGuestDto: CreateGuestDto): Promise<Guest> {
@@ -62,5 +66,20 @@ export class GuestsController {
   @Get('grouped')
   async getAllGuestsGrouped(): Promise<{ data: Guest[]; title: string }[]> {
     return await this.guestService.getGuestsGroupedByFirstLetter();
+  }
+
+  @Get('getStatuses')
+  findAllStatuses() {
+    return this.guestStatusesService.findAll();
+  }
+
+  @Get('getStatusById')
+  getStatusById(@Param('id') id: number) {
+    return this.guestStatusesService.findById(id);
+  }
+
+  @Get('getStatusByName')
+  getStatusByName(@Param('name') name: string) {
+    return this.guestStatusesService.findByName(name);
   }
 }

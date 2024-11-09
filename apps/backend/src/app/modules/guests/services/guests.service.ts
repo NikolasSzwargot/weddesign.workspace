@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGuestDto } from '../dto/create-guest.dto';
+import { CreateGuestDto } from '@shared/dto';
 import { Guest, PrismaClient } from '@prisma/client';
 
 @Injectable()
