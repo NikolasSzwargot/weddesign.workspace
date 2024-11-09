@@ -25,6 +25,10 @@
 
 ```yarn install```
 
+3. Install bcrypt
+
+```yarn add bcrypt```
+
 ## Scripts
 This project uses several scripts to manage different tasks. Below is a list of the available scripts and their descriptions:
 

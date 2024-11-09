@@ -39,3 +39,28 @@ model Guest {
 
   @@map("guests")
 }
+
+model UserLogin {
+  id       Int    @id @default(autoincrement())
+  userId   Int
+  login    String @unique
+  password String
+  user     User   @relation(fields: [userId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now()) @updatedAt
+
+  @@map("usersLogins")
+}
+
+model User {
+  id             Int         @id @default(autoincrement())
+  firstNameBride String
+  firstNameGroom String
+  lastName       String
+  weddingDate    DateTime
+  UserLogin      UserLogin[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now()) @updatedAt
+
+  @@map("users")
+}
