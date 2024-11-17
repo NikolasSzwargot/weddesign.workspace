@@ -32,6 +32,7 @@ model Guest {
   isCompanion   Boolean     @default(false)
   isChild       Boolean     @default(false)
   canGetThere   Boolean     @default(false)
+  overnight     Boolean     @default(false)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @default(now()) @updatedAt
   guestStatusId Int         @default(1)
