@@ -1,32 +1,66 @@
 import {HTTP} from '@weddesign/enums';
 
-export default async <T, B>(
-    apiUrl: string,
-    url: string,
-    method: HTTP,
-    body: B | undefined = undefined,
-    headers = {},
-): Promise<T | {error: unknown}> => {
-    const controller = new AbortController();
-    try {
-        const res = await fetch(`${apiUrl}${url}`, {
-            method: method.toUpperCase(),
-            signal: controller.signal,
-            body: typeof body === 'object' ? JSON.stringify(body) : undefined,
-            mode: 'cors',
-            headers: {
-                'Content-type': 'application/json',
-                ...headers,
-            },
-        });
-        if (!res.ok) {
-            const error = await res.json();
-            return {error: error.code};
+interface FetchWrapper {
+    get: <T>(
+        url: string,
+        headers?: Record<string, string>,
+    ) => Promise<T | {error: unknown}>;
+    post: <T, B>(
+        url: string,
+        body: B,
+        headers?: Record<string, string>,
+    ) => Promise<T | {error: unknown}>;
+    patch: <T, B>(
+        url: string,
+        body: B,
+        headers?: Record<string, string>,
+    ) => Promise<T | {error: unknown}>;
+}
+
+const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
+    const request = async <T, B>(
+        url: string,
+        method: HTTP,
+        body?: B,
+        headers: Record<string, string> = {},
+    ): Promise<T | {error: unknown}> => {
+        const controller = new AbortController();
+
+        try {
+            const res = await fetch(`${baseApiUrl}${url}`, {
+                method: method.toUpperCase(),
+                signal: controller.signal,
+                body:
+                    body && typeof body === 'object'
+                        ? JSON.stringify(body)
+                        : undefined,
+                mode: 'cors',
+                headers: {
+                    'Content-type': 'application/json',
+                    ...headers,
+                },
+            });
+
+            if (!res.ok) {
+                const error = await res.json();
+                return {error: error.code || 'Unknown error'};
+            }
+            return await res.json();
+        } catch (err) {
+            return {error: err};
+        } finally {
+            controller.abort();
         }
-        return await res.json();
-    } catch (err) {
-        return {error: err};
-    } finally {
-        controller.abort();
-    }
+    };
+
+    return {
+        get: <T>(url: string, headers: Record<string, string> = {}) =>
+            request<T, undefined>(url, HTTP.GET, undefined, headers),
+        post: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
+            request<T, B>(url, HTTP.POST, body, headers),
+        patch: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
+            request<T, B>(url, HTTP.PATCH, body, headers),
+    };
 };
+
+export default fetchWrapper;
