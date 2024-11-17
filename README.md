@@ -24,7 +24,6 @@
 2. Install dependencies
 
 ```yarn install```
-
 ## Scripts
 This project uses several scripts to manage different tasks. Below is a list of the available scripts and their descriptions:
 
