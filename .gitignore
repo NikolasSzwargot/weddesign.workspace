@@ -100,3 +100,4 @@ node_modules/
 
 # env
 /apps/backend/.env
+/apps/mobile/.env
