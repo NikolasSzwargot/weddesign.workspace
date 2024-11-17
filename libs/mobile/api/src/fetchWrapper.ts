@@ -1,16 +1,16 @@
 import {HTTP} from '@weddesign/enums';
 
 interface FetchWrapper {
-    get: <T>(
+    GET: <T>(
         url: string,
         headers?: Record<string, string>,
     ) => Promise<T | {error: unknown}>;
-    post: <T, B>(
+    POST: <T, B>(
         url: string,
         body: B,
         headers?: Record<string, string>,
     ) => Promise<T | {error: unknown}>;
-    patch: <T, B>(
+    PATCH: <T, B>(
         url: string,
         body: B,
         headers?: Record<string, string>,
@@ -54,11 +54,11 @@ const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
     };
 
     return {
-        get: <T>(url: string, headers: Record<string, string> = {}) =>
+        GET: <T>(url: string, headers: Record<string, string> = {}) =>
             request<T, undefined>(url, HTTP.GET, undefined, headers),
-        post: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
+        POST: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
             request<T, B>(url, HTTP.POST, body, headers),
-        patch: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
+        PATCH: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
             request<T, B>(url, HTTP.PATCH, body, headers),
     };
 };
