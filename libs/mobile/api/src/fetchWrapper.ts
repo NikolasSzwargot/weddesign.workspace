@@ -17,7 +17,7 @@ interface FetchWrapper {
     ) => Promise<T | {error: unknown}>;
 }
 
-const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
+export const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
     const request = async <T, B>(
         url: string,
         method: HTTP,
@@ -62,5 +62,3 @@ const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
             request<T, B>(url, HTTP.PATCH, body, headers),
     };
 };
-
-export default fetchWrapper;

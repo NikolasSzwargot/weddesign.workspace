@@ -1,24 +1,34 @@
 module.exports = function (api) {
-  api.cache(true);
+    api.cache(true);
 
-  if (
-    process.env.NX_TASK_TARGET_TARGET === 'build' ||
-    process.env.NX_TASK_TARGET_TARGET.includes('storybook')
-  ) {
+    if (
+        process.env.NX_TASK_TARGET_TARGET === 'build' ||
+        process.env.NX_TASK_TARGET_TARGET.includes('storybook')
+    ) {
+        return {
+            presets: [
+                [
+                    '@nx/react/babel',
+                    {
+                        runtime: 'automatic',
+                    },
+                ],
+            ],
+        };
+    }
+
     return {
-      presets: [
-        [
-          '@nx/react/babel',
-          {
-            runtime: 'automatic',
-          },
+        presets: [
+            ['module:@react-native/babel-preset', {useTransformReactJSX: true}],
         ],
-      ],
+        plugins: [
+            [
+                'module:react-native-dotenv',
+                {
+                    moduleName: '@env',
+                    path: '.env',
+                },
+            ],
+        ],
     };
-  }
-
-  return {
-      presets: [['module:@react-native/babel-preset', {useTransformReactJSX: true}]],
-      plugins: [],
-  };
 };

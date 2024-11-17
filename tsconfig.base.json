@@ -25,7 +25,8 @@
       "@weddesign/enums": ["libs/mobile/enums/src/index.ts"],
       "@weddesign/themes": ["libs/mobile/themes/src/index.ts"],
       "@weddesign/types": ["libs/mobile/types/src/index.ts"],
-      "@weddesign/utils": ["libs/mobile/utils/src/index.ts"]
+      "@weddesign/utils": ["libs/mobile/utils/src/index.ts"],
+      "@env": ["apps/mobile/env.d.ts"],
     },
     "typeRoots": ["./node_modules/@types", "types"]
   },

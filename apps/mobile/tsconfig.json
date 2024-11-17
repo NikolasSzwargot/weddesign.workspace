@@ -7,10 +7,10 @@
         "moduleResolution": "node",
         "skipLibCheck": true,
         "resolveJsonModule": true,
-        "declaration": true
+        "declaration": true,
     },
     "files": [],
-    "include": ["src/**/*", "src/types/images.d.ts"],
+    "include": ["src/**/*", "src/types/images.d.ts", "env.d.ts"],
     "references": [
         {
             "path": "./tsconfig.app.json"
