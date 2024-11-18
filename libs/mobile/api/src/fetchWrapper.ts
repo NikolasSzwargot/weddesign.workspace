@@ -1,64 +1,53 @@
-import {HTTP} from '@weddesign/enums';
+import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
+import {ApiRoutes, HTTP} from '@weddesign/enums';
 
-interface FetchWrapper {
-    GET: <T>(
-        url: string,
-        headers?: Record<string, string>,
-    ) => Promise<T | {error: unknown}>;
-    POST: <T, B>(
-        url: string,
-        body: B,
-        headers?: Record<string, string>,
-    ) => Promise<T | {error: unknown}>;
+export interface FetchWrapper {
+    GET: <T>(url: ApiRoutes, config?: AxiosRequestConfig) => Promise<T>;
+    POST: <T, B>(url: ApiRoutes, body: B, config?: AxiosRequestConfig) => Promise<T>;
     PATCH: <T, B>(
-        url: string,
+        url: ApiRoutes,
         body: B,
-        headers?: Record<string, string>,
-    ) => Promise<T | {error: unknown}>;
+        config?: AxiosRequestConfig,
+    ) => Promise<T>;
 }
 
 export const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
+    const instance = axios.create({
+        baseURL: baseApiUrl,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
     const request = async <T, B>(
-        url: string,
+        url: ApiRoutes,
         method: HTTP,
         body?: B,
-        headers: Record<string, string> = {},
-    ): Promise<T | {error: unknown}> => {
-        const controller = new AbortController();
-
+        config: AxiosRequestConfig = {},
+    ): Promise<T> => {
         try {
-            const res = await fetch(`${baseApiUrl}${url}`, {
-                method: method.toUpperCase(),
-                signal: controller.signal,
-                body:
-                    body && typeof body === 'object'
-                        ? JSON.stringify(body)
-                        : undefined,
-                mode: 'cors',
-                headers: {
-                    'Content-type': 'application/json',
-                    ...headers,
-                },
+            const response: AxiosResponse<T> = await instance({
+                url,
+                method: method.toLowerCase() as AxiosRequestConfig['method'],
+                data: body,
+                ...config,
             });
-
-            if (!res.ok) {
-                const error = await res.json();
-                return {error: error.code || 'Unknown error'};
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                throw error.response?.data || error.message || 'Unknown error';
+            } else {
+                throw error;
             }
-            return await res.json();
-        } catch (err) {
-            return {error: err};
-        } finally {
-            controller.abort();
         }
     };
 
     return {
-        GET: <T>(url: string, headers: Record<string, string> = {}) =>
-            request<T, undefined>(url, HTTP.GET, undefined, headers),
-        POST: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
-            request<T, B>(url, HTTP.POST, body, headers),
-        PATCH: <T, B>(url: string, body: B, headers: Record<string, string> = {}) =>
-            request<T, B>(url, HTTP.PATCH, body, headers),
+        GET: <T>(url: ApiRoutes, config: AxiosRequestConfig = {}) =>
+            request<T, undefined>(url, HTTP.GET, undefined, config),
+        POST: <T, B>(url: ApiRoutes, body: B, config: AxiosRequestConfig = {}) =>
+            request<T, B>(url, HTTP.POST, body, config),
+        PATCH: <T, B>(url: ApiRoutes, body: B, config: AxiosRequestConfig = {}) =>
+            request<T, B>(url, HTTP.PATCH, body, config),
     };
 };
