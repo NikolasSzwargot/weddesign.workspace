@@ -18,7 +18,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(createAuthDto.password, AuthService.saltOrRounds);
     return this.prisma.userLogin.create({
       data: {
-        login: createAuthDto.login,
+        email: createAuthDto.email,
         password: hashedPassword,
         userId: newUser.id,
       },
@@ -27,7 +27,7 @@ export class AuthService {
 
   async checkLoginAndPassword(loginDto: LoginDto): Promise<boolean> {
     const account = await this.prisma.userLogin.findFirst({
-      where: { login: loginDto.login },
+      where: { email: loginDto.email },
     });
     if (account == null) {
       return false;
