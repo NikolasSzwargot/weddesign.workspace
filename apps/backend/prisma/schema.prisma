@@ -26,6 +26,7 @@ model Guest {
   isChild       Boolean     @default(false)
   canGetThere   Boolean     @default(false)
   overnight     Boolean     @default(false)
+  notes         String
   guestStatusId Int         @default(1)
   status        GuestStatus @relation(fields: [guestStatusId], references: [id])
   createdAt     DateTime    @default(now())
