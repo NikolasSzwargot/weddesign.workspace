@@ -1,6 +1,18 @@
-import { Controller, Get, Post, Body, Delete, Query, BadRequestException, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Delete,
+  Query,
+  BadRequestException,
+  Param,
+  Patch,
+  ParseIntPipe,
+  NotFoundException,
+} from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
-import { CreateGuestDto } from '@shared/dto';
+import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
 import { ApiQuery } from '@nestjs/swagger';
 import { Guest, GuestStatus } from '@prisma/client';
@@ -15,6 +27,15 @@ export class GuestsController {
   @Post('create')
   async create(@Body() createGuestDto: CreateGuestDto): Promise<Guest> {
     return await this.guestService.create(createGuestDto);
+  }
+
+  @Patch('update/:id')
+  async updateGuest(@Param('id', ParseIntPipe) id: number, @Body() updateGuestDto: UpdateGuestDto): Promise<Guest> {
+    const guest = await this.guestService.update(id, updateGuestDto);
+    if (!guest) {
+      throw new NotFoundException('Guest not found');
+    }
+    return guest;
   }
 
   @Get('all')

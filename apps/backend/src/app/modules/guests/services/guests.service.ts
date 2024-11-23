@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGuestDto } from '@shared/dto';
+import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
 import { Guest, PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -7,18 +7,22 @@ export class GuestsService {
   private prisma = new PrismaClient();
 
   async create(createGuestDto: CreateGuestDto): Promise<Guest> {
-    return this.prisma.guest.create({
-      data: {
-        firstName: createGuestDto.firstName,
-        lastName: createGuestDto.lastName,
-        guestStatusId: createGuestDto.statusId,
-        canGetThere: createGuestDto.canGetThere,
-        isCompanion: createGuestDto.isCompanion,
-        isChild: createGuestDto.isChild,
-        isVege: createGuestDto.isVege,
-        overnight: createGuestDto.overnight,
-      },
-    });
+    return this.prisma.guest.create({ data: createGuestDto });
+  }
+
+  async update(id: number, updateGuestDto: UpdateGuestDto): Promise<Guest | null> {
+    try {
+      return await this.prisma.guest.update({
+        where: { id },
+        data: updateGuestDto,
+      });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        //guest not found
+        return null;
+      }
+      throw error;
+    }
   }
 
   async countGuests(filter?: string, statusName?: string, statusId?: number): Promise<number> {

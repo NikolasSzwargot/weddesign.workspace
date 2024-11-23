@@ -4,7 +4,7 @@ import { UserDto } from '@shared/dto';
 
 export class RegisterAccountDto {
   @ApiProperty({ required: true })
-  login: string;
+  email: string;
 
   @ApiProperty({ required: true })
   password: string;

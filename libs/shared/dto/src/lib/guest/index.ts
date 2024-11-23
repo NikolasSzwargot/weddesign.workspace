@@ -1,1 +1,2 @@
-export * from './create-guest.dto';
+export * from './createGuest.dto';
+export * from './updateGuest.dto';

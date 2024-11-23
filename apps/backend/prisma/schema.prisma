@@ -26,6 +26,7 @@ model Guest {
   isChild       Boolean     @default(false)
   canGetThere   Boolean     @default(false)
   overnight     Boolean     @default(false)
+  notes         String
   guestStatusId Int         @default(1)
   status        GuestStatus @relation(fields: [guestStatusId], references: [id])
   createdAt     DateTime    @default(now())
@@ -37,7 +38,7 @@ model Guest {
 model UserLogin {
   id        Int      @id @default(autoincrement())
   userId    Int
-  login     String   @unique
+  email     String   @unique
   password  String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
