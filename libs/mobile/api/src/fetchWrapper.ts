@@ -1,17 +1,32 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
-import {ApiRoutes, HTTP} from '@weddesign/enums';
+import {ApiRoutes} from '@weddesign/enums';
+
+export enum HTTP {
+    GET = 'GET',
+    POST = 'POST',
+    PUT = 'PUT',
+    DELETE = 'DELETE',
+    PATCH = 'PATCH',
+}
 
 export interface FetchWrapper {
     GET: <T>(url: ApiRoutes, config?: AxiosRequestConfig) => Promise<T>;
-    POST: <T, B>(url: ApiRoutes, body: B, config?: AxiosRequestConfig) => Promise<T>;
-    PATCH: <T, B>(
+    POST: <T, B = undefined>(
         url: ApiRoutes,
-        body: B,
+        body?: B,
+        config?: AxiosRequestConfig,
+    ) => Promise<T>;
+    PATCH: <T, B = undefined>(
+        url: ApiRoutes,
+        body?: B,
         config?: AxiosRequestConfig,
     ) => Promise<T>;
 }
 
-export const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
+export const fetchWrapper = (
+    baseApiUrl: string,
+    getToken?: () => string | null,
+): FetchWrapper => {
     const instance = axios.create({
         baseURL: baseApiUrl,
         headers: {
@@ -19,13 +34,26 @@ export const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
         },
     });
 
-    const request = async <T, B>(
-        url: ApiRoutes,
+    instance.interceptors.request.use(
+        (config) => {
+            const token = getToken ? getToken() : null;
+            if (token && config.headers) {
+                config.headers.set('Authorization', `Bearer ${token}`);
+            }
+            return config;
+        },
+        (error) => Promise.reject(error),
+    );
+
+    const request = async <T, B = undefined>(
+        url: string,
         method: HTTP,
         body?: B,
         config: AxiosRequestConfig = {},
     ): Promise<T> => {
         try {
+            //@NOTE: The function is guarantee to work
+            // noinspection TypeScriptValidateTypes
             const response: AxiosResponse<T> = await instance({
                 url,
                 method: method.toLowerCase() as AxiosRequestConfig['method'],
@@ -45,9 +73,15 @@ export const fetchWrapper = (baseApiUrl: string): FetchWrapper => {
     return {
         GET: <T>(url: ApiRoutes, config: AxiosRequestConfig = {}) =>
             request<T, undefined>(url, HTTP.GET, undefined, config),
-        POST: <T, B>(url: ApiRoutes, body: B, config: AxiosRequestConfig = {}) =>
-            request<T, B>(url, HTTP.POST, body, config),
-        PATCH: <T, B>(url: ApiRoutes, body: B, config: AxiosRequestConfig = {}) =>
-            request<T, B>(url, HTTP.PATCH, body, config),
+        POST: <T, B = undefined>(
+            url: ApiRoutes,
+            body?: B,
+            config: AxiosRequestConfig = {},
+        ) => request<T, B>(url, HTTP.POST, body, config),
+        PATCH: <T, B = undefined>(
+            url: ApiRoutes,
+            body?: B,
+            config: AxiosRequestConfig = {},
+        ) => request<T, B>(url, HTTP.PATCH, body, config),
     };
 };

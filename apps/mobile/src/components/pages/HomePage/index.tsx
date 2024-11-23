@@ -7,9 +7,11 @@ const HomePage = () => {
     const {data, isLoading} = useLogin({email: 'test', password: 'test'});
 
     useEffect(() => {
+        console.log('jest kurwa');
         if (!isLoading) {
             console.log(data);
         }
+        console.log(isLoading);
     }, [isLoading]);
     return <Home />;
 };
