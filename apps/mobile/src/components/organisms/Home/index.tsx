@@ -1,16 +1,30 @@
-import React from 'react';
-import {RoundButton, BackgroundEllipse, TaskFrame} from '@weddesign/components';
+import React, {useEffect} from 'react';
+import {
+    BackgroundEllipse,
+    Header,
+    RoundButton,
+    TaskFrame,
+} from '@weddesign/components';
 import {Colors} from '@weddesign/enums';
-import {Header} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {MockedUser} from '@mobile/mocks';
 import {getDaysDifference} from '@weddesign/utils';
 
+import {useLogin} from '../../../api/Login/useLogin';
+
 import {ButtonRow, Container, HomeWrapper, MainFrame} from './styles';
 
 const Home = () => {
     const {t} = useTranslation('home');
+
+    const {data, isLoading} = useLogin({email: 'test', password: 'test'});
+
+    useEffect(() => {
+        if (!isLoading) {
+            console.log(data);
+        }
+    }, [data, isLoading]);
 
     const buttons = [
         {color: Colors.LightBlue, label: t('buttons.guests')},
