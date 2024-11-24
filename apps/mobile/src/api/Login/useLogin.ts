@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 
-import {useFetch} from '../useFetch';
+import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
 
 type LoginDto = {
     email: string;
@@ -9,9 +9,9 @@ type LoginDto = {
 };
 
 export const useLogin = ({email, password}: LoginDto) => {
-    const api = useFetch();
+    const api = useUnauthorizedFetch();
 
-    return useQuery<boolean, Error>([ApiRoutes.Login, {email, password}], () =>
+    return useQuery<boolean, Error>([ApiRoutes.Login], () =>
         api.POST<boolean, LoginDto>(ApiRoutes.Login, {email, password}),
     );
 };
