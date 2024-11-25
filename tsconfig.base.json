@@ -23,13 +23,15 @@
       "@mobile/navigation": ["apps/mobile/src/navigation/index.ts"],
       "@mobile/routes": ["apps/mobile/src/routes/index.ts"],
       "@mobile/hooks": ["apps/mobile/src/hooks/index.ts"],
+      "@weddesign/api": ["libs/mobile/api/src/index.ts"],
       "@weddesign/assets": ["libs/mobile/assets/src/index.ts"],
       "@weddesign/components": ["libs/mobile/components/src/index.ts"],
       "@weddesign/enums": ["libs/mobile/enums/src/index.ts"],
       "@weddesign/hooks": ["libs/mobile/hooks/src/index.ts"],
       "@weddesign/themes": ["libs/mobile/themes/src/index.ts"],
       "@weddesign/types": ["libs/mobile/types/src/index.ts"],
-      "@weddesign/utils": ["libs/mobile/utils/src/index.ts"]
+      "@weddesign/utils": ["libs/mobile/utils/src/index.ts"],
+      "@env": ["apps/mobile/env.d.ts"],
     },
     "typeRoots": ["./node_modules/@types", "types"]
   },
