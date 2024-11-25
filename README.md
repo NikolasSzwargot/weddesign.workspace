@@ -24,7 +24,6 @@
 2. Install dependencies
 
 ```yarn install```
-
 ## Scripts
 This project uses several scripts to manage different tasks. Below is a list of the available scripts and their descriptions:
 
@@ -52,6 +51,14 @@ This project uses several scripts to manage different tasks. Below is a list of 
 ```yarn start:mobile:ios```
 
 Starts the mobile application on an iOS device or simulator.
+
+- ### Setup Fetching:
+
+For fetching to work, you need to edit `apps/mobile/android/app/src/main/res/xml/network_security_config.xml` and provide your PC ip like that:
+
+```xml
+<domain includeSubdomains="true">10.0.2.2</domain>
+```
 
 ### Backend
 - #### Build Backend Application:
