@@ -1,16 +1,13 @@
 import React from 'react';
 import {WeddesignGlobalStyles, weddesignTheme} from '@weddesign/themes';
 import {ThemeProvider} from 'styled-components/native';
-import {HomePage} from '@mobile/components';
+import {GuestListPage} from '@mobile/components';
 import {StatusBar} from 'react-native';
 import {NativeRouter, Route, Routes} from 'react-router-native';
 import {LogBox} from 'react-native';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
-//@NOTE: Ignoring that warning, irrevelant to our rc native version
-import GuestListPage from '../components/pages/GuestListPage';
-
-//@NOTE: Ignoring that warning, irrevelant to our rc native version
+//@NOTE: Ignoring that warning, irrelevant to our rc native version
 LogBox.ignoreLogs([
     'Support for defaultProps will be removed from function components',
 ]);
@@ -29,7 +26,7 @@ export const App = () => {
                     />
                     <NativeRouter>
                         <Routes>
-                            <Route path={'/'} element={<HomePage />} />
+                            <Route path={'/'} element={<GuestListPage />} />
                         </Routes>
                     </NativeRouter>
                 </WeddesignGlobalStyles>
