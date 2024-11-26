@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     SectionList,
     TouchableWithoutFeedback,
@@ -14,12 +14,14 @@ import {
     Counter,
     CustomSearchBar,
     IconButton,
+    LoadingSpinner,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
+import {Colors} from '@weddesign/enums';
 
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
-import {useGuestsCount} from '../../../api/Guests/useGuestsCount';
+import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 
 import {
     Container,
@@ -45,52 +47,47 @@ const GuestList = () => {
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const {data: countCreated, isLoading: isLoadingCountCreated} = useGuestsCount({
-        statusName: 'created',
-    });
-    const {data: countInvited, isLoading: isLoadingCountInvited} = useGuestsCount({
-        statusName: 'invited',
-    });
-    const {data: countAccepted, isLoading: isLoadingCountAccepted} = useGuestsCount({
-        statusName: 'accepted',
-    });
-    const {data: countRejected, isLoading: isLoadingCountRejected} = useGuestsCount({
-        statusName: 'rejected',
-    });
-    const {data: countTotal, isLoading: isLoadingCountAll} = useGuestsCount();
+    const {
+        countCreated,
+        countInvited,
+        countAccepted,
+        countRejected,
+        countTotal,
+        countChild,
+        countOvernight,
+        countVege,
+        isLoading,
+        isError,
+    } = useGuestsStatistics();
 
-    const {data: countChild, isLoading: isLoadingCountChild} = useGuestsCount({
-        filter: 'isChild',
-    });
-    const {data: countOvernight, isLoading: isLoadingCountOvernight} =
-        useGuestsCount({filter: 'overnight'});
-    const {data: countVege, isLoading: isLoadingCountVege} = useGuestsCount({
-        filter: 'isVege',
-    });
+    const {
+        data: groupedGuests,
+        isLoading: isLoadingGrouped,
+        isError: isErrorGrouped,
+    } = useGuestsGrouped();
 
-    const {data: groupedGuests, isLoading: isLoadingGrouped} = useGuestsGrouped();
-
-    useEffect(() => {
-        if (!isLoadingCountChild) {
-            console.log(countChild);
-        }
-    }, [countChild, isLoadingCountChild]);
-
-    if (
-        isLoadingCountCreated ||
-        isLoadingCountInvited ||
-        isLoadingCountAccepted ||
-        isLoadingCountRejected ||
-        isLoadingCountAll ||
-        isLoadingCountChild ||
-        isLoadingCountOvernight ||
-        isLoadingCountVege ||
-        isLoadingGrouped
-    ) {
-        return <Text style={{flex: 1, alignContent: 'center'}}>Loading...</Text>;
-    }
-
-    return (
+    return isLoading || isLoadingGrouped ? (
+        <Container>
+            <GuestListBackgroundEllipse />
+            <GuestListWrapper>
+                <Header />
+                <LoadingSpinner
+                    color={Colors.LightBlue}
+                    msg={t('shared:spinnerMessage')}
+                />
+            </GuestListWrapper>
+        </Container>
+    ) : isError || isErrorGrouped ? (
+        <Container>
+            <GuestListBackgroundEllipse />
+            <GuestListWrapper>
+                <Header />
+                <Text style={{position: 'absolute', top: '50%', fontSize: 20}}>
+                    Tu będzie takie fajne przejście do ekranu błędu
+                </Text>
+            </GuestListWrapper>
+        </Container>
+    ) : (
         <Container>
             <GuestListBackgroundEllipse />
             <GuestListWrapper>
