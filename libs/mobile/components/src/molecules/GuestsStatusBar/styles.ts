@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
+import {Colors} from '@weddesign/enums';
 
 export const StatusBarWrapper = styled.View`
-    background-color: #fafafa;
+    background-color: ${Colors.White};
     border-radius: 10px;
     padding: 10px;
     width: 90%;
-    //margin: 10px auto;
 `;
 
 export const StatusBarContainer = styled.View`
@@ -14,7 +14,6 @@ export const StatusBarContainer = styled.View`
     justify-content: center;
     width: 100%;
     height: 15px;
-    //background-color: #f0f0f0;
     border-radius: 8px;
     overflow: hidden;
 `;
@@ -29,6 +28,6 @@ export const StatusText = styled.Text`
     text-align: center;
     margin-top: 5px;
     font-size: 14px;
-    color: #333;
+    color: black;
     font-weight: bold;
 `;

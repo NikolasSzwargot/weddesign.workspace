@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {Colors} from '@weddesign/enums';
 
 export const Container = styled.View`
     flex: 1;
@@ -43,20 +44,20 @@ export const SeparatorContainer = styled.View`
 export const ShortSeparatorLine = styled.View`
     width: 40px;
     height: 1px;
-    background-color: #e0e0e0;
+    background-color: ${Colors.LightGray};
     margin-right: 10px;
 `;
 
 export const LongSeparatorLine = styled.View`
     flex: 1;
     height: 1px;
-    background-color: #e0e0e0;
+    background-color: ${Colors.LightGray};
     margin-left: 10px;
 `;
 
 export const SeparatorText = styled.Text`
     font-size: 16px;
-    color: #e0e0e0;
+    color: ${Colors.LightGray};
 `;
 
 export const SearchBarWrapper = styled.View`

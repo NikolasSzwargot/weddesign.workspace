@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {Colors} from '@weddesign/enums';
 
 export const GuestItemContainer = styled.View`
     flex-direction: row;
@@ -7,7 +8,6 @@ export const GuestItemContainer = styled.View`
     margin-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-bottom-color: #ececec;
 `;
 
 export const GuestInfoContainer = styled.View`
@@ -20,7 +20,7 @@ export const GuestName = styled.Text`
     font-size: 16px;
     margin-left: 10px;
     font-weight: 500;
-    color: #333;
+    color: black;
 `;
 
 interface StatusDotProps {
@@ -33,15 +33,15 @@ export const StatusDot = styled.View<StatusDotProps>`
     background-color: ${({status}) => {
         switch (status) {
             case 1:
-                return '#dadada';
+                return Colors.StatusCreated;
             case 2:
-                return '#f6d36f';
+                return Colors.StatusInvited;
             case 3:
-                return '#b6d79d';
+                return Colors.StatusAccepted;
             case 4:
-                return '#ed6055';
+                return Colors.StatusRejected;
             default:
-                return '#dadada';
+                return Colors.StatusCreated;
         }
     }};
     border-radius: 20px;

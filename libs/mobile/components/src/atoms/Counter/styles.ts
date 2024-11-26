@@ -1,10 +1,10 @@
 import styled from 'styled-components/native';
+import {Colors} from '@weddesign/enums';
 
 export const CounterContainer = styled.View`
     align-items: center;
     justify-content: center;
-    background-color: #fafafa;
-    border: 2px solid lightblue;
+    border: 1px solid ${Colors.LightBlue};
     border-radius: 50px;
     width: 100px;
     height: 70px;

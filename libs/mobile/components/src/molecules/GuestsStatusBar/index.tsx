@@ -5,6 +5,7 @@ import {
     StatusSegment,
     StatusText,
 } from './styles';
+import {Colors} from '@weddesign/enums';
 
 type StatusBarProps = {
     created: number;
@@ -35,19 +36,19 @@ const GuestsStatusBar = ({
             <StatusBarContainer>
                 <StatusSegment
                     widthPercentage={widthPercentages[3]}
-                    color="#b6d79d"
+                    color={Colors.StatusAccepted}
                 />
                 <StatusSegment
                     widthPercentage={widthPercentages[2]}
-                    color="#f6d36f"
+                    color={Colors.StatusInvited}
                 />
                 <StatusSegment
                     widthPercentage={widthPercentages[4]}
-                    color="#ed6055"
+                    color={Colors.StatusRejected}
                 />
                 <StatusSegment
                     widthPercentage={widthPercentages[1]}
-                    color="#dadada"
+                    color={Colors.StatusCreated}
                 />
             </StatusBarContainer>
             <StatusText>{confirmationText}</StatusText>
