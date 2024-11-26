@@ -1,7 +1,7 @@
 {
   "statusBarText": "{{confirmed}} out of {{total}} guests confirmed their arrival",
   "counters": {
-    "kid": "kid",
+    "child": "child",
     "accommodation": "overnight",
     "vege": "vege"
   },

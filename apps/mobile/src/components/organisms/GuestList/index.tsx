@@ -116,7 +116,10 @@ const GuestList = () => {
                         </StatusBarWrapper>
 
                         <CounterWrapper>
-                            <Counter count={countChild} label={t('counters.kid')} />
+                            <Counter
+                                count={countChild}
+                                label={t('counters.child')}
+                            />
                             <Counter
                                 count={countOvernight}
                                 label={t('counters.accommodation')}
