@@ -5,17 +5,16 @@ import {
     GuestName,
     StatusDot,
 } from './styles';
-
-import {Guest} from '@weddesign/types';
+import {GuestDto} from '@shared/dto';
 
 type GuestItemProps = {
-    guest: Guest;
+    guest: GuestDto;
 };
 
 const GuestItem = ({guest}: GuestItemProps) => (
     <GuestItemContainer>
         <GuestInfoContainer>
-            <StatusDot status={guest.statusId} />
+            <StatusDot status={guest.guestStatusId} />
             <GuestName>
                 {guest.firstName} {guest.lastName}
             </GuestName>

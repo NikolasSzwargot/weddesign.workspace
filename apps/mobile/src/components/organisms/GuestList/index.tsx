@@ -1,5 +1,11 @@
-import React, {useState} from 'react';
-import {SectionList, TouchableWithoutFeedback, Keyboard, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+    SectionList,
+    TouchableWithoutFeedback,
+    Keyboard,
+    View,
+    Text,
+} from 'react-native';
 import {
     Header,
     GuestListBackgroundEllipse,
@@ -9,10 +15,11 @@ import {
     CustomSearchBar,
     IconButton,
 } from '@weddesign/components';
-import {guestsData} from '@mobile/mocks';
-import {groupGuestsByFirstLetter} from '@weddesign/utils';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
+
+import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
+import {useGuestsCount} from '../../../api/Guests/useGuestsCount';
 
 import {
     Container,
@@ -26,12 +33,6 @@ import {
     StatusBarWrapper,
 } from './styles';
 
-const counterCounts = {
-    1: guestsData.filter((guest) => guest.isChild === true).length,
-    2: guestsData.filter((guest) => guest.nocleg === true).length,
-    3: guestsData.filter((guest) => guest.isVege === true).length,
-};
-
 const renderSectionHeader = ({section: {title}}) => (
     <SeparatorContainer>
         <ShortSeparatorLine />
@@ -44,13 +45,50 @@ const GuestList = () => {
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const filteredGuests = guestsData.filter((guest) =>
-        `${guest.firstName} ${guest.lastName}`
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase()),
-    );
+    const {data: countCreated, isLoading: isLoadingCountCreated} = useGuestsCount({
+        statusName: 'created',
+    });
+    const {data: countInvited, isLoading: isLoadingCountInvited} = useGuestsCount({
+        statusName: 'invited',
+    });
+    const {data: countAccepted, isLoading: isLoadingCountAccepted} = useGuestsCount({
+        statusName: 'accepted',
+    });
+    const {data: countRejected, isLoading: isLoadingCountRejected} = useGuestsCount({
+        statusName: 'rejected',
+    });
+    const {data: countTotal, isLoading: isLoadingCountAll} = useGuestsCount();
 
-    const sections = groupGuestsByFirstLetter(filteredGuests);
+    const {data: countChild, isLoading: isLoadingCountChild} = useGuestsCount({
+        filter: 'isChild',
+    });
+    const {data: countOvernight, isLoading: isLoadingCountOvernight} =
+        useGuestsCount({filter: 'overnight'});
+    const {data: countVege, isLoading: isLoadingCountVege} = useGuestsCount({
+        filter: 'isVege',
+    });
+
+    const {data: groupedGuests, isLoading: isLoadingGrouped} = useGuestsGrouped();
+
+    useEffect(() => {
+        if (!isLoadingCountChild) {
+            console.log(countChild);
+        }
+    }, [countChild, isLoadingCountChild]);
+
+    if (
+        isLoadingCountCreated ||
+        isLoadingCountInvited ||
+        isLoadingCountAccepted ||
+        isLoadingCountRejected ||
+        isLoadingCountAll ||
+        isLoadingCountChild ||
+        isLoadingCountOvernight ||
+        isLoadingCountVege ||
+        isLoadingGrouped
+    ) {
+        return <Text style={{flex: 1, alignContent: 'center'}}>Loading...</Text>;
+    }
 
     return (
         <Container>
@@ -65,29 +103,25 @@ const GuestList = () => {
 
                         <StatusBarWrapper>
                             <GuestsStatusBar
-                                guests={guestsData}
+                                created={countCreated}
+                                invited={countInvited}
+                                accepted={countAccepted}
+                                rejected={countRejected}
+                                totalGuests={countTotal}
                                 confirmationText={t('statusBarText', {
-                                    confirmed: guestsData.filter(
-                                        (guest) => guest.statusId === 2,
-                                    ).length,
-                                    total: guestsData.length,
+                                    confirmed: countAccepted,
+                                    total: countTotal,
                                 })}
                             />
                         </StatusBarWrapper>
 
                         <CounterWrapper>
+                            <Counter count={countChild} label={t('counters.kid')} />
                             <Counter
-                                count={counterCounts[1]}
-                                label={t('counters.kid')}
-                            />
-                            <Counter
-                                count={counterCounts[2]}
+                                count={countOvernight}
                                 label={t('counters.accommodation')}
                             />
-                            <Counter
-                                count={counterCounts[3]}
-                                label={t('counters.vege')}
-                            />
+                            <Counter count={countVege} label={t('counters.vege')} />
                         </CounterWrapper>
 
                         <SearchBarWrapper>
@@ -108,7 +142,7 @@ const GuestList = () => {
                     </View>
                 </TouchableWithoutFeedback>
                 <SectionList
-                    sections={sections}
+                    sections={groupedGuests}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => <GuestItem guest={item} />}
                     renderSectionHeader={renderSectionHeader}

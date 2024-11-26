@@ -33,10 +33,12 @@ export const StatusDot = styled.View<StatusDotProps>`
     background-color: ${({status}) => {
         switch (status) {
             case 1:
-                return '#f6d36f';
+                return '#dadada';
             case 2:
-                return '#b6d79d';
+                return '#f6d36f';
             case 3:
+                return '#b6d79d';
+            case 4:
                 return '#ed6055';
             default:
                 return '#dadada';

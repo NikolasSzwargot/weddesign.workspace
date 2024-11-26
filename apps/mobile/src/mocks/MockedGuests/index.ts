@@ -1,6 +1,6 @@
-import {Guest} from '@weddesign/types';
+import {GuestDto} from '@shared/dto';
 
-export const guestsData: Guest[] = [
+export const guestsData: GuestDto[] = [
     {
         id: 0,
         firstName: 'Filip',
@@ -9,8 +9,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 1,
-        nocleg: true,
+        guestStatusId: 1,
+        overnight: true,
+        notes: 'oh',
     },
     {
         id: 1,
@@ -20,8 +21,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: true,
         canGetThere: true,
-        statusId: 2,
-        nocleg: false,
+        guestStatusId: 2,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 2,
@@ -31,8 +33,9 @@ export const guestsData: Guest[] = [
         isCompanion: true,
         isChild: false,
         canGetThere: false,
-        statusId: 3,
-        nocleg: true,
+        guestStatusId: 3,
+        overnight: true,
+        notes: 'oh',
     },
     {
         id: 3,
@@ -42,8 +45,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 4,
@@ -53,8 +57,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 5,
@@ -64,8 +69,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 6,
@@ -75,8 +81,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 7,
@@ -86,8 +93,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 8,
@@ -97,8 +105,9 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
     {
         id: 9,
@@ -108,7 +117,8 @@ export const guestsData: Guest[] = [
         isCompanion: false,
         isChild: false,
         canGetThere: true,
-        statusId: 4,
-        nocleg: false,
+        guestStatusId: 4,
+        overnight: false,
+        notes: 'oh',
     },
 ];
