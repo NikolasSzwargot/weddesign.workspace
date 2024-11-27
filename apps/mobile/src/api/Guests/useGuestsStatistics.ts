@@ -77,7 +77,6 @@ export const useGuestsStatistics = () => {
         isErrorCountOvernight ||
         isErrorCountVege;
 
-    // Structure the results
     return {
         countCreated,
         countInvited,
