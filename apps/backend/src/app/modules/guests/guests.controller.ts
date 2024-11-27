@@ -95,12 +95,16 @@ export class GuestsController {
   }
 
   @Get('status/id')
-  async getStatusById(@Param('id') id: number): Promise<GuestStatus> {
+  async getStatusById(@Query('id') idString: string): Promise<GuestStatus> {
+    const id = parseInt(idString);
+    if (isNaN(id) && idString) {
+      throw new BadRequestException('Id should be a number');
+    }
     return await this.guestStatusesService.findById(id);
   }
 
   @Get('status/name')
-  async getStatusByName(@Param('name') name: string): Promise<GuestStatus> {
+  async getStatusByName(@Query('name') name: string): Promise<GuestStatus> {
     return await this.guestStatusesService.findByName(name);
   }
 }
