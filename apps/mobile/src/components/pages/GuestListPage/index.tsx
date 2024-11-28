@@ -1,7 +1,11 @@
 import React from 'react';
 import {GuestList} from '@mobile/components';
+import {GuestsScreens} from '@weddesign/enums';
 
-const GuestListPage = () => {
+type guestsPageProps = {
+    screen?: GuestsScreens;
+};
+const GuestListPage = ({screen}: guestsPageProps) => {
     return <GuestList />;
 };
 

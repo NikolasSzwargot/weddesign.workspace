@@ -1,6 +1,6 @@
 import React from 'react';
-import {AppRootRoutes, LoginScreens, Route} from '@weddesign/enums';
-import {HomePage, LoginPage} from '@mobile/components';
+import {AppRootRoutes, GuestsScreens, LoginScreens, Route} from '@weddesign/enums';
+import {GuestListPage, HomePage, LoginPage} from '@mobile/components';
 
 export const LoginRoutingRoutes: Route[] = [
     {
@@ -27,7 +27,21 @@ export const HomeRoutingRoutes: Route[] = [
     },
 ];
 
+export const GuestsRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.GUESTLIST,
+        screen: GuestsScreens.LIST,
+        element: <GuestListPage screen={GuestsScreens.LIST} />,
+    },
+    {
+        route: AppRootRoutes.GUESTLIST,
+        screen: GuestsScreens.ADD,
+        element: <GuestListPage screen={GuestsScreens.ADD} />,
+    },
+];
+
 export const WeddesignRoutingRoutes: Route[] = [
     ...LoginRoutingRoutes,
     ...HomeRoutingRoutes,
+    ...GuestsRoutingRoutes,
 ];
