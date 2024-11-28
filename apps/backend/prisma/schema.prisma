@@ -26,7 +26,7 @@ model Guest {
   isChild       Boolean     @default(false)
   canGetThere   Boolean     @default(false)
   overnight     Boolean     @default(false)
-  notes         String
+  notes         String?
   guestStatusId Int         @default(1)
   status        GuestStatus @relation(fields: [guestStatusId], references: [id])
   createdAt     DateTime    @default(now())
@@ -59,4 +59,30 @@ model User {
   updatedAt      DateTime    @default(now()) @updatedAt
 
   @@map("users")
+}
+
+model Expense {
+  id          Int             @id @default(autoincrement())
+  name        String
+  description String
+  categoryId  Int
+  category    ExpenseCategory @relation(fields: [categoryId], references: [id])
+  amount      Float
+  deadline    DateTime        @default(now())
+  isPaid      Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now()) @updatedAt
+
+  @@map("expenses")
+}
+
+model ExpenseCategory {
+  id        Int       @id @default(autoincrement())
+  name      String
+  limit     Float?
+  expenses  Expense[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+
+  @@map("expenseCategories")
 }
