@@ -1,4 +1,4 @@
-import {GuestsCountParams} from '@weddesign/enums';
+import {GuestsCountParams, GuestStatuses} from '@weddesign/enums';
 
 import {useGuestsCount} from './useGuestsCount';
 
@@ -8,28 +8,28 @@ export const useGuestsStatistics = () => {
         isLoading: isLoadingCountCreated,
         isError: isErrorCountCreated,
     } = useGuestsCount({
-        statusName: GuestsCountParams.StatusCreated,
+        statusId: GuestStatuses.Created,
     });
     const {
         data: countInvited,
         isLoading: isLoadingCountInvited,
         isError: isErrorCountInvited,
     } = useGuestsCount({
-        statusName: GuestsCountParams.StatusInvited,
+        statusId: GuestStatuses.Invited,
     });
     const {
         data: countAccepted,
         isLoading: isLoadingCountAccepted,
         isError: isErrorCountAccepted,
     } = useGuestsCount({
-        statusName: GuestsCountParams.StatusAccepted,
+        statusId: GuestStatuses.Accepted,
     });
     const {
         data: countRejected,
         isLoading: isLoadingCountRejected,
         isError: isErrorCountRejected,
     } = useGuestsCount({
-        statusName: GuestsCountParams.StatusRejected,
+        statusId: GuestStatuses.Rejected,
     });
     const {
         data: countTotal,

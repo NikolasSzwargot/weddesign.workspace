@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {Colors} from '@weddesign/enums';
+import { Colors, GuestStatuses } from '@weddesign/enums';
 
 export const GuestItemContainer = styled.View`
     flex-direction: row;
@@ -32,13 +32,13 @@ export const StatusDot = styled.View<StatusDotProps>`
     height: 40px;
     background-color: ${({status}) => {
         switch (status) {
-            case 1:
+            case GuestStatuses.Created:
                 return Colors.StatusCreated;
-            case 2:
+            case GuestStatuses.Invited:
                 return Colors.StatusInvited;
-            case 3:
+            case GuestStatuses.Accepted:
                 return Colors.StatusAccepted;
-            case 4:
+            case GuestStatuses.Rejected:
                 return Colors.StatusRejected;
             default:
                 return Colors.StatusCreated;
