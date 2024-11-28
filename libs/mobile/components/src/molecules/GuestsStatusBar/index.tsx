@@ -6,13 +6,7 @@ import {
     StatusText,
 } from './styles';
 import {Colors} from '@weddesign/enums';
-
-type Statuses = {
-    countCreated: number;
-    countInvited: number;
-    countAccepted: number;
-    countRejected: number;
-};
+import {Statuses} from '@weddesign/types';
 
 type StatusBarProps = {
     statuses: Statuses;

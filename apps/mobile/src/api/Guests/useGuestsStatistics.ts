@@ -1,4 +1,5 @@
 import {GuestsCountParams, GuestStatuses} from '@weddesign/enums';
+import {Statuses} from '@weddesign/types';
 
 import {useGuestsCount} from './useGuestsCount';
 
@@ -77,8 +78,14 @@ export const useGuestsStatistics = () => {
         isErrorCountOvernight ||
         isErrorCountVege;
 
+    const countStatuses: Statuses = {
+        countCreated,
+        countInvited,
+        countAccepted,
+        countRejected,
+    };
     return {
-        countStatuses: {countCreated, countInvited, countAccepted, countRejected},
+        countStatuses,
         countTotal,
         countChild,
         countOvernight,
