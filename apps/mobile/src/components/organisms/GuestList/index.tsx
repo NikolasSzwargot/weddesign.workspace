@@ -66,88 +66,85 @@ const GuestList = () => {
         isError: isErrorGrouped,
     } = useGuestsGrouped();
 
-    return isLoading || isLoadingGrouped ? (
+    return (
         <Container>
             <GuestListBackgroundEllipse />
             <GuestListWrapper>
                 <Header />
-                <LoadingSpinner
-                    color={Colors.LightBlue}
-                    msg={t('shared:spinnerMessage')}
-                />
-            </GuestListWrapper>
-        </Container>
-    ) : isError || isErrorGrouped ? (
-        <Container>
-            <GuestListBackgroundEllipse />
-            <GuestListWrapper>
-                <Header />
-                <Text style={{position: 'absolute', top: '50%', fontSize: 20}}>
-                    Tu będzie takie fajne przejście do ekranu błędu
-                </Text>
-            </GuestListWrapper>
-        </Container>
-    ) : (
-        <Container>
-            <GuestListBackgroundEllipse />
-            <GuestListWrapper>
-                <TouchableWithoutFeedback
-                    onPress={Keyboard.dismiss}
-                    accessible={false}
-                >
-                    <View>
-                        <Header />
+                {isLoading || isLoadingGrouped ? (
+                    <LoadingSpinner
+                        color={Colors.LightBlue}
+                        msg={t('shared:spinnerMessage')}
+                    />
+                ) : isError || isErrorGrouped ? (
+                    <Text style={{position: 'absolute', top: '50%', fontSize: 20}}>
+                        Tu będzie takie fajne przejście do ekranu błędu
+                    </Text>
+                ) : (
+                    <>
+                        <TouchableWithoutFeedback
+                            onPress={Keyboard.dismiss}
+                            accessible={false}
+                        >
+                            <View>
+                                <StatusBarWrapper>
+                                    <GuestsStatusBar
+                                        created={countCreated}
+                                        invited={countInvited}
+                                        accepted={countAccepted}
+                                        rejected={countRejected}
+                                        totalGuests={countTotal}
+                                        confirmationText={t('statusBarText', {
+                                            confirmed: countAccepted,
+                                            total: countTotal,
+                                        })}
+                                    />
+                                </StatusBarWrapper>
 
-                        <StatusBarWrapper>
-                            <GuestsStatusBar
-                                created={countCreated}
-                                invited={countInvited}
-                                accepted={countAccepted}
-                                rejected={countRejected}
-                                totalGuests={countTotal}
-                                confirmationText={t('statusBarText', {
-                                    confirmed: countAccepted,
-                                    total: countTotal,
-                                })}
-                            />
-                        </StatusBarWrapper>
+                                <CounterWrapper>
+                                    <Counter
+                                        count={countChild}
+                                        label={t('counters.child')}
+                                    />
+                                    <Counter
+                                        count={countOvernight}
+                                        label={t('counters.accommodation')}
+                                    />
+                                    <Counter
+                                        count={countVege}
+                                        label={t('counters.vege')}
+                                    />
+                                </CounterWrapper>
 
-                        <CounterWrapper>
-                            <Counter
-                                count={countChild}
-                                label={t('counters.child')}
-                            />
-                            <Counter
-                                count={countOvernight}
-                                label={t('counters.accommodation')}
-                            />
-                            <Counter count={countVege} label={t('counters.vege')} />
-                        </CounterWrapper>
-
-                        <SearchBarWrapper>
-                            <CustomSearchBar
-                                searchQuery={searchQuery}
-                                setSearchQuery={setSearchQuery}
-                                placeholder={t('searchPlaceholder')}
-                            />
-                            <IconButton
-                                Icon={Icons.Filter}
-                                onPress={() => console.log('clicked Filter')}
-                            />
-                            <IconButton
-                                Icon={Icons.AddGuest}
-                                onPress={() => console.log('clicked AddGuest')}
-                            />
-                        </SearchBarWrapper>
-                    </View>
-                </TouchableWithoutFeedback>
-                <SectionList
-                    sections={groupedGuests}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => <GuestItem guest={item} />}
-                    renderSectionHeader={renderSectionHeader}
-                    showsVerticalScrollIndicator={true}
-                />
+                                <SearchBarWrapper>
+                                    <CustomSearchBar
+                                        searchQuery={searchQuery}
+                                        setSearchQuery={setSearchQuery}
+                                        placeholder={t('searchPlaceholder')}
+                                    />
+                                    <IconButton
+                                        Icon={Icons.Filter}
+                                        onPress={() => console.log('clicked Filter')}
+                                    />
+                                    <IconButton
+                                        Icon={Icons.AddGuest}
+                                        onPress={() =>
+                                            console.log('clicked AddGuest')
+                                        }
+                                    />
+                                </SearchBarWrapper>
+                            </View>
+                        </TouchableWithoutFeedback>
+                        <SectionList
+                            sections={groupedGuests}
+                            initialNumToRender={20}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({item}) => <GuestItem guest={item} />}
+                            renderSectionHeader={renderSectionHeader}
+                            showsVerticalScrollIndicator={true}
+                        />
+                    </>
+                )}
             </GuestListWrapper>
         </Container>
     );
