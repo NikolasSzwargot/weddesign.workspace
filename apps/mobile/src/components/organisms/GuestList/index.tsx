@@ -1,11 +1,6 @@
 import React, {useState} from 'react';
-import {
-    SectionList,
-    TouchableWithoutFeedback,
-    Keyboard,
-    View,
-    Text,
-} from 'react-native';
+import {SectionList, TouchableWithoutFeedback, Keyboard, View} from 'react-native';
+import {Text} from '@weddesign/themes';
 import {
     Header,
     GuestListBackgroundEllipse,
@@ -74,9 +69,11 @@ const GuestList = () => {
                         msg={t('shared:spinnerMessage')}
                     />
                 ) : isError || isErrorGrouped ? (
-                    <Text style={{position: 'absolute', top: '50%', fontSize: 20}}>
-                        Tu będzie takie fajne przejście do ekranu błędu
-                    </Text>
+                    <Text.Regular style={{position: 'absolute', top: '50%'}}>
+                        {/* @TODO przejście na ekran z błędem*/}
+                        {/* eslint-disable-next-line react-native/no-raw-text */}
+                        {'Tu będzie takie fajne przejście do ekranu błędu'}
+                    </Text.Regular>
                 ) : (
                     <>
                         <TouchableWithoutFeedback

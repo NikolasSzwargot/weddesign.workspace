@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { Colors, GuestStatuses } from '@weddesign/enums';
+import {Colors, GuestStatuses} from '@weddesign/enums';
 
 export const GuestItemContainer = styled.View`
     flex-direction: row;
@@ -16,11 +16,8 @@ export const GuestInfoContainer = styled.View`
     flex: 1;
 `;
 
-export const GuestName = styled.Text`
-    font-size: 16px;
+export const GuestNameWrapper = styled.View`
     margin-left: 10px;
-    font-weight: 500;
-    color: black;
 `;
 
 interface StatusDotProps {
