@@ -62,12 +62,27 @@ export const Light: React.FC<CustomTextProps> = ({
     </RNEText>
 );
 
+const RegularGray: React.FC<CustomTextProps> = ({
+    children,
+    size = 16,
+    style,
+    ...props
+}) => (
+    <RNEText
+        style={[typographyStyles.regularGray, {fontSize: size}, style]}
+        {...props}
+    >
+        {children}
+    </RNEText>
+);
+
 const Text = {
     Regular,
     Bold,
     Italic,
     SemiBold,
     Light,
+    RegularGray,
 };
 
 export default Text;

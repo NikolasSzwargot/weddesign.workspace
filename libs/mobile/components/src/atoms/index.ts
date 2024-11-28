@@ -9,3 +9,4 @@ export {default as Counter} from './Counter';
 export {default as CustomSearchBar} from './CustomSearchBar';
 export {default as IconButton} from './IconButton';
 export {default as LoadingSpinner} from './LoadingSpinner';
+export {default as CustomSectionHeader} from './CustomSectionHeader';

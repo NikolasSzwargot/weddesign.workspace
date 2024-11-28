@@ -10,6 +10,7 @@ import {
     CustomSearchBar,
     IconButton,
     LoadingSpinner,
+    CustomSectionHeader,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
@@ -22,21 +23,9 @@ import {
     Container,
     CounterWrapper,
     GuestListWrapper,
-    LongSeparatorLine,
     SearchBarWrapper,
-    SeparatorContainer,
-    SeparatorText,
-    ShortSeparatorLine,
     StatusBarWrapper,
 } from './styles';
-
-const renderSectionHeader = ({section: {title}}) => (
-    <SeparatorContainer>
-        <ShortSeparatorLine />
-        <SeparatorText>{title}</SeparatorText>
-        <LongSeparatorLine />
-    </SeparatorContainer>
-);
 
 const GuestList = () => {
     const {t} = useTranslation('guestList');
@@ -131,7 +120,7 @@ const GuestList = () => {
                             initialNumToRender={20}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => <GuestItem guest={item} />}
-                            renderSectionHeader={renderSectionHeader}
+                            renderSectionHeader={CustomSectionHeader}
                             showsVerticalScrollIndicator={true}
                         />
                     </>
