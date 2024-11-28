@@ -1,0 +1,9 @@
+{
+  "statusBarText": "{{confirmed}} out of {{total}} guests confirmed their arrival",
+  "counters": {
+    "child": "child",
+    "accommodation": "overnight",
+    "vege": "vege"
+  },
+  "searchPlaceholder": "Search"
+}
