@@ -7,49 +7,48 @@ import {
 } from './styles';
 import {Colors} from '@weddesign/enums';
 
+type Statuses = {
+    countCreated: number;
+    countInvited: number;
+    countAccepted: number;
+    countRejected: number;
+};
+
 type StatusBarProps = {
-    created: number;
-    invited: number;
-    accepted: number;
-    rejected: number;
+    statuses: Statuses;
     totalGuests: number;
     confirmationText: string;
 };
 
 const GuestsStatusBar = ({
-    created,
-    invited,
-    accepted,
-    rejected,
+    statuses,
     totalGuests,
     confirmationText,
 }: StatusBarProps) => {
     const widthPercentages = {
-        1: (created / totalGuests) * 100,
-        2: (invited / totalGuests) * 100,
-        3: (accepted / totalGuests) * 100,
-        4: (rejected / totalGuests) * 100,
+        1: (statuses.countCreated / totalGuests) * 100,
+        2: (statuses.countInvited / totalGuests) * 100,
+        3: (statuses.countAccepted / totalGuests) * 100,
+        4: (statuses.countRejected / totalGuests) * 100,
     };
+
+    const statusSegments = [
+        {width: widthPercentages[3], color: Colors.StatusAccepted},
+        {width: widthPercentages[2], color: Colors.StatusInvited},
+        {width: widthPercentages[4], color: Colors.StatusRejected},
+        {width: widthPercentages[1], color: Colors.StatusCreated},
+    ];
 
     return (
         <StatusBarWrapper>
             <StatusBarContainer>
-                <StatusSegment
-                    widthPercentage={widthPercentages[3]}
-                    color={Colors.StatusAccepted}
-                />
-                <StatusSegment
-                    widthPercentage={widthPercentages[2]}
-                    color={Colors.StatusInvited}
-                />
-                <StatusSegment
-                    widthPercentage={widthPercentages[4]}
-                    color={Colors.StatusRejected}
-                />
-                <StatusSegment
-                    widthPercentage={widthPercentages[1]}
-                    color={Colors.StatusCreated}
-                />
+                {statusSegments.map((segment, index) => (
+                    <StatusSegment
+                        key={index}
+                        widthPercentage={segment.width}
+                        color={segment.color}
+                    />
+                ))}
             </StatusBarContainer>
             <StatusText>{confirmationText}</StatusText>
         </StatusBarWrapper>

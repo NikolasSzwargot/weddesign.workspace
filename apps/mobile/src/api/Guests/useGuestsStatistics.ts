@@ -78,10 +78,7 @@ export const useGuestsStatistics = () => {
         isErrorCountVege;
 
     return {
-        countCreated,
-        countInvited,
-        countAccepted,
-        countRejected,
+        countStatuses: {countCreated, countInvited, countAccepted, countRejected},
         countTotal,
         countChild,
         countOvernight,

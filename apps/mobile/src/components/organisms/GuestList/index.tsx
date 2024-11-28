@@ -48,10 +48,7 @@ const GuestList = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const {
-        countCreated,
-        countInvited,
-        countAccepted,
-        countRejected,
+        countStatuses,
         countTotal,
         countChild,
         countOvernight,
@@ -89,13 +86,10 @@ const GuestList = () => {
                             <View>
                                 <StatusBarWrapper>
                                     <GuestsStatusBar
-                                        created={countCreated}
-                                        invited={countInvited}
-                                        accepted={countAccepted}
-                                        rejected={countRejected}
+                                        statuses={countStatuses}
                                         totalGuests={countTotal}
                                         confirmationText={t('statusBarText', {
-                                            confirmed: countAccepted,
+                                            confirmed: countStatuses.countAccepted,
                                             total: countTotal,
                                         })}
                                     />
