@@ -5,3 +5,5 @@ export enum ApiRoutes {
 }
 export * from './routes';
 export * from './definitions';
+export * from './routes';
+export * from './definitions';
