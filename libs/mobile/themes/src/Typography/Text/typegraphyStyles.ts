@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '@weddesign/enums';
 
 export const typographyStyles = StyleSheet.create({
     regular: {
@@ -20,5 +21,10 @@ export const typographyStyles = StyleSheet.create({
     italic: {
         fontFamily: 'Inter-Italic',
         fontStyle: 'italic',
+    },
+    regularGray: {
+        fontFamily: 'Inter-regular',
+        fontWeight: 'normal',
+        color: Colors.LightGray,
     },
 });

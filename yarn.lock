@@ -3868,7 +3868,7 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
-"@types/bcrypt@^5.0.2":
+"@types/bcrypt@5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@types/bcrypt/-/bcrypt-5.0.2.tgz#22fddc11945ea4fbc3655b3e8b8847cc9f811477"
   integrity sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==
@@ -13592,6 +13592,11 @@ react-native-gradients@2.1.1:
   dependencies:
     react-native-svg ">=13.2.0"
 
+react-native-iphone-x-helper@^1.2.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
+  integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
+
 react-native-linear-gradient@2.8.3:
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz#9a116649f86d74747304ee13db325e20b21e564f"
@@ -13601,6 +13606,11 @@ react-native-localize@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-3.2.0.tgz#7d9beb38c9d08b2aa87ffd9d165a66f66531b3ae"
   integrity sha512-Wi486WdDoBcDKUNxzr2/8f64ZwkWExlIvn0lcfFhsRNP2CVXGkjLyXhr3h6jf3Utkv5EmoFKiNqcmZn9kjYDxQ==
+
+react-native-platform-searchbar@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-platform-searchbar/-/react-native-platform-searchbar-1.2.3.tgz#f68bf245d64d0b96c841625eb4db4bf7e85532ed"
+  integrity sha512-8ggTtAl9B422ogkGv/Ic4is0RB6TcR8nXanvwf71454rSmhTuvy5yuW8LFO3+g7FCTE7Abd7ysOkP9rcWqGaaw==
 
 react-native-ratings@8.0.4:
   version "8.0.4"
@@ -13781,6 +13791,13 @@ react-native@0.74.1:
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
     yargs "^17.6.2"
+
+react-navigation-stack@react-navigation/stack:
+  version "2.1.1"
+  resolved "https://codeload.github.com/react-navigation/stack/tar.gz/3389391b24ff58957c33b41c102e5bf9afafa991"
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
 
 react-query@3.39.3:
   version "3.39.3"

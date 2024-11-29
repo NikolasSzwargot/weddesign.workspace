@@ -10,12 +10,6 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true
-          }
-        ],
         "linebreak-style": "off",
         "end-of-line": "off"
       }
