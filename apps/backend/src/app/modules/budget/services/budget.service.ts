@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto } from '@shared/dto';
-import { PrismaClient } from '@prisma/client';
+import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto } from '@shared/dto';
+import { ExpenseCategory, PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class BudgetService {
   private prisma = new PrismaClient();
 
-  async create(createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
+  async addExpense(createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
     return this.prisma.expense.create({ data: createExpenseDto });
   }
 
-  async findAll(): Promise<ExpenseDto[]> {
+  async getExpenses(): Promise<ExpenseDto[]> {
     return this.prisma.expense.findMany();
   }
 
-  async findOne(id: number): Promise<ExpenseDto> {
+  async getExpenseById(id: number): Promise<ExpenseDto> {
     return this.prisma.expense.findUnique({ where: { id } });
   }
 
-  async update(id: number, updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
+  async updateExpense(id: number, updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
     try {
       return await this.prisma.expense.update({
         where: { id },
@@ -32,7 +32,54 @@ export class BudgetService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} budget`;
+  async getExpensesByCategory(): Promise<ExpensesByCategoryDto[]> {
+    const expenses: ExpenseDto[] = await this.getExpenses();
+
+    const groupedExpenses: Record<string, ExpenseDto[]> = {};
+
+    expenses.forEach((expense: ExpenseDto) => {
+      const expenseCategoryId = expense.categoryId;
+      if (!groupedExpenses[expenseCategoryId]) {
+        groupedExpenses[expenseCategoryId] = [];
+      }
+      groupedExpenses[expenseCategoryId].push(expense);
+    });
+
+    return await Promise.all(
+      Object.keys(groupedExpenses).map(async (categoryIdStr) => {
+        const categoryId = parseInt(categoryIdStr, 10);
+        const categoryName = await this.getCategoryName(categoryId);
+        const limit = await this.getCategoryLimit(categoryId);
+
+        const expenses = groupedExpenses[categoryIdStr];
+        const spent = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+
+        return {
+          categoryId,
+          categoryName,
+          expenses: expenses.sort((a, b) => b.amount - a.amount),
+          limit,
+          spent,
+        } as ExpensesByCategoryDto;
+      })
+    ).then((results) => results.sort((a, b) => b.spent - a.spent));
+  }
+
+  async deleteExpenseById(id: number): Promise<ExpenseDto> {
+    return this.prisma.expense.delete({ where: { id: id } });
+  }
+
+  async getCategories(): Promise<ExpenseCategory[]> {
+    return this.prisma.expenseCategory.findMany();
+  }
+
+  async getCategoryName(categoryId: number): Promise<string> {
+    const category = await this.prisma.expenseCategory.findUnique({ where: { id: categoryId } });
+    return category?.name || 'Unknown';
+  }
+
+  async getCategoryLimit(categoryId: number): Promise<number> {
+    const category = await this.prisma.expenseCategory.findUnique({ where: { id: categoryId } });
+    return category?.limit || 0;
   }
 }
