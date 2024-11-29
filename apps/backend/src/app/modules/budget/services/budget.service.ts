@@ -33,36 +33,16 @@ export class BudgetService {
   }
 
   async getExpensesByCategory(): Promise<ExpensesByCategoryDto[]> {
-    const expenses: ExpenseDto[] = await this.getExpenses();
+    const expenses = await this.getExpenses();
 
-    const groupedExpenses: Record<string, ExpenseDto[]> = {};
+    const groupedExpenses = this.groupExpenseByCategory(expenses);
 
-    expenses.forEach((expense: ExpenseDto) => {
-      const expenseCategoryId = expense.categoryId;
-      if (!groupedExpenses[expenseCategoryId]) {
-        groupedExpenses[expenseCategoryId] = [];
-      }
-      groupedExpenses[expenseCategoryId].push(expense);
-    });
-
-    return await Promise.all(
+    const expenseDetails = await Promise.all(
       Object.keys(groupedExpenses).map(async (categoryIdStr) => {
-        const categoryId = parseInt(categoryIdStr, 10);
-        const categoryName = await this.getCategoryName(categoryId);
-        const limit = await this.getCategoryLimit(categoryId);
-
-        const expenses = groupedExpenses[categoryIdStr];
-        const spent = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-
-        return {
-          categoryId,
-          categoryName,
-          expenses: expenses.sort((a, b) => b.amount - a.amount),
-          limit,
-          spent,
-        } as ExpensesByCategoryDto;
+        return this.createExpenseDetailDto(categoryIdStr, groupedExpenses[categoryIdStr]);
       })
-    ).then((results) => results.sort((a, b) => b.spent - a.spent));
+    );
+    return expenseDetails.sort((a, b) => b.spent - a.spent);
   }
 
   async deleteExpenseById(id: number): Promise<ExpenseDto> {
@@ -81,5 +61,37 @@ export class BudgetService {
   async getCategoryLimit(categoryId: number): Promise<number> {
     const category = await this.prisma.expenseCategory.findUnique({ where: { id: categoryId } });
     return category?.limit || 0;
+  }
+
+  private groupExpenseByCategory(expenses: ExpenseDto[]): Record<string, ExpenseDto[]> {
+    return expenses.reduce(
+      (acc, expense) => {
+        const categoryId = expense.categoryId.toString();
+        if (!acc[categoryId]) {
+          acc[categoryId] = [];
+        }
+        acc[categoryId].push(expense);
+        return acc;
+      },
+      {} as Record<string, ExpenseDto[]>
+    );
+  }
+
+  private async createExpenseDetailDto(categoryIdStr: string, expenses: ExpenseDto[]): Promise<ExpensesByCategoryDto> {
+    const categoryId = parseInt(categoryIdStr, 10);
+    const [categoryName, limit] = await Promise.all([
+      this.getCategoryName(categoryId),
+      this.getCategoryLimit(categoryId),
+    ]);
+
+    const spent = expenses.reduce((total, expense) => total + expense.amount, 0);
+
+    return {
+      categoryId,
+      categoryName,
+      expenses: expenses.sort((a, b) => b.amount - a.amount),
+      limit,
+      spent,
+    };
   }
 }

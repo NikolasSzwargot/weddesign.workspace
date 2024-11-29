@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 
 export class ExpenseDto {
   @ApiProperty()
@@ -21,4 +22,12 @@ export class ExpenseDto {
 
   @ApiProperty()
   isPaid: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  updatedAt: Date;
+
+  @ApiProperty()
+  @IsOptional()
+  createdAt: Date;
 }
