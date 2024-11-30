@@ -20,4 +20,5 @@ export enum Colors {
     StatusInvited = '#f6d36f',
     StatusAccepted = '#b6d79d',
     StatusRejected = '#ed6055',
+    BananaGold = '#f4d16e',
 }
