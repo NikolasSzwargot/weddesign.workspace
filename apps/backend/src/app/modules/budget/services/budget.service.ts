@@ -7,6 +7,7 @@ import {
   BudgetLimitDto,
   GetBudgetLimitsDto,
   UpdateBudgetLimitDto,
+  ExpensesByDateDto,
 } from '@shared/dto';
 import { ExpenseCategory } from '@prisma/client';
 import { PrismaService } from '../../../prisma-client.service';
@@ -48,19 +49,6 @@ export class BudgetService {
     }
   }
 
-  async getExpensesByCategory(): Promise<ExpensesByCategoryDto[]> {
-    const expenses = await this.getExpenses();
-
-    const groupedExpenses = this.groupExpenseByCategory(expenses);
-
-    const expenseDetails = await Promise.all(
-      Object.keys(groupedExpenses).map(async (categoryIdStr) => {
-        return this.createExpenseDetailDto(categoryIdStr, groupedExpenses[categoryIdStr]);
-      })
-    );
-    return expenseDetails.sort((a, b) => b.spent - a.spent);
-  }
-
   async deleteExpenseById(id: number): Promise<ExpenseDto> {
     try {
       return this.prisma.expense.delete({ where: { id: id } });
@@ -86,6 +74,19 @@ export class BudgetService {
     return category?.limit || null;
   }
 
+  async getExpensesByCategory(): Promise<ExpensesByCategoryDto[]> {
+    const expenses = await this.getExpenses();
+
+    const groupedExpenses = this.groupExpenseByCategory(expenses);
+
+    const expenseDetails = await Promise.all(
+      Object.keys(groupedExpenses).map(async (categoryIdStr) => {
+        return this.createExpenseByCategoryDetailDto(categoryIdStr, groupedExpenses[categoryIdStr]);
+      })
+    );
+    return expenseDetails.sort((a, b) => b.spent - a.spent);
+  }
+
   private groupExpenseByCategory(expenses: ExpenseDto[]): Record<string, ExpenseDto[]> {
     return expenses.reduce(
       (acc, expense) => {
@@ -100,7 +101,10 @@ export class BudgetService {
     );
   }
 
-  private async createExpenseDetailDto(categoryIdStr: string, expenses: ExpenseDto[]): Promise<ExpensesByCategoryDto> {
+  private async createExpenseByCategoryDetailDto(
+    categoryIdStr: string,
+    expenses: ExpenseDto[]
+  ): Promise<ExpensesByCategoryDto> {
     const categoryId = parseInt(categoryIdStr, 10);
     const [categoryName, limit] = await Promise.all([
       this.getCategoryName(categoryId),
@@ -114,6 +118,43 @@ export class BudgetService {
       categoryName,
       expenses: expenses.sort((a, b) => b.amount - a.amount),
       limit,
+      spent,
+    };
+  }
+
+  async getExpensesByDate(): Promise<ExpensesByDateDto[]> {
+    const expenses = await this.getExpenses();
+
+    const groupedExpenses = this.groupExpensesByDate(expenses);
+
+    const expenseDetails = await Promise.all(
+      Object.keys(groupedExpenses).map(async (categoryIdStr) => {
+        return this.createExpenseByDateDetailDto(categoryIdStr, groupedExpenses[categoryIdStr]);
+      })
+    );
+    return expenseDetails.sort((a, b) => b.spent - a.spent);
+  }
+
+  private groupExpensesByDate(expenses: ExpenseDto[]): Record<string, ExpenseDto[]> {
+    return expenses.reduce(
+      (acc, expense) => {
+        const date = expense.deadline.toString();
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(expense);
+        return acc;
+      },
+      {} as Record<string, ExpenseDto[]>
+    );
+  }
+
+  private async createExpenseByDateDetailDto(dateStr: string, expenses: ExpenseDto[]): Promise<ExpensesByDateDto> {
+    const spent = expenses.reduce((total, expense) => total + expense.amount, 0);
+
+    return {
+      date: new Date(dateStr),
+      expenses: expenses.sort((a, b) => b.amount - a.amount),
       spent,
     };
   }
