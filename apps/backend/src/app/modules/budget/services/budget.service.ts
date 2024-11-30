@@ -1,5 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto } from '@shared/dto';
+import {
+  CreateExpenseDto,
+  ExpenseDto,
+  UpdateExpenseDto,
+  ExpensesByCategoryDto,
+  BudgetLimitDto,
+  GetBudgetLimitsDto,
+  UpdateBudgetLimitDto,
+} from '@shared/dto';
 import { ExpenseCategory, PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -60,7 +68,7 @@ export class BudgetService {
 
   async getCategoryLimit(categoryId: number): Promise<number> {
     const category = await this.prisma.expenseCategory.findUnique({ where: { id: categoryId } });
-    return category?.limit || 0;
+    return category?.limit || null;
   }
 
   private groupExpenseByCategory(expenses: ExpenseDto[]): Record<string, ExpenseDto[]> {
@@ -93,5 +101,26 @@ export class BudgetService {
       limit,
       spent,
     };
+  }
+
+  async getBudgetLimit(): Promise<GetBudgetLimitsDto> {
+    const budgetLimit = await this.prisma.mainBudgetLimit.findFirst();
+    const expenses = await this.getExpenses();
+    const paidExpenses = expenses.filter((expense) => expense.isPaid);
+    const notPaidExpenses = expenses.filter((expense) => !expense.isPaid);
+
+    return {
+      limit: budgetLimit.limit,
+      paid: paidExpenses.reduce((total, expense) => total + expense.amount, 0),
+      notPaid: notPaidExpenses.reduce((total, expense) => total + expense.amount, 0),
+      totalPlanned: expenses.reduce((total, expense) => total + expense.amount, 0),
+    };
+  }
+
+  async updateBudgetLimit(id: number, updateBudgetLimitDto: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
+    return this.prisma.mainBudgetLimit.update({
+      where: { id },
+      data: updateBudgetLimitDto,
+    });
   }
 }

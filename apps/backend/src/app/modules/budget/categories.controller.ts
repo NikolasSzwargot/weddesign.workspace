@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { ExpenseCategoryDto } from '@shared/dto';
 import { BudgetService } from './services/budget.service';
 
-@Controller('categories')
+@Controller('budget/categories')
 export class CategoriesController {
   constructor(private readonly budgetService: BudgetService) {}
 

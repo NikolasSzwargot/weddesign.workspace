@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateExpenseDto } from './create-expense.dto';
+import { OmitType, PartialType } from '@nestjs/swagger';
+import { ExpenseDto } from './expense.dto';
 
-export class UpdateExpenseDto extends PartialType(CreateExpenseDto) {}
+export class UpdateExpenseDto extends PartialType(OmitType(ExpenseDto, ['id', 'updatedAt', 'createdAt'])) { }

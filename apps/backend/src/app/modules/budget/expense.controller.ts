@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { BudgetService } from './services/budget.service';
 import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto } from '@shared/dto';
 
-@Controller('expense')
+@Controller('budget/expense')
 export class ExpenseController {
   constructor(private readonly budgetService: BudgetService) {}
 
@@ -27,8 +27,8 @@ export class ExpenseController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateBudgetDto: UpdateExpenseDto): Promise<ExpenseDto> {
-    return await this.budgetService.updateExpense(+id, updateBudgetDto);
+  async update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
+    return await this.budgetService.updateExpense(+id, updateExpenseDto);
   }
 
   @Delete(':id')

@@ -86,3 +86,12 @@ model ExpenseCategory {
 
   @@map("expenseCategories")
 }
+
+model MainBudgetLimit {
+  id        Int      @id @default(autoincrement())
+  limit     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("mainBudgetLimits")
+}
