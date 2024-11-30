@@ -25,7 +25,6 @@ export const ExpenseName = styled.Text`
 `;
 
 interface CatDotProps {
-    // cat: string;
     color: Colors;
 }
 
@@ -37,18 +36,3 @@ export const StatusDot = styled.View<CatDotProps>`
     background-color: ${({color}) => color};
     border-radius: 20px;
 `;
-
-// background-color: ${({cat}) => {
-//     switch (cat) {
-//         case 'food' || 'place' || 'decor' || 'flowers':
-//             return Colors.LightGreen;
-//         case 'photos' || 'music' || 'entertainment' || 'gifts':
-//             return Colors.BananaGold;
-//         case 'dress' || 'appearance' || 'accessories' || 'rings':
-//             return Colors.Pink;
-//         case 'accommodation' || 'law' || 'transport' || 'other':
-//             return Colors.LightBlue;
-//         default:
-//             return Colors.LightBlue;
-//     }
-// }};

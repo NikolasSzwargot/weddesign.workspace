@@ -23,6 +23,7 @@
       "@mobile/navigation": ["apps/mobile/src/navigation/index.ts"],
       "@mobile/routes": ["apps/mobile/src/routes/index.ts"],
       "@mobile/hooks": ["apps/mobile/src/hooks/index.ts"],
+      "@mobile/utils": ["apps/mobile/src/utils/index.ts"],
       "@weddesign/api": ["libs/mobile/api/src/index.ts"],
       "@weddesign/assets": ["libs/mobile/assets/src/index.ts"],
       "@weddesign/components": ["libs/mobile/components/src/index.ts"],

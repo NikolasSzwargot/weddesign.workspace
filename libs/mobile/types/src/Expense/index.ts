@@ -18,7 +18,7 @@ export type ExpGroupL = {
     limitText?: string;
 };
 
-export type catData = {
+export type categoryData = {
     color: Colors;
     icon: React.FC<SvgProps>;
 };
