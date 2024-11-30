@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GuestStatus, PrismaClient } from '@prisma/client';
+import { GuestStatus } from '@prisma/client';
+import { PrismaService } from '../../../prisma-client.service';
 
 @Injectable()
 export class GuestsStatusesService {
-  private prisma = new PrismaClient();
+  constructor(private prisma: PrismaService) {}
 
   async findAll(): Promise<GuestStatus[]> {
     return this.prisma.guestStatus.findMany();

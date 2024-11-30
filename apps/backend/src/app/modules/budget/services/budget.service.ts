@@ -8,11 +8,12 @@ import {
   GetBudgetLimitsDto,
   UpdateBudgetLimitDto,
 } from '@shared/dto';
-import { ExpenseCategory, PrismaClient } from '@prisma/client';
+import { ExpenseCategory } from '@prisma/client';
+import { PrismaService } from '../../../prisma-client.service';
 
 @Injectable()
 export class BudgetService {
-  private prisma = new PrismaClient();
+  constructor(private prisma: PrismaService) {}
 
   async addExpense(createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
     return this.prisma.expense.create({ data: createExpenseDto });
