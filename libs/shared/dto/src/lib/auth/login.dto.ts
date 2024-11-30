@@ -1,9 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
+import { RegisterAccountDto } from './registerAccount.dto';
 
-export class LoginDto {
-  @ApiProperty({ required: true })
-  email: string;
-
-  @ApiProperty({ required: true })
-  password: string;
-}
+export class LoginDto extends PickType(RegisterAccountDto, ['email', 'password']){}

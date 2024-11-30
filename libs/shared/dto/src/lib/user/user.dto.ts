@@ -1,18 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
-  @ApiProperty({ required: true })
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
   firstNameBride: string;
 
-  @ApiProperty({ required: true })
+  @ApiProperty()
   firstNameGroom: string;
 
-  @ApiProperty({ required: true })
+  @ApiProperty()
   lastName: string;
 
-  @ApiProperty({ required: true })
+  @ApiProperty()
   weddingDate: Date;
 
-  @ApiProperty({ required: true })
+  @ApiProperty()
   language: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }
