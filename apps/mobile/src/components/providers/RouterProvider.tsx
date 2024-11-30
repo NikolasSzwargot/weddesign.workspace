@@ -45,19 +45,13 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
         return querystring.parse(search) as Record<string, string>;
     };
 
-    const navigate = (navigationRoute: Route) => {
-        let fullPath: string = navigationRoute.route;
-
-        if (navigationRoute.screen) {
-            const screenPath = navigationRoute.screen.startsWith('/')
-                ? navigationRoute.screen
-                : `/${navigationRoute.route}`;
-            fullPath = fullPath.concat(screenPath);
-        }
-        if (navigationRoute.queryParams) {
-            const query = getQueryParams(navigationRoute.queryParams);
-            fullPath = fullPath.concat(`?${query}`);
-        }
+    const navigate = (navigationRoute: string) => {
+        const fullPath: string = navigationRoute;
+        console.log(fullPath);
+        // if (navigationRoute.queryParams) {
+        //     const query = getQueryParams(navigationRoute.queryParams);
+        //     fullPath = fullPath.concat(`?${query}`);
+        // }
 
         navigateNative(fullPath);
     };
