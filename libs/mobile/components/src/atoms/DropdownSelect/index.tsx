@@ -3,7 +3,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import {View} from 'react-native';
 import styles from './styles';
 
-export type DropdownData<T> = {
+type DropdownData<T> = {
     label: string;
     value: T;
 };
@@ -15,7 +15,7 @@ type LanguageDropdownProps<T> = {
     data: DropdownData<T>[];
 };
 
-export const DropdownSelect = <T,>({
+const DropdownSelect = <T,>({
     value,
     onChange,
     placeholder,
@@ -27,6 +27,7 @@ export const DropdownSelect = <T,>({
                 data={data}
                 labelField="label"
                 valueField="value"
+                //@ts-expect-error Typescript doesn't understand his new library, but the component is working properly
                 value={value}
                 onChange={(item) => onChange(item.value)}
                 placeholder={placeholder}
@@ -40,3 +41,5 @@ export const DropdownSelect = <T,>({
         </View>
     );
 };
+
+export default DropdownSelect;
