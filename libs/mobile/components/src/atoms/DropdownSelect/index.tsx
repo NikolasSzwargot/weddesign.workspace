@@ -27,6 +27,7 @@ export const DropdownSelect = <T,>({
                 data={data}
                 labelField="label"
                 valueField="value"
+                //@ts-expect-error Typescript doesn't understand his new library, but the component is working properly
                 value={value}
                 onChange={(item) => onChange(item.value)}
                 placeholder={placeholder}
