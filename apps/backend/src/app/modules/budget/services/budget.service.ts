@@ -23,7 +23,14 @@ export class BudgetService {
   }
 
   async getExpenseById(id: number): Promise<ExpenseDto> {
-    return this.prisma.expense.findUnique({ where: { id } });
+    try {
+      return this.prisma.expense.findUnique({ where: { id } });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Expense not found');
+      }
+      throw new Error(e);
+    }
   }
 
   async updateExpense(id: number, updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
@@ -34,9 +41,9 @@ export class BudgetService {
       });
     } catch (e) {
       if (e.code === 'P2025') {
-        return null;
+        throw new Error('Expense not found');
       }
-      throw new Error('Expense not found');
+      throw new Error(e);
     }
   }
 
@@ -54,7 +61,14 @@ export class BudgetService {
   }
 
   async deleteExpenseById(id: number): Promise<ExpenseDto> {
-    return this.prisma.expense.delete({ where: { id: id } });
+    try {
+      return this.prisma.expense.delete({ where: { id: id } });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Expense not found');
+      }
+      throw new Error(e);
+    }
   }
 
   async getCategories(): Promise<ExpenseCategory[]> {
@@ -118,9 +132,16 @@ export class BudgetService {
   }
 
   async updateBudgetLimit(id: number, updateBudgetLimitDto: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
-    return this.prisma.mainBudgetLimit.update({
-      where: { id },
-      data: updateBudgetLimitDto,
-    });
+    try {
+      return this.prisma.mainBudgetLimit.update({
+        where: { id },
+        data: updateBudgetLimitDto,
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Budget limit not found');
+      }
+      throw new Error(e);
+    }
   }
 }
