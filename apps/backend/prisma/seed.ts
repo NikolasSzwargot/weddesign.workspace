@@ -76,8 +76,8 @@ async function main() {
       name: expense.name,
       description: `Opis wydatku: ${expense.name.toLowerCase()}`,
       categoryId: expense.categoryId,
-      amount: (expense.categoryId % 5) * 1000, // Calculate amount as categoryId % 5 * 1000
-      isPaid: index % 3 === 0, // Set isPaid to true for every 3rd element
+      amount: (expense.categoryId % 5) * 1000,
+      isPaid: index % 3 === 0,
     };
   });
 
@@ -85,7 +85,7 @@ async function main() {
   //   data: expensesData,
   // });
 
-  console.log('10 guests have been imported correctly');
+  console.log('12 guests have been imported correctly');
 }
 
 main()

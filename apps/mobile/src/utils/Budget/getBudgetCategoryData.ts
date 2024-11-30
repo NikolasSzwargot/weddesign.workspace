@@ -30,17 +30,17 @@ export const getBudgetCategoryData = (catName: string): categoryData => {
             case ExpenseTypes.Place:
             case ExpenseTypes.Decor:
             case ExpenseTypes.Flowers:
-                return Colors.LightGreen;
+                return Colors.StatusAccepted;
             case ExpenseTypes.Photos:
             case ExpenseTypes.Music:
             case ExpenseTypes.Entertainment:
             case ExpenseTypes.Gifts:
-                return Colors.BananaGold;
+                return Colors.StatusInvited;
             case ExpenseTypes.Dress:
             case ExpenseTypes.Appearance:
             case ExpenseTypes.Accessories:
             case ExpenseTypes.Rings:
-                return Colors.Pink;
+                return Colors.PinkLightest;
             case ExpenseTypes.Accommodation:
             case ExpenseTypes.Law:
             case ExpenseTypes.Transport:

@@ -56,7 +56,7 @@ export const SeparatorText = styled.Text`
 export const SearchBarWrapper = styled.View`
     flex-direction: row;
     align-items: center;
-    //padding: 10px;
+    padding: 10px;
     width: 100%;
     justify-content: space-between;
 `;

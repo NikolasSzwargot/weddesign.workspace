@@ -15,17 +15,15 @@ import {Colors} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {expenseList, groupedExpensesL} from '@mobile/mocks';
-import {Expense, ExpGroupL} from '@weddesign/types';
+import {Expense} from '@weddesign/types';
 import {Icons} from '@weddesign/assets';
+import {getBudgetCategoryData} from '@mobile/utils';
 
 import {
     Container,
     BudgetMainWrapper,
     BudgetMainFrame,
     SearchBarWrapper,
-    SeparatorContainer,
-    SeparatorText,
-    ShortSeparatorLine,
 } from './styles';
 
 const BudgetMain = () => {
@@ -67,20 +65,19 @@ const BudgetMain = () => {
         current: 690,
     };
 
-    // TODO: tłumaczenie nie wchodzi
-    const renderSectionHeader = ({
-        section: {title, limitText},
-    }: {
-        section: ExpGroupL;
-    }) => (
-        <SeparatorContainer>
-            {/*<ShortSeparatorLine />*/}
-            <SeparatorText>{t(`category.${title}`)}</SeparatorText>
-            <ShortSeparatorLine />
-            <SeparatorText>{limitText ? limitText : 'no_limit'}</SeparatorText>
-            {/*<ShortSeparatorLine />*/}
-        </SeparatorContainer>
-    );
+    // const renderSectionHeader = ({
+    //     section: {title, limitText},
+    // }: {
+    //     section: ExpGroupL;
+    // }) => (
+    //     <SeparatorContainer>
+    //         {/*<ShortSeparatorLine />*/}
+    //         <SeparatorText>{t(`category.${title}`)}</SeparatorText>
+    //         <ShortSeparatorLine />
+    //         <SeparatorText>{limitText ? limitText : 'no_limit'}</SeparatorText>
+    //         {/*<ShortSeparatorLine />*/}
+    //     </SeparatorContainer>
+    // );
 
     const content = loading ? (
         <>
@@ -112,20 +109,26 @@ const BudgetMain = () => {
                         placeholder={t('searchPlaceholder')}
                     />
                     <IconButton
-                        Icon={Icons.File}
-                        onPress={() => console.log('clicked Filter')}
+                        Icon={Icons.FilterDate}
+                        onPress={() => console.log('clicked FilterDate')}
+                        fillColor={Colors.ButtonGray}
                     />
                     <IconButton
                         Icon={Icons.Plus}
                         onPress={() => console.log('clicked AddGuest')}
+                        fillColor={Colors.LightGreen}
                     />
                 </SearchBarWrapper>
 
-                {/*TODO - szerokość cośnie ten tego*/}
                 <SectionList
                     sections={groupedExpensesL}
-                    keyExtractor={(item) => `siema ${item.id.toString()}`}
-                    renderItem={({item}) => <ExpenseItem exp={item} />}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) => (
+                        <ExpenseItem
+                            exp={item}
+                            catData={getBudgetCategoryData(item.category)}
+                        />
+                    )}
                     renderSectionHeader={CustomSectionHeader}
                     showsVerticalScrollIndicator={true}
                 />

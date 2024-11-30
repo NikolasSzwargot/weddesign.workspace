@@ -6,24 +6,24 @@ import {
     StatusDot,
 } from './styles';
 
-import {Expense} from '@weddesign/types';
+import {categoryData, Expense} from '@weddesign/types';
 import {Icons} from '@weddesign/assets';
 import {IconButton} from '@weddesign/components';
-import {getBudgetCategoryData} from '@mobile/utils';
+// import {getBudgetCategoryData} from '@mobile/utils';
 
 type ExpenseItemProps = {
     exp: Expense;
+    catData: categoryData;
 };
 
-const ExpenseItem = ({exp}: ExpenseItemProps) => {
-    const data = getBudgetCategoryData(exp.category);
+// const ExpenseItem = ({exp}: ExpenseItemProps) => {
+// const data = getBudgetCategoryData(exp.category);
+const ExpenseItem = ({exp, catData}: ExpenseItemProps) => {
     return (
-        // TODO: znaleść dobre miejsce do klikania
         <ExpenseItemContainer onPress={() => console.log(exp.name)}>
             <ExpenseInfoContainer>
-                <StatusDot color={data.color}>
-                    <data.icon />
-                    {/*<Icons.File />*/}
+                <StatusDot color={catData.color}>
+                    <catData.icon />
                 </StatusDot>
                 <ExpenseName>{exp.name}</ExpenseName>
             </ExpenseInfoContainer>
@@ -34,5 +34,8 @@ const ExpenseItem = ({exp}: ExpenseItemProps) => {
         </ExpenseItemContainer>
     );
 };
+
+// TODO: modal od usuwania -> IconButton onPress
+// TODO: nawigacja do edycji -> ExpenseItemContainer onPress
 
 export default ExpenseItem;
