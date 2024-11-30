@@ -3,7 +3,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import {View} from 'react-native';
 import styles from './styles';
 
-export type DropdownData<T> = {
+type DropdownData<T> = {
     label: string;
     value: T;
 };
@@ -15,7 +15,7 @@ type LanguageDropdownProps<T> = {
     data: DropdownData<T>[];
 };
 
-export const DropdownSelect = <T,>({
+const DropdownSelect = <T,>({
     value,
     onChange,
     placeholder,
@@ -41,3 +41,5 @@ export const DropdownSelect = <T,>({
         </View>
     );
 };
+
+export default DropdownSelect;
