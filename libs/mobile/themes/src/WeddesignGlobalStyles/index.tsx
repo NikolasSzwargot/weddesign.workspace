@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         margin: 0,
         padding: 0,
         backgroundColor: Colors.White,
+        color: Colors.Black,
     },
 });
 

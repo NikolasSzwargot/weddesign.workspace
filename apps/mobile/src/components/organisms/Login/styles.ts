@@ -4,9 +4,9 @@ import {Input} from '@weddesign/components';
 export const Container = styled.View`
     flex: 1;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     align-items: center;
+    gap: 150px;
 `;
 
 export const ProgressLogoContainer = styled.View`
@@ -21,4 +21,10 @@ export const ProgressLogoContainer = styled.View`
 export const LoginPageInput = styled(Input)`
     margin: 5px 10px 5px 10px;
     color: black;
+`;
+
+export const NextButtonContainer = styled.View`
+    width: 95%;
+    position: absolute;
+    bottom: 15px;
 `;
