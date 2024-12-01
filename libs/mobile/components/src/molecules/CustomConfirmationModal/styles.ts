@@ -12,14 +12,6 @@ export const ModalContent = styled.View`
     max-height: 200px;
 `;
 
-export const Message = styled.Text`
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #333;
-`;
-
 export const ButtonContainer = styled.View`
     margin-top: 30px;
     margin-bottom: 10px;
