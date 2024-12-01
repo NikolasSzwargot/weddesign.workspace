@@ -11,7 +11,6 @@ import {
     IconButton,
     LoadingSpinner,
     CustomSectionHeader,
-    CustomConfirmationModal,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
@@ -21,6 +20,7 @@ import {GuestDto} from '@shared/dto';
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
 import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
+import {WeddesignConfirmationModal} from '../../molecules';
 
 import {
     Container,
@@ -160,12 +160,12 @@ const GuestList = () => {
                             showsVerticalScrollIndicator={true}
                         />
 
-                        <CustomConfirmationModal
+                        <WeddesignConfirmationModal
                             isVisible={isModalVisible}
                             onBackdropPress={handleCancel}
                             onYesPress={handleYes}
                             onNoPress={handleCancel}
-                        ></CustomConfirmationModal>
+                        ></WeddesignConfirmationModal>
                     </>
                 )}
             </GuestListWrapper>
