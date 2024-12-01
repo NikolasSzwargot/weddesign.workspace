@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {SectionList} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Animated, SectionList} from 'react-native';
 import {
     BudgetFrame,
     CustomSectionHeader,
@@ -12,17 +12,17 @@ import {
     ProgressBar,
 } from '@weddesign/components';
 import {Colors} from '@weddesign/enums';
-import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {expenseList, groupedExpensesL} from '@mobile/mocks';
-import {Expense} from '@weddesign/types';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
+import {Expense} from '@weddesign/types';
 
 import {
     Container,
     BudgetMainWrapper,
     BudgetMainFrame,
+    InfoTextWrapper,
     SearchBarWrapper,
 } from './styles';
 
@@ -31,7 +31,21 @@ const BudgetMain = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [expenses, setExpenses] = useState(expenseList);
-    // const [dateFilterOrSth, setDateFilterOrSth] = useState(Date());
+    // const [dateFilterOrSth, setDateFilterOrSth] = useState(Date())
+
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const infoTextAnimation = {
+        color: scrollY.interpolate({
+            inputRange: [0, 120],
+            outputRange: [Colors.TextGrey, '#00000000'],
+            extrapolate: 'clamp',
+        }),
+        margin: scrollY.interpolate({
+            inputRange: [0, 150],
+            outputRange: [14, 0],
+            extrapolate: 'clamp',
+        }),
+    };
 
     useEffect(() => {
         const fetchExpenses = async () => {
@@ -52,32 +66,10 @@ const BudgetMain = () => {
         fetchExpenses();
     }, []); // Empty array ensures the effect runs only once
 
-    const filteredExpenses = expenses.filter((exp) => {
-        exp.name.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-
-    const expensesByDate = expenses.filter((exp) => {
-        exp.name.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-
     const price = {
-        total: 2137,
-        current: 690,
+        total: 111,
+        current: 111,
     };
-
-    // const renderSectionHeader = ({
-    //     section: {title, limitText},
-    // }: {
-    //     section: ExpGroupL;
-    // }) => (
-    //     <SeparatorContainer>
-    //         {/*<ShortSeparatorLine />*/}
-    //         <SeparatorText>{t(`category.${title}`)}</SeparatorText>
-    //         <ShortSeparatorLine />
-    //         <SeparatorText>{limitText ? limitText : 'no_limit'}</SeparatorText>
-    //         {/*<ShortSeparatorLine />*/}
-    //     </SeparatorContainer>
-    // );
 
     const content = loading ? (
         <>
@@ -89,19 +81,38 @@ const BudgetMain = () => {
             <DudgetEllipse />
             <BudgetMainWrapper>
                 <Header />
-                <BudgetMainFrame>
-                    <BudgetFrame current={price.current} total={price.total} />
+                <BudgetMainFrame
+                    onLongPress={() => console.log('odpalaj edycje kategorii')}
+                    activeOpacity={0.5}
+                >
+                    <BudgetFrame
+                        current={price.current}
+                        total={price.total}
+                        currency={t('currency')}
+                        scrollData={scrollY}
+                    />
                     <ProgressBar
                         max={price.total}
                         progress={price.current}
                         backgroundColor={Colors.LightGray}
                         fillColor={Colors.BananaGold}
                     />
-                    <Text.Regular size={16} style={{textAlign: 'center'}}>{`${t(
-                        'mainProgressbarText',
-                        {percent: Math.round((100 * price.current) / price.total)},
-                    )}`}</Text.Regular>
                 </BudgetMainFrame>
+                <InfoTextWrapper>
+                    <Animated.Text
+                        style={[
+                            infoTextAnimation,
+                            {
+                                fontSize: 14,
+                                fontWeight: 500,
+                                textAlign: 'center',
+                            },
+                        ]}
+                    >{`${t('mainProgressbarText', {
+                        percent: Math.round((100 * price.current) / price.total),
+                    })}`}</Animated.Text>
+                </InfoTextWrapper>
+
                 <SearchBarWrapper>
                     <CustomSearchBar
                         searchQuery={searchQuery}
@@ -130,6 +141,10 @@ const BudgetMain = () => {
                         />
                     )}
                     renderSectionHeader={CustomSectionHeader}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                        {useNativeDriver: false}, // You can't animate layout properties like height natively
+                    )}
                     showsVerticalScrollIndicator={true}
                 />
             </BudgetMainWrapper>

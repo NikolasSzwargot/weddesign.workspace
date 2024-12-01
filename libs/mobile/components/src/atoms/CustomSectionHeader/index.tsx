@@ -1,6 +1,8 @@
 import {
+    EndSeparatorLine,
     LongSeparatorLine,
-    ShortSeparatorLine,
+    MiddleSeparatorLine,
+    StartSeparatorLine,
     UniversalSeparatorContainer,
 } from './styles';
 
@@ -17,15 +19,18 @@ const CustomSectionHeader = ({
     section: {title, subtitle},
 }: CustomSectionHeaderProps) => (
     <UniversalSeparatorContainer>
-        <ShortSeparatorLine />
+        <StartSeparatorLine />
+        {/*TODO: dodać tłumacznie do nazw - teraz TYLKO do budzetu*/}
         <Text.RegularGray>{title}</Text.RegularGray>
-        {subtitle && (
+        {subtitle ? (
             <>
-                <ShortSeparatorLine />
+                <MiddleSeparatorLine />
                 <Text.RegularGray>{subtitle}</Text.RegularGray>
+                <EndSeparatorLine />
             </>
+        ) : (
+            <LongSeparatorLine />
         )}
-        <LongSeparatorLine />
     </UniversalSeparatorContainer>
 );
 

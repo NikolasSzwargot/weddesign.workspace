@@ -12,6 +12,7 @@ export enum Colors {
     ButtonGray = '#f4f4f4',
     WhiteDark = '#aaaaaa',
     BlackLight = '#555555',
+    TextGrey = '#49454F',
     Black = '#000000',
     LightBlue = '#91bee8',
     LightGreen = '#96d5a1',

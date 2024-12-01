@@ -18,5 +18,7 @@
     "law": "Prawne",
     "transport": "Transport",
     "other": "Inne"
-  }
+  },
+  "searchPlaceholder": "Szukaj",
+  "loading": "Ładowanie budżetu..."
 }

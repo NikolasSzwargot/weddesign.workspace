@@ -1,17 +1,18 @@
-import styled from 'styled-components/native';
+import {StyleSheet} from 'react-native';
 import {Colors} from '@weddesign/enums';
 
-export const MainView = styled.View`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: ${Colors.White};
-    min-height: 128px;
-    width: 260px;
-    text-wrap: normal;
-    padding: 10px;
-    border: 4px solid ${Colors.BananaGold};
-    border-radius: 20px;
-    margin-top: 20px;
-`;
+const styles = StyleSheet.create({
+    MainView: {
+        position: 'relative',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.White,
+        width: 265,
+        borderWidth: 4,
+        borderColor: Colors.BananaGold,
+        borderRadius: 15,
+        marginTop: 20,
+    },
+});
+
+export default styles;

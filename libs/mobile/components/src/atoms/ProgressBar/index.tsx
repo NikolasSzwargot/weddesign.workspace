@@ -18,7 +18,10 @@ const ProgressBar = ({
 
     return (
         <ProgressBarContainer backgroundColor={backgroundColor}>
-            <ProgressFill fillPercentage={fillPercentage} fillColor={fillColor} />
+            <ProgressFill
+                fillPercentage={Math.min(Math.max(0, fillPercentage), 100)}
+                fillColor={fillColor}
+            />
         </ProgressBarContainer>
     );
 };

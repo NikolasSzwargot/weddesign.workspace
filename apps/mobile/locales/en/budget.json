@@ -18,5 +18,7 @@
     "law": "Legal",
     "transport": "Transportation",
     "other": "Other"
-  }
+  },
+  "searchPlaceholder": "Search",
+  "loading": "Loading budget page..."
 }
