@@ -4,7 +4,7 @@ import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {useRouting} from '@mobile/components';
-import {LoginRoutes} from '@weddesign/enums';
+import {AppRootRoutes, LoginRoutes} from '@weddesign/enums';
 import {isValidEmail} from '@weddesign/utils';
 
 import {LabelContainer, NextButtonContainer, ProgressLogoContainer} from '../styles';
@@ -76,7 +76,13 @@ const Register = () => {
                 <Button variant={'secondary'} size={'medium'} disabled={!isEgible()}>
                     {t('register.registerNow')}
                 </Button>
-                <Button variant={'gray-out'} size={'medium'}>
+                <Button
+                    variant={'gray-out'}
+                    size={'medium'}
+                    onPress={() => {
+                        router.navigate(AppRootRoutes.LOGIN);
+                    }}
+                >
                     {t('register.loginNow')}
                 </Button>
             </InputGroup>
@@ -86,6 +92,7 @@ const Register = () => {
                     onPress={() => {
                         router.navigate(LoginRoutes.LANGUAGE);
                     }}
+                    variant={'pink-out'}
                 >
                     {t('back')}
                 </Button>

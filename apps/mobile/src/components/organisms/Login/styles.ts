@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {Input} from '@weddesign/components';
 
 export const Container = styled.View`
     flex: 1;
@@ -9,6 +8,14 @@ export const Container = styled.View`
     gap: 150px;
 `;
 
+export const LoginContainer = styled.View`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+`;
+
 export const ProgressLogoContainer = styled.View`
     top: 5%;
     width: 90%;
@@ -16,11 +23,6 @@ export const ProgressLogoContainer = styled.View`
     justify-content: center;
     align-items: center;
     gap: 60px;
-`;
-
-export const LoginPageInput = styled(Input)`
-    margin: 5px 10px 5px 10px;
-    color: black;
 `;
 
 export const NextButtonContainer = styled.View`
@@ -35,4 +37,27 @@ export const LabelContainer = styled.View`
     margin-top: 2%;
     display: flex;
     align-items: center;
+`;
+
+export const ContentComtainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`;
+
+export const DescriptionContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const FormContainer = styled.View`
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    gap: 12px;
 `;

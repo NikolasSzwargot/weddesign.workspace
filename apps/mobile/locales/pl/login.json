@@ -12,5 +12,13 @@
     "password": "hasło",
     "repeatPassword": "powtórz hasło",
     "email": "email@domena.com"
+  },
+  "loginScreen": {
+    "welcome_back": "Witaj ponownie!",
+    "enter_email": "Wpisz swój email, żeby się zalogować",
+    "email_placeholder": "email@domena.com",
+    "password_placeholder": "hasło",
+    "login_with_email": "Zaloguj się z email",
+    "no_account_register": "Nie masz jeszcze konta? Zarejestruj się!"
   }
 }

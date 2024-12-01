@@ -6,7 +6,7 @@ import LanguageSetup from '../../organisms/Login/LanguageSetup';
 import Register from '../../organisms/Login/Register';
 
 type loginPageProps = {
-    screen: LoginScreens;
+    screen?: LoginScreens;
 };
 const LoginPage = ({screen}: loginPageProps) => {
     switch (screen) {
@@ -15,6 +15,7 @@ const LoginPage = ({screen}: loginPageProps) => {
         case LoginScreens.REGISTER:
             return <Register />;
         case LoginScreens.SETUP:
+        default:
             return <Login />;
     }
 };

@@ -5,6 +5,10 @@ import {GuestListPage, HomePage, LoginPage} from '@mobile/components';
 export const LoginRoutingRoutes: Route[] = [
     {
         route: AppRootRoutes.LOGIN,
+        element: <LoginPage />,
+    },
+    {
+        route: AppRootRoutes.LOGIN,
         screen: LoginScreens.REGISTER,
         element: <LoginPage screen={LoginScreens.REGISTER} />,
     },
