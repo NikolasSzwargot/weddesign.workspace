@@ -28,3 +28,10 @@ export const Description = styled.View`
     margin-top: 50px;
     gap: 8px;
 `;
+
+export const InputGroup = styled.View`
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+`;

@@ -27,4 +27,12 @@ export const NextButtonContainer = styled.View`
     width: 95%;
     position: absolute;
     bottom: 15px;
+    align-self: center;
+`;
+
+export const LabelContainer = styled.View`
+    width: 100%;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
 `;

@@ -47,7 +47,8 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
 
     const navigate = (navigationRoute: string) => {
         const fullPath: string = navigationRoute;
-        console.log(fullPath);
+
+        //@TODO: Talk it out if we really need this
         // if (navigationRoute.queryParams) {
         //     const query = getQueryParams(navigationRoute.queryParams);
         //     fullPath = fullPath.concat(`?${query}`);

@@ -6,6 +6,8 @@ import {ThemeProvider} from 'styled-components/native';
 import {NativeRouter} from 'react-router-native';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
+import {KeyboardProvider} from './KeyboardProvider';
+
 type CommonProvidersProps = {
     children: ReactNode;
 };
@@ -18,7 +20,9 @@ export const CommonProviders = ({children}: CommonProvidersProps) => {
             <NativeRouter>
                 <RoutingProvider>
                     <ThemeProvider theme={weddesignTheme}>
-                        <WeddesignGlobalStyles>{children}</WeddesignGlobalStyles>
+                        <KeyboardProvider>
+                            <WeddesignGlobalStyles>{children}</WeddesignGlobalStyles>
+                        </KeyboardProvider>
                     </ThemeProvider>
                 </RoutingProvider>
             </NativeRouter>
