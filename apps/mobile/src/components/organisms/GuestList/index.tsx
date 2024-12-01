@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
-import {SectionList, TouchableWithoutFeedback, Keyboard, View} from 'react-native';
+import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
 import {Text} from '@weddesign/themes';
 import {
-    Header,
-    GuestListBackgroundEllipse,
-    GuestItem,
-    GuestsStatusBar,
     Counter,
+    CustomOverlay,
     CustomSearchBar,
+    CustomSectionHeader,
+    GuestItem,
+    GuestListBackgroundEllipse,
+    GuestsStatusBar,
+    Header,
     IconButton,
     LoadingSpinner,
-    CustomSectionHeader,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
@@ -50,7 +51,6 @@ const GuestList = () => {
     };
     const handleYes = () => {
         setModalVisible(false);
-        console.log(`Deleting ${selectedItem.firstName}`);
         deleteGuest(
             {guestId: selectedItem.id},
             {
@@ -83,6 +83,7 @@ const GuestList = () => {
         data: groupedGuests,
         isLoading: isLoadingGrouped,
         isError: isErrorGrouped,
+        isFetched,
     } = useGuestsGrouped();
 
     return (
@@ -90,7 +91,7 @@ const GuestList = () => {
             <GuestListBackgroundEllipse />
             <GuestListWrapper>
                 <Header />
-                {isLoading || isLoadingGrouped || isDeleting ? (
+                {(isLoading || isLoadingGrouped) && !isFetched ? (
                     <LoadingSpinner
                         color={Colors.LightBlue}
                         msg={t('shared:spinnerMessage')}
@@ -166,6 +167,14 @@ const GuestList = () => {
                             renderSectionHeader={CustomSectionHeader}
                             showsVerticalScrollIndicator={true}
                         />
+                        <CustomOverlay
+                            isVisible={isLoadingGrouped || isLoading || isDeleting}
+                            variant={'center'}
+                        >
+                            <LoadingSpinner
+                                color={Colors.LightBlue}
+                            ></LoadingSpinner>
+                        </CustomOverlay>
 
                         <WeddesignConfirmationModal
                             isVisible={isModalVisible}
