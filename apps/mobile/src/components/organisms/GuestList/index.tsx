@@ -35,10 +35,17 @@ const GuestList = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
+    const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
 
     const handleDelete = (guest: GuestDto) => {
         setSelectedItem(guest);
+        setConfirmationModalText(
+            t('deleteMessage', {
+                firstName: guest.firstName,
+                lastName: guest.lastName,
+            }),
+        );
         setModalVisible(!isModalVisible);
     };
     const handleYes = () => {
@@ -165,6 +172,7 @@ const GuestList = () => {
                             onBackdropPress={handleCancel}
                             onYesPress={handleYes}
                             onNoPress={handleCancel}
+                            message={confirmationModalText}
                         ></WeddesignConfirmationModal>
                     </>
                 )}

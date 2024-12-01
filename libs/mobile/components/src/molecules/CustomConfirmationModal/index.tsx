@@ -35,7 +35,9 @@ const CustomConfirmationModal = ({
                 variant="bottom"
             >
                 <ModalContent>
-                    <Text.Bold size={20}>{message}</Text.Bold>
+                    <Text.Bold size={20} style={{textAlign: 'center'}}>
+                        {message}
+                    </Text.Bold>
                     <ButtonContainer>
                         <Button onPress={onYesPress}>{yesText}</Button>
                         <Button onPress={onNoPress} variant="secondaryFilled">
