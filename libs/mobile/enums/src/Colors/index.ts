@@ -18,6 +18,7 @@ export enum Colors {
     LightGreen = '#96d5a1',
     LightPurple = '#9a95c4',
     LightGray = '#e0e0e0',
+    Gray = '#cccccc',
     StatusCreated = '#dadada',
     StatusInvited = '#f6d36f',
     StatusAccepted = '#b6d79d',

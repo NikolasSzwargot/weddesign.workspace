@@ -22,8 +22,61 @@ async function main() {
 
   console.log('Statuses have been imported correctly');
 
-  // Przykładowe dane gości z imionami i nazwiskami
-  // pewnie można by to zrobić w innym pliku, ale sprawdzał to stefan esz
+  await prisma.expenseCategory.createMany({
+    data: [
+      {
+        name: 'food',
+      },
+      {
+        name: 'place',
+      },
+      {
+        name: 'decoration',
+      },
+      {
+        name: 'flowers',
+      },
+      {
+        name: 'photos',
+      },
+      {
+        name: 'music',
+      },
+      {
+        name: 'entertainment',
+      },
+      {
+        name: 'presents',
+      },
+      {
+        name: 'outfits',
+      },
+      {
+        name: 'beauty',
+      },
+      {
+        name: 'accesories',
+      },
+      {
+        name: 'rings',
+      },
+      {
+        name: 'accomodation',
+      },
+      {
+        name: 'legal',
+      },
+      {
+        name: 'transport',
+      },
+      {
+        name: 'other',
+      },
+    ],
+  });
+
+  console.log('Expense categories have been imported correctly');
+
   const guests = [
     { firstName: 'Filip', lastName: 'Rosiak' },
     { firstName: 'Jakub', lastName: 'Stefański' },
@@ -37,7 +90,6 @@ async function main() {
     { firstName: 'Michał', lastName: 'Konieczny' },
   ];
 
-  // Tworzenie 10 gości z różnymi atrybutami
   const guestsData = guests.map((guest, index) => ({
     firstName: guest.firstName,
     lastName: guest.lastName,

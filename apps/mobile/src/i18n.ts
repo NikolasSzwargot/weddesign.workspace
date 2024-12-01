@@ -12,6 +12,8 @@ import enGuestList from '../locales/en/guestList.json';
 import plGuestList from '../locales/pl/guestList.json';
 import enShared from '../locales/en/shared.json';
 import plShared from '../locales/pl/shared.json';
+import enLogin from '../locales/en/login.json';
+import plLogin from '../locales/pl/login.json';
 
 const resources = {
     en: {
@@ -20,6 +22,7 @@ const resources = {
         budget: enBudget,
         guestList: enGuestList,
         shared: enShared,
+        login: enLogin,
     },
     pl: {
         errors: plErrors,
@@ -27,6 +30,7 @@ const resources = {
         budget: plBudget,
         guestList: plGuestList,
         shared: plShared,
+        login: plLogin,
     },
 };
 
