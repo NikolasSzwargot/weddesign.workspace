@@ -8,7 +8,7 @@ import {StyledInput} from './styles';
 
 type InputProps = TextInputProps & {
     value: string;
-    onChange: (val: string) => void;
+    handleChange: (val: string) => void;
 };
 
 //@TODO: Fix secure text content. Worst case we might need to use native import for it.
@@ -16,22 +16,21 @@ const Input = ({
     inputMode = 'text',
     placeholder = '',
     clearTextOnFocus = false,
+    handleChange,
     value,
-    onChange,
     ...props
 }: InputProps) => {
-    const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-        onChange(e.nativeEvent.text);
+    const changePropagator = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        handleChange(e.nativeEvent.text);
     };
-
     return (
         <StyledInput
             inputMode={inputMode}
             placeholder={placeholder}
             clearTextOnFocus={clearTextOnFocus}
             value={value}
-            onChange={handleChange}
             placeholderTextColor={Colors.Gray}
+            onChange={changePropagator}
             {...props}
         />
     );

@@ -5,7 +5,7 @@ import {Location, useLocation, useNavigate} from 'react-router-native';
 import {Route} from '@weddesign/enums';
 
 type RouterFunctions = {
-    navigate: (navigationRoute: Route) => void;
+    navigate: (navigationRoute: string) => void;
     location: Location;
     query: Route;
 };

@@ -48,7 +48,7 @@ const Register = () => {
             <InputGroup>
                 <Input
                     value={email}
-                    onChange={setEmail}
+                    handleChange={setEmail}
                     inputMode={'email'}
                     placeholder={t('register.email')}
                     autoCapitalize={'none'}
@@ -56,7 +56,7 @@ const Register = () => {
                 />
                 <Input
                     value={password}
-                    onChange={setPassword}
+                    handleChange={setPassword}
                     inputMode={'email'}
                     placeholder={t('register.password')}
                     autoCapitalize={'none'}
@@ -65,7 +65,7 @@ const Register = () => {
                 />
                 <Input
                     value={repeatedPassword}
-                    onChange={setRepeatedPassword}
+                    handleChange={setRepeatedPassword}
                     inputMode={'email'}
                     placeholder={t('register.repeatPassword')}
                     autoCapitalize={'none'}

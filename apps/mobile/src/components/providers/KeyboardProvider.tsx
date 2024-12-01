@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {EmitterSubscription, Keyboard} from 'react-native';
+import {Keyboard} from 'react-native';
 
 type KeyboardContextType = {
     visible: boolean;
@@ -10,7 +10,7 @@ const KeyboardContext = createContext<KeyboardContextType>({
 });
 
 // Provider
-export const KeyboardProvider: React.FC = ({children}) => {
+export const KeyboardProvider = ({children}) => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -22,7 +22,8 @@ export const KeyboardProvider: React.FC = ({children}) => {
         );
 
         return () => {
-            Keyboard.removeAllListeners(EmitterSubscription);
+            Keyboard.removeAllListeners('keyboardDidShow');
+            Keyboard.removeAllListeners('keyboardDidHide');
         };
     }, []);
 
