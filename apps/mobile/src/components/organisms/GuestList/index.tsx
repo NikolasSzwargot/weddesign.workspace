@@ -20,6 +20,7 @@ import {GuestDto} from '@shared/dto';
 
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
 import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
+import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
 
 import {
     Container,
@@ -34,6 +35,7 @@ const GuestList = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
+    const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
 
     const handleDelete = (guest: GuestDto) => {
         setSelectedItem(guest);
@@ -42,6 +44,17 @@ const GuestList = () => {
     const handleYes = () => {
         setModalVisible(false);
         console.log(`Deleting ${selectedItem.firstName}`);
+        deleteGuest(
+            {guestId: selectedItem.id},
+            {
+                onSuccess: () => {
+                    console.log('Guest deleted successfully!');
+                },
+                onError: (error) => {
+                    console.error('Error deleting guest:', error.message);
+                },
+            },
+        );
     };
 
     const handleCancel = () => {
@@ -70,7 +83,7 @@ const GuestList = () => {
             <GuestListBackgroundEllipse />
             <GuestListWrapper>
                 <Header />
-                {isLoading || isLoadingGrouped ? (
+                {isLoading || isLoadingGrouped || isDeleting ? (
                     <LoadingSpinner
                         color={Colors.LightBlue}
                         msg={t('shared:spinnerMessage')}
