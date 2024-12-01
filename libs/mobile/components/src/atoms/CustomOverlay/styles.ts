@@ -7,12 +7,14 @@ export const styles = StyleSheet.create({
         zIndex: 9999,
         width: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0.0)',
+        padding: 0,
     },
     backdropStyle: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     bottomContentContainer: {
         justifyContent: 'flex-end',
+        flex: 1,
     },
     centerContentContainer: {
         justifyContent: 'center',

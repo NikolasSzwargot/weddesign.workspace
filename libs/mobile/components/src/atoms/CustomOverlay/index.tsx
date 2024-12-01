@@ -2,7 +2,7 @@ import {Overlay} from 'react-native-elements';
 import {styles} from './styles';
 import {View} from 'react-native';
 
-export type CustomOverlayProps = {
+type CustomOverlayProps = {
     isVisible: boolean;
     onBackdropPress?: () => void;
     children?: React.ReactNode;

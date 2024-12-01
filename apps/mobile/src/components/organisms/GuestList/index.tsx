@@ -11,6 +11,7 @@ import {
     IconButton,
     LoadingSpinner,
     CustomSectionHeader,
+    CustomConfirmationModal,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
@@ -30,6 +31,22 @@ import {
 const GuestList = () => {
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const handleYes = () => {
+        setModalVisible(!isModalVisible);
+        console.log('You clicked Yes!');
+    };
+
+    const handleNo = () => {
+        setModalVisible(false);
+        console.log('You clicked No!');
+    };
+
+    const handleBackdrop = () => {
+        setModalVisible(false);
+        console.log('You clicked Backdrop!');
+    };
 
     const {
         countStatuses,
@@ -108,9 +125,10 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.AddGuest}
-                                        onPress={() =>
-                                            console.log('clicked AddGuest')
-                                        }
+                                        // onPress={() =>
+                                        //     console.log('clicked AddGuest')
+                                        // }
+                                        onPress={handleYes}
                                     />
                                 </SearchBarWrapper>
                             </View>
@@ -123,6 +141,13 @@ const GuestList = () => {
                             renderSectionHeader={CustomSectionHeader}
                             showsVerticalScrollIndicator={true}
                         />
+
+                        <CustomConfirmationModal
+                            isVisible={isModalVisible}
+                            onBackdropPress={handleBackdrop}
+                            onYesPress={handleYes}
+                            onNoPress={handleNo}
+                        ></CustomConfirmationModal>
                     </>
                 )}
             </GuestListWrapper>
