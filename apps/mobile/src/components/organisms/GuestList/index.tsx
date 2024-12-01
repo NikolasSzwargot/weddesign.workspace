@@ -66,7 +66,6 @@ const GuestList = () => {
 
     const handleCancel = () => {
         setModalVisible(false);
-        console.log('Canceled');
     };
 
     const {

@@ -13,7 +13,7 @@ const CustomOverlay = ({
     isVisible,
     onBackdropPress,
     children,
-    variant = 'bottom', // Default to "bottom"
+    variant = 'bottom',
 }: CustomOverlayProps) => {
     const fullScreen = variant === 'center';
     const animationType = variant === 'bottom' ? 'slide' : 'fade';

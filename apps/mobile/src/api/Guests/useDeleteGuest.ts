@@ -9,7 +9,7 @@ type DeleteGuestParams = {
 };
 
 export const useDeleteGuest = () => {
-    const api = useUnauthorizedFetch(); // Use your fetchWrapper
+    const api = useUnauthorizedFetch();
     const queryClient = useQueryClient();
 
     return useMutation<GuestDto, Error, DeleteGuestParams>(
@@ -23,7 +23,6 @@ export const useDeleteGuest = () => {
         },
         {
             onSuccess: () => {
-                // Invalidate queries related to guests to refresh data
                 queryClient.invalidateQueries([ApiRoutes.GuestsGrouped]);
                 queryClient.invalidateQueries([ApiRoutes.GuestsCount]);
             },
