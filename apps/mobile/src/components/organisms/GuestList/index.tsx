@@ -33,24 +33,20 @@ const GuestList = () => {
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
 
     const handleDelete = (guest: GuestDto) => {
-        console.log(guest.firstName);
-        // setModalVisible(!isModalVisible);
+        setSelectedItem(guest);
+        setModalVisible(!isModalVisible);
     };
     const handleYes = () => {
-        setModalVisible(!isModalVisible);
-        console.log('You clicked Yes!');
+        setModalVisible(false);
+        console.log(`Deleting ${selectedItem.firstName}`);
     };
 
-    const handleNo = () => {
+    const handleCancel = () => {
         setModalVisible(false);
-        console.log('You clicked No!');
-    };
-
-    const handleBackdrop = () => {
-        setModalVisible(false);
-        console.log('You clicked Backdrop!');
+        console.log('Canceled');
     };
 
     const {
@@ -130,10 +126,9 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.AddGuest}
-                                        // onPress={() =>
-                                        //     console.log('clicked AddGuest')
-                                        // }
-                                        onPress={handleYes}
+                                        onPress={() =>
+                                            console.log('clicked AddGuest')
+                                        }
                                     />
                                 </SearchBarWrapper>
                             </View>
@@ -154,9 +149,9 @@ const GuestList = () => {
 
                         <CustomConfirmationModal
                             isVisible={isModalVisible}
-                            onBackdropPress={handleBackdrop}
+                            onBackdropPress={handleCancel}
                             onYesPress={handleYes}
-                            onNoPress={handleNo}
+                            onNoPress={handleCancel}
                         ></CustomConfirmationModal>
                     </>
                 )}
