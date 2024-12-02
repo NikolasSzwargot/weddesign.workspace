@@ -18,10 +18,10 @@ import {Icons} from '@weddesign/assets';
 import {Colors} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
-import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
-import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
 import {WeddesignConfirmationModal} from '../../molecules';
+import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
+import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
 
 import {
     Container,
@@ -38,6 +38,22 @@ const GuestList = () => {
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
+    const {
+        data: groupedGuests,
+        isLoading: isLoadingGrouped,
+        isError: isErrorGrouped,
+        isFetching: isFetchingGrouped,
+    } = useGuestsGrouped();
+    const {
+        countStatuses,
+        countTotal,
+        countChild,
+        countOvernight,
+        countVege,
+        isLoading,
+        isFetching,
+        isError,
+    } = useGuestsStatistics();
 
     const handleDelete = (guest: GuestDto) => {
         setSelectedItem(guest);
@@ -63,34 +79,16 @@ const GuestList = () => {
             },
         );
     };
-
     const handleCancel = () => {
         setModalVisible(false);
     };
-
-    const {
-        countStatuses,
-        countTotal,
-        countChild,
-        countOvernight,
-        countVege,
-        isLoading,
-        isError,
-    } = useGuestsStatistics();
-
-    const {
-        data: groupedGuests,
-        isLoading: isLoadingGrouped,
-        isError: isErrorGrouped,
-        isFetched,
-    } = useGuestsGrouped();
 
     return (
         <Container>
             <GuestListBackgroundEllipse />
             <GuestListWrapper>
                 <Header />
-                {(isLoading || isLoadingGrouped) && !isFetched ? (
+                {isLoading || isLoadingGrouped ? (
                     <LoadingSpinner
                         color={Colors.LightBlue}
                         msg={t('shared:spinnerMessage')}
@@ -167,7 +165,7 @@ const GuestList = () => {
                             showsVerticalScrollIndicator={true}
                         />
                         <CustomOverlay
-                            isVisible={isLoadingGrouped || isLoading || isDeleting}
+                            isVisible={isDeleting || isFetchingGrouped || isFetching}
                             variant={'center'}
                         >
                             <LoadingSpinner
