@@ -20,3 +20,9 @@ export enum GuestsScreens {
     LIST = '/list',
     ADD = '/add',
 }
+
+// ----- EXPENSES -----
+export enum ExpensesScreens {
+    LIST = '/list',
+    ADD = '/add',
+}
