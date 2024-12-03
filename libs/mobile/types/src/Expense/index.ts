@@ -22,3 +22,10 @@ export type categoryData = {
     color: Colors;
     icon: React.FC<SvgProps>;
 };
+
+export type MainLimitProps = {
+    limit: number;
+    paid: number;
+    notPaid: number;
+    totalPlanned: number;
+};

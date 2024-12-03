@@ -9,7 +9,7 @@ import {
     ExpenseItem,
     Header,
     LoadingSpinner,
-    ProgressBar,
+    BudgetStatusBar,
 } from '@weddesign/components';
 import {Colors} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
@@ -67,8 +67,9 @@ const BudgetMain = () => {
     }, []); // Empty array ensures the effect runs only once
 
     const price = {
-        total: 111,
-        current: 111,
+        total: 21370000,
+        paid: 100,
+        nPaid: 320000,
     };
 
     const content = loading ? (
@@ -86,16 +87,20 @@ const BudgetMain = () => {
                     activeOpacity={0.5}
                 >
                     <BudgetFrame
-                        current={price.current}
+                        current={price.paid + price.nPaid}
                         total={price.total}
                         currency={t('currency')}
                         scrollData={scrollY}
                     />
-                    <ProgressBar
-                        max={price.total}
-                        progress={price.current}
-                        backgroundColor={Colors.LightGray}
-                        fillColor={Colors.BananaGold}
+                    <BudgetStatusBar
+                        limit={price.total}
+                        notPaid={price.nPaid}
+                        paid={price.paid}
+                        totalPlanned={price.paid + price.nPaid}
+                        // limit={mainLimitData.limit}
+                        // notPaid={mainLimitData.notPaid}
+                        // paid={mainLimitData.paid}
+                        // totalPlanned={mainLimitData.totalPlanned}
                     />
                 </BudgetMainFrame>
                 <InfoTextWrapper>
@@ -109,7 +114,9 @@ const BudgetMain = () => {
                             },
                         ]}
                     >{`${t('mainProgressbarText', {
-                        percent: Math.round((100 * price.current) / price.total),
+                        percent: Math.round(
+                            ((price.paid + price.nPaid) / price.total) * 100,
+                        ),
                     })}`}</Animated.Text>
                 </InfoTextWrapper>
 

@@ -133,11 +133,11 @@ async function main() {
     };
   });
 
-  // await prisma.expense.createMany({
-  //   data: expensesData,
-  // });
+  await prisma.expense.createMany({
+    data: expensesData,
+  });
 
-  console.log('12 guests have been imported correctly');
+  console.log('12 expenses have been imported correctly');
 }
 
 main()
