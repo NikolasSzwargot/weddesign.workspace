@@ -15,7 +15,7 @@ export type Expense = {
 export type ExpGroupL = {
     title: string;
     data: Expense[];
-    limitText?: string;
+    subtitle?: string;
 };
 
 export type categoryData = {

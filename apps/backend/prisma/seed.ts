@@ -31,7 +31,7 @@ async function main() {
         name: 'place',
       },
       {
-        name: 'decoration',
+        name: 'decor',
       },
       {
         name: 'flowers',
@@ -46,22 +46,22 @@ async function main() {
         name: 'entertainment',
       },
       {
-        name: 'presents',
+        name: 'gifts',
       },
       {
-        name: 'outfits',
+        name: 'dress',
       },
       {
-        name: 'beauty',
+        name: 'appearance',
       },
       {
-        name: 'accesories',
+        name: 'accessories',
       },
       {
         name: 'rings',
       },
       {
-        name: 'accomodation',
+        name: 'accommodation',
       },
       {
         name: 'legal',
