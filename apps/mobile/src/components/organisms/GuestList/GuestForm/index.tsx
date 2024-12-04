@@ -14,6 +14,8 @@ import {useTranslation} from 'react-i18next';
 import {CreateGuestDto} from '@shared/dto';
 import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 
+import {useCreateGuest} from '../../../../api/Guests/useCreateGuest';
+
 import {
     Container,
     ErrorArea,
@@ -26,6 +28,7 @@ import {
 const GuestForm = () => {
     const {router} = useRouting();
     const {t} = useTranslation('guestList');
+    const {mutate: createGuest, isLoading: isLoadingCreate} = useCreateGuest();
     const {control, handleSubmit, setValue} = useForm<CreateGuestDto>({
         defaultValues: {
             firstName: '',
@@ -54,8 +57,17 @@ const GuestForm = () => {
     }, [guest, setValue]);
 
     const handleSave = (data: CreateGuestDto) => {
-        guest ? console.log('Edycja gościa') : console.log('Tworzenie gościa');
-        router.navigate(GuestListRoutes.LIST);
+        guest
+            ? console.log('Edycja gościa')
+            : createGuest(data, {
+                  onSuccess: () => {
+                      console.log('Guest deleted successfully!');
+                      router.navigate(GuestListRoutes.LIST);
+                  },
+                  onError: (error) => {
+                      console.error('Error deleting guest:', error.message);
+                  },
+              });
     };
 
     return (
