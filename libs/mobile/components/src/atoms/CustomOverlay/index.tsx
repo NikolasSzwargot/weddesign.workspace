@@ -16,7 +16,6 @@ const CustomOverlay = ({
     variant = 'bottom',
 }: CustomOverlayProps) => {
     const fullScreen = variant === 'center';
-    const animationType = 'fade';
     const containerStyle =
         variant === 'bottom'
             ? styles.bottomContentContainer
@@ -27,7 +26,7 @@ const CustomOverlay = ({
             isVisible={isVisible}
             onBackdropPress={onBackdropPress}
             overlayStyle={styles.overlayStyle}
-            animationType={animationType}
+            animationType={'fade'}
             statusBarTranslucent={true}
             backdropStyle={styles.backdropStyle}
             fullScreen={fullScreen}
