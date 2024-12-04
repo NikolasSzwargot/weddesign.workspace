@@ -4,4 +4,5 @@ export enum ApiRoutes {
     Register = '/auth/register',
     GuestsGrouped = '/guests/grouped',
     GuestsCount = '/guests/count',
+    GuestsDelete = '/guests',
 }
