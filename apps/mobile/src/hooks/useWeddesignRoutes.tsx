@@ -1,9 +1,9 @@
 import React from 'react';
 import {WeddesignRoutingRoutes} from '@mobile/routes';
 import {Navigate, Route, Routes, useLocation} from 'react-router-native';
-import {GuestListRoutes} from '@weddesign/enums';
+import {LoginRoutes} from '@weddesign/enums';
 
-const DEFAULT_ROUTE = GuestListRoutes.LIST as const;
+const DEFAULT_ROUTE = LoginRoutes.LANGUAGE as const;
 
 export const useWeddesignRoutes = () => {
     const location = useLocation();
