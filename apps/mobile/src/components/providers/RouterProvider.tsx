@@ -5,7 +5,7 @@ import {Location, useLocation, useNavigate} from 'react-router-native';
 import {Route} from '@weddesign/enums';
 
 type RouterFunctions = {
-    navigate: (navigationRoute: Route) => void;
+    navigate: (navigationRoute: string) => void;
     location: Location;
     query: Route;
 };
@@ -45,19 +45,14 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
         return querystring.parse(search) as Record<string, string>;
     };
 
-    const navigate = (navigationRoute: Route) => {
-        let fullPath: string = navigationRoute.route;
+    const navigate = (navigationRoute: string) => {
+        const fullPath: string = navigationRoute;
 
-        if (navigationRoute.screen) {
-            const screenPath = navigationRoute.screen.startsWith('/')
-                ? navigationRoute.screen
-                : `/${navigationRoute.route}`;
-            fullPath = fullPath.concat(screenPath);
-        }
-        if (navigationRoute.queryParams) {
-            const query = getQueryParams(navigationRoute.queryParams);
-            fullPath = fullPath.concat(`?${query}`);
-        }
+        //@TODO: Talk it out if we really need this
+        // if (navigationRoute.queryParams) {
+        //     const query = getQueryParams(navigationRoute.queryParams);
+        //     fullPath = fullPath.concat(`?${query}`);
+        // }
 
         navigateNative(fullPath);
     };
