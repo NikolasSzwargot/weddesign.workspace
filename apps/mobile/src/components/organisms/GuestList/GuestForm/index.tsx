@@ -12,6 +12,7 @@ import {Colors} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {CreateGuestDto} from '@shared/dto';
+import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 
 import {
     Container,
@@ -61,156 +62,161 @@ const GuestForm = () => {
     };
 
     return (
-        <Container>
-            <GuestListBackgroundEllipse />
-            <GuestFormWrapper>
-                <Header />
-                <FormInputWrapper>
-                    <InputRow>
-                        <Controller
-                            name="firstName"
-                            control={control}
-                            rules={{
-                                required:
-                                    t('errors.firstName') ||
-                                    'First name is required',
-                            }}
-                            render={({
-                                field: {onChange, value},
-                                fieldState: {error},
-                            }) => (
-                                <>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Container>
+                <GuestListBackgroundEllipse />
+                <GuestFormWrapper>
+                    <Header />
+                    <FormInputWrapper>
+                        <InputRow>
+                            <Controller
+                                name="firstName"
+                                control={control}
+                                rules={{
+                                    required:
+                                        t('errors.firstName') ||
+                                        'First name is required',
+                                }}
+                                render={({
+                                    field: {onChange, value},
+                                    fieldState: {error},
+                                }) => (
+                                    <>
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t('guestForm.firstName')}
+                                            inputMode={'text'}
+                                        />
+                                        <ErrorArea>
+                                            {error && (
+                                                <Text.Error size={14}>
+                                                    {error.message}
+                                                </Text.Error>
+                                            )}
+                                        </ErrorArea>
+                                    </>
+                                )}
+                            />
+                        </InputRow>
+
+                        <InputRow>
+                            <Controller
+                                name="lastName"
+                                control={control}
+                                rules={{
+                                    required:
+                                        t('errors.lastName') ||
+                                        'Last name is required',
+                                }}
+                                render={({
+                                    field: {onChange, value},
+                                    fieldState: {error},
+                                }) => (
+                                    <>
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t('guestForm.lastName')}
+                                            inputMode={'text'}
+                                        />
+                                        <ErrorArea>
+                                            {error && (
+                                                <Text.Error size={14}>
+                                                    {error.message}
+                                                </Text.Error>
+                                            )}
+                                        </ErrorArea>
+                                    </>
+                                )}
+                            />
+                        </InputRow>
+
+                        <InputRow>
+                            <Controller
+                                name="notes"
+                                control={control}
+                                render={({field: {onChange, value}}) => (
                                     <Input
                                         value={value}
                                         handleChange={onChange}
-                                        placeholder={t('guestForm.firstName')}
+                                        placeholder={t('guestForm.notes')}
                                         inputMode={'text'}
+                                        multiline={true}
                                     />
-                                    <ErrorArea>
-                                        {error && (
-                                            <Text.Error size={14}>
-                                                {error.message}
-                                            </Text.Error>
-                                        )}
-                                    </ErrorArea>
-                                </>
-                            )}
-                        />
-                    </InputRow>
+                                )}
+                            />
+                        </InputRow>
 
-                    <InputRow>
-                        <Controller
-                            name="lastName"
-                            control={control}
-                            rules={{
-                                required:
-                                    t('errors.lastName') || 'Last name is required',
-                            }}
-                            render={({
-                                field: {onChange, value},
-                                fieldState: {error},
-                            }) => (
-                                <>
-                                    <Input
+                        <Row>
+                            <Controller
+                                name="isChild"
+                                control={control}
+                                render={({field: {onChange, value}}) => (
+                                    <CustomSwitch
                                         value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('guestForm.lastName')}
-                                        inputMode={'text'}
+                                        onChange={() => onChange(!value)}
+                                        onColor={Colors.LightBlue}
                                     />
-                                    <ErrorArea>
-                                        {error && (
-                                            <Text.Error size={14}>
-                                                {error.message}
-                                            </Text.Error>
-                                        )}
-                                    </ErrorArea>
-                                </>
-                            )}
-                        />
-                    </InputRow>
+                                )}
+                            />
+                            <Text.Regular>{t('guestForm.child')}</Text.Regular>
+                        </Row>
 
-                    <InputRow>
-                        <Controller
-                            name="notes"
-                            control={control}
-                            render={({field: {onChange, value}}) => (
-                                <Input
-                                    value={value}
-                                    handleChange={onChange}
-                                    placeholder={t('guestForm.notes')}
-                                    inputMode={'text'}
-                                    multiline={true}
-                                />
-                            )}
-                        />
-                    </InputRow>
+                        <Row>
+                            <Controller
+                                name="overnight"
+                                control={control}
+                                render={({field: {onChange, value}}) => (
+                                    <CustomSwitch
+                                        value={value}
+                                        onChange={() => onChange(!value)}
+                                        onColor={Colors.LightBlue}
+                                    />
+                                )}
+                            />
+                            <Text.Regular>
+                                {t('guestForm.accommodation')}
+                            </Text.Regular>
+                        </Row>
 
-                    <Row>
-                        <Controller
-                            name="isChild"
-                            control={control}
-                            render={({field: {onChange, value}}) => (
-                                <CustomSwitch
-                                    value={value}
-                                    onChange={() => onChange(!value)}
-                                    onColor={Colors.LightBlue}
-                                />
-                            )}
-                        />
-                        <Text.Regular>{t('guestForm.child')}</Text.Regular>
-                    </Row>
+                        <Row>
+                            <Controller
+                                name="canGetThere"
+                                control={control}
+                                render={({field: {onChange, value}}) => (
+                                    <CustomSwitch
+                                        value={value}
+                                        onChange={() => onChange(!value)}
+                                        onColor={Colors.LightBlue}
+                                    />
+                                )}
+                            />
+                            <Text.Regular>{t('guestForm.transport')}</Text.Regular>
+                        </Row>
 
-                    <Row>
-                        <Controller
-                            name="overnight"
-                            control={control}
-                            render={({field: {onChange, value}}) => (
-                                <CustomSwitch
-                                    value={value}
-                                    onChange={() => onChange(!value)}
-                                    onColor={Colors.LightBlue}
-                                />
-                            )}
-                        />
-                        <Text.Regular>{t('guestForm.accommodation')}</Text.Regular>
-                    </Row>
+                        <Row>
+                            <Controller
+                                name="isVege"
+                                control={control}
+                                render={({field: {onChange, value}}) => (
+                                    <CustomSwitch
+                                        value={value}
+                                        onChange={() => onChange(!value)}
+                                        onColor={Colors.LightBlue}
+                                    />
+                                )}
+                            />
+                            <Text.Regular>{t('guestForm.vege')}</Text.Regular>
+                        </Row>
 
-                    <Row>
-                        <Controller
-                            name="canGetThere"
-                            control={control}
-                            render={({field: {onChange, value}}) => (
-                                <CustomSwitch
-                                    value={value}
-                                    onChange={() => onChange(!value)}
-                                    onColor={Colors.LightBlue}
-                                />
-                            )}
-                        />
-                        <Text.Regular>{t('guestForm.transport')}</Text.Regular>
-                    </Row>
-
-                    <Row>
-                        <Controller
-                            name="isVege"
-                            control={control}
-                            render={({field: {onChange, value}}) => (
-                                <CustomSwitch
-                                    value={value}
-                                    onChange={() => onChange(!value)}
-                                    onColor={Colors.LightBlue}
-                                />
-                            )}
-                        />
-                        <Text.Regular>{t('guestForm.vege')}</Text.Regular>
-                    </Row>
-
-                    <Button onPress={handleSubmit(handleSave)}>
-                        {t('guestForm.save')}
-                    </Button>
-                </FormInputWrapper>
-            </GuestFormWrapper>
-        </Container>
+                        <Button onPress={handleSubmit(handleSave)}>
+                            {t('guestForm.save')}
+                        </Button>
+                    </FormInputWrapper>
+                </GuestFormWrapper>
+            </Container>
+        </TouchableWithoutFeedback>
     );
 };
 
