@@ -6,7 +6,12 @@ type guestsPageProps = {
     screen?: GuestsScreens;
 };
 const GuestListPage = ({screen}: guestsPageProps) => {
-    return <GuestList />;
+    switch (screen) {
+        case GuestsScreens.LIST:
+            return <GuestList />;
+        case GuestsScreens.ADD:
+            return <GuestList />;
+    }
 };
 
 export default GuestListPage;

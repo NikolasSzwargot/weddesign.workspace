@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import {Colors} from '@weddesign/enums';
 
 type VariantProps = {
-    variant: 'primary' | 'secondary' | 'gray-out';
+    variant: 'primary' | 'secondary' | 'gray-out' | 'secondaryFilled';
     size?: 'big' | 'medium' | 'small';
     disabled?: boolean;
 };
@@ -24,6 +24,12 @@ export const ButtonContainer = styled.TouchableOpacity<VariantProps>`
                 return `
                     background-color: ${Colors.GrayOut};
                     border: 1px solid ${Colors.GrayOut};
+                `;
+            case 'secondaryFilled':
+                return `
+                    background-color: ${
+                        disabled ? Colors.PinkLighter : Colors.PinkLightest
+                    };
                 `;
             case 'primary':
             default:
@@ -69,6 +75,7 @@ export const ButtonText = styled.Text<VariantProps>`
                     color: ${Colors.White};
                 `;
             case 'primary':
+            case 'secondaryFilled':
             default:
                 return `
                     color: ${disabled ? Colors.WhiteDark : Colors.White};
