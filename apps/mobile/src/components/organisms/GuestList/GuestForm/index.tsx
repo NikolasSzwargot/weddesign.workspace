@@ -39,25 +39,22 @@ const GuestForm = () => {
             guestStatusId: 1,
         },
     });
-    // Get potential guest from the passed state
+
     const guest = router.location.state;
-    //
-    // React.useEffect(() => {
-    //     if (guest) {
-    //         // Populate form if editing an existing guest
-    //         setValue('firstName', guest.firstName);
-    //         setValue('lastName', guest.lastName);
-    //         setValue('notes', guest.notes);
-    //         setValue('isChild', guest.isChild);
-    //         setValue('needsAccommodation', guest.needsAccommodation);
-    //         setValue('needsTransport', guest.needsTransport);
-    //         setValue('hasSpecialDiet', guest.hasSpecialDiet);
-    //     }
-    // }, [guest, setValue]);
+    React.useEffect(() => {
+        if (guest) {
+            setValue('firstName', guest.firstName);
+            setValue('lastName', guest.lastName);
+            setValue('notes', guest.notes);
+            setValue('isChild', guest.isChild);
+            setValue('overnight', guest.overnight);
+            setValue('canGetThere', guest.canGetThere);
+            setValue('isVege', guest.isVege);
+        }
+    }, [guest, setValue]);
 
     const handleSave = (data: CreateGuestDto) => {
-        // console.log('Form submitted:', guest ? 'Edited guest' : 'New guest', data);
-        console.log(guest);
+        guest ? console.log('Edycja gościa') : console.log('Tworzenie gościa');
         router.navigate(GuestListRoutes.LIST);
     };
 
