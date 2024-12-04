@@ -5,7 +5,7 @@ import {Location, useLocation, useNavigate} from 'react-router-native';
 import {Route} from '@weddesign/enums';
 
 type RouterFunctions = {
-    navigate: (navigationRoute: string) => void;
+    navigate: (navigationRoute: string, state?: any) => void;
     location: Location;
     query: Route;
 };
@@ -45,7 +45,7 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
         return querystring.parse(search) as Record<string, string>;
     };
 
-    const navigate = (navigationRoute: string) => {
+    const navigate = (navigationRoute: string, state?: any) => {
         const fullPath: string = navigationRoute;
 
         //@TODO: Talk it out if we really need this
@@ -54,7 +54,7 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
         //     fullPath = fullPath.concat(`?${query}`);
         // }
 
-        navigateNative(fullPath);
+        navigateNative(fullPath, {state});
     };
 
     const query = useMemo<Route>(() => {

@@ -39,9 +39,8 @@ const GuestForm = () => {
             guestStatusId: 1,
         },
     });
-
     // Get potential guest from the passed state
-    const guest = router.query.queryParams?.guest;
+    const guest = router.location.state;
     //
     // React.useEffect(() => {
     //     if (guest) {
@@ -57,9 +56,9 @@ const GuestForm = () => {
     // }, [guest, setValue]);
 
     const handleSave = (data: CreateGuestDto) => {
-        console.log('Form submitted:', guest ? 'Edited guest' : 'New guest', data);
+        // console.log('Form submitted:', guest ? 'Edited guest' : 'New guest', data);
+        console.log(guest);
         router.navigate(GuestListRoutes.LIST);
-        // router.navigate(-1); // Navigate back after save
     };
 
     return (

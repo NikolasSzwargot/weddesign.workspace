@@ -160,6 +160,9 @@ const GuestList = () => {
                             renderItem={({item}) => (
                                 <GuestItem
                                     guest={item}
+                                    onGuestPress={() =>
+                                        router.navigate(GuestListRoutes.ADD, item)
+                                    }
                                     onDeletePress={handleDelete}
                                 />
                             )}

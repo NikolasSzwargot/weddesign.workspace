@@ -12,11 +12,12 @@ import {Icons} from '@weddesign/assets';
 
 type GuestItemProps = {
     guest: GuestDto;
+    onGuestPress: () => void;
     onDeletePress: (guest: GuestDto) => void;
 };
 
-const GuestItem = ({guest, onDeletePress}: GuestItemProps) => (
-    <GuestItemContainer>
+const GuestItem = ({guest, onGuestPress, onDeletePress}: GuestItemProps) => (
+    <GuestItemContainer onPress={onGuestPress}>
         <GuestInfoContainer>
             <StatusDot status={guest.guestStatusId} />
             <GuestNameWrapper>
