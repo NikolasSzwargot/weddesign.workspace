@@ -6,5 +6,19 @@
     "vege": "vege"
   },
   "searchPlaceholder": "Search",
-  "deleteMessage": "Are you sure you want to delete guest {{firstName}} {{lastName}}?"
+  "deleteMessage": "Are you sure you want to delete guest {{firstName}} {{lastName}}?",
+  "guestForm": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "notes": "Here you can add any notes about the guest :)",
+    "child": "Child",
+    "accommodation": "Needs accommodation",
+    "transport": "Needs transport",
+    "vege": "Has special diet",
+    "save": "Save"
+  },
+  "errors": {
+    "firstName": "First name is required",
+    "lastName": "Last name is required"
+  }
 }
