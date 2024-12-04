@@ -28,14 +28,6 @@ export const InputRow = styled.View`
     margin-bottom: 12px;
 `;
 
-export const TextArea = styled.TextInput`
-    height: 80px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-    text-align-vertical: top;
-`;
-
 export const Row = styled.View`
     flex-direction: row;
     align-items: center;
