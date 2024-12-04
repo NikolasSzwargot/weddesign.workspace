@@ -15,7 +15,7 @@ const Modal = ({isVisible, onBackdropPress, children}: ModalProps) => {
         if (isVisible) {
             Animated.timing(slideAnim, {
                 toValue: 0,
-                duration: 150,
+                duration: 200,
                 easing: Easing.out(Easing.ease),
                 useNativeDriver: true,
             }).start();
