@@ -11,6 +11,7 @@ import {
 } from '@shared/dto';
 import { ExpenseCategory } from '@prisma/client';
 import { PrismaService } from '../../../prisma-client.service';
+import { formatDateToString } from '../../../../common/utils/date.util';
 
 @Injectable()
 export class BudgetService {
@@ -134,11 +135,10 @@ export class BudgetService {
     );
     return expenseDetails.sort((a, b) => b.spent - a.spent);
   }
-
   private groupExpensesByDate(expenses: ExpenseDto[]): Record<string, ExpenseDto[]> {
     return expenses.reduce(
       (acc, expense) => {
-        const date = expense.deadline.toString();
+        const date = formatDateToString(expense.deadline);
         if (!acc[date]) {
           acc[date] = [];
         }
@@ -153,7 +153,7 @@ export class BudgetService {
     const spent = expenses.reduce((total, expense) => total + expense.amount, 0);
 
     return {
-      date: new Date(dateStr),
+      date: dateStr,
       expenses: expenses.sort((a, b) => b.amount - a.amount),
       spent,
     };
@@ -164,12 +164,14 @@ export class BudgetService {
     const expenses = await this.getExpenses();
     const paidExpenses = expenses.filter((expense) => expense.isPaid);
     const notPaidExpenses = expenses.filter((expense) => !expense.isPaid);
+    const totalPlanned = expenses.reduce((total, expense) => total + expense.amount, 0);
 
     return {
       limit: budgetLimit.limit,
       paid: paidExpenses.reduce((total, expense) => total + expense.amount, 0),
       notPaid: notPaidExpenses.reduce((total, expense) => total + expense.amount, 0),
-      totalPlanned: expenses.reduce((total, expense) => total + expense.amount, 0),
+      totalPlanned: totalPlanned,
+      totalPercent: (totalPlanned / budgetLimit.limit) * 100,
     };
   }
 

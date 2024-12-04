@@ -1,7 +1,7 @@
 import { Expense } from '@prisma/client';
 
 export class ExpensesByDateDto {
-  date: Date;
+  date: string;
   expenses: Expense[];
   spent: number;
 }
