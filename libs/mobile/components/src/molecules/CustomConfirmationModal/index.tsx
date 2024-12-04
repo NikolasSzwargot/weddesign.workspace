@@ -27,6 +27,7 @@ const CustomConfirmationModal = ({
         <Modal
             visible={isVisible}
             onRequestClose={onBackdropPress}
+            animationType={'slide'}
             transparent={true}
         >
             <CustomOverlay

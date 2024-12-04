@@ -16,7 +16,7 @@ const CustomOverlay = ({
     variant = 'bottom',
 }: CustomOverlayProps) => {
     const fullScreen = variant === 'center';
-    const animationType = variant === 'bottom' ? 'slide' : 'fade';
+    const animationType = 'fade';
     const containerStyle =
         variant === 'bottom'
             ? styles.bottomContentContainer
