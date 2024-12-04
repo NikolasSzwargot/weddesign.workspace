@@ -8,7 +8,7 @@ import {
     Header,
     Input,
 } from '@weddesign/components';
-import {Colors} from '@weddesign/enums';
+import {Colors, GuestListRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {CreateGuestDto} from '@shared/dto';
@@ -58,6 +58,7 @@ const GuestForm = () => {
 
     const handleSave = (data: CreateGuestDto) => {
         console.log('Form submitted:', guest ? 'Edited guest' : 'New guest', data);
+        router.navigate(GuestListRoutes.LIST);
         // router.navigate(-1); // Navigate back after save
     };
 
