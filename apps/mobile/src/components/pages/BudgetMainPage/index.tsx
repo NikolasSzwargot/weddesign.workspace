@@ -1,5 +1,5 @@
 import React from 'react';
-import {BudgetMain} from '@mobile/components';
+import {BudgetMain, BudgetLimits} from '@mobile/components';
 import {ExpensesScreens} from '@weddesign/enums';
 
 type guestsPageProps = {
@@ -7,8 +7,10 @@ type guestsPageProps = {
 };
 const BudgetMainPage = ({screen}: guestsPageProps) => {
     switch (screen) {
-        // case ExpensesScreens.LIST:
-        //     return <BudgetMain />;
+        case ExpensesScreens.LIST:
+            return <BudgetMain />;
+        case ExpensesScreens.LIMITS:
+            return <BudgetLimits />;
         // case ExpensesScreens.ADD:
         //     return <BudgetMainPage />;
         default:

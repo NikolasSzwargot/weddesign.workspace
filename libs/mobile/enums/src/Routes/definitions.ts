@@ -24,5 +24,6 @@ export enum GuestsScreens {
 // ----- EXPENSES -----
 export enum ExpensesScreens {
     LIST = '/list',
+    LIMITS = '/limits',
     ADD = '/add',
 }

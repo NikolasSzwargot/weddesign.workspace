@@ -38,7 +38,7 @@ export const getBudgetCategoryData = (catName: string): categoryData => {
                 return Colors.StatusInvited;
             case ExpenseTypes.Dress:
             case ExpenseTypes.Appearance:
-            case ExpenseTypes.Accessories:
+            case ExpenseTypes.Accesories:
             case ExpenseTypes.Rings:
                 return Colors.PinkLightest;
             case ExpenseTypes.Accommodation:
@@ -50,7 +50,7 @@ export const getBudgetCategoryData = (catName: string): categoryData => {
                 return Colors.LightBlue;
         }
     })();
-    const icon = categoryToIconMap[catName];
+    const icon = categoryToIconMap[catName] || Icons.Question;
     return {
         color,
         icon,

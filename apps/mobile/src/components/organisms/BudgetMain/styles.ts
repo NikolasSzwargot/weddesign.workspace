@@ -11,6 +11,7 @@ export const BudgetMainWrapper = styled.View`
     position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: flex-start;
     width: 100vw;
     height: 100%;

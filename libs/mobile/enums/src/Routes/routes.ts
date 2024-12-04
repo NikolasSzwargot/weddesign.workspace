@@ -29,6 +29,7 @@ export enum GuestListRoutes {
 export enum ExpenseListRoutes {
     BUDGET = '/budget',
     LIST = '/budget/list',
+    LIMITS = '/budget/limits',
     ADD = '/budget/add',
 }
 
