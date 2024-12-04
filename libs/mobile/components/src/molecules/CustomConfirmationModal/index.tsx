@@ -1,9 +1,7 @@
-import React from 'react';
-import {Modal} from 'react-native';
-import {CustomOverlay} from '../../atoms';
 import {ButtonContainer, ModalContent} from './styles';
-import {Button} from '../../atoms';
+import {Button, Modal} from '../../atoms';
 import {Text} from '@weddesign/themes';
+
 type ConfirmationModalProps = {
     isVisible: boolean;
     onBackdropPress: () => void;
@@ -24,29 +22,18 @@ const CustomConfirmationModal = ({
     message = 'Are you sure you want to proceed?',
 }: ConfirmationModalProps) => {
     return (
-        <Modal
-            visible={isVisible}
-            onRequestClose={onBackdropPress}
-            animationType={'slide'}
-            transparent={true}
-        >
-            <CustomOverlay
-                isVisible={isVisible}
-                onBackdropPress={onBackdropPress}
-                variant="bottom"
-            >
-                <ModalContent>
-                    <Text.Bold size={20} style={{textAlign: 'center'}}>
-                        {message}
-                    </Text.Bold>
-                    <ButtonContainer>
-                        <Button onPress={onYesPress}>{yesText}</Button>
-                        <Button onPress={onNoPress} variant="secondaryFilled">
-                            {noText}
-                        </Button>
-                    </ButtonContainer>
-                </ModalContent>
-            </CustomOverlay>
+        <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
+            <ModalContent>
+                <Text.Bold size={20} style={{textAlign: 'center'}}>
+                    {message}
+                </Text.Bold>
+                <ButtonContainer>
+                    <Button onPress={onYesPress}>{yesText}</Button>
+                    <Button onPress={onNoPress} variant="secondaryFilled">
+                        {noText}
+                    </Button>
+                </ButtonContainer>
+            </ModalContent>
         </Modal>
     );
 };
