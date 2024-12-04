@@ -12,3 +12,5 @@ export {default as IconButton} from './IconButton';
 export {default as LoadingSpinner} from './LoadingSpinner';
 export {default as CustomSectionHeader} from './CustomSectionHeader';
 export {default as Button} from './Button';
+export {default as CustomOverlay} from './CustomOverlay';
+export {default as Modal} from './Modal';
