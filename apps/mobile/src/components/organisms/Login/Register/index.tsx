@@ -5,7 +5,7 @@ import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {useRouting} from '@mobile/components';
 import {LoginRoutes} from '@weddesign/enums';
-import {isValidEmail} from '@weddesign/utils';
+import {isValidEmail, isValidPassword} from '@weddesign/utils';
 
 import {LabelContainer, NextButtonContainer, ProgressLogoContainer} from '../styles';
 
@@ -24,7 +24,7 @@ const Register = () => {
 
     const isEgible = useCallback(() => {
         return (
-            password.length >= 4 &&
+            isValidPassword(password) &&
             repeatedPassword === password &&
             isValidEmail(email)
         );
