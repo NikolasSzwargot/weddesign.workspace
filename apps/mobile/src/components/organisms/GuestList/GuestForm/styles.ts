@@ -25,7 +25,7 @@ export const FormInputWrapper = styled.View`
 `;
 
 export const InputRow = styled.View`
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 `;
 
 export const TextArea = styled.TextInput`
@@ -39,7 +39,10 @@ export const TextArea = styled.TextInput`
 export const Row = styled.View`
     flex-direction: row;
     align-items: center;
-    //justify-content: space-between;
     gap: 10px;
     margin-bottom: 16px;
+`;
+
+export const ErrorArea = styled.View`
+    min-height: 20px;
 `;

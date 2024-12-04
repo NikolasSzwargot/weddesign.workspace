@@ -15,6 +15,7 @@ import {CreateGuestDto} from '@shared/dto';
 
 import {
     Container,
+    ErrorArea,
     FormInputWrapper,
     GuestFormWrapper,
     InputRow,
@@ -81,13 +82,17 @@ const GuestForm = () => {
                                 <>
                                     <Input
                                         value={value}
-                                        onChange={onChange}
+                                        handleChange={onChange}
                                         placeholder={t('guestForm.firstName')}
                                         inputMode={'text'}
                                     />
-                                    {error && (
-                                        <Text.Error>{error.message}</Text.Error>
-                                    )}
+                                    <ErrorArea>
+                                        {error && (
+                                            <Text.Error size={14}>
+                                                {error.message}
+                                            </Text.Error>
+                                        )}
+                                    </ErrorArea>
                                 </>
                             )}
                         />
@@ -108,13 +113,17 @@ const GuestForm = () => {
                                 <>
                                     <Input
                                         value={value}
-                                        onChange={onChange}
+                                        handleChange={onChange}
                                         placeholder={t('guestForm.lastName')}
                                         inputMode={'text'}
                                     />
-                                    {error && (
-                                        <Text.Error>{error.message}</Text.Error>
-                                    )}
+                                    <ErrorArea>
+                                        {error && (
+                                            <Text.Error size={14}>
+                                                {error.message}
+                                            </Text.Error>
+                                        )}
+                                    </ErrorArea>
                                 </>
                             )}
                         />
@@ -127,9 +136,10 @@ const GuestForm = () => {
                             render={({field: {onChange, value}}) => (
                                 <Input
                                     value={value}
-                                    onChange={onChange}
+                                    handleChange={onChange}
                                     placeholder={t('guestForm.notes')}
                                     inputMode={'text'}
+                                    multiline={true}
                                 />
                             )}
                         />
