@@ -17,6 +17,13 @@
     "vege": "Has special diet",
     "save": "Save"
   },
+  "statusModal": {
+    "title": "Change status",
+    "created": "Waits for invitation",
+    "invited": "Invitation sent",
+    "accepted": "Accepted",
+    "rejected": "Rejected"
+  },
   "errors": {
     "firstName": "First name is required",
     "lastName": "Last name is required"
