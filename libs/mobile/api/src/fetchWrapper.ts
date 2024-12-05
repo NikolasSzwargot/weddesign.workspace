@@ -21,6 +21,7 @@ export interface FetchWrapper {
         body?: B,
         config?: AxiosRequestConfig,
     ) => Promise<T>;
+    DELETE: <T>(url: ApiRoutes, config?: AxiosRequestConfig) => Promise<T>;
 }
 
 export const fetchWrapper = (
@@ -83,5 +84,7 @@ export const fetchWrapper = (
             body?: B,
             config: AxiosRequestConfig = {},
         ) => request<T, B>(url, HTTP.PATCH, body, config),
+        DELETE: <T>(url: ApiRoutes, config: AxiosRequestConfig = {}) =>
+            request<T, undefined>(url, HTTP.DELETE, undefined, config),
     };
 };
