@@ -6,5 +6,5 @@ export enum ApiRoutes {
     GuestsCount = '/guests/count',
     GuestsDelete = '/guests',
     GuestsCreate = '/guests/create',
-    GuestsUpdate = '/guests/update',
+    GuestsUpdate = '/guests/update/:id',
 }

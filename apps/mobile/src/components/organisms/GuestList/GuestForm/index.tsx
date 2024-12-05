@@ -11,10 +11,11 @@ import {
 import {Colors, GuestListRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
-import {CreateGuestDto} from '@shared/dto';
+import {CreateGuestDto, UpdateGuestDto} from '@shared/dto';
 import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 
 import {useCreateGuest} from '../../../../api/Guests/useCreateGuest';
+import {useUpdateGuest} from '../../../../api/Guests/useUpdateGuest';
 
 import {
     Container,
@@ -29,6 +30,7 @@ const GuestForm = () => {
     const {router} = useRouting();
     const {t} = useTranslation('guestList');
     const {mutate: createGuest, isLoading: isLoadingCreate} = useCreateGuest();
+    const {mutate: updateGuest, isLoading: isLoadingUpdate} = useUpdateGuest();
     const {control, handleSubmit, setValue} = useForm<CreateGuestDto>({
         defaultValues: {
             firstName: '',
@@ -56,18 +58,30 @@ const GuestForm = () => {
         }
     }, [guest, setValue]);
 
-    const handleSave = (data: CreateGuestDto) => {
-        guest
-            ? console.log('Edycja gościa')
-            : createGuest(data, {
-                  onSuccess: () => {
-                      console.log('Guest deleted successfully!');
-                      router.navigate(GuestListRoutes.LIST);
-                  },
-                  onError: (error) => {
-                      console.error('Error deleting guest:', error.message);
-                  },
-              });
+    const handleSave = (data: CreateGuestDto | UpdateGuestDto) => {
+        const handleSuccess = () => {
+            console.log('Guest saved successfully!');
+            router.navigate(GuestListRoutes.LIST);
+        };
+
+        const handleError = () => {
+            console.log('Error saving guest!');
+        };
+
+        if (guest) {
+            updateGuest(
+                {
+                    id: guest.id,
+                    updateGuestDto: data as UpdateGuestDto,
+                },
+                {onSuccess: handleSuccess, onError: handleError},
+            );
+        } else {
+            createGuest(data as CreateGuestDto, {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            });
+        }
     };
 
     return (
