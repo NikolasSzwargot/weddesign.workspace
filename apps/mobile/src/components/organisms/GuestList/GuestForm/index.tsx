@@ -3,10 +3,12 @@ import {useForm, Controller} from 'react-hook-form';
 import {useRouting} from '@mobile/components';
 import {
     Button,
+    CustomOverlay,
     CustomSwitch,
     GuestListBackgroundEllipse,
     Header,
     Input,
+    LoadingSpinner,
 } from '@weddesign/components';
 import {Colors, GuestListRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
@@ -238,6 +240,13 @@ const GuestForm = () => {
                         </Button>
                     </FormInputWrapper>
                 </GuestFormWrapper>
+
+                <CustomOverlay
+                    isVisible={isLoadingCreate || isLoadingUpdate}
+                    variant={'center'}
+                >
+                    <LoadingSpinner color={Colors.LightBlue} />
+                </CustomOverlay>
             </Container>
         </TouchableWithoutFeedback>
     );
