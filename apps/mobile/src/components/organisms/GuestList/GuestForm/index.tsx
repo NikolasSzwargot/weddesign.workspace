@@ -57,6 +57,8 @@ const GuestForm = () => {
             setValue('overnight', guest.overnight);
             setValue('canGetThere', guest.canGetThere);
             setValue('isVege', guest.isVege);
+            setValue('isCompanion', guest.isCompanion);
+            setValue('guestStatusId', guest.guestStatusId);
         }
     }, [guest, setValue]);
 
