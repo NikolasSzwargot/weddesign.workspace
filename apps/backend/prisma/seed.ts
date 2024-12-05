@@ -138,6 +138,12 @@ async function main() {
   });
 
   console.log('12 expenses have been imported correctly');
+
+  await prisma.mainBudgetLimit.create({
+    data: { limit: 213769 },
+  });
+
+  console.log('main limit has been imported correctly');
 }
 
 main()
