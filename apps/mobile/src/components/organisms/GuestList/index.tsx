@@ -23,6 +23,7 @@ import {StatusChangeModal, WeddesignConfirmationModal} from '../../molecules';
 import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
 import {useRouting} from '../../providers';
+import {useUpdateGuest} from '../../../api/Guests/useUpdateGuest';
 
 import {
     Container,
@@ -41,6 +42,7 @@ const GuestList = () => {
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
+    const {mutate: updateGuest, isLoading: isUpdating} = useUpdateGuest();
     const {
         data: groupedGuests,
         isLoading: isLoadingGrouped,
@@ -58,6 +60,14 @@ const GuestList = () => {
         isError,
     } = useGuestsStatistics();
 
+    const handleSuccess = () => {
+        console.log('Success');
+    };
+
+    const handleError = () => {
+        console.log('Error');
+    };
+
     const handleDelete = (guest: GuestDto) => {
         setSelectedItem(guest);
         setConfirmationModalText(
@@ -73,12 +83,8 @@ const GuestList = () => {
         deleteGuest(
             {guestId: selectedItem.id},
             {
-                onSuccess: () => {
-                    console.log('Guest deleted successfully!');
-                },
-                onError: (error) => {
-                    console.error('Error deleting guest:', error.message);
-                },
+                onSuccess: handleSuccess,
+                onError: handleError,
             },
         );
     };
@@ -90,6 +96,17 @@ const GuestList = () => {
     const handleStatusChangeModal = (guest: GuestDto) => {
         setSelectedItem(guest);
         setStatusModalVisible(!isStatusModalVisible);
+    };
+
+    const handleStatusChange = (newGuestStatusId: number) => {
+        setStatusModalVisible(false);
+        updateGuest(
+            {
+                id: selectedItem.id,
+                updateGuestDto: {guestStatusId: newGuestStatusId},
+            },
+            {onSuccess: handleSuccess, onError: handleError},
+        );
     };
 
     return (
@@ -178,7 +195,12 @@ const GuestList = () => {
                             showsVerticalScrollIndicator={true}
                         />
                         <CustomOverlay
-                            isVisible={isDeleting || isFetchingGrouped || isFetching}
+                            isVisible={
+                                isUpdating ||
+                                isDeleting ||
+                                isFetchingGrouped ||
+                                isFetching
+                            }
                             variant={'center'}
                         >
                             <LoadingSpinner
@@ -197,6 +219,7 @@ const GuestList = () => {
                         <StatusChangeModal
                             isVisible={isStatusModalVisible}
                             onBackdropPress={handleCancel}
+                            onStatusSelect={handleStatusChange}
                         ></StatusChangeModal>
                     </>
                 )}
