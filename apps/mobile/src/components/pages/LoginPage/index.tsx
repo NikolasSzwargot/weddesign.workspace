@@ -2,7 +2,7 @@ import React from 'react';
 import {Login} from '@mobile/components';
 import {LoginScreens} from '@weddesign/enums';
 
-import {GuestList} from '../../organisms';
+import LanguageSetup from '../../organisms/Login/LanguageSetup';
 
 type loginPageProps = {
     screen: LoginScreens;
@@ -10,7 +10,7 @@ type loginPageProps = {
 const LoginPage = ({screen}: loginPageProps) => {
     switch (screen) {
         case LoginScreens.LANGUAGE:
-            return <GuestList />;
+            return <LanguageSetup />;
         case LoginScreens.REGISTER:
         case LoginScreens.SETUP:
             return <Login />;
