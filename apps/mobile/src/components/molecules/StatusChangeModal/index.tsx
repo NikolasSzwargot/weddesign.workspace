@@ -1,29 +1,44 @@
+import {GuestStatusDot, Modal} from '@weddesign/components';
+import {useTranslation} from 'react-i18next';
+import {GuestStatuses} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
-import {Modal} from '@weddesign/components';
 
-import {ModalContent} from './styles';
+import {ModalContent, StatusItem, StatusList} from './styles';
 
-type ConfirmationModalProps = {
+type StatusChangeModalProps = {
     isVisible: boolean;
     onBackdropPress: () => void;
-    onYesPress: () => void;
-    onNoPress: () => void;
-    yesText?: string;
-    noText?: string;
-    message?: string;
+    onStatusSelect: (status: number) => void;
 };
 
 const StatusChangeModal = ({
     isVisible,
     onBackdropPress,
-    message = 'Are you sure you want to proceed?',
-}: ConfirmationModalProps) => {
+    onStatusSelect,
+}: StatusChangeModalProps) => {
+    const {t} = useTranslation('guestList');
+    const statuses = [
+        {key: GuestStatuses.Created, label: t('statusModal.created')},
+        {key: GuestStatuses.Invited, label: t('statusModal.invited')},
+        {key: GuestStatuses.Accepted, label: t('statusModal.accepted')},
+        {key: GuestStatuses.Rejected, label: t('statusModal.rejected')},
+    ];
+
     return (
         <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
             <ModalContent>
-                <Text.Bold size={20} style={{textAlign: 'center'}}>
-                    {message}
-                </Text.Bold>
+                <Text.SemiBold size={24}>{t('statusModal.title')}</Text.SemiBold>
+                <StatusList>
+                    {statuses.map((status) => (
+                        <StatusItem
+                            key={status.key}
+                            onPress={() => onStatusSelect(status.key)}
+                        >
+                            <GuestStatusDot status={status.key} />
+                            <Text.SemiBold>{status.label}</Text.SemiBold>
+                        </StatusItem>
+                    ))}
+                </StatusList>
             </ModalContent>
         </Modal>
     );

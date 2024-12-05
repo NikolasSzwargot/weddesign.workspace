@@ -19,7 +19,7 @@ import {Colors, GuestListRoutes} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
-import {WeddesignConfirmationModal} from '../../molecules';
+import {StatusChangeModal, WeddesignConfirmationModal} from '../../molecules';
 import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
 import {useRouting} from '../../providers';
@@ -37,6 +37,7 @@ const GuestList = () => {
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isStatusModalVisible, setStatusModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
@@ -83,6 +84,12 @@ const GuestList = () => {
     };
     const handleCancel = () => {
         setModalVisible(false);
+        setStatusModalVisible(false);
+    };
+
+    const handleStatusChangeModal = (guest: GuestDto) => {
+        setSelectedItem(guest);
+        setStatusModalVisible(!isStatusModalVisible);
     };
 
     return (
@@ -160,6 +167,7 @@ const GuestList = () => {
                             renderItem={({item}) => (
                                 <GuestItem
                                     guest={item}
+                                    onStatusPress={handleStatusChangeModal}
                                     onGuestPress={() =>
                                         router.navigate(GuestListRoutes.ADD, item)
                                     }
@@ -185,6 +193,11 @@ const GuestList = () => {
                             onNoPress={handleCancel}
                             message={confirmationModalText}
                         ></WeddesignConfirmationModal>
+
+                        <StatusChangeModal
+                            isVisible={isStatusModalVisible}
+                            onBackdropPress={handleCancel}
+                        ></StatusChangeModal>
                     </>
                 )}
             </GuestListWrapper>

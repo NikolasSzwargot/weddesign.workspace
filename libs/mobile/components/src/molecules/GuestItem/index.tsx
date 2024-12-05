@@ -2,14 +2,13 @@ import React from 'react';
 import {GuestItemContainer, GuestInfoContainer, GuestNameWrapper} from './styles';
 import {GuestDto} from '@shared/dto';
 import {Text} from '@weddesign/themes';
-import {IconButton} from '../../atoms';
+import {GuestStatusDot, IconButton} from '../../atoms';
 import {Icons} from '@weddesign/assets';
-import {StatusDot} from '../../atoms/GuestStatusDot/styles';
 import {TouchableOpacity} from 'react-native';
 
 type GuestItemProps = {
     guest: GuestDto;
-    onStatusPress: () => void;
+    onStatusPress: (guest: GuestDto) => void;
     onGuestPress: () => void;
     onDeletePress: (guest: GuestDto) => void;
 };
@@ -22,8 +21,8 @@ const GuestItem = ({
 }: GuestItemProps) => (
     <GuestItemContainer onPress={onGuestPress}>
         <GuestInfoContainer>
-            <TouchableOpacity onPress={onStatusPress}>
-                <StatusDot status={guest.guestStatusId} />
+            <TouchableOpacity onPress={() => onStatusPress(guest)}>
+                <GuestStatusDot status={guest.guestStatusId} />
             </TouchableOpacity>
             <GuestNameWrapper>
                 <Text.SemiBold>
