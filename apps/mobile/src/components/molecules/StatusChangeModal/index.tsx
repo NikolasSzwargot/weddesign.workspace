@@ -27,7 +27,7 @@ const StatusChangeModal = ({
     return (
         <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
             <ModalContent>
-                <Text.SemiBold size={24}>{t('statusModal.title')}</Text.SemiBold>
+                <Text.Bold size={24}>{t('statusModal.title')}</Text.Bold>
                 <StatusList>
                     {statuses.map((status) => (
                         <StatusItem
@@ -35,7 +35,7 @@ const StatusChangeModal = ({
                             onPress={() => onStatusSelect(status.key)}
                         >
                             <GuestStatusDot status={status.key} />
-                            <Text.SemiBold>{status.label}</Text.SemiBold>
+                            <Text.SemiBold size={18}>{status.label}</Text.SemiBold>
                         </StatusItem>
                     ))}
                 </StatusList>
