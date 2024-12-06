@@ -15,15 +15,15 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@env": ["apps/mobile/env.d.ts"],
       "@lib/components": ["libs/mobile/components/src/*"],
-      "@shared/dto": ["libs/shared/dto/src/index.ts"],
       "@mobile/assets": ["apps/mobile/src/assets/index.ts"],
       "@mobile/components": ["apps/mobile/src/components/index.ts"],
+      "@mobile/hooks": ["apps/mobile/src/hooks/index.ts"],
       "@mobile/mocks": ["apps/mobile/src/mocks/index.ts"],
       "@mobile/navigation": ["apps/mobile/src/navigation/index.ts"],
       "@mobile/routes": ["apps/mobile/src/routes/index.ts"],
-      "@mobile/hooks": ["apps/mobile/src/hooks/index.ts"],
-      "@mobile/utils": ["apps/mobile/src/utils/index.ts"],
+      "@shared/dto": ["libs/shared/dto/src/index.ts"],
       "@weddesign/api": ["libs/mobile/api/src/index.ts"],
       "@weddesign/assets": ["libs/mobile/assets/src/index.ts"],
       "@weddesign/components": ["libs/mobile/components/src/index.ts"],
@@ -31,8 +31,7 @@
       "@weddesign/hooks": ["libs/mobile/hooks/src/index.ts"],
       "@weddesign/themes": ["libs/mobile/themes/src/index.ts"],
       "@weddesign/types": ["libs/mobile/types/src/index.ts"],
-      "@weddesign/utils": ["libs/mobile/utils/src/index.ts"],
-      "@env": ["apps/mobile/env.d.ts"],
+      "@weddesign/utils": ["libs/mobile/utils/src/index.ts"]
     },
     "typeRoots": ["./node_modules/@types", "types"]
   },
