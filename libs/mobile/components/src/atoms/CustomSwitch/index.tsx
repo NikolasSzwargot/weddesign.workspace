@@ -32,7 +32,7 @@ const CustomSwitch: React.FC<TProps> = ({
             easing: Easing.linear,
             useNativeDriver: false,
         }).start();
-    }, [value]);
+    }, [animatedValue, value]);
 
     const handleToggle = () => {
         setIsEnabled(!isEnabled);
