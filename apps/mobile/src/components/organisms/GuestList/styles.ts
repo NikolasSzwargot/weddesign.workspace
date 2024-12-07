@@ -8,13 +8,13 @@ export const Container = styled.View`
 `;
 
 export const GuestListWrapper = styled.View`
+    flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100vw;
-    height: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
 `;
 
 export const StatusBarWrapper = styled.View`

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { BudgetService } from './services/budget.service';
-import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto } from '@shared/dto';
+import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto, ExpensesByDateDto } from '@shared/dto';
 
 @Controller('budget/expense')
 export class ExpenseController {
@@ -19,6 +19,11 @@ export class ExpenseController {
   @Get('groupedByCategory')
   async groupedByCategory(): Promise<ExpensesByCategoryDto[]> {
     return await this.budgetService.getExpensesByCategory();
+  }
+
+  @Get('groupedByDate')
+  async groupedByDate(): Promise<ExpensesByDateDto[]> {
+    return await this.budgetService.getExpensesByDate();
   }
 
   @Get(':id')

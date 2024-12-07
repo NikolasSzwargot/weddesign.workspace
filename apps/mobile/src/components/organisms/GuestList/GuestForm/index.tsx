@@ -114,6 +114,7 @@ const GuestForm = () => {
                                             handleChange={onChange}
                                             placeholder={t('guestForm.firstName')}
                                             inputMode={'text'}
+                                            maxLength={10}
                                         />
                                         <ErrorArea>
                                             {error && (
@@ -146,6 +147,7 @@ const GuestForm = () => {
                                             handleChange={onChange}
                                             placeholder={t('guestForm.lastName')}
                                             inputMode={'text'}
+                                            maxLength={14}
                                         />
                                         <ErrorArea>
                                             {error && (
@@ -170,6 +172,7 @@ const GuestForm = () => {
                                         placeholder={t('guestForm.notes')}
                                         inputMode={'text'}
                                         multiline={true}
+                                        maxLength={400}
                                     />
                                 )}
                             />

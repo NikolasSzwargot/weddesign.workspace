@@ -32,27 +32,12 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
     const navigateNative = useNavigate();
     const location = useLocation();
 
-    const getQueryParams = (params: Record<string, string>) => {
-        return Object.keys(params)
-            .map(
-                (key) =>
-                    `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`,
-            )
-            .join('&');
-    };
-
     const parseQueryParams = (search: string): Record<string, string> => {
         return querystring.parse(search) as Record<string, string>;
     };
 
     const navigate = (navigationRoute: string, state?: any) => {
         const fullPath: string = navigationRoute;
-
-        //@TODO: Talk it out if we really need this
-        // if (navigationRoute.queryParams) {
-        //     const query = getQueryParams(navigationRoute.queryParams);
-        //     fullPath = fullPath.concat(`?${query}`);
-        // }
 
         navigateNative(fullPath, {state});
     };
