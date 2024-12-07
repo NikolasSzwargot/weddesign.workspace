@@ -12,7 +12,7 @@ export const GuestFormWrapper = styled.View`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: 100vw;
+    width: 100%;
     height: 100%;
     margin-top: 20px;
 `;
@@ -26,6 +26,7 @@ export const FormInputWrapper = styled.View`
 
 export const InputRow = styled.View`
     margin-bottom: 12px;
+    width: 100%;
 `;
 
 export const Row = styled.View`

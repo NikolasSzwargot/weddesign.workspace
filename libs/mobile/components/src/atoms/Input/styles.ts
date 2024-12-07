@@ -11,4 +11,5 @@ export const StyledInput = styled.TextInput<{multiline?: boolean}>`
     background-color: ${Colors.White};
     text-align: left;
     min-height: ${({multiline}) => (multiline ? '100px' : 'auto')};
+    max-height: 150px;
 `;

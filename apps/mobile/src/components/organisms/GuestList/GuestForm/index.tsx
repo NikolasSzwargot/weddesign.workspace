@@ -172,6 +172,7 @@ const GuestForm = () => {
                                         placeholder={t('guestForm.notes')}
                                         inputMode={'text'}
                                         multiline={true}
+                                        maxLength={400}
                                     />
                                 )}
                             />
