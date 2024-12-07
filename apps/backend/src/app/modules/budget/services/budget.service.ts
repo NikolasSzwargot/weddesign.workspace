@@ -116,8 +116,9 @@ export class BudgetService {
 
     return {
       categoryId,
-      categoryName,
-      expenses: expenses.sort((a, b) => b.amount - a.amount),
+      title: categoryName,
+      data: expenses.sort((a, b) => b.amount - a.amount),
+      subtitle: limit ? `${spent} / ${limit}` : null,
       limit,
       spent,
     };
@@ -153,8 +154,8 @@ export class BudgetService {
     const spent = expenses.reduce((total, expense) => total + expense.amount, 0);
 
     return {
-      date: dateStr,
-      expenses: expenses.sort((a, b) => b.amount - a.amount),
+      title: dateStr,
+      data: expenses.sort((a, b) => b.amount - a.amount),
       spent,
     };
   }
