@@ -35,12 +35,12 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
                 }),
             },
         ],
-        fontSize: scrollData.interpolate({
-            inputRange: [0, 80],
-            outputRange: [40, 17],
-            extrapolate: 'clamp',
-        }),
     };
+    const fontSize1 = scrollData.interpolate({
+        inputRange: [0, 80],
+        outputRange: [40, 17],
+        extrapolate: 'clamp',
+    });
     const text2Style = {
         transform: [
             {
@@ -60,12 +60,12 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
                 }),
             },
         ],
-        fontSize: scrollData.interpolate({
-            inputRange: [0, 80],
-            outputRange: [24, 17],
-            extrapolate: 'clamp',
-        }),
     };
+    const fontSize2 = scrollData.interpolate({
+        inputRange: [0, 80],
+        outputRange: [24, 17],
+        extrapolate: 'clamp',
+    });
 
     return (
         <Animated.View style={[styles.MainView, {height: rectangleHeight}]}>
@@ -75,7 +75,9 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
                         fontWeight: 'bold',
                         color: Colors.Black,
                         position: 'absolute',
+                        fontSize: fontSize1,
                     },
+                    //@ts-expect-error dokumentacja mówi GIT, build mówi NIE GIT
                     text1Style,
                 ]}
             >{`${current}${currency}`}</Animated.Text>
@@ -85,7 +87,9 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
                         fontWeight: 600,
                         color: Colors.TextGrey,
                         position: 'absolute',
+                        fontSize: fontSize2,
                     },
+                    //@ts-expect-error dokumentacja mówi GIT, build mówi NIE GIT
                     text2Style,
                 ]}
             >{`/ ${total}${currency}`}</Animated.Text>

@@ -8,7 +8,7 @@ import {
 } from './styles';
 // import {ExpenseDto} from '@shared/dto';
 
-import {categoryData, Expense} from '@weddesign/types';
+import {categoryData} from '@weddesign/types';
 import {Icons} from '@weddesign/assets';
 import {IconButton} from '@weddesign/components';
 // import {getBudgetCategoryData} from '@mobile/utils';

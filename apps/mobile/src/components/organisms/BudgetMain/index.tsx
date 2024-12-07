@@ -35,7 +35,6 @@ const BudgetMain = () => {
     const [groupingMode, setGroupingMode] = useState<'cats' | 'date'>('cats');
     const [listData, setListData] = useState([]);
 
-    // POBIERANIE  // TODO: dane są wrzucane do listy jeszcze przed pobraniem jakimś cudem
     const {
         data: mainLimitData,
         isLoading: isLoadingMainLimit,
@@ -75,28 +74,6 @@ const BudgetMain = () => {
             extrapolate: 'clamp',
         }),
     };
-
-    const price = {
-        total: 21370000,
-        paid: 100,
-        nPaid: 320000,
-    };
-
-    useEffect(() => {
-        if (!isFetchingByDate && !isFetchingByCats) {
-            console.log(groupedByCats);
-        }
-    }, [groupedByCats]);
-    useEffect(() => {
-        if (!isFetchingMainLimit) {
-            console.log(mainLimitData);
-        }
-    }, [mainLimitData]);
-    useEffect(() => {
-        if (!isFetchingByDate) {
-            console.log(groupedByDate);
-        }
-    }, [groupedByDate]);
 
     const translateData = (lista) => {
         return groupingMode === 'cats'
@@ -170,7 +147,7 @@ const BudgetMain = () => {
                                 groupingMode === 'cats'
                                     ? Icons.FilterDate
                                     : Icons.Car
-                                //   TODO: podmienic na lepszą ikonke niż samochów
+                                //   TODO: podmienic na lepszą ikonke niż samochód
                             }
                             onPress={() => {
                                 setGroupingMode(
@@ -188,8 +165,6 @@ const BudgetMain = () => {
                     </SearchBarWrapper>
 
                     <SectionList
-                        // sections={groupedExpensesL}
-                        // sections={listData}
                         sections={translateData(listData)}
                         initialNumToRender={20}
                         keyExtractor={(item) => item.id.toString()}
