@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Animated, Easing, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
 import {Colors} from '@weddesign/enums';
@@ -20,40 +20,37 @@ const CustomSwitch: React.FC<TProps> = ({
     label = '',
     labelStyle,
 }) => {
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(value);
+
+    const animatedValue = useRef(new Animated.Value(value ? 1 : 0)).current;
 
     useEffect(() => {
-        value && setIsEnabled(value);
+        setIsEnabled(value);
+        Animated.timing(animatedValue, {
+            toValue: value ? 1 : 0,
+            duration: 300,
+            easing: Easing.linear,
+            useNativeDriver: false,
+        }).start();
     }, [value]);
 
-    const toggleSwitch = () => {
+    const handleToggle = () => {
         setIsEnabled(!isEnabled);
         onChange();
     };
 
-    const animatedValue = new Animated.Value(0);
-
     const moveToggle = animatedValue.interpolate({
-        inputRange: [-0.2, 0.9],
-        outputRange: [0, 20],
+        inputRange: [0, 1],
+        outputRange: [3, 22],
     });
 
-    const color = value ? onColor : offColor;
-
-    animatedValue.setValue(value ? 0 : 1);
-
-    Animated.timing(animatedValue, {
-        toValue: value ? 1 : 0,
-        duration: 300,
-        easing: Easing.linear,
-        useNativeDriver: false,
-    }).start();
+    const color = isEnabled ? onColor : offColor;
 
     return (
         <View style={styles.container}>
             {!!label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
 
-            <TouchableOpacity onPress={toggleSwitch} activeOpacity={1}>
+            <TouchableOpacity onPress={handleToggle} activeOpacity={1}>
                 <View style={[styles.toggleContainer, {backgroundColor: color}]}>
                     <Animated.View
                         style={[styles.toggleWheelStyle, {marginLeft: moveToggle}]}
