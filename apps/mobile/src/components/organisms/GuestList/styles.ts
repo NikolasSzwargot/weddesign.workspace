@@ -8,6 +8,7 @@ export const Container = styled.View`
 `;
 
 export const GuestListWrapper = styled.View`
+    flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
