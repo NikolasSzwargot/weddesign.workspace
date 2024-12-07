@@ -1,56 +1,56 @@
 import React from 'react';
 import {categoryData} from '@weddesign/types';
-import {Colors, ExpenseTypes} from '@weddesign/enums';
+import {Colors} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
 import {SvgProps} from 'react-native-svg';
 
 const categoryToIconMap: {[key: string]: React.FC<SvgProps>} = {
-    food: Icons.Coffee,
-    place: Icons.Map,
-    decor: Icons.Decors,
-    flowers: Icons.Putus,
-    photos: Icons.Camera,
-    music: Icons.Music,
-    entertainment: Icons.Confetti,
-    gifts: Icons.Gift,
-    dress: Icons.Dress,
-    appearance: Icons.Camera,
-    accessories: Icons.Earrings,
-    rings: Icons.Rings,
-    accommodation: Icons.House,
-    law: Icons.File,
-    transport: Icons.Car,
-    other: Icons.Question,
+    1: Icons.Coffee,
+    2: Icons.Map,
+    3: Icons.Decors,
+    4: Icons.Putus,
+    5: Icons.Camera,
+    6: Icons.Music,
+    7: Icons.Confetti,
+    8: Icons.Gift,
+    9: Icons.Dress,
+    10: Icons.Camera,
+    11: Icons.Earrings,
+    12: Icons.Rings,
+    13: Icons.House,
+    14: Icons.File,
+    15: Icons.Car,
+    16: Icons.Question,
 };
 
-export const getBudgetCategoryData = (catName: string): categoryData => {
+export const getBudgetCategoryData = (catId: number): categoryData => {
     const color = (() => {
-        switch (catName) {
-            case ExpenseTypes.Food:
-            case ExpenseTypes.Place:
-            case ExpenseTypes.Decor:
-            case ExpenseTypes.Flowers:
+        switch (catId) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
                 return Colors.StatusAccepted;
-            case ExpenseTypes.Photos:
-            case ExpenseTypes.Music:
-            case ExpenseTypes.Entertainment:
-            case ExpenseTypes.Gifts:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
                 return Colors.StatusInvited;
-            case ExpenseTypes.Dress:
-            case ExpenseTypes.Appearance:
-            case ExpenseTypes.Accessories:
-            case ExpenseTypes.Rings:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
                 return Colors.PinkLightest;
-            case ExpenseTypes.Accommodation:
-            case ExpenseTypes.Law:
-            case ExpenseTypes.Transport:
-            case ExpenseTypes.Other:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
                 return Colors.LightBlue;
             default:
                 return Colors.LightBlue;
         }
     })();
-    const icon = categoryToIconMap[catName];
+    const icon = categoryToIconMap[catId];
     return {
         color,
         icon,
