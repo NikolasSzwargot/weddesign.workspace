@@ -17,6 +17,13 @@
     "vege": "Ma inną dietę",
     "save": "Zapisz"
   },
+  "statusModal": {
+    "title": "Zmień status",
+    "created": "Czeka na zaproszenie",
+    "invited": "Zaproszenie wysłane",
+    "accepted": "Potwierdzono",
+    "rejected": "Odrzucono"
+  },
   "errors": {
     "firstName": "Imię jest wymagane",
     "lastName": "Nazwisko jest wymagane"
