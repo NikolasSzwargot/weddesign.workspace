@@ -5,7 +5,7 @@ import {Location, useLocation, useNavigate} from 'react-router-native';
 import {Route} from '@weddesign/enums';
 
 type RouterFunctions = {
-    navigate: (navigationRoute: Route) => void;
+    navigate: (navigationRoute: string, state?: any) => void;
     location: Location;
     query: Route;
 };
@@ -32,34 +32,14 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
     const navigateNative = useNavigate();
     const location = useLocation();
 
-    const getQueryParams = (params: Record<string, string>) => {
-        return Object.keys(params)
-            .map(
-                (key) =>
-                    `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`,
-            )
-            .join('&');
-    };
-
     const parseQueryParams = (search: string): Record<string, string> => {
         return querystring.parse(search) as Record<string, string>;
     };
 
-    const navigate = (navigationRoute: Route) => {
-        let fullPath: string = navigationRoute.route;
+    const navigate = (navigationRoute: string, state?: any) => {
+        const fullPath: string = navigationRoute;
 
-        if (navigationRoute.screen) {
-            const screenPath = navigationRoute.screen.startsWith('/')
-                ? navigationRoute.screen
-                : `/${navigationRoute.route}`;
-            fullPath = fullPath.concat(screenPath);
-        }
-        if (navigationRoute.queryParams) {
-            const query = getQueryParams(navigationRoute.queryParams);
-            fullPath = fullPath.concat(`?${query}`);
-        }
-
-        navigateNative(fullPath);
+        navigateNative(fullPath, {state});
     };
 
     const query = useMemo<Route>(() => {

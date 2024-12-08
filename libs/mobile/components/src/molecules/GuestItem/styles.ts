@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import {Colors, GuestStatuses} from '@weddesign/enums';
 
-export const GuestItemContainer = styled.View`
+export const GuestItemContainer = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;

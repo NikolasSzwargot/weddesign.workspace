@@ -15,13 +15,14 @@ import {
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors} from '@weddesign/enums';
+import {Colors, GuestListRoutes} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
 import {WeddesignConfirmationModal} from '../../molecules';
 import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
+import {useRouting} from '../../providers';
 
 import {
     Container,
@@ -32,6 +33,7 @@ import {
 } from './styles';
 
 const GuestList = () => {
+    const {router} = useRouting();
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
@@ -145,7 +147,7 @@ const GuestList = () => {
                                     <IconButton
                                         Icon={Icons.AddGuest}
                                         onPress={() =>
-                                            console.log('clicked AddGuest')
+                                            router.navigate(GuestListRoutes.ADD)
                                         }
                                     />
                                 </SearchBarWrapper>
@@ -158,6 +160,9 @@ const GuestList = () => {
                             renderItem={({item}) => (
                                 <GuestItem
                                     guest={item}
+                                    onGuestPress={() =>
+                                        router.navigate(GuestListRoutes.ADD, item)
+                                    }
                                     onDeletePress={handleDelete}
                                 />
                             )}
