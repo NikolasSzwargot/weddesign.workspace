@@ -13,10 +13,13 @@ import {
 } from '@weddesign/components';
 import {Colors} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
-import {expenseList, groupedExpensesL} from '@mobile/mocks';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
-import {Expense} from '@weddesign/types';
+import {Text} from '@weddesign/themes';
+
+import {useExpensesByCats} from '../../../api/Budget/useExpensesByCats';
+import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
+import {useMainLimit} from '../../../api/Budget/useMainLimit';
 
 import {
     Container,
@@ -28,10 +31,35 @@ import {
 
 const BudgetMain = () => {
     const {t} = useTranslation('budget');
-    const [loading, setLoading] = useState<boolean>(true);
     const [searchQuery, setSearchQuery] = useState('');
-    const [expenses, setExpenses] = useState(expenseList);
-    // const [dateFilterOrSth, setDateFilterOrSth] = useState(Date())
+    const [groupingMode, setGroupingMode] = useState<'cats' | 'date'>('cats');
+    const [listData, setListData] = useState([]);
+
+    const {
+        data: mainLimitData,
+        isLoading: isLoadingMainLimit,
+        isError: isErrorMainLimit,
+        isFetching: isFetchingMainLimit,
+    } = useMainLimit();
+    const {
+        data: groupedByCats,
+        isLoading: isLoadingByCats,
+        isError: isErrorByCats,
+        isFetching: isFetchingByCats,
+    } = useExpensesByCats();
+    const {
+        data: groupedByDate,
+        isLoading: isLoadingByDate,
+        isError: isErrorByDate,
+        isFetching: isFetchingByDate,
+    } = useExpensesByDate();
+
+    useEffect(() => {
+        if (!isFetchingByDate && !isFetchingByCats) {
+            setListData(groupingMode === 'cats' ? groupedByCats : groupedByDate);
+            console.log('lissta', listData);
+        }
+    }, [groupingMode, groupedByCats, groupedByDate]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const infoTextAnimation = {
@@ -47,116 +75,117 @@ const BudgetMain = () => {
         }),
     };
 
-    useEffect(() => {
-        const fetchExpenses = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/guests/grouped'); // Replace with your endpoint
-                if (!response.ok) {
-                    throw new Error('Failed to fetch expenses');
-                }
-                const data: Expense[] = await response.json();
-                setExpenses(data); // Set the fetched data into state
-            } catch (error) {
-                console.error('Error fetching expenses:', error);
-            } finally {
-                setLoading(false); // Stop the loading spinner
-            }
-        };
-
-        fetchExpenses();
-    }, []); // Empty array ensures the effect runs only once
-
-    const price = {
-        total: 21370000,
-        paid: 100,
-        nPaid: 320000,
+    const translateData = (lista) => {
+        return groupingMode === 'cats'
+            ? lista.map((item) => ({
+                  ...item,
+                  title: t(`category.${item.title}`),
+              }))
+            : lista;
     };
 
-    const content = loading ? (
-        <>
-            <DudgetEllipse />
-            <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
-        </>
-    ) : (
-        <>
-            <DudgetEllipse />
-            <BudgetMainWrapper>
-                <Header />
-                <BudgetMainFrame
-                    onLongPress={() => console.log('odpalaj edycje kategorii')}
-                    activeOpacity={0.5}
-                >
-                    <BudgetFrame
-                        current={price.paid + price.nPaid}
-                        total={price.total}
-                        currency={t('currency')}
-                        scrollData={scrollY}
-                    />
-                    <BudgetStatusBar
-                        limit={price.total}
-                        notPaid={price.nPaid}
-                        paid={price.paid}
-                        totalPlanned={price.paid + price.nPaid}
-                        // limit={mainLimitData.limit}
-                        // notPaid={mainLimitData.notPaid}
-                        // paid={mainLimitData.paid}
-                        // totalPlanned={mainLimitData.totalPlanned}
-                    />
-                </BudgetMainFrame>
-                <InfoTextWrapper>
-                    <Animated.Text
-                        style={[
-                            infoTextAnimation,
-                            {
-                                fontSize: 14,
-                                fontWeight: 500,
-                                textAlign: 'center',
-                            },
-                        ]}
-                    >{`${t('mainProgressbarText', {
-                        percent: Math.round(
-                            ((price.paid + price.nPaid) / price.total) * 100,
-                        ),
-                    })}`}</Animated.Text>
-                </InfoTextWrapper>
-
-                <SearchBarWrapper>
-                    <CustomSearchBar
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
-                        placeholder={t('searchPlaceholder')}
-                    />
-                    <IconButton
-                        Icon={Icons.FilterDate}
-                        onPress={() => console.log('clicked FilterDate')}
-                        fillColor={Colors.ButtonGray}
-                    />
-                    <IconButton
-                        Icon={Icons.Plus}
-                        onPress={() => console.log('clicked AddGuest')}
-                        fillColor={Colors.LightGreen}
-                    />
-                </SearchBarWrapper>
-
-                <SectionList
-                    sections={groupedExpensesL}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => (
-                        <ExpenseItem
-                            exp={item}
-                            catData={getBudgetCategoryData(item.category)}
+    const content =
+        isLoadingMainLimit || isLoadingByCats || isLoadingByDate ? (
+            <>
+                <DudgetEllipse />
+                <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
+            </>
+        ) : isErrorByCats || isErrorMainLimit || isErrorByDate ? (
+            <Text.Regular style={{position: 'absolute', top: '50%'}}>
+                {/* @TODO przejście na ekran z błędem*/}
+                {/* eslint-disable-next-line react-native/no-raw-text */}
+                {'Tu będzie takie fajne przejście do ekranu błędu'}
+            </Text.Regular>
+        ) : (
+            <>
+                <DudgetEllipse />
+                <BudgetMainWrapper>
+                    <Header />
+                    <BudgetMainFrame
+                        onLongPress={() => console.log('odpalaj edycje kategorii')}
+                        activeOpacity={0.5}
+                    >
+                        <BudgetFrame
+                            current={mainLimitData.totalPlanned}
+                            total={mainLimitData.limit}
+                            currency={t('currency')}
+                            scrollData={scrollY}
                         />
-                    )}
-                    renderSectionHeader={CustomSectionHeader}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: false}, // You can't animate layout properties like height natively
-                    )}
-                    showsVerticalScrollIndicator={true}
-                />
-            </BudgetMainWrapper>
-        </>
-    );
+                        <BudgetStatusBar
+                            limit={mainLimitData.limit}
+                            notPaid={mainLimitData.notPaid}
+                            paid={mainLimitData.paid}
+                            totalPlanned={mainLimitData.totalPlanned}
+                        />
+                    </BudgetMainFrame>
+                    <InfoTextWrapper>
+                        <Animated.Text
+                            style={[
+                                infoTextAnimation,
+                                {
+                                    fontSize: 14,
+                                    fontWeight: 500,
+                                    textAlign: 'center',
+                                },
+                            ]}
+                        >{`${t('mainProgressbarText', {
+                            percent: Math.round(
+                                (mainLimitData.totalPlanned / mainLimitData.limit) *
+                                    100,
+                            ),
+                        })}`}</Animated.Text>
+                    </InfoTextWrapper>
+
+                    <SearchBarWrapper>
+                        <CustomSearchBar
+                            searchQuery={searchQuery}
+                            setSearchQuery={setSearchQuery}
+                            placeholder={t('searchPlaceholder')}
+                        />
+                        <IconButton
+                            Icon={
+                                groupingMode === 'cats'
+                                    ? Icons.FilterDate
+                                    : Icons.Car
+                                //   TODO: podmienic na lepszą ikonke niż samochód
+                            }
+                            onPress={() => {
+                                setGroupingMode(
+                                    groupingMode === 'cats' ? 'date' : 'cats',
+                                );
+                                console.log(`mode set to ${groupingMode}`);
+                            }}
+                            fillColor={Colors.ButtonGray}
+                        />
+                        <IconButton
+                            Icon={Icons.Plus}
+                            onPress={() => console.log('clicked AddGuest')}
+                            fillColor={Colors.LightGreen}
+                        />
+                    </SearchBarWrapper>
+
+                    <SectionList
+                        sections={translateData(listData)}
+                        initialNumToRender={20}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({item}) => (
+                            <ExpenseItem
+                                expName={item.name}
+                                expAmount={item.amount}
+                                currency={t('currency')}
+                                catData={getBudgetCategoryData(item.categoryId)}
+                            />
+                        )}
+                        renderSectionHeader={CustomSectionHeader}
+                        onScroll={Animated.event(
+                            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                            {useNativeDriver: false},
+                        )}
+                        showsVerticalScrollIndicator={true}
+                    />
+                </BudgetMainWrapper>
+            </>
+        );
 
     return <Container>{content}</Container>;
 };

@@ -6,16 +6,19 @@ export type Expense = {
     id: number;
     name: string;
     description: string;
-    category: string;
-    value: number;
+    categoryId: number;
+    amount: number;
     deadline: string | Date; // ISO 8601 datetime string
-    isPayed: boolean;
+    isPaid: boolean;
 };
 
 export type ExpGroupL = {
+    categoryId?: number;
     title: string;
     data: Expense[];
     subtitle?: string;
+    limit?: number;
+    spent?: number;
 };
 
 export type categoryData = {

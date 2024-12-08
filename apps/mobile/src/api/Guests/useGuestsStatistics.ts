@@ -8,6 +8,7 @@ export const useGuestsStatistics = () => {
         data: countCreated,
         isLoading: isLoadingCountCreated,
         isError: isErrorCountCreated,
+        isFetching: isFetchingCountCreated,
     } = useGuestsCount({
         statusId: GuestStatuses.Created,
     });
@@ -15,6 +16,7 @@ export const useGuestsStatistics = () => {
         data: countInvited,
         isLoading: isLoadingCountInvited,
         isError: isErrorCountInvited,
+        isFetching: isFetchingCountInvited,
     } = useGuestsCount({
         statusId: GuestStatuses.Invited,
     });
@@ -22,6 +24,7 @@ export const useGuestsStatistics = () => {
         data: countAccepted,
         isLoading: isLoadingCountAccepted,
         isError: isErrorCountAccepted,
+        isFetching: isFetchingCountAccepted,
     } = useGuestsCount({
         statusId: GuestStatuses.Accepted,
     });
@@ -29,6 +32,7 @@ export const useGuestsStatistics = () => {
         data: countRejected,
         isLoading: isLoadingCountRejected,
         isError: isErrorCountRejected,
+        isFetching: isFetchingCountRejected,
     } = useGuestsCount({
         statusId: GuestStatuses.Rejected,
     });
@@ -36,12 +40,14 @@ export const useGuestsStatistics = () => {
         data: countTotal,
         isLoading: isLoadingCountAll,
         isError: isErrorCountAll,
+        isFetching: isFetchingCountAll,
     } = useGuestsCount();
 
     const {
         data: countChild,
         isLoading: isLoadingCountChild,
         isError: isErrorCountChild,
+        isFetching: isFetchingCountChild,
     } = useGuestsCount({
         filter: GuestsCountParams.IsChild,
     });
@@ -49,11 +55,13 @@ export const useGuestsStatistics = () => {
         data: countOvernight,
         isLoading: isLoadingCountOvernight,
         isError: isErrorCountOvernight,
+        isFetching: isFetchingCountOvernight,
     } = useGuestsCount({filter: GuestsCountParams.Overnight});
     const {
         data: countVege,
         isLoading: isLoadingCountVege,
         isError: isErrorCountVege,
+        isFetching: isFetchingCountVege,
     } = useGuestsCount({
         filter: GuestsCountParams.IsVege,
     });
@@ -78,6 +86,16 @@ export const useGuestsStatistics = () => {
         isErrorCountOvernight ||
         isErrorCountVege;
 
+    const isFetching =
+        isFetchingCountCreated ||
+        isFetchingCountInvited ||
+        isFetchingCountAccepted ||
+        isFetchingCountRejected ||
+        isFetchingCountAll ||
+        isFetchingCountChild ||
+        isFetchingCountOvernight ||
+        isFetchingCountVege;
+
     const countStatuses: Statuses = {
         countCreated,
         countInvited,
@@ -91,6 +109,7 @@ export const useGuestsStatistics = () => {
         countOvernight,
         countVege,
         isLoading,
+        isFetching,
         isError,
     };
 };

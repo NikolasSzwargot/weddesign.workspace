@@ -3,10 +3,11 @@ import { PrismaClient } from '@prisma/client';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from 'bcrypt';
 import { LoginDto, RegisterAccountDto, UserDto } from '@shared/dto';
+import { PrismaService } from '../../../prisma-client.service';
 
 @Injectable()
 export class AuthService {
-  private prisma = new PrismaClient();
+  constructor(private prisma: PrismaService) {}
 
   private static readonly saltOrRounds = 10;
 

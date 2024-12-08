@@ -5,15 +5,21 @@ export const ExpenseItemContainer = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-left: 15px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    margin: 0 5px 0 15px;
+    padding: 5px 0 5px 0;
     border-bottom-color: #ececec;
 `;
 
 export const ExpenseInfoContainer = styled.View`
     flex-direction: row;
     align-items: center;
+    flex: 1;
+`;
+
+export const ExpenseRightContainer = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
     flex: 1;
 `;
 
