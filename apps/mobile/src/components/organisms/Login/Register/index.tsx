@@ -6,8 +6,14 @@ import {useTranslation} from 'react-i18next';
 import {useRouting} from '@mobile/components';
 import {LoginRoutes} from '@weddesign/enums';
 import {isValidEmail, isValidPassword} from '@weddesign/utils';
+import {TextInput} from 'react-native';
 
-import {LabelContainer, NextButtonContainer, ProgressLogoContainer} from '../styles';
+import {
+    LabelContainer,
+    NextButtonContainer,
+    ProgressLogoContainer,
+    styles,
+} from '../styles';
 
 import {InputGroup} from './styles';
 import {Container, Description} from './styles';
@@ -54,7 +60,7 @@ const Register = () => {
                     autoCapitalize={'none'}
                     autoCorrect={false}
                 />
-                <Input
+                <TextInput
                     value={password}
                     handleChange={setPassword}
                     inputMode={'email'}
@@ -62,8 +68,9 @@ const Register = () => {
                     autoCapitalize={'none'}
                     secureTextEntry={true}
                     autoCorrect={false}
+                    style={styles.textInput}
                 />
-                <Input
+                <TextInput
                     value={repeatedPassword}
                     handleChange={setRepeatedPassword}
                     inputMode={'email'}
@@ -71,6 +78,7 @@ const Register = () => {
                     autoCapitalize={'none'}
                     secureTextEntry={true}
                     autoCorrect={false}
+                    style={styles.textInput}
                 />
 
                 <Button variant={'secondary'} size={'medium'} disabled={!isEgible()}>
