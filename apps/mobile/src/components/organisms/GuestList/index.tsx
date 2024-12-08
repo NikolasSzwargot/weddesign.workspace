@@ -15,13 +15,15 @@ import {
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors} from '@weddesign/enums';
+import {Colors, GuestListRoutes} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
-import {WeddesignConfirmationModal} from '../../molecules';
+import {StatusChangeModal, WeddesignConfirmationModal} from '../../molecules';
 import {useGuestsStatistics} from '../../../api/Guests/useGuestsStatistics';
 import {useGuestsGrouped} from '../../../api/Guests/useGuestsGrouped';
+import {useRouting} from '../../providers';
+import {useUpdateGuest} from '../../../api/Guests/useUpdateGuest';
 
 import {
     Container,
@@ -32,12 +34,15 @@ import {
 } from './styles';
 
 const GuestList = () => {
+    const {router} = useRouting();
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isStatusModalVisible, setStatusModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
+    const {mutate: updateGuest, isLoading: isUpdating} = useUpdateGuest();
     const {
         data: groupedGuests,
         isLoading: isLoadingGrouped,
@@ -55,6 +60,14 @@ const GuestList = () => {
         isError,
     } = useGuestsStatistics();
 
+    const handleSuccess = () => {
+        console.log('Success');
+    };
+
+    const handleError = () => {
+        console.log('Error');
+    };
+
     const handleDelete = (guest: GuestDto) => {
         setSelectedItem(guest);
         setConfirmationModalText(
@@ -70,17 +83,30 @@ const GuestList = () => {
         deleteGuest(
             {guestId: selectedItem.id},
             {
-                onSuccess: () => {
-                    console.log('Guest deleted successfully!');
-                },
-                onError: (error) => {
-                    console.error('Error deleting guest:', error.message);
-                },
+                onSuccess: handleSuccess,
+                onError: handleError,
             },
         );
     };
     const handleCancel = () => {
         setModalVisible(false);
+        setStatusModalVisible(false);
+    };
+
+    const handleStatusChangeModal = (guest: GuestDto) => {
+        setSelectedItem(guest);
+        setStatusModalVisible(!isStatusModalVisible);
+    };
+
+    const handleStatusChange = (newGuestStatusId: number) => {
+        setStatusModalVisible(false);
+        updateGuest(
+            {
+                id: selectedItem.id,
+                updateGuestDto: {guestStatusId: newGuestStatusId},
+            },
+            {onSuccess: handleSuccess, onError: handleError},
+        );
     };
 
     return (
@@ -145,7 +171,7 @@ const GuestList = () => {
                                     <IconButton
                                         Icon={Icons.AddGuest}
                                         onPress={() =>
-                                            console.log('clicked AddGuest')
+                                            router.navigate(GuestListRoutes.ADD)
                                         }
                                     />
                                 </SearchBarWrapper>
@@ -158,6 +184,10 @@ const GuestList = () => {
                             renderItem={({item}) => (
                                 <GuestItem
                                     guest={item}
+                                    onStatusPress={handleStatusChangeModal}
+                                    onGuestPress={() =>
+                                        router.navigate(GuestListRoutes.ADD, item)
+                                    }
                                     onDeletePress={handleDelete}
                                 />
                             )}
@@ -165,7 +195,12 @@ const GuestList = () => {
                             showsVerticalScrollIndicator={true}
                         />
                         <CustomOverlay
-                            isVisible={isDeleting || isFetchingGrouped || isFetching}
+                            isVisible={
+                                isUpdating ||
+                                isDeleting ||
+                                isFetchingGrouped ||
+                                isFetching
+                            }
                             variant={'center'}
                         >
                             <LoadingSpinner
@@ -180,6 +215,12 @@ const GuestList = () => {
                             onNoPress={handleCancel}
                             message={confirmationModalText}
                         ></WeddesignConfirmationModal>
+
+                        <StatusChangeModal
+                            isVisible={isStatusModalVisible}
+                            onBackdropPress={handleCancel}
+                            onStatusSelect={handleStatusChange}
+                        ></StatusChangeModal>
                     </>
                 )}
             </GuestListWrapper>

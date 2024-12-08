@@ -27,4 +27,9 @@ export const typographyStyles = StyleSheet.create({
         fontWeight: 'normal',
         color: Colors.LightGray,
     },
+    error: {
+        fontFamily: 'Inter-regular',
+        fontWeight: 'normal',
+        color: Colors.StatusRejected,
+    },
 });
