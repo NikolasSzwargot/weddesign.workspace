@@ -33,10 +33,18 @@ export const TotalWrapper = styled.TouchableOpacity`
 export const CategoryListItem = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: space-between;
+    min-width: 95%;
     align-items: center;
     padding: 10px 20px;
     border-bottom-width: 1px;
     border-bottom-color: ${Colors.LightGray};
+`;
+
+export const CategoryInfoContainer = styled.View`
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    gap: 15px;
 `;
 
 interface CatDotProps {

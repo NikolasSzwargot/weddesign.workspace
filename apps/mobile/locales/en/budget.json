@@ -20,5 +20,6 @@
     "other": "Other"
   },
   "searchPlaceholder": "Search",
-  "loading": "Loading budget page..."
+  "loading": "Loading budget page...",
+  "total": "TOTAL"
 }

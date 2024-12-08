@@ -20,5 +20,6 @@
     "other": "Inne"
   },
   "searchPlaceholder": "Szukaj",
-  "loading": "Ładowanie budżetu..."
+  "loading": "Ładowanie budżetu...",
+  "total": "LIMIT"
 }

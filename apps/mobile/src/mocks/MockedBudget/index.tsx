@@ -243,7 +243,7 @@ export const categoriesData = [
     },
     {
         id: 3,
-        name: 'decoration',
+        name: 'decor',
         limit: 33333,
         createdAt: '2024-12-03T18:47:50.539Z',
         updatedAt: '2024-12-03T18:47:50.539Z',
@@ -278,21 +278,21 @@ export const categoriesData = [
     },
     {
         id: 8,
-        name: 'presents',
+        name: 'gifts',
         limit: null,
         createdAt: '2024-12-03T18:47:50.539Z',
         updatedAt: '2024-12-03T18:47:50.539Z',
     },
     {
         id: 9,
-        name: 'outfits',
+        name: 'dress',
         limit: 999999,
         createdAt: '2024-12-03T18:47:50.539Z',
         updatedAt: '2024-12-03T18:47:50.539Z',
     },
     {
         id: 10,
-        name: 'beauty',
+        name: 'appearance',
         limit: null,
         createdAt: '2024-12-03T18:47:50.539Z',
         updatedAt: '2024-12-03T18:47:50.539Z',
@@ -313,7 +313,7 @@ export const categoriesData = [
     },
     {
         id: 13,
-        name: 'accomodation',
+        name: 'accommodation',
         limit: null,
         createdAt: '2024-12-03T18:47:50.539Z',
         updatedAt: '2024-12-03T18:47:50.539Z',
