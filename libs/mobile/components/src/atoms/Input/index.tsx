@@ -9,7 +9,7 @@ import {StyledInput} from './styles';
 type InputProps = TextInputProps & {
     value: string;
     handleChange: (val: string) => void;
-    multiline?: boolean
+    multiline?: boolean;
 };
 
 //@TODO: Fix secure text content. Worst case we might need to use native import for it.
@@ -19,7 +19,7 @@ const Input = ({
     clearTextOnFocus = false,
     handleChange,
     value,
-                 multiline = false,
+    multiline = false,
     ...props
 }: InputProps) => {
     const changePropagator = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -31,9 +31,6 @@ const Input = ({
             placeholder={placeholder}
             clearTextOnFocus={clearTextOnFocus}
             value={value}
-            placeholderTextColor={Colors.Gray}
-            onChange={changePropagator}
-            {...props}
             multiline={multiline}
             placeholderTextColor={Colors.Gray}
             onChange={changePropagator}
