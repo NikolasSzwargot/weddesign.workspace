@@ -3,7 +3,7 @@ import {Animated, SectionList} from 'react-native';
 import {
     BudgetFrame,
     CustomSectionHeader,
-    DudgetEllipse,
+    BudgetEllipse,
     CustomSearchBar,
     IconButton,
     ExpenseItem,
@@ -11,13 +11,13 @@ import {
     LoadingSpinner,
     BudgetStatusBar,
 } from '@weddesign/components';
-import {Colors} from '@weddesign/enums';
+import {Colors, ExpenseGroupingMode} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
 import {Text} from '@weddesign/themes';
 
-import {useExpensesByCats} from '../../../api/Budget/useExpensesByCats';
+import {useExpensesByCategories} from '../../../api/Budget/useExpensesByCategories';
 import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
 
@@ -32,7 +32,9 @@ import {
 const BudgetMain = () => {
     const {t} = useTranslation('budget');
     const [searchQuery, setSearchQuery] = useState('');
-    const [groupingMode, setGroupingMode] = useState<'cats' | 'date'>('cats');
+    const [groupingMode, setGroupingMode] = useState<
+        ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
+    >(ExpenseGroupingMode.Categories);
     const [listData, setListData] = useState([]);
 
     const {
@@ -42,11 +44,11 @@ const BudgetMain = () => {
         isFetching: isFetchingMainLimit,
     } = useMainLimit();
     const {
-        data: groupedByCats,
-        isLoading: isLoadingByCats,
-        isError: isErrorByCats,
-        isFetching: isFetchingByCats,
-    } = useExpensesByCats();
+        data: groupedByCategories,
+        isLoading: isLoadingByCategories,
+        isError: isErrorByCategories,
+        isFetching: isFetchingByCategories,
+    } = useExpensesByCategories();
     const {
         data: groupedByDate,
         isLoading: isLoadingByDate,
@@ -55,11 +57,14 @@ const BudgetMain = () => {
     } = useExpensesByDate();
 
     useEffect(() => {
-        if (!isFetchingByDate && !isFetchingByCats) {
-            setListData(groupingMode === 'cats' ? groupedByCats : groupedByDate);
-            console.log('lissta', listData);
+        if (!isFetchingByDate && !isFetchingByCategories) {
+            setListData(
+                groupingMode === ExpenseGroupingMode.Categories
+                    ? groupedByCategories
+                    : groupedByDate,
+            );
         }
-    }, [groupingMode, groupedByCats, groupedByDate]);
+    }, [groupingMode, groupedByCategories, groupedByDate]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const infoTextAnimation = {
@@ -76,7 +81,7 @@ const BudgetMain = () => {
     };
 
     const translateData = (lista) => {
-        return groupingMode === 'cats'
+        return groupingMode === ExpenseGroupingMode.Categories
             ? lista.map((item) => ({
                   ...item,
                   title: t(`category.${item.title}`),
@@ -85,12 +90,12 @@ const BudgetMain = () => {
     };
 
     const content =
-        isLoadingMainLimit || isLoadingByCats || isLoadingByDate ? (
+        isLoadingMainLimit || isLoadingByCategories || isLoadingByDate ? (
             <>
-                <DudgetEllipse />
+                <BudgetEllipse />
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             </>
-        ) : isErrorByCats || isErrorMainLimit || isErrorByDate ? (
+        ) : isErrorByCategories || isErrorMainLimit || isErrorByDate ? (
             <Text.Regular style={{position: 'absolute', top: '50%'}}>
                 {/* @TODO przejście na ekran z błędem*/}
                 {/* eslint-disable-next-line react-native/no-raw-text */}
@@ -98,7 +103,7 @@ const BudgetMain = () => {
             </Text.Regular>
         ) : (
             <>
-                <DudgetEllipse />
+                <BudgetEllipse />
                 <BudgetMainWrapper>
                     <Header />
                     <BudgetMainFrame
@@ -144,16 +149,16 @@ const BudgetMain = () => {
                         />
                         <IconButton
                             Icon={
-                                groupingMode === 'cats'
+                                groupingMode === ExpenseGroupingMode.Categories
                                     ? Icons.FilterDate
-                                    : Icons.Car
-                                //   TODO: podmienic na lepszą ikonke niż samochód
+                                    : Icons.FilterDollar
                             }
                             onPress={() => {
                                 setGroupingMode(
-                                    groupingMode === 'cats' ? 'date' : 'cats',
+                                    groupingMode === ExpenseGroupingMode.Categories
+                                        ? ExpenseGroupingMode.Dates
+                                        : ExpenseGroupingMode.Categories,
                                 );
-                                console.log(`mode set to ${groupingMode}`);
                             }}
                             fillColor={Colors.ButtonGray}
                         />

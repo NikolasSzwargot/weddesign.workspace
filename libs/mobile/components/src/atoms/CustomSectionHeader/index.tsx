@@ -20,7 +20,6 @@ const CustomSectionHeader = ({
 }: CustomSectionHeaderProps) => (
     <UniversalSeparatorContainer>
         <StartSeparatorLine />
-        {/*TODO: dodać tłumacznie do nazw - teraz TYLKO do budzetu*/}
         <Text.RegularGray>{title}</Text.RegularGray>
         {subtitle ? (
             <>

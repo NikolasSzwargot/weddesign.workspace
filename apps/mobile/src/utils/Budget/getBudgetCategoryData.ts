@@ -46,8 +46,6 @@ export const getBudgetCategoryData = (catId: number): categoryData => {
             case 15:
             case 16:
                 return Colors.LightBlue;
-            default:
-                return Colors.LightBlue;
         }
     })();
     const icon = categoryToIconMap[catId];

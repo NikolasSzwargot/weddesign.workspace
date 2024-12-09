@@ -7,10 +7,10 @@ type guestsPageProps = {
 };
 const BudgetMainPage = ({screen}: guestsPageProps) => {
     switch (screen) {
-        // case ExpensesScreens.LIST:
-        //     return <BudgetMain />;
-        // case ExpensesScreens.ADD:
-        //     return <BudgetMainPage />;
+        case ExpensesScreens.LIST:
+            return <BudgetMain />;
+        case ExpensesScreens.ADD:
+            return <BudgetMain />;
         default:
             return <BudgetMain />;
     }
