@@ -16,3 +16,5 @@ export {default as CustomSectionHeader} from './CustomSectionHeader';
 export {default as Button} from './Button';
 export {default as CustomOverlay} from './CustomOverlay';
 export {default as Modal} from './Modal';
+export {default as CustomSwitch} from './CustomSwitch';
+export {default as GuestStatusDot} from './GuestStatusDot';

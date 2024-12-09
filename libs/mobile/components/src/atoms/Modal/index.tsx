@@ -1,5 +1,5 @@
-import React, {useRef, useEffect} from 'react';
-import {Animated, Easing} from 'react-native';
+import React, {useRef, useEffect, useState} from 'react';
+import {Animated, Easing, LayoutChangeEvent} from 'react-native';
 import {CustomOverlay} from '../../atoms';
 
 type ModalProps = {
@@ -9,25 +9,34 @@ type ModalProps = {
 };
 
 const Modal = ({isVisible, onBackdropPress, children}: ModalProps) => {
-    const slideAnim = useRef(new Animated.Value(300)).current;
+    const slideAnim = useRef(new Animated.Value(0)).current;
+    const [contentHeight, setContentHeight] = useState(0);
 
     useEffect(() => {
+        const animationDistance = contentHeight || 300;
+        const duration = 245;
+
         if (isVisible) {
             Animated.timing(slideAnim, {
                 toValue: 0,
-                duration: 200,
+                duration,
                 easing: Easing.out(Easing.ease),
                 useNativeDriver: true,
             }).start();
         } else {
             Animated.timing(slideAnim, {
-                toValue: 300,
-                duration: 0,
+                toValue: animationDistance,
+                duration,
                 easing: Easing.in(Easing.ease),
                 useNativeDriver: true,
             }).start();
         }
-    }, [isVisible, slideAnim]);
+    }, [isVisible, contentHeight, slideAnim]);
+
+    const handleLayout = (event: LayoutChangeEvent) => {
+        const {height} = event.nativeEvent.layout;
+        setContentHeight(height);
+    };
 
     return (
         <CustomOverlay
@@ -39,6 +48,7 @@ const Modal = ({isVisible, onBackdropPress, children}: ModalProps) => {
                 style={{
                     transform: [{translateY: slideAnim}],
                 }}
+                onLayout={handleLayout}
             >
                 {children}
             </Animated.View>
