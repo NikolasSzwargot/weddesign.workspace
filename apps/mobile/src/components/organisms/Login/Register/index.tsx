@@ -64,7 +64,6 @@ const Register = () => {
                     onChange={(e) => {
                         setPassword(e.nativeEvent.text);
                     }}
-                    inputMode={'none'}
                     placeholder={t('register.password')}
                     placeholderTextColor={Colors.Gray}
                     autoCapitalize={'none'}
