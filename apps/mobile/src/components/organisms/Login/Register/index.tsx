@@ -80,6 +80,7 @@ const Register = () => {
                     placeholder={t('register.repeatPassword')}
                     placeholderTextColor={Colors.Gray}
                     autoCapitalize={'none'}
+                    secureTextEntry={true}
                     autoCorrect={false}
                     style={styles.textInput}
                 />
