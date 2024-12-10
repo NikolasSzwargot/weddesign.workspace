@@ -76,6 +76,17 @@ const RegularGray: React.FC<CustomTextProps> = ({
     </RNEText>
 );
 
+const Error: React.FC<CustomTextProps> = ({
+    children,
+    size = 16,
+    style,
+    ...props
+}) => (
+    <RNEText style={[typographyStyles.error, {fontSize: size}, style]} {...props}>
+        {children}
+    </RNEText>
+);
+
 const Text = {
     Regular,
     Bold,
@@ -83,6 +94,7 @@ const Text = {
     SemiBold,
     Light,
     RegularGray,
+    Error,
 };
 
 export default Text;

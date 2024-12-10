@@ -6,3 +6,4 @@ export * from './expense-category.dto';
 export * from './budget-limit.dto';
 export * from './update-budget-limit.dto';
 export * from './get-budget-limits.dto';
+export * from './expense-by-date.dto';

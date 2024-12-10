@@ -5,12 +5,18 @@ import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {useRouting} from '@mobile/components';
 import {AppRootRoutes, LoginRoutes} from '@weddesign/enums';
-import {isValidEmail} from '@weddesign/utils';
+import {Colors, LoginRoutes} from '@weddesign/enums';
+import {isValidEmail, isValidPassword} from '@weddesign/utils';
+import {TextInput} from 'react-native';
 
-import {LabelContainer, NextButtonContainer, ProgressLogoContainer} from '../styles';
+import {
+    LabelContainer,
+    NextButtonContainer,
+    ProgressLogoContainer,
+    styles,
+} from '../styles';
 
-import {InputGroup} from './styles';
-import {Container, Description} from './styles';
+import {InputGroup, Container, Description} from './styles';
 
 //@TODO: Implement registering through Google and Facebook
 //@TODO: Make this fucking button not go up with keyboard
@@ -24,7 +30,7 @@ const Register = () => {
 
     const isEgible = useCallback(() => {
         return (
-            password.length >= 4 &&
+            isValidPassword(password) &&
             repeatedPassword === password &&
             isValidEmail(email)
         );
@@ -54,23 +60,30 @@ const Register = () => {
                     autoCapitalize={'none'}
                     autoCorrect={false}
                 />
-                <Input
+                <TextInput
                     value={password}
-                    handleChange={setPassword}
-                    inputMode={'email'}
+                    onChange={(e) => {
+                        setPassword(e.nativeEvent.text);
+                    }}
+                    inputMode={'none'}
                     placeholder={t('register.password')}
+                    placeholderTextColor={Colors.Gray}
                     autoCapitalize={'none'}
                     secureTextEntry={true}
                     autoCorrect={false}
+                    style={styles.textInput}
                 />
-                <Input
+                <TextInput
                     value={repeatedPassword}
-                    handleChange={setRepeatedPassword}
-                    inputMode={'email'}
+                    onChange={(e) => {
+                        setRepeatedPassword(e.nativeEvent.text);
+                    }}
                     placeholder={t('register.repeatPassword')}
+                    placeholderTextColor={Colors.Gray}
                     autoCapitalize={'none'}
                     secureTextEntry={true}
                     autoCorrect={false}
+                    style={styles.textInput}
                 />
 
                 <Button variant={'secondary'} size={'medium'} disabled={!isEgible()}>

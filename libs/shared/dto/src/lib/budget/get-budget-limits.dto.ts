@@ -3,4 +3,5 @@ export class GetBudgetLimitsDto {
   paid: number;
   notPaid: number;
   totalPlanned: number;
+  totalPercent: number;
 }

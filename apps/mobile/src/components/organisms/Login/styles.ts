@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import {Colors} from '@weddesign/enums';
+import {StyleSheet} from 'react-native';
 
 export const Container = styled.View`
     flex: 1;
@@ -24,6 +26,21 @@ export const ProgressLogoContainer = styled.View`
     align-items: center;
     gap: 60px;
 `;
+
+export const styles = StyleSheet.create({
+    textInput: {
+        backgroundColor: Colors.White,
+        borderColor: Colors.Gray,
+        borderRadius: 8,
+        borderWidth: 1,
+        color: Colors.Black,
+        fontSize: 16,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        textAlign: 'left',
+        width: '100%',
+    },
+});
 
 export const NextButtonContainer = styled.View`
     width: 95%;
