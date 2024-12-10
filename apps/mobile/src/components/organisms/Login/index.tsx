@@ -27,7 +27,7 @@ const Login = () => {
     const {router} = useRouting();
 
     return (
-        <LoginContainer>
+        <LoginContainer behavior={'padding'}>
             <ProgressLogoContainer>
                 <ProgressBar progress={68} />
                 <LabelContainer>

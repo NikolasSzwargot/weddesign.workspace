@@ -10,7 +10,7 @@ export const Container = styled.View`
     gap: 150px;
 `;
 
-export const LoginContainer = styled.View`
+export const LoginContainer = styled.KeyboardAvoidingView`
     flex: 1;
     display: flex;
     flex-direction: column;
