@@ -4,8 +4,7 @@ import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {useRouting} from '@mobile/components';
-import {AppRootRoutes, LoginRoutes} from '@weddesign/enums';
-import {Colors, LoginRoutes} from '@weddesign/enums';
+import {AppRootRoutes, LoginRoutes, Colors} from '@weddesign/enums';
 import {isValidEmail, isValidPassword} from '@weddesign/utils';
 import {TextInput} from 'react-native';
 
