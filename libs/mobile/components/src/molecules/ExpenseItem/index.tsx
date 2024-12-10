@@ -9,7 +9,7 @@ import {
 
 import {categoryData} from '@weddesign/types';
 import {Icons} from '@weddesign/assets';
-import {IconButton} from '@weddesign/components';
+import {IconButton, IconDot} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
 
 type ExpenseItemProps = {
@@ -23,9 +23,7 @@ const ExpenseItem = ({expName, expAmount, currency, catData}: ExpenseItemProps) 
     return (
         <ExpenseItemContainer onPress={() => console.log(expName)}>
             <ExpenseInfoContainer>
-                <StatusDot color={catData.color}>
-                    <catData.icon />
-                </StatusDot>
+                <IconDot color={catData.color} Icon={catData.icon} />
                 <ExpenseName>{expName}</ExpenseName>
             </ExpenseInfoContainer>
             <ExpenseRightContainer>
