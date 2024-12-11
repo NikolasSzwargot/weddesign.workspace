@@ -5,6 +5,8 @@ export enum ApiRoutes {
     GuestsGrouped = '/guests/grouped',
     GuestsCount = '/guests/count',
     GuestsDelete = '/guests',
+    GuestsCreate = '/guests/create',
+    GuestsUpdate = '/guests/update/:id',
 
     ExpensesByCategory = '/budget/expense/groupedByCategory',
     ExpensesByDate = '/budget/expense/groupedByDate',

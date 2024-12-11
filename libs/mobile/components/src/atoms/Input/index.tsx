@@ -1,33 +1,39 @@
-import {NativeSyntheticEvent, TextInputChangeEventData} from 'react-native';
+import {
+    NativeSyntheticEvent,
+    TextInputChangeEventData,
+    TextInputProps,
+} from 'react-native';
+import {Colors} from '@weddesign/enums';
 import {StyledInput} from './styles';
 
-type InputProps = {
-    placeholder?: string;
-    inputMode?: 'none' | 'text' | 'email' | 'numeric';
-    clearTextOnFocus?: boolean;
+type InputProps = TextInputProps & {
     value: string;
-    onChange: (val: string) => void;
+    handleChange: (val: string) => void;
 };
 
+//@TODO: Fix secure text content. Worst case we might need to use native import for it.
 const Input = ({
-    inputMode = 'none',
+    inputMode = 'text',
     placeholder = '',
     clearTextOnFocus = false,
+    handleChange,
     value,
-    onChange,
-}: InputProps) => {
-    const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-        onChange(e.nativeEvent.text);
+    multiline = false,
+    ...props
+}: InputProps & {multiline?: boolean}) => {
+    const changePropagator = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+        handleChange(e.nativeEvent.text);
     };
     return (
         <StyledInput
-            inputMode={inputMode ?? 'none'}
-            placeholder={placeholder ?? ''}
+            inputMode={inputMode}
+            placeholder={placeholder}
             clearTextOnFocus={clearTextOnFocus}
             value={value}
-            onChange={(e) => {
-                handleChange(e);
-            }}
+            multiline={multiline}
+            placeholderTextColor={Colors.Gray}
+            onChange={changePropagator}
+            {...props}
         />
     );
 };

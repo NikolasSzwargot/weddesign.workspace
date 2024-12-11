@@ -6,5 +6,26 @@
     "vege": "wege"
   },
   "searchPlaceholder": "Wyszukaj",
-  "deleteMessage": "Czy na pewno chcesz usunąć gościa {{firstName}} {{lastName}}?"
+  "deleteMessage": "Czy na pewno chcesz usunąć gościa {{firstName}} {{lastName}}?",
+  "guestForm": {
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "notes": "Tu możesz zapisać swoje notatki :)",
+    "child": "Dziecko",
+    "accommodation": "Potrzebuje noclegu",
+    "transport": "Potrzebuje dojazdu",
+    "vege": "Ma inną dietę",
+    "save": "Zapisz"
+  },
+  "statusModal": {
+    "title": "Zmień status",
+    "created": "Czeka na zaproszenie",
+    "invited": "Zaproszenie wysłane",
+    "accepted": "Potwierdzono",
+    "rejected": "Odrzucono"
+  },
+  "errors": {
+    "firstName": "Imię jest wymagane",
+    "lastName": "Nazwisko jest wymagane"
+  }
 }
