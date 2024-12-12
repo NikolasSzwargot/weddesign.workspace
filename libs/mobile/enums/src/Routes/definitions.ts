@@ -20,3 +20,7 @@ export enum GuestsScreens {
     LIST = '/list',
     ADD = '/add',
 }
+
+export enum ErrorScreens {
+    GENERAL = '/general',
+}

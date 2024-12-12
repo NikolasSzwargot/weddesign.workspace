@@ -1,6 +1,14 @@
 import React from 'react';
-import {AppRootRoutes, GuestsScreens, LoginScreens, Route} from '@weddesign/enums';
+import {
+    AppRootRoutes,
+    ErrorScreens,
+    GuestsScreens,
+    LoginScreens,
+    Route,
+} from '@weddesign/enums';
 import {GuestListPage, HomePage, LoginPage} from '@mobile/components';
+
+import ErrorPage from '../components/pages/ErrorPage';
 
 export const LoginRoutingRoutes: Route[] = [
     {
@@ -40,8 +48,17 @@ export const GuestsRoutingRoutes: Route[] = [
     },
 ];
 
+export const ErrorRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.ERROR,
+        screen: ErrorScreens.GENERAL,
+        element: <ErrorPage screen={ErrorScreens.GENERAL} />,
+    },
+];
+
 export const WeddesignRoutingRoutes: Route[] = [
     ...LoginRoutingRoutes,
     ...HomeRoutingRoutes,
     ...GuestsRoutingRoutes,
+    ...ErrorRoutingRoutes,
 ];

@@ -3,6 +3,7 @@ export enum AppRootRoutes {
     LOGIN = '/login',
     HOME = '/home',
     GUESTLIST = '/guests',
+    ERROR = '/error',
 }
 
 // ----- LOGIN SUBROUTES -----
@@ -24,4 +25,12 @@ export enum GuestListRoutes {
     ADD = '/guests/add',
 }
 
-export type WeddesignRoutes = LoginRoutes | HomeRoutes;
+export enum ErrorRoutes {
+    GENERAL = '/error/general',
+}
+
+export type WeddesignRoutes =
+    | LoginRoutes
+    | HomeRoutes
+    | GuestListRoutes
+    | ErrorRoutes;
