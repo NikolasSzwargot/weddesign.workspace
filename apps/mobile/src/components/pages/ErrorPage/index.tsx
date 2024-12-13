@@ -1,5 +1,5 @@
 import React from 'react';
-import {GuestList} from '@mobile/components';
+import {ErrorGeneral} from '@mobile/components';
 import {ErrorScreens} from '@weddesign/enums';
 
 type ErrorPageProps = {
@@ -8,7 +8,7 @@ type ErrorPageProps = {
 const ErrorPage = ({screen}: ErrorPageProps) => {
     switch (screen) {
         case ErrorScreens.GENERAL:
-            return <GuestList />;
+            return <ErrorGeneral />;
     }
 };
 
