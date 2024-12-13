@@ -9,7 +9,7 @@ import {Container, ContentWrapper, ErrorWrapper} from './styles';
 
 const ErrorGeneral = () => {
     const {router} = useRouting();
-    const variant = 'home' || router.location.state;
+    const variant = router.location.state || 'home';
     const {t} = useTranslation('errors');
 
     return (
