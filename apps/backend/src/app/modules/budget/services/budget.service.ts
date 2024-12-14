@@ -75,6 +75,20 @@ export class BudgetService {
     return category?.limit || null;
   }
 
+  async setCategoryLimit(id: number, updateCategoryLimit: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
+    try {
+      return this.prisma.expenseCategory.update({
+        where: { id: id },
+        data: updateCategoryLimit,
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Budget limit not found');
+      }
+      throw new Error(e);
+    }
+  }
+
   async getExpensesByCategory(): Promise<ExpensesByCategoryDto[]> {
     const expenses = await this.getExpenses();
 
