@@ -11,8 +11,6 @@ type InputProps = TextInputProps & {
     handleChange: (val: string) => void;
     multiline?: boolean;
 };
-
-//@TODO: Fix secure text content. Worst case we might need to use native import for it.
 const Input = ({
     inputMode = 'text',
     placeholder = '',

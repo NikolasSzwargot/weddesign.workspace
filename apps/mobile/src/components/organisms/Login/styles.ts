@@ -26,7 +26,6 @@ export const ProgressLogoContainer = styled.View`
     align-items: center;
     gap: 60px;
 `;
-
 export const styles = StyleSheet.create({
     textInput: {
         backgroundColor: Colors.White,
