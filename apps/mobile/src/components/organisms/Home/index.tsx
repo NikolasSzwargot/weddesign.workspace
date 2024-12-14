@@ -35,7 +35,7 @@ const Home = () => {
 
     return (
         <Container>
-            <BackgroundEllipse />
+            <BackgroundEllipse variant={'home'} />
             <HomeWrapper>
                 <Header />
                 <MainFrame>

@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
 import {Text} from '@weddesign/themes';
 import {
+    BackgroundEllipse,
     Counter,
     CustomOverlay,
     CustomSearchBar,
     CustomSectionHeader,
     GuestItem,
-    GuestListBackgroundEllipse,
     GuestsStatusBar,
     Header,
     IconButton,
@@ -111,7 +111,7 @@ const GuestList = () => {
 
     return (
         <Container>
-            <GuestListBackgroundEllipse />
+            <BackgroundEllipse variant={'guests'} />
             <GuestListWrapper>
                 <Header />
                 {isLoading || isLoadingGrouped ? (
