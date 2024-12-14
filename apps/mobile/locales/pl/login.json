@@ -3,5 +3,14 @@
   "back": "Powrót",
   "language": {
     "choose": "Wybierz język"
+  },
+  "register": {
+    "description": "Stwórz konto, aby podzielić się\nplanowaniem z innymi!",
+    "hint": "Wpisz swój email, żeby zarejestrować się",
+    "loginNow": "Masz już konto? Zaloguj się!",
+    "registerNow": "Zarejestruj się z email",
+    "password": "hasło",
+    "repeatPassword": "powtórz hasło",
+    "email": "email@domena.com"
   }
 }

@@ -3,13 +3,26 @@ import {TouchableOpacityProps} from 'react-native';
 import {ButtonContainer, ButtonText} from './styles';
 
 type ButtonProps = TouchableOpacityProps & {
-    variant?: 'primary' | 'secondary' | 'secondaryFilled';
+    variant?: 'primary' | 'secondary' | 'gray-out' | 'secondaryFilled';
+    size?: 'big' | 'medium' | 'small';
 };
 
-const Button = ({variant = 'primary', children, ...props}: ButtonProps) => {
+const Button = ({
+    variant = 'primary',
+    children,
+    size = 'big',
+    ...props
+}: ButtonProps) => {
     return (
-        <ButtonContainer variant={variant} {...props}>
-            <ButtonText variant={variant}>{children}</ButtonText>
+        <ButtonContainer
+            variant={variant}
+            size={size}
+            {...props}
+            style={props.style}
+        >
+            <ButtonText variant={variant} size={size}>
+                {children}
+            </ButtonText>
         </ButtonContainer>
     );
 };
