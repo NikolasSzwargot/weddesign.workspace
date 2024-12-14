@@ -3,5 +3,13 @@
   "back": "Go back",
   "language": {
     "choose": "Choose language"
+  },
+  "register": {
+    "loginNow": "Already have an account? Log in!",
+    "registerNow": "Sign up with email",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "email": "email@example.com"
   }
+
 }

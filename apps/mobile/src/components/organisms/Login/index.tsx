@@ -13,21 +13,6 @@ const Login = () => {
             <ProgressLogoContainer>
                 <ProgressBar progress={50} />
             </ProgressLogoContainer>
-            {/*<LoginPageInput*/}
-            {/*    value={email}*/}
-            {/*    onChange={(text: string) => {*/}
-            {/*        setEmail(text);*/}
-            {/*    }}*/}
-            {/*    placeholder={'Podaj email'}*/}
-            {/*    inputMode={'email'}*/}
-            {/*/>*/}
-            {/*<LoginPageInput*/}
-            {/*    value={password}*/}
-            {/*    onChange={(text: string) => {*/}
-            {/*        setPassword(text);*/}
-            {/*    }}*/}
-            {/*    placeholder={'Podaj hasło'}*/}
-            {/*/>*/}
         </Container>
     );
 };
