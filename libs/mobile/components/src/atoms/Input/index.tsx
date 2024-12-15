@@ -9,9 +9,8 @@ import {StyledInput} from './styles';
 type InputProps = TextInputProps & {
     value: string;
     handleChange: (val: string) => void;
+    multiline?: boolean;
 };
-
-//@TODO: Fix secure text content. Worst case we might need to use native import for it.
 const Input = ({
     inputMode = 'text',
     placeholder = '',
@@ -20,7 +19,7 @@ const Input = ({
     value,
     multiline = false,
     ...props
-}: InputProps & {multiline?: boolean}) => {
+}: InputProps) => {
     const changePropagator = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
         handleChange(e.nativeEvent.text);
     };
