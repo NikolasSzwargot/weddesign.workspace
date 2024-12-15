@@ -49,6 +49,7 @@ export const styles = StyleSheet.create({
 export const NextButtonContainer = styled.View`
     width: 95%;
     align-self: center;
+    height: 9%;
 `;
 
 export const LabelContainer = styled.View`
@@ -58,7 +59,7 @@ export const LabelContainer = styled.View`
     align-items: center;
 `;
 
-export const ContentComtainer = styled.View`
+export const ContentContainer = styled.View`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -86,4 +87,14 @@ export const ButtonsContainer = styled.View`
     display: flex;
     flex-direction: column;
     gap: 10px;
+`;
+
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+    flex: 1;
+    width: 100%;
+`;
+
+export const StyledScrollView = styled.ScrollView`
+    flex-grow: 1;
+    width: 100%;
 `;

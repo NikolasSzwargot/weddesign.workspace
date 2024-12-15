@@ -4,11 +4,15 @@ import {useRouting} from '@mobile/components';
 import {LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Text} from '@weddesign/themes';
+import {Platform} from 'react-native';
+import {useCallback, useState} from 'react';
 
 import {
     ButtonsContainer,
     NextButtonContainer,
     ProgressLogoContainer,
+    StyledKeyboardAvoidingView,
+    StyledScrollView,
 } from '../styles';
 
 import {FormContainer, Container} from './styles';
@@ -16,46 +20,66 @@ import {FormContainer, Container} from './styles';
 const BrideGroomSetup = () => {
     const {router} = useRouting();
     const {t} = useTranslation('login');
+    const [brideName, setBrideName] = useState<string>('');
+    const [groomName, setGroomName] = useState<string>('');
+
+    const isEgible = useCallback(() => {
+        return brideName.trim() !== '' && groomName.trim() !== '';
+    }, [brideName, groomName]);
 
     return (
-        <Container>
-            <ProgressLogoContainer>
-                <ProgressBar progress={68} />
-                <Images.Logo />
-            </ProgressLogoContainer>
+        <StyledKeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+            <StyledScrollView
+                contentContainerStyle={{
+                    flexGrow: 1,
+                }}
+            >
+                <Container>
+                    <ProgressLogoContainer>
+                        <ProgressBar progress={68} />
+                        <Images.Logo />
+                    </ProgressLogoContainer>
 
-            <FormContainer>
-                <Text.Bold size={20}>
-                    {'Cześć!\nNa początek daj nam się poznać :)\n' +
-                        '\nJak powinniśmy się do Was zwracać? '}
-                </Text.Bold>
+                    <FormContainer>
+                        <Text.Bold size={20}>
+                            {'Cześć!\nNa początek daj nam się poznać :)\n' +
+                                '\nJak powinniśmy się do Was zwracać? '}
+                        </Text.Bold>
 
-                <Input
-                    value={''}
-                    handleChange={() => {}}
-                    placeholder={'Imię przyszłego Pana Młodego'}
-                />
-                <Input
-                    value={''}
-                    handleChange={() => {}}
-                    placeholder={'Imię przyszłej Pani Młodej'}
-                />
-            </FormContainer>
+                        <Input
+                            value={groomName}
+                            handleChange={(val) => {
+                                setGroomName(val);
+                            }}
+                            placeholder={'Imię przyszłego Pana Młodego'}
+                        />
+                        <Input
+                            value={brideName}
+                            handleChange={(val) => {
+                                setBrideName(val);
+                            }}
+                            placeholder={'Imię przyszłej Pani Młodej'}
+                        />
+                    </FormContainer>
+                </Container>
 
-            <NextButtonContainer>
-                <ButtonsContainer>
-                    <Button
-                        onPress={() => {
-                            router.navigate(LoginRoutes.REGISTER);
-                        }}
-                        variant={'pink-out'}
-                    >
-                        {t('back')}
-                    </Button>
-                    <Button>{t('next')}</Button>
-                </ButtonsContainer>
-            </NextButtonContainer>
-        </Container>
+                <NextButtonContainer style={{height: '15%'}}>
+                    <ButtonsContainer>
+                        <Button
+                            onPress={() => {
+                                router.navigate(LoginRoutes.REGISTER);
+                            }}
+                            variant={'pink-out'}
+                        >
+                            {t('back')}
+                        </Button>
+                        <Button disabled={isEgible()}>{t('next')}</Button>
+                    </ButtonsContainer>
+                </NextButtonContainer>
+            </StyledScrollView>
+        </StyledKeyboardAvoidingView>
     );
 };
 
