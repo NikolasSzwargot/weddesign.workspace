@@ -21,8 +21,6 @@ import {
 import {InputGroup, Container, Description} from './styles';
 
 //@TODO: Implement registering through Google and Facebook
-//@TODO: Make this fucking button not go up with keyboard
-
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
