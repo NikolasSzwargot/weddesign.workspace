@@ -5,7 +5,7 @@ import {LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Text} from '@weddesign/themes';
 import {Platform} from 'react-native';
-import {useCallback, useState} from 'react';
+import {useState} from 'react';
 
 import {
     ButtonsContainer,
@@ -23,9 +23,8 @@ const BrideGroomSetup = () => {
     const [brideName, setBrideName] = useState<string>('');
     const [groomName, setGroomName] = useState<string>('');
 
-    const isEgible = useCallback(() => {
-        return brideName.trim() !== '' && groomName.trim() !== '';
-    }, [brideName, groomName]);
+    const isDisabled =
+        groomName.trim().length === 0 || brideName.trim().length === 0;
 
     return (
         <StyledKeyboardAvoidingView
@@ -72,7 +71,7 @@ const BrideGroomSetup = () => {
                         >
                             {t('back')}
                         </Button>
-                        <Button disabled={isEgible()}>{t('next')}</Button>
+                        <Button disabled={isDisabled}>{t('next')}</Button>
                     </ButtonsContainer>
                 </NextButtonContainer>
             </StyledScrollView>
