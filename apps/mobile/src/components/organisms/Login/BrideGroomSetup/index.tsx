@@ -24,7 +24,7 @@ const BrideGroomSetup = () => {
     const [groomName, setGroomName] = useState<string>('');
 
     const isEgible = useCallback(() => {
-        return brideName.trim() !== '' && groomName.trim() !== '';
+        return brideName.trim() === '' || groomName.trim() === '';
     }, [brideName, groomName]);
 
     return (
