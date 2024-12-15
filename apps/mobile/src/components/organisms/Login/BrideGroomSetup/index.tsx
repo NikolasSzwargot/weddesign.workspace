@@ -43,24 +43,21 @@ const BrideGroomSetup = () => {
                     </ProgressLogoContainer>
 
                     <FormContainer>
-                        <Text.Bold size={20}>
-                            {'Cześć!\nNa początek daj nam się poznać :)\n' +
-                                '\nJak powinniśmy się do Was zwracać? '}
-                        </Text.Bold>
+                        <Text.Bold size={20}>{t('names.description')}</Text.Bold>
 
                         <Input
                             value={groomName}
                             handleChange={(val) => {
                                 setGroomName(val);
                             }}
-                            placeholder={'Imię przyszłego Pana Młodego'}
+                            placeholder={t('names.groomName')}
                         />
                         <Input
                             value={brideName}
                             handleChange={(val) => {
                                 setBrideName(val);
                             }}
-                            placeholder={'Imię przyszłej Pani Młodej'}
+                            placeholder={t('names.brideName')}
                         />
                     </FormContainer>
                 </Container>

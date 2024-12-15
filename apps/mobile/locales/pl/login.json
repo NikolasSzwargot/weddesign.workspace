@@ -20,5 +20,10 @@
     "password_placeholder": "hasło",
     "login_with_email": "Zaloguj się z email",
     "no_account_register": "Nie masz jeszcze konta? Zarejestruj się!"
+  },
+  "names": {
+    "description": "Cześć!\nNa początek daj nam się poznać :)\n\nJak powinniśmy się do Was zwracać?",
+    "groomName": "Imię przyszłego Pana Młodego",
+    "brideName": "Imię przyszłej Pani Młodej"
   }
 }

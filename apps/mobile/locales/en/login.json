@@ -19,5 +19,10 @@
     "login_with_email": "Log in with email",
     "no_account_register": "Don't have an account? Register now!",
     "back": "Back"
+  },
+  "names": {
+    "description": "Hi there!\nLet's get to know each other first :)\n\nHow should we address you?",
+    "groomName": "Name of the future Groom",
+    "brideName": "Name of the future Bride"
   }
 }
