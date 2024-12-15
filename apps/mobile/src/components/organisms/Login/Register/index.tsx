@@ -4,7 +4,7 @@ import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {useRouting} from '@mobile/components';
-import {Colors, LoginRoutes} from '@weddesign/enums';
+import {AppRootRoutes, Colors, LoginRoutes} from '@weddesign/enums';
 import {isValidEmail, isValidPassword} from '@weddesign/utils';
 import {TextInput} from 'react-native';
 
@@ -64,7 +64,6 @@ const Register = () => {
                     onChange={(e) => {
                         setPassword(e.nativeEvent.text);
                     }}
-                    inputMode={'none'}
                     placeholder={t('register.password')}
                     placeholderTextColor={Colors.Gray}
                     autoCapitalize={'none'}
@@ -85,7 +84,14 @@ const Register = () => {
                     style={styles.textInput}
                 />
 
-                <Button variant={'secondary'} size={'medium'} disabled={!isEgible()}>
+                <Button
+                    variant={'secondary'}
+                    size={'medium'}
+                    disabled={!isEgible()}
+                    onPress={() => {
+                        router.navigate(LoginRoutes.NAMESSETUP);
+                    }}
+                >
                     {t('register.registerNow')}
                 </Button>
                 <Button

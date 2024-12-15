@@ -2,12 +2,17 @@ import styled from 'styled-components/native';
 import {Colors} from '@weddesign/enums';
 import {StyleSheet} from 'react-native';
 
+export const Spacer = styled.View`
+    flex: 1;
+    justify-content: space-between;
+`;
 export const Container = styled.View`
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 150px;
+    height: 100%;
 `;
 
 export const LoginContainer = styled.KeyboardAvoidingView`
@@ -43,8 +48,6 @@ export const styles = StyleSheet.create({
 
 export const NextButtonContainer = styled.View`
     width: 95%;
-    position: absolute;
-    bottom: 15px;
     align-self: center;
 `;
 
@@ -76,4 +79,11 @@ export const FormContainer = styled.View`
     align-self: center;
     align-items: center;
     gap: 12px;
+`;
+
+export const ButtonsContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 `;

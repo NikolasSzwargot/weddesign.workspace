@@ -13,6 +13,7 @@ export enum LoginScreens {
     LANGUAGE = '/language',
     REGISTER = '/register',
     SETUP = '/setup',
+    NAMES = '/names',
 }
 
 // ----- GUESTS -----
