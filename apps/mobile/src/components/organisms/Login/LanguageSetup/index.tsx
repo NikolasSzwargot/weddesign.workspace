@@ -28,21 +28,22 @@ const LanguageSetup = () => {
     }, [language]);
 
     return (
-        <Container>
-            <ProgressLogoContainer>
-                <ProgressBar progress={5} />
-                <Images.Logo />
-            </ProgressLogoContainer>
+        <>
+            <Container>
+                <ProgressLogoContainer>
+                    <ProgressBar progress={5} />
+                    <Images.Logo />
+                </ProgressLogoContainer>
 
-            <LanguageSelectContainer>
-                <Text.Bold size={20}>{t('language.choose')}</Text.Bold>
-                <DropdownSelect
-                    value={language}
-                    onChange={setLanguage}
-                    data={dropdownData}
-                />
-            </LanguageSelectContainer>
-
+                <LanguageSelectContainer>
+                    <Text.Bold size={20}>{t('language.choose')}</Text.Bold>
+                    <DropdownSelect
+                        value={language}
+                        onChange={setLanguage}
+                        data={dropdownData}
+                    />
+                </LanguageSelectContainer>
+            </Container>
             <NextButtonContainer>
                 <Button
                     onPress={() => {
@@ -52,7 +53,7 @@ const LanguageSetup = () => {
                     {t('next')}
                 </Button>
             </NextButtonContainer>
-        </Container>
+        </>
     );
 };
 
