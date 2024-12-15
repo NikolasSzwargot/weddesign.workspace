@@ -8,6 +8,7 @@ export const Container = styled.View`
     flex-direction: column;
     align-items: center;
     gap: 150px;
+    height: 100%;
 `;
 
 export const ProgressLogoContainer = styled.View`
@@ -35,9 +36,8 @@ export const styles = StyleSheet.create({
 
 export const NextButtonContainer = styled.View`
     width: 95%;
-    position: absolute;
-    bottom: 15px;
     align-self: center;
+    height: 9%;
 `;
 
 export const LabelContainer = styled.View`
@@ -45,4 +45,44 @@ export const LabelContainer = styled.View`
     margin-top: 2%;
     display: flex;
     align-items: center;
+`;
+
+export const ContentContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`;
+
+export const DescriptionContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const FormContainer = styled.View`
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    gap: 12px;
+`;
+
+export const ButtonsContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+    flex: 1;
+    width: 100%;
+`;
+
+export const StyledScrollView = styled.ScrollView`
+    flex-grow: 1;
+    width: 100%;
 `;

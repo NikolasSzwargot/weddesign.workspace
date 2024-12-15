@@ -9,7 +9,6 @@ const KeyboardContext = createContext<KeyboardContextType>({
     visible: false,
 });
 
-// Provider
 export const KeyboardProvider = ({children}) => {
     const [visible, setVisible] = useState(false);
 

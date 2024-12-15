@@ -10,6 +10,19 @@
     "password": "Password",
     "repeatPassword": "Repeat password",
     "email": "email@example.com"
+  },
+  "loginScreen": {
+    "welcome_back": "Welcome back!",
+    "enter_email": "Enter your email to log in",
+    "email_placeholder": "email@domain.com",
+    "password_placeholder": "password",
+    "login_with_email": "Log in with email",
+    "no_account_register": "Don't have an account? Register now!",
+    "back": "Back"
+  },
+  "names": {
+    "description": "Hi there!\nLet's get to know each other first :)\n\nHow should we address you?",
+    "groomName": "Name of the future Groom",
+    "brideName": "Name of the future Bride"
   }
-
 }

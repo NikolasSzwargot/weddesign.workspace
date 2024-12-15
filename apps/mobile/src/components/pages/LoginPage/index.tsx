@@ -4,9 +4,10 @@ import {LoginScreens} from '@weddesign/enums';
 
 import LanguageSetup from '../../organisms/Login/LanguageSetup';
 import Register from '../../organisms/Login/Register';
+import BrideGroomSetup from '../../organisms/Login/BrideGroomSetup';
 
 type loginPageProps = {
-    screen: LoginScreens;
+    screen?: LoginScreens;
 };
 const LoginPage = ({screen}: loginPageProps) => {
     switch (screen) {
@@ -14,7 +15,9 @@ const LoginPage = ({screen}: loginPageProps) => {
             return <LanguageSetup />;
         case LoginScreens.REGISTER:
             return <Register />;
-        case LoginScreens.SETUP:
+        case LoginScreens.NAMES:
+            return <BrideGroomSetup />;
+        default:
             return <Login />;
     }
 };
