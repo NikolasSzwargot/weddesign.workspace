@@ -27,6 +27,11 @@ export const LoginRoutingRoutes: Route[] = [
         screen: LoginScreens.NAMES,
         element: <LoginPage screen={LoginScreens.NAMES} />,
     },
+    {
+        route: AppRootRoutes.LOGIN,
+        screen: LoginScreens.NAMES,
+        element: <LoginPage screen={LoginScreens.DATE} />,
+    },
 ];
 
 export const HomeRoutingRoutes: Route[] = [
