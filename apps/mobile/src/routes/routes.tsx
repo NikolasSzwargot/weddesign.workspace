@@ -29,7 +29,7 @@ export const LoginRoutingRoutes: Route[] = [
     },
     {
         route: AppRootRoutes.LOGIN,
-        screen: LoginScreens.NAMES,
+        screen: LoginScreens.DATE,
         element: <LoginPage screen={LoginScreens.DATE} />,
     },
 ];

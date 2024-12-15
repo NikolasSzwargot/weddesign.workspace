@@ -24,5 +24,10 @@
     "description": "Hi there!\nLet's get to know each other first :)\n\nHow should we address you?",
     "groomName": "Name of the future Groom",
     "brideName": "Name of the future Bride"
+  },
+  "date": {
+    "end": "End",
+    "description": "Hi there!\nLet's get to know each other first :)\n\n\nWhen are you planning the wedding?",
+    "datePlaceholder": "Choose date"
   }
 }

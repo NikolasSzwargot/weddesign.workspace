@@ -71,7 +71,14 @@ const BrideGroomSetup = () => {
                         >
                             {t('back')}
                         </Button>
-                        <Button disabled={isDisabled}>{t('next')}</Button>
+                        <Button
+                            disabled={isDisabled}
+                            onPress={() => {
+                                router.navigate(LoginRoutes.DATESETUP);
+                            }}
+                        >
+                            {t('next')}
+                        </Button>
                     </ButtonsContainer>
                 </NextButtonContainer>
             </StyledScrollView>

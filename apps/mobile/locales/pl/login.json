@@ -25,5 +25,10 @@
     "description": "Cześć!\nNa początek daj nam się poznać :)\n\nJak powinniśmy się do Was zwracać?",
     "groomName": "Imię przyszłego Pana Młodego",
     "brideName": "Imię przyszłej Pani Młodej"
+  },
+  "date": {
+    "end": "Zakończ",
+    "description": "Cześć!\nNa początek daj nam się poznać :)\n\n\nNa kiedy planujecie wesele?",
+    "datePlaceholder": "Wybierz termin"
   }
 }

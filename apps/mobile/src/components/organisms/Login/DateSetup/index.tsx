@@ -1,4 +1,4 @@
-import {Button, Input, ProgressBar} from '@weddesign/components';
+import {Button, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
 import {useRouting} from '@mobile/components';
 import {AppRootRoutes, LoginRoutes} from '@weddesign/enums';
@@ -20,7 +20,9 @@ import {FormContainer, Container} from './styles';
 const DateSetup = () => {
     const {router} = useRouting();
     const {t} = useTranslation('login');
-    const [brideName, setBrideName] = useState<string>('');
+
+    const [weddingDate, setWeddingDate] = useState<Date | null>(null);
+    const [showDateModal, setShowDateModal] = useState<boolean>(false);
 
     return (
         <StyledKeyboardAvoidingView
@@ -33,20 +35,22 @@ const DateSetup = () => {
             >
                 <Container>
                     <ProgressLogoContainer>
-                        <ProgressBar progress={68} />
+                        <ProgressBar progress={100} />
                         <Images.Logo />
                     </ProgressLogoContainer>
 
                     <FormContainer>
-                        <Text.Bold size={20}>{t('names.description')}</Text.Bold>
+                        <Text.Bold size={20}>{t('date.description')}</Text.Bold>
 
-                        <Input
-                            value={brideName}
-                            handleChange={(val) => {
-                                setBrideName(val);
+                        <Button
+                            onPress={() => {
+                                setShowDateModal(true);
                             }}
-                            placeholder={'Wybierz termin'}
-                        />
+                        >
+                            {weddingDate
+                                ? weddingDate.toLocaleDateString()
+                                : t('date.datePlaceholder')}
+                        </Button>
                     </FormContainer>
                 </Container>
 
@@ -64,8 +68,9 @@ const DateSetup = () => {
                             onPress={() => {
                                 router.navigate(AppRootRoutes.HOME);
                             }}
+                            disabled={!weddingDate}
                         >
-                            {t('next')}
+                            {t('date.end')}
                         </Button>
                     </ButtonsContainer>
                 </NextButtonContainer>
