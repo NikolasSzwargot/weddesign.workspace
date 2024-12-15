@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {Button, Input, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
-import {LoginRoutes} from '@weddesign/enums';
+import {Colors, LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
-import {Platform} from 'react-native';
+import {Platform, TextInput} from 'react-native';
 
 import {useRouting} from '../../providers';
 import {useLogin} from '../../../api/Login/useLogin';
@@ -19,6 +19,7 @@ import {
     ProgressLogoContainer,
     StyledKeyboardAvoidingView,
     StyledScrollView,
+    styles,
 } from './styles';
 
 const Login = () => {
@@ -60,10 +61,17 @@ const Login = () => {
                                 value={email}
                                 placeholder={t('loginScreen.email_placeholder')}
                             />
-                            <Input
-                                handleChange={(val) => setPassword(val)}
+                            <TextInput
                                 value={password}
+                                onChange={(e) => {
+                                    setPassword(e.nativeEvent.text);
+                                }}
                                 placeholder={t('loginScreen.password_placeholder')}
+                                placeholderTextColor={Colors.Gray}
+                                autoCapitalize={'none'}
+                                secureTextEntry={true}
+                                autoCorrect={false}
+                                style={styles.textInput}
                             />
 
                             <Button
