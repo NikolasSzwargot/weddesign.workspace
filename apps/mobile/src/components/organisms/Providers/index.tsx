@@ -11,7 +11,7 @@ import {Colors} from '@weddesign/enums';
 
 import {GuestListWrapper} from '../GuestList/styles';
 
-import {Container} from './styles';
+import {Container, FloatingButton} from './styles';
 
 const ProvidersGrouped = () => {
     const {router} = useRouting();
@@ -51,6 +51,8 @@ const ProvidersGrouped = () => {
                         {/*    renderSectionHeader={CustomSectionHeader}*/}
                         {/*    showsVerticalScrollIndicator={true}*/}
                         {/*/>*/}
+
+                        <FloatingButton></FloatingButton>
                         <CustomOverlay
                             isVisible={isDeleting || isAdding || isFetching}
                             variant={'center'}
