@@ -25,3 +25,9 @@ export enum GuestsScreens {
 export enum ErrorScreens {
     GENERAL = '/general',
 }
+
+export enum ProvidersScreens {
+    GROUPED = '/grouped',
+    LIST = '/LIST',
+    ADD = '/add',
+}

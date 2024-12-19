@@ -28,4 +28,13 @@ export const variantDefaults = {
         ],
         angle: 90,
     },
+    providers: {
+        rx: 280,
+        ry: 150,
+        gradientColors: [
+            {offset: '75%', color: Colors.White, opacity: 1},
+            {offset: '100%', color: Colors.LightPurple, opacity: 1},
+        ],
+        angle: 90,
+    },
 };
