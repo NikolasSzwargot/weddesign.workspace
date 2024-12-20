@@ -165,6 +165,7 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.Filter}
+                                        fillColor={Colors.WhiteSmokeDarker}
                                         onPress={() => console.log('clicked Filter')}
                                     />
                                     <IconButton

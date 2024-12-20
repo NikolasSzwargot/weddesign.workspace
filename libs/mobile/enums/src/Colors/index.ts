@@ -23,4 +23,5 @@ export enum Colors {
     StatusAccepted = '#b6d79d',
     StatusRejected = '#ed6055',
     WhiteSmoke = '#f7f7f7',
+    WhiteSmokeDarker = '#f4f4f4',
 }

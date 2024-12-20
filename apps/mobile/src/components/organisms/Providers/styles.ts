@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {Colors} from '@weddesign/enums';
 
 export const Container = styled.View`
     flex: 1;
@@ -25,17 +24,4 @@ export const CategoriesWrapper = styled.View`
     justify-content: flex-start;
     padding-top: 15%;
     margin: 10px;
-`;
-
-export const FloatingButton = styled.TouchableOpacity`
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    width: 56px;
-    height: 56px;
-    border-radius: 28px;
-    background-color: ${Colors.LightPurple};
-    justify-content: center;
-    align-items: center;
-    elevation: 3;
 `;

@@ -4,21 +4,18 @@ import {
     BackgroundEllipse,
     CustomOverlay,
     Header,
+    IconButton,
     LoadingSpinner,
     ProvidersCategoryItem,
 } from '@weddesign/components';
 import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
 import {Colors} from '@weddesign/enums';
+import {Icons} from '@weddesign/assets';
 
 import {MockedProvidersCategories} from '../../../mocks/MockedProvidersCategories';
 
-import {
-    CategoriesWrapper,
-    Container,
-    FloatingButton,
-    ProvidersCategoriesWrapper,
-} from './styles';
+import {CategoriesWrapper, Container, ProvidersCategoriesWrapper} from './styles';
 
 const ProvidersGrouped = () => {
     const {router} = useRouting();
@@ -63,7 +60,13 @@ const ProvidersGrouped = () => {
                             />
                         </CategoriesWrapper>
 
-                        <FloatingButton></FloatingButton>
+                        <IconButton
+                            Icon={Icons.Plus}
+                            fillColor={Colors.LightPurple}
+                            onPress={() => console.log('dodawanie kategorii')}
+                            variant={'roundFloating'}
+                        />
+
                         <CustomOverlay
                             isVisible={isDeleting || isAdding || isFetching}
                             variant={'center'}
