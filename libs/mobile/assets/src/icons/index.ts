@@ -19,6 +19,7 @@ import Rings from './Rings.svg';
 import X from './X.svg';
 import Filter from './Filter.svg';
 import AddPerson from './AddPerson.svg';
+import ArrowRight from './ArrowRight.svg';
 
 export const Icons = {
     Camera,
@@ -42,4 +43,5 @@ export const Icons = {
     Rings,
     X,
     AddPerson,
+    ArrowRight,
 };

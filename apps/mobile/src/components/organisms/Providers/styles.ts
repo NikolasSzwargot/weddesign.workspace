@@ -8,7 +8,7 @@ export const Container = styled.View`
     align-items: center;
 `;
 
-export const ErrorWrapper = styled.View`
+export const ProvidersCategoriesWrapper = styled.View`
     flex: 1;
     position: relative;
     display: flex;
@@ -18,13 +18,14 @@ export const ErrorWrapper = styled.View`
     margin-top: 10px;
 `;
 
-export const ContentWrapper = styled.View`
+export const CategoriesWrapper = styled.View`
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 25%;
+    justify-content: flex-start;
+    top: 8%;
     gap: 10px;
+    margin: 10px;
 `;
 
 export const FloatingButton = styled.TouchableOpacity`

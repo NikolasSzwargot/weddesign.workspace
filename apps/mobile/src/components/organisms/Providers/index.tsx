@@ -4,14 +4,18 @@ import {
     CustomOverlay,
     Header,
     LoadingSpinner,
+    ProvidersCategoryItem,
 } from '@weddesign/components';
 import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
 import {Colors} from '@weddesign/enums';
 
-import {GuestListWrapper} from '../GuestList/styles';
-
-import {Container, FloatingButton} from './styles';
+import {
+    CategoriesWrapper,
+    Container,
+    FloatingButton,
+    ProvidersCategoriesWrapper,
+} from './styles';
 
 const ProvidersGrouped = () => {
     const {router} = useRouting();
@@ -25,7 +29,7 @@ const ProvidersGrouped = () => {
     return (
         <Container>
             <BackgroundEllipse variant={'providers'} />
-            <GuestListWrapper>
+            <ProvidersCategoriesWrapper>
                 <Header />
                 {isLoading ? (
                     <LoadingSpinner
@@ -51,6 +55,17 @@ const ProvidersGrouped = () => {
                         {/*    renderSectionHeader={CustomSectionHeader}*/}
                         {/*    showsVerticalScrollIndicator={true}*/}
                         {/*/>*/}
+                        <CategoriesWrapper>
+                            <ProvidersCategoryItem
+                                id={1}
+                                name={'Miejsce'}
+                                inDatabase={0}
+                                reserved={0}
+                                inDatabaseLabel={'w bazie:'}
+                                reservedLabel={'zarezerwowano:'}
+                                onPress={() => console.log('Idziemy do listy')}
+                            ></ProvidersCategoryItem>
+                        </CategoriesWrapper>
 
                         <FloatingButton></FloatingButton>
                         <CustomOverlay
@@ -63,7 +78,7 @@ const ProvidersGrouped = () => {
                         </CustomOverlay>
                     </>
                 )}
-            </GuestListWrapper>
+            </ProvidersCategoriesWrapper>
         </Container>
     );
 };
