@@ -20,6 +20,9 @@ import X from './X.svg';
 import Filter from './Filter.svg';
 import AddPerson from './AddPerson.svg';
 import ArrowRight from './ArrowRight.svg';
+import Clip from './Clip.svg';
+import Scizzors from './Scizzors.svg';
+import Makeup from './Makeup.svg';
 
 export const Icons = {
     Camera,
@@ -44,4 +47,7 @@ export const Icons = {
     X,
     AddPerson,
     ArrowRight,
+    Clip,
+    Scizzors,
+    Makeup,
 };

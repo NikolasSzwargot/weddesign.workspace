@@ -7,15 +7,15 @@ import {Icons} from '@weddesign/assets';
 import {getProviderCategoryIconAndColor} from './getProviderCategoryIconAndColor';
 
 type Category = {
-    id: number; //@TODO: Pobierać z DTO
-    iconId: number; //@TODO: Pobierać z DTO
-    name: string; //@TODO: Pobierać z DTO
-    inDatabase: number; //@TODO: Pobierać z DTO
-    reserved: number; //@TODO: Pobierać z DTO
+    id: number;
+    iconId: number;
+    name: string;
+    inDatabase: number;
+    reserved: number;
 };
 
 type CategoryItemProps = {
-    category: Category;
+    category: Category; //@TODO: Zastąpić DTO z shared
     inDatabaseLabel: string;
     reservedLabel: string;
     onPress: () => void;
