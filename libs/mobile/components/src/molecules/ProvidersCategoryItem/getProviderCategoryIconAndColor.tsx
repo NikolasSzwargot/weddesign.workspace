@@ -1,7 +1,7 @@
-import React from 'react';
 import {SvgProps} from 'react-native-svg';
 import {Icons} from '@weddesign/assets';
 import {Colors} from '@weddesign/enums';
+import React from 'react';
 
 export const getProviderCategoryIconAndColor = (id: number) => {
     const iconColorMap: Record<number, {icon: React.FC<SvgProps>; color: Colors}> = {
@@ -12,5 +12,5 @@ export const getProviderCategoryIconAndColor = (id: number) => {
         5: {icon: Icons.Dress, color: Colors.PinkLightest},
     };
 
-    return iconColorMap[id] || {iconName: 'question', color: '#ddd'};
+    return iconColorMap[id] || {icon: Icons.Question, color: Colors.LightBlue};
 };

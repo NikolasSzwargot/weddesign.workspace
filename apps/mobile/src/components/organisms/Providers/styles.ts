@@ -23,8 +23,7 @@ export const CategoriesWrapper = styled.View`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    top: 8%;
-    gap: 10px;
+    padding-top: 15%;
     margin: 10px;
 `;
 

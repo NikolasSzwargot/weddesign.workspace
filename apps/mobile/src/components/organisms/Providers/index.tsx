@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {
     BackgroundEllipse,
     CustomOverlay,
@@ -41,34 +41,7 @@ const ProvidersGrouped = () => {
                     />
                 ) : (
                     <>
-                        {/*<SectionList*/}
-                        {/*    sections={groupedGuests}*/}
-                        {/*    initialNumToRender={20}*/}
-                        {/*    keyExtractor={(item) => item.id.toString()}*/}
-                        {/*    renderItem={({item}) => (*/}
-                        {/*        <GuestItem*/}
-                        {/*            guest={item}*/}
-                        {/*            onStatusPress={handleStatusChangeModal}*/}
-                        {/*            onGuestPress={() =>*/}
-                        {/*                router.navigate(GuestListRoutes.ADD, item)*/}
-                        {/*            }*/}
-                        {/*            onDeletePress={handleDelete}*/}
-                        {/*        />*/}
-                        {/*    )}*/}
-                        {/*    renderSectionHeader={CustomSectionHeader}*/}
-                        {/*    showsVerticalScrollIndicator={true}*/}
-                        {/*/>*/}
                         <CategoriesWrapper>
-                            {/*<ProvidersCategoryItem*/}
-                            {/*    id={1}*/}
-                            {/*    iconId={1}*/}
-                            {/*    name={'Miejsce'}*/}
-                            {/*    inDatabase={0}*/}
-                            {/*    reserved={0}*/}
-                            {/*    inDatabaseLabel={'w bazie:'}*/}
-                            {/*    reservedLabel={'zarezerwowano:'}*/}
-                            {/*    onPress={() => console.log('Idziemy do listy')}*/}
-                            {/*></ProvidersCategoryItem>*/}
                             <FlatList
                                 data={MockedProvidersCategories}
                                 keyExtractor={(item) => item.id.toString()}
@@ -82,6 +55,11 @@ const ProvidersGrouped = () => {
                                         }
                                     />
                                 )}
+                                ItemSeparatorComponent={() => (
+                                    <View style={{height: 10}} />
+                                )}
+                                showsVerticalScrollIndicator={true}
+                                initialNumToRender={20}
                             />
                         </CategoriesWrapper>
 

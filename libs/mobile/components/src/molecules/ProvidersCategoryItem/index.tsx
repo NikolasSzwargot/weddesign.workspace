@@ -1,10 +1,10 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
-import {getProviderCategoryIconAndColor} from '@weddesign/utils';
 import {ColumnTextContainer, Container, RowTextContainer} from './styles';
 import IconDot from '../../atoms/IconDot';
 import {Text} from '@weddesign/themes';
 import {Icons} from '@weddesign/assets';
+import {getProviderCategoryIconAndColor} from './getProviderCategoryIconAndColor';
 
 type Category = {
     id: number; //@TODO: Pobierać z DTO
