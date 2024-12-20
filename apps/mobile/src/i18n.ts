@@ -12,6 +12,8 @@ import enShared from '../locales/en/shared.json';
 import plShared from '../locales/pl/shared.json';
 import enLogin from '../locales/en/login.json';
 import plLogin from '../locales/pl/login.json';
+import enProviders from '../locales/en/providers.json';
+import plProviders from '../locales/pl/providers.json';
 
 const resources = {
     en: {
@@ -20,6 +22,7 @@ const resources = {
         guestList: enGuestList,
         shared: enShared,
         login: enLogin,
+        providers: enProviders,
     },
     pl: {
         errors: plErrors,
@@ -27,6 +30,7 @@ const resources = {
         guestList: plGuestList,
         shared: plShared,
         login: plLogin,
+        providers: plProviders,
     },
 };
 
@@ -34,7 +38,7 @@ const options: InitOptions = {
     compatibilityJSON: 'v3',
     fallbackLng: 'pl',
     resources,
-    ns: ['mainScreen', 'errors', 'guestList', 'shared'],
+    ns: ['mainScreen', 'errors', 'guestList', 'shared', 'providers'],
     defaultNS: 'mainScreen',
     interpolation: {
         escapeValue: false,

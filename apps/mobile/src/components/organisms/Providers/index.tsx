@@ -1,4 +1,5 @@
 import React from 'react';
+import {FlatList} from 'react-native';
 import {
     BackgroundEllipse,
     CustomOverlay,
@@ -9,6 +10,8 @@ import {
 import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
 import {Colors} from '@weddesign/enums';
+
+import {MockedProvidersCategories} from '../../../mocks/MockedProvidersCategories';
 
 import {
     CategoriesWrapper,
@@ -56,15 +59,30 @@ const ProvidersGrouped = () => {
                         {/*    showsVerticalScrollIndicator={true}*/}
                         {/*/>*/}
                         <CategoriesWrapper>
-                            <ProvidersCategoryItem
-                                id={1}
-                                name={'Miejsce'}
-                                inDatabase={0}
-                                reserved={0}
-                                inDatabaseLabel={'w bazie:'}
-                                reservedLabel={'zarezerwowano:'}
-                                onPress={() => console.log('Idziemy do listy')}
-                            ></ProvidersCategoryItem>
+                            {/*<ProvidersCategoryItem*/}
+                            {/*    id={1}*/}
+                            {/*    iconId={1}*/}
+                            {/*    name={'Miejsce'}*/}
+                            {/*    inDatabase={0}*/}
+                            {/*    reserved={0}*/}
+                            {/*    inDatabaseLabel={'w bazie:'}*/}
+                            {/*    reservedLabel={'zarezerwowano:'}*/}
+                            {/*    onPress={() => console.log('Idziemy do listy')}*/}
+                            {/*></ProvidersCategoryItem>*/}
+                            <FlatList
+                                data={MockedProvidersCategories}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={({item}) => (
+                                    <ProvidersCategoryItem
+                                        category={item}
+                                        inDatabaseLabel={t('inDatabase')}
+                                        reservedLabel={t('reserved')}
+                                        onPress={() =>
+                                            console.log('Idziemy do listy')
+                                        }
+                                    />
+                                )}
+                            />
                         </CategoriesWrapper>
 
                         <FloatingButton></FloatingButton>
