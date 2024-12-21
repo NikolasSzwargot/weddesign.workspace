@@ -2,6 +2,7 @@ import React from 'react';
 import {
     AppRootRoutes,
     ExpensesScreens,
+    ErrorScreens,
     GuestsScreens,
     LoginScreens,
     Route,
@@ -12,6 +13,9 @@ import {
     HomePage,
     LoginPage,
 } from '@mobile/components';
+
+
+import ErrorPage from '../components/pages/ErrorPage';
 
 export const LoginRoutingRoutes: Route[] = [
     {
@@ -70,6 +74,14 @@ export const BudgetRoutingRoutes: Route[] = [
         route: AppRootRoutes.BUDGET,
         screen: ExpensesScreens.ADD,
         element: <BudgetMainPage screen={ExpensesScreens.ADD} />,
+    }
+];
+
+export const ErrorRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.ERROR,
+        screen: ErrorScreens.GENERAL,
+        element: <ErrorPage screen={ErrorScreens.GENERAL} />,
     },
 ];
 
@@ -78,4 +90,5 @@ export const WeddesignRoutingRoutes: Route[] = [
     ...HomeRoutingRoutes,
     ...GuestsRoutingRoutes,
     ...BudgetRoutingRoutes,
+    ...ErrorRoutingRoutes,
 ];

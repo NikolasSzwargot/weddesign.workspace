@@ -24,3 +24,7 @@ export enum ExpensesScreens {
     LIST = '/list',
     ADD = '/add',
 }
+
+export enum ErrorScreens {
+    GENERAL = '/general',
+}

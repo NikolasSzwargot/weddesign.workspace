@@ -10,7 +10,7 @@ import {
     Input,
     LoadingSpinner,
 } from '@weddesign/components';
-import {Colors, GuestListRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, GuestListRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {CreateGuestDto, UpdateGuestDto} from '@shared/dto';
@@ -69,7 +69,7 @@ const GuestForm = () => {
         };
 
         const handleError = () => {
-            console.log('Error saving guest!');
+            router.navigate(ErrorRoutes.GENERAL, 'guests');
         };
 
         if (guest) {
