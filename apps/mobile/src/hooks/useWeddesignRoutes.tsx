@@ -3,7 +3,7 @@ import {WeddesignRoutingRoutes} from '@mobile/routes';
 import {Navigate, Route, Routes, useLocation} from 'react-router-native';
 import {ProvidersRoutes} from '@weddesign/enums';
 
-const DEFAULT_ROUTE = ProvidersRoutes.GROUPED as const;
+const DEFAULT_ROUTE = ProvidersRoutes.LIST as const;
 
 export const useWeddesignRoutes = () => {
     const location = useLocation();

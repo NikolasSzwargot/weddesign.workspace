@@ -1,6 +1,8 @@
 {
   "inDatabase": "w bazie:",
   "reserved": "zarezerwowano:",
-  "deleteMessage": "Czy na pewno chcesz usunąć kategorię {{name}}?"
-
+  "deleteMessage": "Czy na pewno chcesz usunąć kategorię {{name}}?",
+  "providersList": {
+    "searchPlaceholder": "Wyszukaj"
+  }
 }

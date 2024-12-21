@@ -1,5 +1,8 @@
 {
   "inDatabase": "in database:",
   "reserved": "reserved:",
-  "deleteMessage": "Are you sure you want to delete category {{name}}?"
+  "deleteMessage": "Are you sure you want to delete category {{name}}?",
+  "providersList": {
+    "searchPlaceholder": "Search"
+  }
 }
