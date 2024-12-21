@@ -89,7 +89,9 @@ const GuestList = () => {
                                     <CustomSearchBar
                                         searchQuery={searchQuery}
                                         setSearchQuery={setSearchQuery}
-                                        placeholder={t('searchPlaceholder')}
+                                        placeholder={t(
+                                            'providersList.searchPlaceholder',
+                                        )}
                                     />
                                     <IconButton
                                         Icon={Icons.Filter}
