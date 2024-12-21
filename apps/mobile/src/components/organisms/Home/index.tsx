@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
     BackgroundEllipse,
     Header,
@@ -11,20 +11,10 @@ import {useTranslation} from 'react-i18next';
 import {getDaysDifference} from '@weddesign/utils';
 import {MockedUser} from '@mobile/mocks';
 
-import {useLogin} from '../../../api/Login/useLogin';
-
 import {ButtonRow, Container, HomeWrapper, MainFrame} from './styles';
 
 const Home = () => {
     const {t} = useTranslation('home');
-
-    const {data, isLoading} = useLogin({email: 'test', password: 'test'});
-
-    useEffect(() => {
-        if (!isLoading) {
-            console.log(data);
-        }
-    }, [data, isLoading]);
 
     const buttons = [
         {color: Colors.LightBlue, label: t('buttons.guests')},
@@ -35,7 +25,7 @@ const Home = () => {
 
     return (
         <Container>
-            <BackgroundEllipse />
+            <BackgroundEllipse variant={'home'} />
             <HomeWrapper>
                 <Header />
                 <MainFrame>

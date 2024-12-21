@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import {Colors} from '@weddesign/enums';
 
-export const StyledInput = styled.TextInput<{multiline?: boolean}>`
+export const StyledInput = styled.TextInput`
     width: 100%;
     padding: 10px 15px;
     border: 1px solid ${Colors.Gray};

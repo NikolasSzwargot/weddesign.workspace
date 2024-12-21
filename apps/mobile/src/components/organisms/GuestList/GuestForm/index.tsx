@@ -2,10 +2,10 @@ import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useRouting} from '@mobile/components';
 import {
+    BackgroundEllipse,
     Button,
     CustomOverlay,
     CustomSwitch,
-    GuestListBackgroundEllipse,
     Header,
     Input,
     LoadingSpinner,
@@ -91,7 +91,7 @@ const GuestForm = () => {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Container>
-                <GuestListBackgroundEllipse />
+                <BackgroundEllipse variant={'guests'} />
                 <GuestFormWrapper>
                     <Header />
                     <FormInputWrapper>
