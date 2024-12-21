@@ -3,13 +3,13 @@ import {Animated, SectionList} from 'react-native';
 import {
     BudgetFrame,
     CustomSectionHeader,
-    BudgetEllipse,
     CustomSearchBar,
     IconButton,
     ExpenseItem,
     Header,
     LoadingSpinner,
     BudgetStatusBar,
+    BackgroundEllipse,
 } from '@weddesign/components';
 import {Colors, ExpenseGroupingMode} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
@@ -92,7 +92,7 @@ const BudgetMain = () => {
     const content =
         isLoadingMainLimit || isLoadingByCategories || isLoadingByDate ? (
             <>
-                <BudgetEllipse />
+                <BackgroundEllipse variant={'budget'} />
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             </>
         ) : isErrorByCategories || isErrorMainLimit || isErrorByDate ? (
@@ -103,7 +103,7 @@ const BudgetMain = () => {
             </Text.Regular>
         ) : (
             <>
-                <BudgetEllipse />
+                <BackgroundEllipse variant={'budget'} />
                 <BudgetMainWrapper>
                     <Header />
                     <BudgetMainFrame
