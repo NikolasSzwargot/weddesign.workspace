@@ -1,4 +1,6 @@
 {
   "inDatabase": "w bazie:",
-  "reserved": "zarezerwowano:"
+  "reserved": "zarezerwowano:",
+  "deleteMessage": "Czy na pewno chcesz usunąć kategorię {{name}}?"
+
 }

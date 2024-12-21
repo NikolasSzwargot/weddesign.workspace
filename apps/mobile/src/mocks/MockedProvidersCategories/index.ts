@@ -2,14 +2,14 @@ export const MockedProvidersCategories = [
     {
         id: 1,
         iconId: 1,
-        name: 'Miejsce',
+        name: 'Katering',
         inDatabase: 3,
         reserved: 0,
     },
     {
         id: 2,
         iconId: 2,
-        name: 'Kwiaty',
+        name: 'Miejsce',
         inDatabase: 3,
         reserved: 0,
     },

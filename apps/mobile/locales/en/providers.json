@@ -1,4 +1,5 @@
 {
   "inDatabase": "in database:",
-  "reserved": "reserved:"
+  "reserved": "reserved:",
+  "deleteMessage": "Are you sure you want to delete category {{name}}?"
 }
