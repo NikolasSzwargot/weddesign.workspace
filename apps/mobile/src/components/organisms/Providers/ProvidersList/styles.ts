@@ -24,3 +24,9 @@ export const SearchBarWrapper = styled.View`
     width: 100%;
     justify-content: space-between;
 `;
+
+export const CategoryName = styled.View`
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+`;

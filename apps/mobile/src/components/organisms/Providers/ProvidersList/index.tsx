@@ -11,11 +11,17 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {Colors, ErrorRoutes} from '@weddesign/enums';
+import {Text} from '@weddesign/themes';
 
 import {WeddesignConfirmationModal} from '../../../molecules';
 import {useRouting} from '../../../providers';
 
-import {Container, ProvidersListWrapper, SearchBarWrapper} from './styles';
+import {
+    Container,
+    ProvidersListWrapper,
+    SearchBarWrapper,
+    CategoryName,
+} from './styles';
 
 const GuestList = () => {
     const {router} = useRouting();
@@ -62,6 +68,11 @@ const GuestList = () => {
             <BackgroundEllipse variant={'providers'} />
             <ProvidersListWrapper>
                 <Header />
+                <CategoryName>
+                    {/*TODO: Zamienić na category.name*/}
+                    <Text.SemiBold size={32}>Zdjęcia</Text.SemiBold>
+                </CategoryName>
+
                 {isLoading ? (
                     <LoadingSpinner
                         color={Colors.LightPurple}
