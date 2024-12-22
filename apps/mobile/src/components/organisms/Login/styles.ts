@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import {Input} from '@weddesign/components';
+import {Colors} from '@weddesign/enums';
+import {StyleSheet} from 'react-native';
 
 export const Container = styled.View`
     flex: 1;
@@ -7,6 +8,7 @@ export const Container = styled.View`
     flex-direction: column;
     align-items: center;
     gap: 150px;
+    height: 100%;
 `;
 
 export const ProgressLogoContainer = styled.View`
@@ -17,14 +19,70 @@ export const ProgressLogoContainer = styled.View`
     align-items: center;
     gap: 60px;
 `;
-
-export const LoginPageInput = styled(Input)`
-    margin: 5px 10px 5px 10px;
-    color: black;
-`;
+export const styles = StyleSheet.create({
+    textInput: {
+        backgroundColor: Colors.White,
+        borderColor: Colors.Gray,
+        borderRadius: 8,
+        borderWidth: 1,
+        color: Colors.Black,
+        fontSize: 16,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        textAlign: 'left',
+        width: '100%',
+    },
+});
 
 export const NextButtonContainer = styled.View`
     width: 95%;
-    position: absolute;
-    bottom: 15px;
+    align-self: center;
+    height: 9%;
+`;
+
+export const LabelContainer = styled.View`
+    width: 100%;
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+`;
+
+export const ContentContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+`;
+
+export const DescriptionContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const FormContainer = styled.View`
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    gap: 12px;
+`;
+
+export const ButtonsContainer = styled.View`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+    flex: 1;
+    width: 100%;
+`;
+
+export const StyledScrollView = styled.ScrollView`
+    flex-grow: 1;
+    width: 100%;
 `;

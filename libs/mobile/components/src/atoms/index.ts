@@ -7,7 +7,6 @@ export {default as TaskFrame} from './TaskFrame';
 export {default as BudgetFrame} from './BudgetFrame';
 export {default as Input} from './Input';
 export {default as ProgressBar} from './ProgressBar';
-export {default as GuestListBackgroundEllipse} from './GuestListBackgroundEllipse';
 export {default as Counter} from './Counter';
 export {default as CustomSearchBar} from './CustomSearchBar';
 export {default as IconButton} from './IconButton';

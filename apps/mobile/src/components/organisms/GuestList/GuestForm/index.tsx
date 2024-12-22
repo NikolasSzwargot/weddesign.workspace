@@ -2,15 +2,15 @@ import React from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useRouting} from '@mobile/components';
 import {
+    BackgroundEllipse,
     Button,
     CustomOverlay,
     CustomSwitch,
-    GuestListBackgroundEllipse,
     Header,
     Input,
     LoadingSpinner,
 } from '@weddesign/components';
-import {Colors, GuestListRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, GuestListRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {CreateGuestDto, UpdateGuestDto} from '@shared/dto';
@@ -69,7 +69,7 @@ const GuestForm = () => {
         };
 
         const handleError = () => {
-            console.log('Error saving guest!');
+            router.navigate(ErrorRoutes.GENERAL, 'guests');
         };
 
         if (guest) {
@@ -91,7 +91,7 @@ const GuestForm = () => {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Container>
-                <GuestListBackgroundEllipse />
+                <BackgroundEllipse variant={'guests'} />
                 <GuestFormWrapper>
                     <Header />
                     <FormInputWrapper>

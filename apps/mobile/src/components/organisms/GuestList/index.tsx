@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
-import {Text} from '@weddesign/themes';
 import {
+    BackgroundEllipse,
     Counter,
     CustomOverlay,
     CustomSearchBar,
     CustomSectionHeader,
     GuestItem,
-    GuestListBackgroundEllipse,
     GuestsStatusBar,
     Header,
     IconButton,
@@ -15,7 +14,7 @@ import {
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors, GuestListRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, GuestListRoutes} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
@@ -65,7 +64,7 @@ const GuestList = () => {
     };
 
     const handleError = () => {
-        console.log('Error');
+        router.navigate(ErrorRoutes.GENERAL, 'guests');
     };
 
     const handleDelete = (guest: GuestDto) => {
@@ -109,9 +108,15 @@ const GuestList = () => {
         );
     };
 
+    useEffect(() => {
+        if (isError || isErrorGrouped) {
+            router.navigate(ErrorRoutes.GENERAL, 'guests');
+        }
+    }, [isError, isErrorGrouped, router]);
+
     return (
         <Container>
-            <GuestListBackgroundEllipse />
+            <BackgroundEllipse variant={'guests'} />
             <GuestListWrapper>
                 <Header />
                 {isLoading || isLoadingGrouped ? (
@@ -119,12 +124,6 @@ const GuestList = () => {
                         color={Colors.LightBlue}
                         msg={t('shared:spinnerMessage')}
                     />
-                ) : isError || isErrorGrouped ? (
-                    <Text.Regular style={{position: 'absolute', top: '50%'}}>
-                        {/* @TODO przejście na ekran z błędem*/}
-                        {/* eslint-disable-next-line react-native/no-raw-text */}
-                        {'Tu będzie takie fajne przejście do ekranu błędu'}
-                    </Text.Regular>
                 ) : (
                     <>
                         <TouchableWithoutFeedback
