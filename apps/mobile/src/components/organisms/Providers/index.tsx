@@ -10,7 +10,7 @@ import {
 } from '@weddesign/components';
 import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
-import {Colors, ErrorRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, ProvidersRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
 import {Category} from '@weddesign/types';
 
@@ -89,7 +89,10 @@ const ProvidersGrouped = () => {
                                         inDatabaseLabel={t('inDatabase')}
                                         reservedLabel={t('reserved')}
                                         onPress={() =>
-                                            console.log('Idziemy do listy')
+                                            router.navigate(
+                                                ProvidersRoutes.LIST,
+                                                item,
+                                            )
                                         }
                                         onLongPress={handleDelete}
                                     />

@@ -32,7 +32,7 @@ const GuestList = () => {
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
     //TODO: Wyciągać id grupy podwykonawców i użyć do zaciągnięcia listy
-    const routerState = router.location.state;
+    const category = router.location.state;
 
     const isLoading = false;
     const isDeleting = false;
@@ -70,7 +70,7 @@ const GuestList = () => {
                 <Header />
                 <CategoryName>
                     {/*TODO: Zamienić na category.name*/}
-                    <Text.SemiBold size={32}>Zdjęcia</Text.SemiBold>
+                    <Text.SemiBold size={32}>{category.name}</Text.SemiBold>
                 </CategoryName>
 
                 {isLoading ? (
