@@ -13,12 +13,15 @@ import {
 import {Colors, ErrorRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
+import {Keyboard, TouchableWithoutFeedback, ScrollView} from 'react-native';
+
 // import {CreateGuestDto, UpdateGuestDto} from '@shared/dto'; @TODO: Użyć DTO do providerów
-import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 
 //@TODO: Użyć api od providerów
 // import {useCreateGuest} from '../../../../api/Guests/useCreateGuest';
 // import {useUpdateGuest} from '../../../../api/Guests/useUpdateGuest';
+
+import StarRating from 'react-native-star-rating-widget';
 
 import {
     Container,
@@ -27,6 +30,8 @@ import {
     ProvidersFormWrapper,
     InputRow,
     Row,
+    RatingRow,
+    ButtonRow,
 } from './styles';
 
 const ProviderForm = () => {
@@ -47,7 +52,7 @@ const ProviderForm = () => {
             website: '',
             instagram: '',
             phoneNumber: '',
-            rating: 0,
+            rating: 4,
             reserved: false,
         },
     });
@@ -107,148 +112,173 @@ const ProviderForm = () => {
                 <BackgroundEllipse variant={'providers'} />
                 <ProvidersFormWrapper>
                     <Header />
-                    <FormInputWrapper>
-                        <InputRow>
-                            <Controller
-                                name="name"
-                                control={control}
-                                rules={{
-                                    required: t('errors.name') || 'Name is required',
-                                }}
-                                render={({
-                                    field: {onChange, value},
-                                    fieldState: {error},
-                                }) => (
-                                    <>
+                    <ScrollView>
+                        <FormInputWrapper>
+                            <InputRow>
+                                <Controller
+                                    name="name"
+                                    control={control}
+                                    rules={{
+                                        required:
+                                            t('errors.name') || 'Name is required',
+                                    }}
+                                    render={({
+                                        field: {onChange, value},
+                                        fieldState: {error},
+                                    }) => (
+                                        <>
+                                            <Input
+                                                value={value}
+                                                handleChange={onChange}
+                                                placeholder={t('providersForm.name')}
+                                                inputMode={'text'}
+                                                maxLength={25}
+                                            />
+                                            <ErrorArea>
+                                                {error && (
+                                                    <Text.Error size={14}>
+                                                        {error.message}
+                                                    </Text.Error>
+                                                )}
+                                            </ErrorArea>
+                                        </>
+                                    )}
+                                />
+                            </InputRow>
+
+                            <InputRow>
+                                <Controller
+                                    name="notes"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
                                         <Input
                                             value={value}
                                             handleChange={onChange}
-                                            placeholder={t('providersForm.name')}
+                                            placeholder={t('providersForm.notes')}
                                             inputMode={'text'}
-                                            maxLength={25}
+                                            multiline={true}
+                                            maxLength={400}
                                         />
-                                        <ErrorArea>
-                                            {error && (
-                                                <Text.Error size={14}>
-                                                    {error.message}
-                                                </Text.Error>
+                                    )}
+                                />
+                            </InputRow>
+                            <InputRow>
+                                <Controller
+                                    name="offer"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t('providersForm.offer')}
+                                            inputMode={'text'}
+                                            maxLength={10}
+                                        />
+                                    )}
+                                />
+                            </InputRow>
+                            <InputRow>
+                                <Controller
+                                    name="website"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t('providersForm.website')}
+                                            inputMode={'text'}
+                                        />
+                                    )}
+                                />
+                            </InputRow>
+                            <InputRow>
+                                <Controller
+                                    name="instagram"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t(
+                                                'providersForm.instagram',
                                             )}
-                                        </ErrorArea>
-                                    </>
-                                )}
-                            />
-                        </InputRow>
-                        <InputRow>
-                            <Controller
-                                name="notes"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <Input
-                                        value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('providersForm.notes')}
-                                        inputMode={'text'}
-                                        multiline={true}
-                                        maxLength={400}
-                                    />
-                                )}
-                            />
-                        </InputRow>
-                        <InputRow>
-                            <Controller
-                                name="offer"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <Input
-                                        value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('providersForm.offer')}
-                                        inputMode={'text'}
-                                        maxLength={10}
-                                    />
-                                )}
-                            />
-                        </InputRow>
-                        <InputRow>
-                            <Controller
-                                name="website"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <Input
-                                        value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('providersForm.website')}
-                                        inputMode={'text'}
-                                    />
-                                )}
-                            />
-                        </InputRow>
-                        <InputRow>
-                            <Controller
-                                name="instagram"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <Input
-                                        value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('providersForm.instagram')}
-                                        inputMode={'text'}
-                                    />
-                                )}
-                            />
-                        </InputRow>
+                                            inputMode={'text'}
+                                        />
+                                    )}
+                                />
+                            </InputRow>
 
-                        <InputRow>
-                            <Controller
-                                name="email"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <Input
-                                        value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('providersForm.email')}
-                                        inputMode={'email'}
-                                    />
-                                )}
-                            />
-                        </InputRow>
+                            <InputRow>
+                                <Controller
+                                    name="email"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t('providersForm.email')}
+                                            inputMode={'email'}
+                                        />
+                                    )}
+                                />
+                            </InputRow>
 
-                        <InputRow>
-                            <Controller
-                                name="phoneNumber"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <Input
-                                        value={value}
-                                        handleChange={onChange}
-                                        placeholder={t('providersForm.phoneNumber')}
-                                        inputMode={'tel'}
-                                    />
-                                )}
-                            />
-                        </InputRow>
+                            <InputRow>
+                                <Controller
+                                    name="phoneNumber"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <Input
+                                            value={value}
+                                            handleChange={onChange}
+                                            placeholder={t(
+                                                'providersForm.phoneNumber',
+                                            )}
+                                            inputMode={'tel'}
+                                        />
+                                    )}
+                                />
+                            </InputRow>
 
-                        <Row>
-                            <Controller
-                                name="reserved"
-                                control={control}
-                                render={({field: {onChange, value}}) => (
-                                    <CustomSwitch
-                                        value={value}
-                                        onChange={() => onChange(!value)}
-                                        onColor={Colors.LightBlue}
-                                    />
-                                )}
-                            />
-                            <Text.Regular>
-                                {t('providersForm.reserved')}
-                            </Text.Regular>
-                        </Row>
+                            <RatingRow>
+                                <Controller
+                                    name="rating"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <StarRating
+                                            rating={value}
+                                            onChange={onChange}
+                                            color={Colors.Pink}
+                                            starSize={50}
+                                        />
+                                    )}
+                                />
+                            </RatingRow>
 
-                        <Button onPress={handleSubmit(handleSave)}>
-                            {t('providersForm.save')}
-                        </Button>
-                    </FormInputWrapper>
+                            <Row>
+                                <Controller
+                                    name="reserved"
+                                    control={control}
+                                    render={({field: {onChange, value}}) => (
+                                        <CustomSwitch
+                                            value={value}
+                                            onChange={() => onChange(!value)}
+                                            onColor={Colors.LightBlue}
+                                        />
+                                    )}
+                                />
+                                <Text.Regular>
+                                    {t('providersForm.reserved')}
+                                </Text.Regular>
+                            </Row>
+
+                            <ButtonRow>
+                                <Button onPress={handleSubmit(handleSave)}>
+                                    {t('providersForm.save')}
+                                </Button>
+                            </ButtonRow>
+                        </FormInputWrapper>
+                    </ScrollView>
                 </ProvidersFormWrapper>
 
                 <CustomOverlay
