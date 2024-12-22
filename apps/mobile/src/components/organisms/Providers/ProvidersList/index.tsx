@@ -31,7 +31,7 @@ const GuestList = () => {
     const [selectedItem, setSelectedItem] = useState<null>(null); //@TODO: Zamienić na DTO | null
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
-    //TODO: Wyciągać id grupy podwykonawców i użyć do zaciągnięcia listy
+    //TODO: Wyciągać grupĘ podwykonawców i użyć do zaciągnięcia listy | Dodać coś w przypadku nulla
     const category = router.location.state;
 
     const isLoading = false;

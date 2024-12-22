@@ -4,5 +4,19 @@
   "deleteMessage": "Czy na pewno chcesz usunąć kategorię {{name}}?",
   "providersList": {
     "searchPlaceholder": "Wyszukaj"
+  },
+  "providersForm": {
+    "name": "Nazwa podwykonawcy",
+    "notes": "Tu możesz zapisać swoje notatki :)",
+    "offer": "Oferta",
+    "website": "Strona internetowa",
+    "instagram": "Instagram",
+    "email": "Email",
+    "phoneNumber": "Numer telefonu",
+    "reserved": "Zarezerwowano",
+    "save": "Zapisz"
+  },
+  "errors": {
+    "name": "Nazwa jest wymagana"
   }
 }

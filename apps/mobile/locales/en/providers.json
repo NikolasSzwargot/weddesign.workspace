@@ -4,5 +4,19 @@
   "deleteMessage": "Are you sure you want to delete category {{name}}?",
   "providersList": {
     "searchPlaceholder": "Search"
+  },
+  "providersForm": {
+    "name": "Provider's name",
+    "notes": "Here you can add any notes about the guest :)",
+    "offer": "Offer",
+    "website": "Website",
+    "instagram": "Instagram",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "reserved": "Reserved",
+    "save": "Save"
+  },
+  "errors": {
+    "name": "Name is required"
   }
 }

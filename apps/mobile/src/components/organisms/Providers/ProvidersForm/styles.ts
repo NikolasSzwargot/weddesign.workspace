@@ -7,7 +7,7 @@ export const Container = styled.View`
     align-items: center;
 `;
 
-export const GuestFormWrapper = styled.View`
+export const ProvidersFormWrapper = styled.View`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -32,6 +32,7 @@ export const InputRow = styled.View`
 export const Row = styled.View`
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 16px;
 `;
