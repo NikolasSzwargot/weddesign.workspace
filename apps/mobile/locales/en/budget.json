@@ -20,5 +20,10 @@
     "other": "Other"
   },
   "searchPlaceholder": "Search",
-  "loading": "Loading budget page..."
+  "loading": "Loading budget page...",
+  "budgetForm": {
+    "save": "Save",
+    "add": "Add",
+    "cancel": "Cancel"
+  }
 }
