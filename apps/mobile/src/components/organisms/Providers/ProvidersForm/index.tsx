@@ -263,7 +263,7 @@ const ProviderForm = () => {
                                         <CustomSwitch
                                             value={value}
                                             onChange={() => onChange(!value)}
-                                            onColor={Colors.LightBlue}
+                                            onColor={Colors.LightPurple}
                                         />
                                     )}
                                 />
