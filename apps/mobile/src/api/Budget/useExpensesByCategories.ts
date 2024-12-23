@@ -4,7 +4,7 @@ import {ExpensesByCategoryDto} from '@shared/dto';
 
 import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
 
-export const useExpensesByCats = () => {
+export const useExpensesByCategories = () => {
     const api = useUnauthorizedFetch();
 
     return useQuery<ExpensesByCategoryDto[], Error>(

@@ -16,3 +16,8 @@ export enum ExpenseTypes {
     Transport = 'transport',
     Other = 'other',
 }
+
+export enum ExpenseGroupingMode {
+    Categories = 'categories',
+    Dates = 'dates',
+}

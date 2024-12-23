@@ -4,5 +4,5 @@ export {HTTP} from './Http';
 export {ApiRoutes} from './Routes';
 export * from './RoutesParams';
 export {GuestStatuses} from './Statuses';
-export {ExpenseTypes} from './Expenses';
+export * from './Expenses';
 export {LanguagesEnum} from './LanguagesEnum';

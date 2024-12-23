@@ -8,7 +8,7 @@ export type Expense = {
     description: string;
     categoryId: number;
     amount: number;
-    deadline: string | Date; // ISO 8601 datetime string
+    deadline: string | Date;
     isPaid: boolean;
 };
 

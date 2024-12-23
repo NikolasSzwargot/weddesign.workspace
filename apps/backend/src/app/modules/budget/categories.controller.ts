@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ExpenseCategoryDto } from '@shared/dto';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import { BudgetLimitDto, ExpenseCategoryDto, UpdateBudgetLimitDto } from '@shared/dto';
 import { BudgetService } from './services/budget.service';
 
 @Controller('budget/categories')
@@ -19,5 +19,13 @@ export class CategoriesController {
   @Get('limit/:categoryId')
   async getCategoryLimit(@Param('categoryId') id: number): Promise<number> {
     return await this.budgetService.getCategoryLimit(+id);
+  }
+
+  @Patch('limit/:categoryId')
+  async setCategoryLimit(
+    @Param('categoryId') id: number,
+    @Body() updateCategoryLimit: UpdateBudgetLimitDto
+  ): Promise<BudgetLimitDto> {
+    return await this.budgetService.setCategoryLimit(+id, updateCategoryLimit);
   }
 }

@@ -8,22 +8,24 @@ export type Route = {
     element: ReactNode;
 };
 
-// ----- LOGIN -----
 export enum LoginScreens {
     LANGUAGE = '/language',
     REGISTER = '/register',
     SETUP = '/setup',
+    NAMES = '/names',
 }
 
-// ----- GUESTS -----
 export enum GuestsScreens {
     LIST = '/list',
     ADD = '/add',
 }
 
-// ----- EXPENSES -----
 export enum ExpensesScreens {
     LIST = '/list',
     LIMITS = '/limits',
     ADD = '/add',
+}
+
+export enum ErrorScreens {
+    GENERAL = '/general',
 }

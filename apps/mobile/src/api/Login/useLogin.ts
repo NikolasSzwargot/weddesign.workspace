@@ -1,4 +1,5 @@
-import {useQuery} from 'react-query';
+import {useMutation} from 'react-query';
+import {UserDto} from '@shared/dto';
 import {ApiRoutes} from '@weddesign/enums';
 
 import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
@@ -8,10 +9,10 @@ type LoginDto = {
     password: string;
 };
 
-export const useLogin = ({email, password}: LoginDto) => {
+export const useLogin = () => {
     const api = useUnauthorizedFetch();
 
-    return useQuery<boolean, Error>([ApiRoutes.Login], () =>
-        api.POST<boolean, LoginDto>(ApiRoutes.Login, {email, password}),
-    );
+    return useMutation(({email, password}: LoginDto) => {
+        return api.POST<UserDto, LoginDto>(ApiRoutes.Login, {email, password});
+    });
 };

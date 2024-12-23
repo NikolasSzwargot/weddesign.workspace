@@ -5,7 +5,8 @@ import {DropdownSelect} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {changeLanguage} from 'i18next';
-import {LanguagesEnum} from '@weddesign/enums';
+import {LanguagesEnum, LoginRoutes} from '@weddesign/enums';
+import {useRouting} from '@mobile/components';
 
 import {Container, NextButtonContainer, ProgressLogoContainer} from '../styles';
 
@@ -13,6 +14,8 @@ import {LanguageSelectContainer} from './styles';
 
 const LanguageSetup = () => {
     const {t} = useTranslation('login');
+    const {router} = useRouting();
+
     const dropdownData = Object.entries(LanguagesEnum).map(([value, label]) => ({
         value,
         label,
@@ -25,25 +28,32 @@ const LanguageSetup = () => {
     }, [language]);
 
     return (
-        <Container>
-            <ProgressLogoContainer>
-                <ProgressBar progress={1} />
-                <Images.Logo />
-            </ProgressLogoContainer>
+        <>
+            <Container>
+                <ProgressLogoContainer>
+                    <ProgressBar progress={5} />
+                    <Images.Logo />
+                </ProgressLogoContainer>
 
-            <LanguageSelectContainer>
-                <Text.Bold size={20}>{t('language.choose')}</Text.Bold>
-                <DropdownSelect
-                    value={language}
-                    onChange={setLanguage}
-                    data={dropdownData}
-                />
-            </LanguageSelectContainer>
-
+                <LanguageSelectContainer>
+                    <Text.Bold size={20}>{t('language.choose')}</Text.Bold>
+                    <DropdownSelect
+                        value={language}
+                        onChange={setLanguage}
+                        data={dropdownData}
+                    />
+                </LanguageSelectContainer>
+            </Container>
             <NextButtonContainer>
-                <Button>{t('next')}</Button>
+                <Button
+                    onPress={() => {
+                        router.navigate(LoginRoutes.REGISTER);
+                    }}
+                >
+                    {t('next')}
+                </Button>
             </NextButtonContainer>
-        </Container>
+        </>
     );
 };
 

@@ -77,7 +77,7 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
                         position: 'absolute',
                         fontSize: fontSize1,
                     },
-                    //@ts-expect-error dokumentacja mówi GIT, build mówi NIE GIT
+                    //@ts-expect-error this form works and is allowed by type, but build doesn't see it as correct one
                     text1Style,
                 ]}
             >{`${current}${currency}`}</Animated.Text>
@@ -89,7 +89,7 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
                         position: 'absolute',
                         fontSize: fontSize2,
                     },
-                    //@ts-expect-error dokumentacja mówi GIT, build mówi NIE GIT
+                    //@ts-expect-error this form works and is allowed by type, but build doesn't see it as correct one
                     text2Style,
                 ]}
             >{`/ ${total}${currency}`}</Animated.Text>

@@ -6,12 +6,10 @@ import {
     ExpenseName,
     StatusDot,
 } from './styles';
-// import {ExpenseDto} from '@shared/dto';
 
 import {categoryData} from '@weddesign/types';
 import {Icons} from '@weddesign/assets';
-import {IconButton} from '@weddesign/components';
-// import {getBudgetCategoryData} from '@mobile/utils';
+import {IconButton, IconDot} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
 
 type ExpenseItemProps = {
@@ -21,15 +19,11 @@ type ExpenseItemProps = {
     catData: categoryData;
 };
 
-// const ExpenseItem = ({exp}: ExpenseItemProps) => {
-// const data = getBudgetCategoryData(exp.category);
 const ExpenseItem = ({expName, expAmount, currency, catData}: ExpenseItemProps) => {
     return (
         <ExpenseItemContainer onPress={() => console.log(expName)}>
             <ExpenseInfoContainer>
-                <StatusDot color={catData.color}>
-                    <catData.icon />
-                </StatusDot>
+                <IconDot color={catData.color} Icon={catData.icon} />
                 <ExpenseName>{expName}</ExpenseName>
             </ExpenseInfoContainer>
             <ExpenseRightContainer>
@@ -45,8 +39,5 @@ const ExpenseItem = ({expName, expAmount, currency, catData}: ExpenseItemProps) 
         </ExpenseItemContainer>
     );
 };
-
-// TODO: modal od usuwania -> IconButton onPress
-// TODO: nawigacja do edycji -> ExpenseItemContainer onPress
 
 export default ExpenseItem;
