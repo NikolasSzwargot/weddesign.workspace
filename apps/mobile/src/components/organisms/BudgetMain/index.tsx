@@ -11,7 +11,7 @@ import {
     LoadingSpinner,
     BudgetStatusBar,
 } from '@weddesign/components';
-import {Colors} from '@weddesign/enums';
+import {Colors, ExpenseListRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
@@ -20,6 +20,8 @@ import {Text} from '@weddesign/themes';
 import {useExpensesByCats} from '../../../api/Budget/useExpensesByCats';
 import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
+import {useRouting} from '../../providers';
+import {useUpdateExpense} from '../../../api/Budget/useUpdateExpense';
 
 import {
     Container,
@@ -30,10 +32,12 @@ import {
 } from './styles';
 
 const BudgetMain = () => {
+    const {router} = useRouting();
     const {t} = useTranslation('budget');
     const [searchQuery, setSearchQuery] = useState('');
     const [groupingMode, setGroupingMode] = useState<'cats' | 'date'>('cats');
     const [listData, setListData] = useState([]);
+    const {mutate: updateExpense, isLoading: isUpdating} = useUpdateExpense();
 
     const {
         data: mainLimitData,
@@ -159,7 +163,7 @@ const BudgetMain = () => {
                         />
                         <IconButton
                             Icon={Icons.Plus}
-                            onPress={() => console.log('clicked AddGuest')}
+                            onPress={() => router.navigate(ExpenseListRoutes.ADD)}
                             fillColor={Colors.LightGreen}
                         />
                     </SearchBarWrapper>
@@ -174,6 +178,10 @@ const BudgetMain = () => {
                                 expAmount={item.amount}
                                 currency={t('currency')}
                                 catData={getBudgetCategoryData(item.categoryId)}
+                                onExpensePress={() => {
+                                    console.log({item});
+                                    router.navigate(ExpenseListRoutes.ADD, item);
+                                }}
                             />
                         )}
                         renderSectionHeader={CustomSectionHeader}

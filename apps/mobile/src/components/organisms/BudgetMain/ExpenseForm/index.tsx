@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-// Import ScrollView
 import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {
     BackgroundEllipse,
@@ -18,9 +17,11 @@ import {Colors, ExpenseListRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useRouting} from '@mobile/components';
 import {Controller, useForm} from 'react-hook-form';
-import {CreateExpenseDto} from '@shared/dto';
+import {CreateExpenseDto, UpdateExpenseDto} from '@shared/dto';
 
 import {useMainLimit} from '../../../../api/Budget/useMainLimit';
+import {useCreateExpense} from '../../../../api/Budget/useCreateExpense';
+import {useUpdateExpense} from '../../../../api/Budget/useUpdateExpense';
 
 import {
     BudgetMainFrame,
@@ -37,6 +38,8 @@ const ExpenseForm = () => {
     const {router} = useRouting();
     const {t} = useTranslation('budget');
     const [isDatepickerVisible, setDatepickerVisible] = useState(false);
+    const {mutate: createExpense, isLoading: isLoadingCreate} = useCreateExpense();
+    const {mutate: updateExpense, isLoading: isUpdating} = useUpdateExpense();
     const {control, handleSubmit, setValue} = useForm<CreateExpenseDto>({
         defaultValues: {
             amount: 0,
@@ -58,6 +61,32 @@ const ExpenseForm = () => {
         isError: isErrorMainLimit,
         isFetching: isFetchingMainLimit,
     } = useMainLimit();
+
+    const handleSave = (data: CreateExpenseDto | UpdateExpenseDto) => {
+        const handleSuccess = () => {
+            console.log('Guest saved successfully!');
+            router.navigate(ExpenseListRoutes.LIST);
+        };
+
+        const handleError = () => {
+            console.log('Error saving guest!');
+        };
+
+        if (expense) {
+            updateExpense(
+                {
+                    id: expense.id,
+                    updateExpenseDto: data as UpdateExpenseDto,
+                },
+                {onSuccess: handleSuccess, onError: handleError},
+            );
+        } else {
+            createExpense(data as CreateExpenseDto, {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            });
+        }
+    };
 
     const handleCancel = () => {
         setDatepickerVisible(false);
@@ -149,12 +178,12 @@ const ExpenseForm = () => {
                                             fieldState: {error},
                                         }) => (
                                             <>
-                                                {/*<Text.SemiBold*/}
-                                                {/*    style={{width: '30%'}}*/}
-                                                {/*>*/}
-                                                {/*    {'tu bedzie dropdown'}*/}
-                                                {/*</Text.SemiBold>*/}
-                                                <DropdownSelect
+                                                {/*<DropdownSelect*/}
+                                                {/*    value={value}*/}
+                                                {/*    data={dropdownData}*/}
+                                                {/*    onChange={onChange}*/}
+                                                {/*/>*/}
+                                                <IconDotDropdown
                                                     value={value}
                                                     data={dropdownData}
                                                     onChange={onChange}
@@ -170,8 +199,11 @@ const ExpenseForm = () => {
                                             fieldState: {error},
                                         }) => (
                                             <Input
+                                                style={{maxWidth: '25%'}}
                                                 value={value.toString()}
-                                                handleChange={onChange}
+                                                handleChange={(text) => {
+                                                    onChange(Number(text) || 0);
+                                                }}
                                                 placeholder={`0${t('currency')}`}
                                                 inputMode={'decimal'}
                                                 multiline={false}
@@ -249,15 +281,20 @@ const ExpenseForm = () => {
                                 </Row>
                             </InputRow>
                             <Row>
-                                <Button style={{width: '50%'}}>
-                                    {t('budgetForm.save')}
+                                <Button
+                                    onPress={handleSubmit(handleSave)}
+                                    style={{width: '50%'}}
+                                >
+                                    {expense
+                                        ? t('budgetForm.save')
+                                        : t('budgetForm.add')}
                                 </Button>
                                 <Button
                                     style={{width: '50%'}}
                                     variant={'secondaryFilled'}
-                                    onPress={() =>
-                                        router.navigate(ExpenseListRoutes.LIST)
-                                    }
+                                    onPress={() => {
+                                        router.navigate(ExpenseListRoutes.LIST);
+                                    }}
                                 >
                                     {t('budgetForm.cancel')}
                                 </Button>
@@ -285,6 +322,7 @@ const ExpenseForm = () => {
                                             onDayPress={(day) => {
                                                 onChange(new Date(day.timestamp));
                                             }}
+                                            on
                                             markedDates={{
                                                 [parseDate(
                                                     value.toLocaleDateString(),
@@ -296,8 +334,8 @@ const ExpenseForm = () => {
                                         />
                                     )}
                                 />
-                                <Text.SemiBold>{'Opłacono wydatek'}</Text.SemiBold>
-                                <Text.SemiBold>{'Opłacono wydatek'}</Text.SemiBold>
+                                <Text.SemiBold>{'siema 1'}</Text.SemiBold>
+                                <Text.SemiBold>{'siema2'}</Text.SemiBold>
                             </DatepickerContainer>
                         </CustomOverlay>
                     </>
