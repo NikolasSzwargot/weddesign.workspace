@@ -3,7 +3,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {getBudgetCategoryData} from '@mobile/utils';
-import {DudgetEllipse, Header, LoadingSpinner} from '@weddesign/components';
+import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors} from '@weddesign/enums';
 
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
@@ -56,7 +56,7 @@ const BudgetLimits = () => {
 
     return (
         <Container>
-            <DudgetEllipse />
+            <BackgroundEllipse variant={'budget'} />
             {isLoadingMainLimit || isLoadingCats ? (
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             ) : isErrorCats || isErrorMainLimit ? (
@@ -69,9 +69,11 @@ const BudgetLimits = () => {
                 <MainWrapper>
                     <Header />
                     <TotalWrapper onPress={() => console.log('edit: MAIN')}>
-                        <Text.Bold size={24}>{t('total')}:</Text.Bold>
+                        {/* eslint-disable-next-line react-native/no-raw-text */}
+                        <Text.Bold size={24}>{`${t('total')}:`}</Text.Bold>
                         <Text.SemiBold size={24}>
-                            {mainLimitData.limit} {t('currency')}
+                            {/* eslint-disable-next-line react-native/no-raw-text */}
+                            {`${mainLimitData.limit} ${t('currency')}`}
                         </Text.SemiBold>
                     </TotalWrapper>
                     <FlatList

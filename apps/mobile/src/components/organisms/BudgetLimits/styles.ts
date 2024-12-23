@@ -27,7 +27,7 @@ export const TotalWrapper = styled.TouchableOpacity`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 40px 0 10px 0;
+    margin-top: 40px;
 `;
 
 export const CategoryListItem = styled.TouchableOpacity`

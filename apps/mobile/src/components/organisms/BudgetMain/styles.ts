@@ -30,7 +30,7 @@ export const BudgetMainFrame = styled.TouchableOpacity`
 export const SearchBarWrapper = styled.View`
     flex-direction: row;
     align-items: center;
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     width: 100%;
     justify-content: space-between;
 `;

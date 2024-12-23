@@ -11,7 +11,7 @@ import {
     BudgetStatusBar,
     BackgroundEllipse,
 } from '@weddesign/components';
-import {Colors, ExpenseGroupingMode} from '@weddesign/enums';
+import {Colors, ExpenseGroupingMode, ExpenseListRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
@@ -20,6 +20,7 @@ import {Text} from '@weddesign/themes';
 import {useExpensesByCategories} from '../../../api/Budget/useExpensesByCategories';
 import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
+import {useRouting} from '../../providers';
 
 import {
     Container,
@@ -31,6 +32,7 @@ import {
 
 const BudgetMain = () => {
     const {t} = useTranslation('budget');
+    const {router} = useRouting();
     const [searchQuery, setSearchQuery] = useState('');
     const [groupingMode, setGroupingMode] = useState<
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
@@ -107,7 +109,7 @@ const BudgetMain = () => {
                 <BudgetMainWrapper>
                     <Header />
                     <BudgetMainFrame
-                        onLongPress={() => console.log('odpalaj edycje kategorii')}
+                        onLongPress={() => router.navigate(ExpenseListRoutes.LIMITS)}
                         activeOpacity={0.5}
                     >
                         <BudgetFrame
