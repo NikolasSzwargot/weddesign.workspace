@@ -28,6 +28,6 @@
   "date": {
     "end": "End",
     "description": "Hi there!\nLet's get to know each other first :)\n\n\nWhen are you planning the wedding?",
-    "datePlaceholder": "Choose date"
+    "submitDate": "Submit date"
   }
 }
