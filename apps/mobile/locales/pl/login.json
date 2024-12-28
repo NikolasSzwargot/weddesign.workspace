@@ -29,6 +29,6 @@
   "date": {
     "end": "Zakończ",
     "description": "Cześć!\nNa początek daj nam się poznać :)\n\n\nNa kiedy planujecie wesele?",
-    "datePlaceholder": "Wybierz termin"
+    "submitDate": "Zatwierdź termin"
   }
 }
