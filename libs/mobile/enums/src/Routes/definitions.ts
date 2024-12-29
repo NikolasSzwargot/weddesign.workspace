@@ -13,6 +13,7 @@ export enum LoginScreens {
     REGISTER = '/register',
     SETUP = '/setup',
     NAMES = '/names',
+    DATE = '/date',
 }
 
 export enum GuestsScreens {
@@ -23,4 +24,8 @@ export enum GuestsScreens {
 export enum ExpensesScreens {
     LIST = '/list',
     ADD = '/add',
+}
+
+export enum ErrorScreens {
+    GENERAL = '/general',
 }
