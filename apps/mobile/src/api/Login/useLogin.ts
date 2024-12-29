@@ -4,7 +4,7 @@ import {ApiRoutes} from '@weddesign/enums';
 
 import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
 
-type LoginDto = {
+export type LoginDto = {
     email: string;
     password: string;
 };

@@ -3,11 +3,12 @@ import {Button, Input, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
-import {useRouting} from '@mobile/components';
+import {RegisterFormType, useRouting} from '@mobile/components';
 import {AppRootRoutes, Colors, LoginRoutes} from '@weddesign/enums';
 import {isValidEmail, isValidPassword} from '@weddesign/utils';
 import {TextInput} from 'react-native';
 import {Platform} from 'react-native';
+import {useFormContext} from 'react-hook-form';
 
 import {
     LabelContainer,
@@ -22,11 +23,12 @@ import {InputGroup, Container, Description} from './styles';
 
 //@TODO: Implement registering through Google and Facebook
 const Register = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const {watch, setValue} = useFormContext<RegisterFormType>();
     const [repeatedPassword, setRepeatedPassword] = useState('');
     const {t} = useTranslation('login');
     const {router} = useRouting();
+    const email = watch('email', '');
+    const password = watch('password', '');
 
     const isEgible = useCallback(() => {
         return (
@@ -62,7 +64,7 @@ const Register = () => {
                     <InputGroup>
                         <Input
                             value={email}
-                            handleChange={setEmail}
+                            handleChange={(value) => setValue('email', value)}
                             inputMode={'email'}
                             placeholder={t('register.email')}
                             autoCapitalize={'none'}
@@ -71,7 +73,7 @@ const Register = () => {
                         <TextInput
                             value={password}
                             onChange={(e) => {
-                                setPassword(e.nativeEvent.text);
+                                setValue('password', e.nativeEvent.text);
                             }}
                             placeholder={t('register.password')}
                             placeholderTextColor={Colors.Gray}
