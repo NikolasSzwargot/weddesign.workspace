@@ -12,6 +12,7 @@ export enum LoginRoutes {
     REGISTER = '/login/register',
     SETUP = '/login/setup',
     NAMESSETUP = '/login/names',
+    DATESETUP = '/login/date',
 }
 
 // ----- HOME SUBROUTES -----

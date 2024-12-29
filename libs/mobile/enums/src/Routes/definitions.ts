@@ -14,6 +14,7 @@ export enum LoginScreens {
     REGISTER = '/register',
     SETUP = '/setup',
     NAMES = '/names',
+    DATE = '/date',
 }
 
 // ----- GUESTS -----
