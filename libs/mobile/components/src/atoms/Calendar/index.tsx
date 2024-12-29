@@ -1,16 +1,15 @@
 import {DateType, ModeType} from 'react-native-ui-datepicker';
 import DatePicker from 'react-native-ui-datepicker';
-import dayjs from 'dayjs';
-import {Colors, LanguagesEnum} from '@weddesign/enums';
+import {Colors} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 
 type CalendarProps = {
     mode?: ModeType;
-    minDate?: DateType;
-    maxDate?: DateType;
+    minDate: DateType;
+    maxDate: DateType;
     date: DateType;
     onDateChange: (date: DateType) => void;
-    locale?: LanguagesEnum;
+    locale?: string;
 };
 
 const Calendar = ({
@@ -19,16 +18,15 @@ const Calendar = ({
     onDateChange,
     minDate,
     maxDate,
-    locale = LanguagesEnum.en,
+    locale = 'en',
 }: CalendarProps) => {
     return (
         <DatePicker
             date={date}
             mode={mode}
-            onDateChange={onDateChange}
             onChange={(event) => onDateChange(event.date)}
-            minDate={minDate ?? dayjs()}
-            maxDate={maxDate ?? dayjs()}
+            minDate={minDate}
+            maxDate={maxDate}
             selectedItemColor={Colors.PinkDark}
             calendarTextStyle={{color: Colors.Black}}
             headerTextStyle={{color: Colors.Black}}

@@ -8,7 +8,7 @@ import {Platform} from 'react-native';
 import {useState} from 'react';
 import dayjs from 'dayjs';
 import {DateType} from 'react-native-ui-datepicker';
-import {formatDate} from '@weddesign/utils';
+import {formatDate} from '@mobile/utils';
 
 import {
     ButtonsContainer,
@@ -71,6 +71,7 @@ const DateSetup = () => {
                                         weddingDate,
                                         i18n.language,
                                     )}
+                                    value={''}
                                     handleChange={(_) => {}}
                                     inputMode={'none'}
                                     style={{textAlign: 'center'}}
