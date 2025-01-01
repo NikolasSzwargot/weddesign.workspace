@@ -20,10 +20,14 @@ export class ProvidersService {
 
   async removeCategory(id: number): Promise<ProviderCategoryDto> {
     try {
+      this.prisma.provider.deleteMany({
+        where: { categoryId: id },
+      });
+
       return this.prisma.providerCategory.delete({ where: { id: id } });
     } catch (e) {
       if (e.code === 'P2025') {
-        throw new Error('Provide Category not found');
+        throw new Error('Provider category not found');
       }
       throw new Error(e);
     }
@@ -34,7 +38,7 @@ export class ProvidersService {
       return this.prisma.providerCategory.findUnique({ where: { id: id } });
     } catch (e) {
       if (e.code === 'P2025') {
-        throw new Error('Provide Category not found');
+        throw new Error('Provider category not found');
       }
       throw new Error(e);
     }
@@ -119,5 +123,27 @@ export class ProvidersService {
       }
       throw new Error(e);
     }
+  }
+
+  async getProvidersGroupedByStarsForCategory(categoryId: number): Promise<{ title: string; data: ProviderDto[] }[]> {
+    const providersInCategory = await this.prisma.provider.findMany({
+      where: { categoryId },
+    });
+
+    return providersInCategory.reduce(
+      (acc, provider) => {
+        const title = `${provider.stars}/5`;
+        const group = acc.find((g) => g.title === title);
+
+        if (group) {
+          group.data.push(provider);
+        } else {
+          acc.push({ title, data: [provider] });
+        }
+
+        return acc;
+      },
+      [] as { title: string; data: ProviderDto[] }[]
+    );
   }
 }

@@ -47,4 +47,15 @@ export class ProvidersController {
     }
     return await this.providersService.removeProvider(id);
   }
+
+  @Get('groupedByStarsInCategory/:categoryId')
+  async getAllProvidersInCategoryGrouped(
+    @Query('categoryId') idString: string
+  ): Promise<{ title: string; data: ProviderDto[] }[]> {
+    const id = parseInt(idString);
+    if (isNaN(id) && idString) {
+      throw new BadRequestException('Id should be a number');
+    }
+    return this.providersService.getProvidersGroupedByStarsForCategory(id);
+  }
 }
