@@ -3,7 +3,10 @@ import {
   CategoryToSummaryDto,
   CategoryWithProviders,
   CreateProviderCategoryDto,
+  CreateProviderDto,
   ProviderCategoryDto,
+  ProviderDto,
+  UpdateProviderDto,
 } from '@shared/dto';
 import { PrismaService } from '../../../prisma-client.service';
 
@@ -64,5 +67,57 @@ export class ProvidersService {
         reserved: reservedProviders,
       };
     });
+  }
+
+  async createNewProvider(newProviderDto: CreateProviderDto): Promise<ProviderDto> {
+    return this.prisma.provider.create({ data: newProviderDto });
+  }
+
+  async updateProvider(id: number, updateProviderDto: UpdateProviderDto): Promise<ProviderDto> {
+    try {
+      return await this.prisma.provider.update({
+        where: { id },
+        data: updateProviderDto,
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Provider not found');
+      }
+      throw new Error(e);
+    }
+  }
+
+  async getAllProvidersInCategory(categoryId: number): Promise<ProviderDto[]> {
+    try {
+      return await this.prisma.provider.findMany({
+        where: { categoryId },
+      });
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
+  async getProviderById(id: number): Promise<ProviderDto> {
+    try {
+      return await this.prisma.provider.findFirst({
+        where: { id },
+      });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Provider not found');
+      }
+      throw new Error(e);
+    }
+  }
+
+  async removeProvider(id: number): Promise<ProviderDto> {
+    try {
+      return await this.prisma.provider.delete({ where: { id } });
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Provider not found');
+      }
+      throw new Error(e);
+    }
   }
 }
