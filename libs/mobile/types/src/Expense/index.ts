@@ -12,15 +12,6 @@ export type Expense = {
     isPaid: boolean;
 };
 
-export type ExpGroupL = {
-    categoryId?: number;
-    title: string;
-    data: Expense[];
-    subtitle?: string;
-    limit?: number;
-    spent?: number;
-};
-
 export type categoryData = {
     color: Colors;
     icon: React.FC<SvgProps>;

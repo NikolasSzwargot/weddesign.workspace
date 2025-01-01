@@ -46,7 +46,7 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
             {
                 translateX: scrollData.interpolate({
                     inputRange: [0, 100],
-                    outputRange: [0, 55], // Move right for horizontal layout
+                    outputRange: [0, 55],
                     extrapolate: 'clamp',
                     easing: (x) => 1 - Math.pow(1 - x, 3),
                 }),
@@ -54,7 +54,7 @@ const BudgetFrame = ({total, current, currency, scrollData}: BudgetFrameProps) =
             {
                 translateY: scrollData.interpolate({
                     inputRange: [0, 100],
-                    outputRange: [20, 0], // Move down for vertical layout
+                    outputRange: [20, 0],
                     extrapolate: 'clamp',
                     easing: (x) => x * x * x,
                 }),

@@ -23,13 +23,13 @@ export const BudgetMainFrame = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     gap: 18px;
-    padding: 10px 30px 0px 30px;
+    padding: 10px 30px 0 30px;
 `;
 
 export const SearchBarWrapper = styled.View`
     flex-direction: row;
     align-items: center;
-    padding: 0px 10px 10px 10px;
+    padding: 0 10px 10px 10px;
     width: 100%;
     justify-content: space-between;
 `;
