@@ -20,7 +20,7 @@ export class ProvidersService {
 
   async removeCategory(id: number): Promise<ProviderCategoryDto> {
     try {
-      this.prisma.provider.deleteMany({
+      await this.prisma.provider.deleteMany({
         where: { categoryId: id },
       });
 
@@ -130,7 +130,7 @@ export class ProvidersService {
       where: { categoryId },
     });
 
-    return providersInCategory.reduce(
+    const groupedProviders = providersInCategory.reduce(
       (acc, provider) => {
         const title = `${provider.stars}/5`;
         const group = acc.find((g) => g.title === title);
@@ -145,5 +145,11 @@ export class ProvidersService {
       },
       [] as { title: string; data: ProviderDto[] }[]
     );
+
+    return groupedProviders.sort((a, b) => {
+      const starsA = parseInt(a.title.split('/')[0], 10);
+      const starsB = parseInt(b.title.split('/')[0], 10);
+      return starsB - starsA;
+    });
   }
 }
