@@ -17,8 +17,8 @@ import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
 import { ApiQuery } from '@nestjs/swagger';
 import { Guest, GuestStatus } from '@prisma/client';
-import { Public } from '../auth/decorators/public.decorator';
-import { ApiGlobalDecorators } from '../../../common/swagger.decorators';
+import { Public } from '../../../decorators/public.decorator';
+import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
 @ApiGlobalDecorators()
 @Controller('guests')

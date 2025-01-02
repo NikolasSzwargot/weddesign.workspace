@@ -2,8 +2,8 @@ import { Controller, Post, Body, HttpCode, HttpStatus, Get, Request } from '@nes
 import { AuthService } from './services/auth.service';
 import { RegisterAccountDto } from '@shared/dto';
 import { LoginDto } from '@shared/dto';
-import { Public } from './decorators/public.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { Public } from '../../../decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
