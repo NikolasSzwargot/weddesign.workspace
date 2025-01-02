@@ -16,6 +16,7 @@ import {CategoryToSummaryDto} from '@shared/dto';
 
 import {WeddesignConfirmationModal} from '../../molecules';
 import {useProvidersCategoriesAll} from '../../../api/Providers/useProvidersCategoriesAll';
+import {useDeleteCategory} from '../../../api/Providers/useDeleteCategory';
 
 import {CategoriesWrapper, Container, ProvidersCategoriesWrapper} from './styles';
 
@@ -29,6 +30,7 @@ const ProvidersGrouped = () => {
     );
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
+    const {mutate: deleteCategory, isLoading: isDeleting} = useDeleteCategory();
     const {
         data: categoriesAll,
         isLoading,
@@ -36,7 +38,6 @@ const ProvidersGrouped = () => {
         isFetching,
     } = useProvidersCategoriesAll();
 
-    const isDeleting = false;
     //@TODO: Dodać dodawania kategorii
     const isAdding = false;
 
@@ -59,8 +60,13 @@ const ProvidersGrouped = () => {
     };
     const handleYes = () => {
         setModalVisible(false);
-        console.log('Yes');
-        console.log(selectedItem);
+        deleteCategory(
+            {categoryId: selectedItem.id},
+            {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            },
+        );
     };
     const handleCancel = () => {
         setModalVisible(false);

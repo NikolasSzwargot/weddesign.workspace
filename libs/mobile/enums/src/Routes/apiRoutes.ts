@@ -13,4 +13,5 @@ export enum ApiRoutes {
     MainLimitStats = '/budget/limit',
 
     ProvidersCategoriesAll = '/providers/categories/all',
+    ProvidersCategoriesDelete = '/providers/categories/delete',
 }
