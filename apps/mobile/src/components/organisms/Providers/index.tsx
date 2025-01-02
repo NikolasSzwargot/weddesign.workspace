@@ -136,6 +136,7 @@ const ProvidersGrouped = () => {
                             onYesPress={handleYes}
                             onNoPress={handleCancel}
                             message={confirmationModalText}
+                            warning={t('deleteWarning')}
                         ></WeddesignConfirmationModal>
                     </>
                 )}
