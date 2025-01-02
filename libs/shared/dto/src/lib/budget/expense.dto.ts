@@ -24,6 +24,9 @@ export class ExpenseDto {
   isPaid: boolean;
 
   @ApiProperty()
+  userId: number;
+
+  @ApiProperty()
   @IsOptional()
   updatedAt: Date;
 

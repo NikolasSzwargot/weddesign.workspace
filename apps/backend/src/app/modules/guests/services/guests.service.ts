@@ -6,8 +6,13 @@ import { Guest, PrismaClient } from '@prisma/client';
 export class GuestsService {
   private prisma = new PrismaClient();
 
-  async create(createGuestDto: CreateGuestDto): Promise<Guest> {
-    return this.prisma.guest.create({ data: createGuestDto });
+  async create(userId: number, createGuestDto: CreateGuestDto): Promise<Guest> {
+    return this.prisma.guest.create({
+      data: {
+        ...createGuestDto,
+        userId,
+      },
+    });
   }
 
   async update(id: number, updateGuestDto: UpdateGuestDto): Promise<Guest | null> {
@@ -25,8 +30,9 @@ export class GuestsService {
     }
   }
 
-  async countGuests(filter?: string, statusName?: string, statusId?: number): Promise<number> {
+  async countGuests(userId: number, filter?: string, statusName?: string, statusId?: number): Promise<number> {
     const where: any = {};
+    where.userId = userId;
 
     switch (filter) {
       case 'overnight':
@@ -63,8 +69,8 @@ export class GuestsService {
     });
   }
 
-  async findAll(): Promise<Guest[]> {
-    return this.prisma.guest.findMany();
+  async findAll(userId: number): Promise<Guest[]> {
+    return this.prisma.guest.findMany({ where: { userId } });
   }
 
   async findOne(id: number): Promise<Guest> {
@@ -75,8 +81,8 @@ export class GuestsService {
     return this.prisma.guest.delete({ where: { id: id } });
   }
 
-  async getGuestsGroupedByFirstLetter(): Promise<{ data: Guest[]; title: string }[]> {
-    const guests = await this.findAll();
+  async getGuestsGroupedByFirstLetter(userId: number): Promise<{ data: Guest[]; title: string }[]> {
+    const guests = await this.findAll(userId);
 
     const groupedGuests: Record<string, Guest[]> = {};
 

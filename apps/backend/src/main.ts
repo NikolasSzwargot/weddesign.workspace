@@ -16,6 +16,17 @@ async function bootstrap() {
     .setTitle('wedDesign API')
     .setDescription('WedDesign API description')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth'
+    )
     .addTag('wedDesign')
     .build();
   const document = SwaggerModule.createDocument(app, config);

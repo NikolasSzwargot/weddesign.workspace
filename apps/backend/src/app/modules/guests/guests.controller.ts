@@ -10,13 +10,17 @@ import {
   Patch,
   ParseIntPipe,
   NotFoundException,
+  Request,
 } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
 import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
 import { ApiQuery } from '@nestjs/swagger';
 import { Guest, GuestStatus } from '@prisma/client';
+import { Public } from '../auth/decorators/public.decorator';
+import { ApiGlobalDecorators } from '../../../common/swagger.decorators';
 
+@ApiGlobalDecorators()
 @Controller('guests')
 export class GuestsController {
   constructor(
@@ -25,8 +29,8 @@ export class GuestsController {
   ) {}
 
   @Post('create')
-  async create(@Body() createGuestDto: CreateGuestDto): Promise<Guest> {
-    return await this.guestService.create(createGuestDto);
+  async create(@Request() req, @Body() createGuestDto: CreateGuestDto): Promise<Guest> {
+    return await this.guestService.create(req.user.userId, createGuestDto);
   }
 
   @Patch('update/:id')
@@ -39,8 +43,8 @@ export class GuestsController {
   }
 
   @Get('all')
-  async findAll(): Promise<Guest[]> {
-    return await this.guestService.findAll();
+  async findAll(@Request() req): Promise<Guest[]> {
+    return await this.guestService.findAll(req.user.userId);
   }
 
   @Get()
@@ -58,6 +62,7 @@ export class GuestsController {
   @ApiQuery({ name: 'statusName', required: false, type: String })
   @ApiQuery({ name: 'statusId', required: false, type: Number })
   async getCount(
+    @Request() req,
     @Query('filter') filter?: string,
     @Query('statusName') statusName?: string,
     @Query('statusId') statusIdString?: string
@@ -71,7 +76,7 @@ export class GuestsController {
       throw new BadRequestException('StatusId should be a number');
     }
 
-    const count = await this.guestService.countGuests(filter, statusName, statusId);
+    const count = await this.guestService.countGuests(req.user.userId, filter, statusName, statusId);
     return { count };
   }
 
@@ -85,15 +90,17 @@ export class GuestsController {
   }
 
   @Get('grouped')
-  async getAllGuestsGrouped(): Promise<{ data: Guest[]; title: string }[]> {
-    return await this.guestService.getGuestsGroupedByFirstLetter();
+  async getAllGuestsGrouped(@Request() req): Promise<{ data: Guest[]; title: string }[]> {
+    return await this.guestService.getGuestsGroupedByFirstLetter(req.user.userId);
   }
 
+  @Public()
   @Get('status/all')
   async findAllStatuses(): Promise<GuestStatus[]> {
     return await this.guestStatusesService.findAll();
   }
 
+  @Public()
   @Get('status/id')
   async getStatusById(@Query('id') idString: string): Promise<GuestStatus> {
     const id = parseInt(idString);
@@ -103,6 +110,7 @@ export class GuestsController {
     return await this.guestStatusesService.findById(id);
   }
 
+  @Public()
   @Get('status/name')
   async getStatusByName(@Query('name') name: string): Promise<GuestStatus> {
     return await this.guestStatusesService.findByName(name);

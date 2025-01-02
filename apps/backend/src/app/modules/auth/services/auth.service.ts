@@ -42,6 +42,7 @@ export class AuthService {
       where: { email: loginDto.email },
     });
     if ((await this.checkLoginAndPassword(account, loginDto)) == false) {
+      console.log(account, loginDto);
       throw new UnauthorizedException();
     }
     const user = await this.prisma.user.findUnique({ where: { id: account.userId } });

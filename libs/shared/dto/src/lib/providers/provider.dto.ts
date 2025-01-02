@@ -42,6 +42,9 @@ export class ProviderDto {
   isReserved: boolean;
 
   @ApiProperty()
+  userId: number;
+
+  @ApiProperty()
   @IsOptional()
   createdAt: Date;
 

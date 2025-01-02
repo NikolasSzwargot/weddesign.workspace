@@ -3,6 +3,7 @@ import { AuthService } from './services/auth.service';
 import { RegisterAccountDto } from '@shared/dto';
 import { LoginDto } from '@shared/dto';
 import { Public } from './decorators/public.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -15,12 +16,16 @@ export class AuthController {
     return await this.authService.login(loginDto);
   }
 
+  @Public()
   @Post('register')
   async register(@Body() createAccountDto: RegisterAccountDto): Promise<{ access_token: string }> {
-    const loginDto = await this.authService.create(createAccountDto);
-    return await this.authService.login(loginDto);
+    await this.authService.create(createAccountDto);
+    const email = createAccountDto.email;
+    const password = createAccountDto.password;
+    return await this.authService.login({ email, password });
   }
 
+  @ApiBearerAuth('JWT-auth')
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

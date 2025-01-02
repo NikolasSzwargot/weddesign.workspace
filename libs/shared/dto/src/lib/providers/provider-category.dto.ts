@@ -13,6 +13,9 @@ export class ProviderCategoryDto {
   name: string;
 
   @ApiProperty()
+  userId: number;
+
+  @ApiProperty()
   @IsOptional()
   updatedAt: Date;
 
