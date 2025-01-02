@@ -5,7 +5,7 @@
   "buttons": {
     "guests": "Lista gości",
     "budget": "Budżet",
-    "subcontractors": "Podwykonawcy",
+    "providers": "Podwykonawcy",
     "tasks": "Zadania"
   }
 }
