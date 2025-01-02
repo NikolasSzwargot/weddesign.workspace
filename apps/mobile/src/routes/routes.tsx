@@ -2,6 +2,7 @@ import React from 'react';
 import {
     AppRootRoutes,
     ErrorScreens,
+    ExpensesScreens,
     GuestsScreens,
     LoginScreens,
     ProvidersScreens,
@@ -13,6 +14,7 @@ import {
     HomePage,
     LoginPage,
     ProvidersPage,
+    BudgetMainPage,
 } from '@mobile/components';
 
 export const LoginRoutingRoutes: Route[] = [
@@ -40,6 +42,11 @@ export const LoginRoutingRoutes: Route[] = [
         screen: LoginScreens.NAMES,
         element: <LoginPage screen={LoginScreens.NAMES} />,
     },
+    {
+        route: AppRootRoutes.LOGIN,
+        screen: LoginScreens.DATE,
+        element: <LoginPage screen={LoginScreens.DATE} />,
+    },
 ];
 
 export const HomeRoutingRoutes: Route[] = [
@@ -59,6 +66,19 @@ export const GuestsRoutingRoutes: Route[] = [
         route: AppRootRoutes.GUESTLIST,
         screen: GuestsScreens.ADD,
         element: <GuestListPage screen={GuestsScreens.ADD} />,
+    },
+];
+
+export const BudgetRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.LIST,
+        element: <BudgetMainPage screen={ExpensesScreens.LIST} />,
+    },
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.ADD,
+        element: <BudgetMainPage screen={ExpensesScreens.ADD} />,
     },
 ];
 
@@ -92,6 +112,7 @@ export const WeddesignRoutingRoutes: Route[] = [
     ...LoginRoutingRoutes,
     ...HomeRoutingRoutes,
     ...GuestsRoutingRoutes,
+    ...BudgetRoutingRoutes,
     ...ErrorRoutingRoutes,
     ...ProvidersRoutingRoutes,
 ];
