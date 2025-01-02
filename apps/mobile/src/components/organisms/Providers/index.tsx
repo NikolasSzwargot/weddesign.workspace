@@ -12,7 +12,7 @@ import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
 import {Colors, ErrorRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
-import {Category} from '@weddesign/types';
+import {CategoryToSummaryDto} from '@shared/dto';
 
 import {MockedProvidersCategories} from '../../../mocks/MockedProvidersCategories';
 import {WeddesignConfirmationModal} from '../../molecules';
@@ -24,7 +24,9 @@ const ProvidersGrouped = () => {
     const {t} = useTranslation('providers');
 
     const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<Category | null>(null); //@TODO: Użyć DTO z shared
+    const [selectedItem, setSelectedItem] = useState<CategoryToSummaryDto | null>(
+        null,
+    );
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
     const isLoading = false;
@@ -41,8 +43,7 @@ const ProvidersGrouped = () => {
         router.navigate(ErrorRoutes.GENERAL, 'providers');
     };
 
-    const handleDelete = (category: Category) => {
-        //@TODO: użyć DTO z shared
+    const handleDelete = (category: CategoryToSummaryDto) => {
         setSelectedItem(category);
         setConfirmationModalText(
             t('deleteMessage', {
