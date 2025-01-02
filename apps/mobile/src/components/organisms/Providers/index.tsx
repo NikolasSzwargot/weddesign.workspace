@@ -14,8 +14,8 @@ import {Colors, ErrorRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
 import {CategoryToSummaryDto} from '@shared/dto';
 
-import {MockedProvidersCategories} from '../../../mocks/MockedProvidersCategories';
 import {WeddesignConfirmationModal} from '../../molecules';
+import {useProvidersCategoriesAll} from '../../../api/Providers/useProvidersCategoriesAll';
 
 import {CategoriesWrapper, Container, ProvidersCategoriesWrapper} from './styles';
 
@@ -29,11 +29,16 @@ const ProvidersGrouped = () => {
     );
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
-    const isLoading = false;
+    const {
+        data: categoriesAll,
+        isLoading,
+        isError,
+        isFetching,
+    } = useProvidersCategoriesAll();
+
     const isDeleting = false;
-    const isFetching = false;
+    //@TODO: Dodać dodawania kategorii
     const isAdding = false;
-    const isError = false;
 
     const handleSuccess = () => {
         console.log('Success');
@@ -82,7 +87,7 @@ const ProvidersGrouped = () => {
                     <>
                         <CategoriesWrapper>
                             <FlatList
-                                data={MockedProvidersCategories}
+                                data={categoriesAll}
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({item}) => (
                                     <ProvidersCategoryItem
