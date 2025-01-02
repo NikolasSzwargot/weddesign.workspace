@@ -8,6 +8,7 @@ import {
   GetBudgetLimitsDto,
   UpdateBudgetLimitDto,
   ExpensesByDateDto,
+  CreateBudgetLimitDto,
 } from '@shared/dto';
 import { ExpenseCategory } from '@prisma/client';
 import { PrismaService } from '../../../prisma-client.service';
@@ -17,12 +18,12 @@ import { formatDateToString } from '../../../../common/utils/date.util';
 export class BudgetService {
   constructor(private prisma: PrismaService) {}
 
-  async addExpense(createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
-    return this.prisma.expense.create({ data: createExpenseDto });
+  async addExpense(userId: number, createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
+    return this.prisma.expense.create({ data: { ...createExpenseDto, userId } });
   }
 
-  async getExpenses(): Promise<ExpenseDto[]> {
-    return this.prisma.expense.findMany();
+  async getExpenses(userId: number): Promise<ExpenseDto[]> {
+    return this.prisma.expense.findMany({ where: { userId } });
   }
 
   async getExpenseById(id: number): Promise<ExpenseDto> {
@@ -89,8 +90,8 @@ export class BudgetService {
     }
   }
 
-  async getExpensesByCategory(): Promise<ExpensesByCategoryDto[]> {
-    const expenses = await this.getExpenses();
+  async getExpensesByCategory(userId: number): Promise<ExpensesByCategoryDto[]> {
+    const expenses = await this.getExpenses(userId);
 
     const groupedExpenses = this.groupExpenseByCategory(expenses);
 
@@ -138,8 +139,8 @@ export class BudgetService {
     };
   }
 
-  async getExpensesByDate(): Promise<ExpensesByDateDto[]> {
-    const expenses = await this.getExpenses();
+  async getExpensesByDate(userId: number): Promise<ExpensesByDateDto[]> {
+    const expenses = await this.getExpenses(userId);
 
     const groupedExpenses = this.groupExpensesByDate(expenses);
 
@@ -174,9 +175,9 @@ export class BudgetService {
     };
   }
 
-  async getBudgetLimit(): Promise<GetBudgetLimitsDto> {
+  async getBudgetLimit(userId: number): Promise<GetBudgetLimitsDto> {
     const budgetLimit = await this.prisma.mainBudgetLimit.findFirst();
-    const expenses = await this.getExpenses();
+    const expenses = await this.getExpenses(userId);
     const paidExpenses = expenses.filter((expense) => expense.isPaid);
     const notPaidExpenses = expenses.filter((expense) => !expense.isPaid);
     const totalPlanned = expenses.reduce((total, expense) => total + expense.amount, 0);
@@ -188,6 +189,10 @@ export class BudgetService {
       totalPlanned: totalPlanned,
       totalPercent: (totalPlanned / budgetLimit.limit) * 100,
     };
+  }
+
+  async createBudgetLimit(userId: number, newBudgetLimit: CreateBudgetLimitDto): Promise<BudgetLimitDto> {
+    return this.prisma.mainBudgetLimit.create({ data: { ...newBudgetLimit, userId } });
   }
 
   async updateBudgetLimit(id: number, updateBudgetLimitDto: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {

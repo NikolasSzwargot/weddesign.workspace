@@ -1,29 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
 import { BudgetService } from './services/budget.service';
 import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto, ExpensesByDateDto } from '@shared/dto';
+import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
+@ApiGlobalDecorators()
 @Controller('budget/expense')
 export class ExpenseController {
   constructor(private readonly budgetService: BudgetService) {}
 
   @Post()
-  async create(@Body() createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
-    return await this.budgetService.addExpense(createExpenseDto);
+  async create(@Request() req, @Body() createExpenseDto: CreateExpenseDto): Promise<ExpenseDto> {
+    return await this.budgetService.addExpense(req.user.userId, createExpenseDto);
   }
 
   @Get()
-  async findAll(): Promise<ExpenseDto[]> {
-    return await this.budgetService.getExpenses();
+  async findAll(@Request() req): Promise<ExpenseDto[]> {
+    return await this.budgetService.getExpenses(req.user.userId);
   }
 
   @Get('groupedByCategory')
-  async groupedByCategory(): Promise<ExpensesByCategoryDto[]> {
-    return await this.budgetService.getExpensesByCategory();
+  async groupedByCategory(@Request() req): Promise<ExpensesByCategoryDto[]> {
+    return await this.budgetService.getExpensesByCategory(req.user.userId);
   }
 
   @Get('groupedByDate')
-  async groupedByDate(): Promise<ExpensesByDateDto[]> {
-    return await this.budgetService.getExpensesByDate();
+  async groupedByDate(@Request() req): Promise<ExpensesByDateDto[]> {
+    return await this.budgetService.getExpensesByDate(req.user.userId);
   }
 
   @Get(':id')
