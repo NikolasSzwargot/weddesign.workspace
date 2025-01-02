@@ -2,11 +2,17 @@ import React from 'react';
 import {
     AppRootRoutes,
     ErrorScreens,
+    ExpensesScreens,
     GuestsScreens,
     LoginScreens,
     Route,
 } from '@weddesign/enums';
-import {GuestListPage, HomePage, LoginPage} from '@mobile/components';
+import {
+    BudgetMainPage,
+    GuestListPage,
+    HomePage,
+    LoginPage,
+} from '@mobile/components';
 
 import ErrorPage from '../components/pages/ErrorPage';
 
@@ -35,6 +41,11 @@ export const LoginRoutingRoutes: Route[] = [
         screen: LoginScreens.NAMES,
         element: <LoginPage screen={LoginScreens.NAMES} />,
     },
+    {
+        route: AppRootRoutes.LOGIN,
+        screen: LoginScreens.DATE,
+        element: <LoginPage screen={LoginScreens.DATE} />,
+    },
 ];
 
 export const HomeRoutingRoutes: Route[] = [
@@ -57,6 +68,19 @@ export const GuestsRoutingRoutes: Route[] = [
     },
 ];
 
+export const BudgetRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.LIST,
+        element: <BudgetMainPage screen={ExpensesScreens.LIST} />,
+    },
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.ADD,
+        element: <BudgetMainPage screen={ExpensesScreens.ADD} />,
+    },
+];
+
 export const ErrorRoutingRoutes: Route[] = [
     {
         route: AppRootRoutes.ERROR,
@@ -69,5 +93,6 @@ export const WeddesignRoutingRoutes: Route[] = [
     ...LoginRoutingRoutes,
     ...HomeRoutingRoutes,
     ...GuestsRoutingRoutes,
+    ...BudgetRoutingRoutes,
     ...ErrorRoutingRoutes,
 ];

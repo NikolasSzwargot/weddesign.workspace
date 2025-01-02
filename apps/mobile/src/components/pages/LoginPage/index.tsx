@@ -5,6 +5,7 @@ import {LoginScreens} from '@weddesign/enums';
 import LanguageSetup from '../../organisms/Login/LanguageSetup';
 import Register from '../../organisms/Login/Register';
 import BrideGroomSetup from '../../organisms/Login/BrideGroomSetup';
+import DateSetup from '../../organisms/Login/DateSetup';
 
 type loginPageProps = {
     screen?: LoginScreens;
@@ -17,6 +18,8 @@ const LoginPage = ({screen}: loginPageProps) => {
             return <Register />;
         case LoginScreens.NAMES:
             return <BrideGroomSetup />;
+        case LoginScreens.DATE:
+            return <DateSetup />;
         default:
             return <Login />;
     }

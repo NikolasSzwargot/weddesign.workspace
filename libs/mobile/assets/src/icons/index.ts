@@ -7,6 +7,7 @@ import Dress from './Dress.svg';
 import Earrings from './Earrings.svg';
 import File from './File.svg';
 import FilterDate from './FilterDate.svg';
+import FilterDollar from './FilterDollar.svg';
 import Gift from './Gift.svg';
 import House from './House.svg';
 import Map from './Map.svg';
@@ -30,6 +31,7 @@ export const Icons = {
     Earrings,
     File,
     FilterDate,
+    FilterDollar,
     Gift,
     House,
     Map,
