@@ -24,7 +24,7 @@ export const BudgetMainFrame = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     gap: 18px;
-    padding: 10px 30px 0px 30px;
+    padding: 10px 30px 0 30px;
 `;
 
 export const SearchBarWrapper = styled.View`

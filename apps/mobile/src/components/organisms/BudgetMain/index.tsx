@@ -11,11 +11,15 @@ import {
     BudgetStatusBar,
     BackgroundEllipse,
 } from '@weddesign/components';
-import {Colors, ExpenseGroupingMode, ExpenseListRoutes} from '@weddesign/enums';
+import {
+    Colors,
+    ExpenseGroupingMode,
+    ExpenseListRoutes,
+    ErrorRoutes,
+} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
-import {Text} from '@weddesign/themes';
 
 import {useExpensesByCategories} from '../../../api/Budget/useExpensesByCategories';
 import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
@@ -31,8 +35,8 @@ import {
 } from './styles';
 
 const BudgetMain = () => {
-    const {t} = useTranslation('budget');
     const {router} = useRouting();
+    const {t} = useTranslation('budget');
     const [searchQuery, setSearchQuery] = useState('');
     const [groupingMode, setGroupingMode] = useState<
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
@@ -91,18 +95,18 @@ const BudgetMain = () => {
             : lista;
     };
 
+    useEffect(() => {
+        if (isErrorByCategories || isErrorMainLimit || isErrorByDate) {
+            router.navigate(ErrorRoutes.GENERAL, 'budget');
+        }
+    }, [isErrorByCategories, isErrorMainLimit, isErrorByDate, router]);
+
     const content =
         isLoadingMainLimit || isLoadingByCategories || isLoadingByDate ? (
             <>
                 <BackgroundEllipse variant={'budget'} />
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             </>
-        ) : isErrorByCategories || isErrorMainLimit || isErrorByDate ? (
-            <Text.Regular style={{position: 'absolute', top: '50%'}}>
-                {/* @TODO przejście na ekran z błędem*/}
-                {/* eslint-disable-next-line react-native/no-raw-text */}
-                {'Tu będzie takie fajne przejście do ekranu błędu'}
-            </Text.Regular>
         ) : (
             <>
                 <BackgroundEllipse variant={'budget'} />

@@ -14,7 +14,6 @@ import {
     LoginPage,
 } from '@mobile/components';
 
-
 import ErrorPage from '../components/pages/ErrorPage';
 
 export const LoginRoutingRoutes: Route[] = [
@@ -41,6 +40,11 @@ export const LoginRoutingRoutes: Route[] = [
         route: AppRootRoutes.LOGIN,
         screen: LoginScreens.NAMES,
         element: <LoginPage screen={LoginScreens.NAMES} />,
+    },
+    {
+        route: AppRootRoutes.LOGIN,
+        screen: LoginScreens.DATE,
+        element: <LoginPage screen={LoginScreens.DATE} />,
     },
 ];
 
@@ -74,7 +78,12 @@ export const BudgetRoutingRoutes: Route[] = [
         route: AppRootRoutes.BUDGET,
         screen: ExpensesScreens.ADD,
         element: <BudgetMainPage screen={ExpensesScreens.ADD} />,
-    }
+    },
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.LIMITS,
+        element: <BudgetMainPage screen={ExpensesScreens.LIMITS} />,
+    },
 ];
 
 export const ErrorRoutingRoutes: Route[] = [
@@ -82,11 +91,6 @@ export const ErrorRoutingRoutes: Route[] = [
         route: AppRootRoutes.ERROR,
         screen: ErrorScreens.GENERAL,
         element: <ErrorPage screen={ErrorScreens.GENERAL} />,
-    },
-    {
-        route: AppRootRoutes.BUDGET,
-        screen: ExpensesScreens.LIMITS,
-        element: <BudgetMainPage screen={ExpensesScreens.LIMITS} />,
     },
 ];
 

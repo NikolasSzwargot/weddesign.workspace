@@ -4,7 +4,6 @@ import {
     ExpenseInfoContainer,
     ExpenseRightContainer,
     ExpenseName,
-    StatusDot,
 } from './styles';
 
 import {categoryData} from '@weddesign/types';

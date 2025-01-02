@@ -13,6 +13,7 @@ export enum LoginScreens {
     REGISTER = '/register',
     SETUP = '/setup',
     NAMES = '/names',
+    DATE = '/date',
 }
 
 export enum GuestsScreens {
