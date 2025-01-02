@@ -32,6 +32,6 @@ export enum ErrorScreens {
 
 export enum ProvidersScreens {
     GROUPED = '/grouped',
-    LIST = '/LIST',
+    LIST = '/list',
     ADD = '/add',
 }
