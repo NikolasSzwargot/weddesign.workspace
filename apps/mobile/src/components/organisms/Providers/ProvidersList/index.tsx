@@ -12,9 +12,11 @@ import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
+import {ProviderDto} from '@shared/dto';
 
 import {WeddesignConfirmationModal} from '../../../molecules';
 import {useRouting} from '../../../providers';
+import {useProvidersByStarsInCategory} from '../../../../api/Providers/useGroupedByStarsInCategory';
 
 import {
     Container,
@@ -28,16 +30,19 @@ const GuestList = () => {
     const {t} = useTranslation('providers');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<null>(null); //@TODO: Zamienić na DTO | null
+    const [selectedItem, setSelectedItem] = useState<ProviderDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
-    //TODO: Wyciągać id grupy podwykonawców i użyć do zaciągnięcia listy
     const category = router.location.state;
 
-    const isLoading = false;
+    const {
+        data: providersGroupedByStars,
+        isLoading,
+        isError,
+        isFetching,
+    } = useProvidersByStarsInCategory(category.id);
+
     const isDeleting = false;
-    const isFetching = false;
-    const isError = false;
 
     const handleSuccess = () => {
         console.log('Success');
@@ -69,7 +74,6 @@ const GuestList = () => {
             <ProvidersListWrapper>
                 <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <CategoryName>
-                    {/*TODO: Zamienić na category.name*/}
                     <Text.SemiBold size={32}>{category.name}</Text.SemiBold>
                 </CategoryName>
 
@@ -120,7 +124,6 @@ const GuestList = () => {
                             ></LoadingSpinner>
                         </CustomOverlay>
 
-                        {/*TODO: Użyć modala do usuwania podwykonawcy*/}
                         <WeddesignConfirmationModal
                             isVisible={isModalVisible}
                             onBackdropPress={handleCancel}

@@ -48,7 +48,7 @@ export class ProvidersController {
     return await this.providersService.removeProvider(id);
   }
 
-  @Get('groupedByStarsInCategory/:categoryId')
+  @Get('groupedByStarsInCategory')
   async getAllProvidersInCategoryGrouped(
     @Query('categoryId') idString: string
   ): Promise<{ title: string; data: ProviderDto[] }[]> {
