@@ -4,6 +4,7 @@ import {useRouting} from '@mobile/components';
 import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
+import {HomeRoutes} from '@weddesign/enums';
 
 import {Container, ContentWrapper, ErrorWrapper} from './styles';
 
@@ -16,7 +17,7 @@ const ErrorGeneral = () => {
         <Container>
             <BackgroundEllipse variant={variant} />
             <ErrorWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <ContentWrapper>
                     <Images.BrokenHeart />
                     <Text.Bold size={32}>{t('Error')}</Text.Bold>

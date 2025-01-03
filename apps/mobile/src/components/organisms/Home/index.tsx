@@ -5,7 +5,12 @@ import {
     RoundButton,
     TaskFrame,
 } from '@weddesign/components';
-import {Colors, GuestListRoutes} from '@weddesign/enums';
+import {
+    Colors,
+    ExpenseListRoutes,
+    GuestListRoutes,
+    HomeRoutes,
+} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {getDaysDifference} from '@weddesign/utils';
@@ -28,6 +33,7 @@ const Home = () => {
         {
             color: Colors.LightGreen,
             label: t('buttons.budget'),
+            onPress: () => router.navigate(ExpenseListRoutes.LIST),
         },
         {color: Colors.LightPurple, label: t('buttons.subcontractors')},
         {color: Colors.Yellow, label: t('buttons.tasks')},
@@ -37,7 +43,7 @@ const Home = () => {
         <Container>
             <BackgroundEllipse variant={'home'} />
             <HomeWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <MainFrame>
                     <Text.SemiBold size={20}>
                         {t('welcome', {
