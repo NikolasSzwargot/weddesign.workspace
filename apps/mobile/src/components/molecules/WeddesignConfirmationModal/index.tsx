@@ -7,6 +7,7 @@ type WeddesignConfirmationModalProps = {
     onYesPress: () => void;
     onNoPress: () => void;
     message?: string;
+    warning?: string;
 };
 
 const WeddesignConfirmationModal = ({
@@ -15,6 +16,7 @@ const WeddesignConfirmationModal = ({
     onYesPress,
     onNoPress,
     message,
+    warning,
 }: WeddesignConfirmationModalProps) => {
     const {t} = useTranslation('shared');
     return (
@@ -26,6 +28,7 @@ const WeddesignConfirmationModal = ({
             yesText={t('confirmationModal.yesText')}
             noText={t('confirmationModal.noText')}
             message={message ? message : t('confirmationModal.message')}
+            warning={warning}
         />
     );
 };

@@ -14,7 +14,7 @@ import {
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors, ErrorRoutes, GuestListRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, GuestListRoutes, HomeRoutes} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
 import {useDeleteGuest} from '../../../api/Guests/useDeleteGuest';
@@ -118,7 +118,7 @@ const GuestList = () => {
         <Container>
             <BackgroundEllipse variant={'guests'} />
             <GuestListWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 {isLoading || isLoadingGrouped ? (
                     <LoadingSpinner
                         color={Colors.LightBlue}
@@ -165,10 +165,12 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.Filter}
+                                        fillColor={Colors.WhiteSmokeDarker}
                                         onPress={() => console.log('clicked Filter')}
                                     />
                                     <IconButton
-                                        Icon={Icons.AddGuest}
+                                        Icon={Icons.AddPerson}
+                                        fillColor={Colors.LightBlue}
                                         onPress={() =>
                                             router.navigate(GuestListRoutes.ADD)
                                         }

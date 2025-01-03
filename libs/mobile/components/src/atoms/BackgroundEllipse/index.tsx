@@ -4,7 +4,7 @@ import {EllipseContainer} from './styles';
 import {GradientColor} from '@weddesign/types';
 import {variantDefaults} from './variants';
 
-type EllipseVariant = 'home' | 'guests' | 'budget';
+type EllipseVariant = 'home' | 'guests' | 'budget' | 'providers';
 
 type EllipseProps = {
     variant?: EllipseVariant;

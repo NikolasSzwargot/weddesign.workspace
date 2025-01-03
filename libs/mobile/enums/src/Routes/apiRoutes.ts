@@ -7,4 +7,11 @@ export enum ApiRoutes {
     GuestsDelete = '/guests',
     GuestsCreate = '/guests/create',
     GuestsUpdate = '/guests/update/:id',
+
+    ExpensesByCategory = '/budget/expense/groupedByCategory',
+    ExpensesByDate = '/budget/expense/groupedByDate',
+    MainLimitStats = '/budget/limit',
+
+    ProvidersCategoriesAll = '/providers/categories/all',
+    ProvidersCategoriesDelete = '/providers/categories/delete',
 }
