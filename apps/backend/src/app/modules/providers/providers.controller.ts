@@ -1,14 +1,16 @@
 import { ProvidersService } from './services/providers.service';
-import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Query, Request } from '@nestjs/common';
 import { CreateProviderDto, ProviderDto, UpdateProviderDto } from '@shared/dto';
+import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
+@ApiGlobalDecorators()
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}
 
   @Post()
-  async create(@Body() createProviderDto: CreateProviderDto): Promise<ProviderDto> {
-    return await this.providersService.createNewProvider(createProviderDto);
+  async create(@Request() req, @Body() createProviderDto: CreateProviderDto): Promise<ProviderDto> {
+    return await this.providersService.createNewProvider(req.user.userId, createProviderDto);
   }
 
   @Patch(':id')
@@ -21,12 +23,12 @@ export class ProvidersController {
   }
 
   @Get('allInCategory/:categoryId')
-  async findAll(@Query('categoryId') idString: string): Promise<ProviderDto[]> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
+  async findAll(@Request() req, @Query('categoryId') categoryIdString: string): Promise<ProviderDto[]> {
+    const categoryId = parseInt(categoryIdString);
+    if (isNaN(categoryId) && categoryIdString) {
       throw new BadRequestException('Id should be a number');
     }
-    return await this.providersService.getAllProvidersInCategory(id);
+    return await this.providersService.getAllProvidersInCategory(req.user.userId, categoryId);
   }
 
   @Get(':id')
@@ -50,12 +52,13 @@ export class ProvidersController {
 
   @Get('groupedByStarsInCategory/:categoryId')
   async getAllProvidersInCategoryGrouped(
-    @Query('categoryId') idString: string
+    @Request() req,
+    @Query('categoryId') categoryIdString: string
   ): Promise<{ title: string; data: ProviderDto[] }[]> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
+    const categoryId = parseInt(categoryIdString);
+    if (isNaN(categoryId) && categoryIdString) {
       throw new BadRequestException('Id should be a number');
     }
-    return this.providersService.getProvidersGroupedByStarsForCategory(id);
+    return this.providersService.getProvidersGroupedByStarsForCategory(req.user.userId, categoryId);
   }
 }

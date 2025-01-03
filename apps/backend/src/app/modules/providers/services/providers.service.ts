@@ -14,8 +14,8 @@ import { PrismaService } from '../../../prisma-client.service';
 export class ProvidersService {
   constructor(private prisma: PrismaService) {}
 
-  async createNewCategory(newCategoryDto: CreateProviderCategoryDto): Promise<ProviderCategoryDto> {
-    return this.prisma.providerCategory.create({ data: newCategoryDto });
+  async createNewCategory(userId: number, newCategoryDto: CreateProviderCategoryDto): Promise<ProviderCategoryDto> {
+    return this.prisma.providerCategory.create({ data: { ...newCategoryDto, userId } });
   }
 
   async removeCategory(id: number): Promise<ProviderCategoryDto> {
@@ -44,7 +44,7 @@ export class ProvidersService {
     }
   }
 
-  private async getAllCategoriesWithProviders(): Promise<CategoryWithProviders[]> {
+  private async getAllCategoriesWithProviders(userId: number): Promise<CategoryWithProviders[]> {
     return this.prisma.providerCategory.findMany({
       include: {
         providers: {
@@ -54,11 +54,12 @@ export class ProvidersService {
           },
         },
       },
+      where: { userId },
     });
   }
 
-  async getCategoriesSummary(): Promise<CategoryToSummaryDto[]> {
-    const categories = await this.getAllCategoriesWithProviders();
+  async getCategoriesSummary(userId: number): Promise<CategoryToSummaryDto[]> {
+    const categories = await this.getAllCategoriesWithProviders(userId);
     return categories.map((category) => {
       const totalProviders: number = category.providers.length;
       const reservedProviders: number = category.providers.filter((provider) => provider.isReserved).length;
@@ -73,8 +74,8 @@ export class ProvidersService {
     });
   }
 
-  async createNewProvider(newProviderDto: CreateProviderDto): Promise<ProviderDto> {
-    return this.prisma.provider.create({ data: newProviderDto });
+  async createNewProvider(userId: number, newProviderDto: CreateProviderDto): Promise<ProviderDto> {
+    return this.prisma.provider.create({ data: { ...newProviderDto, userId } });
   }
 
   async updateProvider(id: number, updateProviderDto: UpdateProviderDto): Promise<ProviderDto> {
@@ -91,10 +92,10 @@ export class ProvidersService {
     }
   }
 
-  async getAllProvidersInCategory(categoryId: number): Promise<ProviderDto[]> {
+  async getAllProvidersInCategory(userId: number, categoryId: number): Promise<ProviderDto[]> {
     try {
       return await this.prisma.provider.findMany({
-        where: { categoryId },
+        where: { categoryId, userId },
       });
     } catch (e) {
       throw new Error(e);
@@ -125,9 +126,12 @@ export class ProvidersService {
     }
   }
 
-  async getProvidersGroupedByStarsForCategory(categoryId: number): Promise<{ title: string; data: ProviderDto[] }[]> {
+  async getProvidersGroupedByStarsForCategory(
+    userId: number,
+    categoryId: number
+  ): Promise<{ title: string; data: ProviderDto[] }[]> {
     const providersInCategory = await this.prisma.provider.findMany({
-      where: { categoryId },
+      where: { categoryId, userId },
     });
 
     const groupedProviders = providersInCategory.reduce(

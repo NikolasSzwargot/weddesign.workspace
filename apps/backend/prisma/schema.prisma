@@ -71,10 +71,10 @@ model User {
 model Expense {
   id          Int             @id @default(autoincrement())
   name        String
-  description String
+  description String?
   categoryId  Int
   category    ExpenseCategory @relation(fields: [categoryId], references: [id])
-  amount      Float
+  amount      Float?
   deadline    DateTime        @default(now())
   isPaid      Boolean         @default(true)
   userId      Int
