@@ -10,6 +10,7 @@ type ConfirmationModalProps = {
     yesText?: string;
     noText?: string;
     message?: string;
+    warning?: string;
 };
 
 const CustomConfirmationModal = ({
@@ -20,6 +21,7 @@ const CustomConfirmationModal = ({
     yesText = 'Yes',
     noText = 'No',
     message = 'Are you sure you want to proceed?',
+    warning,
 }: ConfirmationModalProps) => {
     return (
         <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
@@ -27,6 +29,11 @@ const CustomConfirmationModal = ({
                 <Text.Bold size={20} style={{textAlign: 'center'}}>
                     {message}
                 </Text.Bold>
+                {warning && (
+                    <Text.RegularPink style={{textAlign: 'center'}}>
+                        {warning}
+                    </Text.RegularPink>
+                )}
                 <ButtonContainer>
                     <Button onPress={onYesPress}>{yesText}</Button>
                     <Button onPress={onNoPress} variant="secondaryFilled">

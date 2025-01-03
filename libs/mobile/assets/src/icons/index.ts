@@ -18,8 +18,12 @@ import Putus from './Putus.svg';
 import Question from './Question.svg';
 import Rings from './Rings.svg';
 import X from './X.svg';
-import AddGuest from './AddGuest.svg';
 import Filter from './Filter.svg';
+import AddPerson from './AddPerson.svg';
+import ArrowRight from './ArrowRight.svg';
+import Clip from './Clip.svg';
+import Scizzors from './Scizzors.svg';
+import Makeup from './Makeup.svg';
 
 export const Icons = {
     Camera,
@@ -36,7 +40,6 @@ export const Icons = {
     House,
     Map,
     More,
-    AddGuest,
     Filter,
     Music,
     Plus,
@@ -44,4 +47,9 @@ export const Icons = {
     Question,
     Rings,
     X,
+    AddPerson,
+    ArrowRight,
+    Clip,
+    Scizzors,
+    Makeup,
 };

@@ -76,6 +76,20 @@ const RegularGray: React.FC<CustomTextProps> = ({
     </RNEText>
 );
 
+const RegularPink: React.FC<CustomTextProps> = ({
+    children,
+    size = 16,
+    style,
+    ...props
+}) => (
+    <RNEText
+        style={[typographyStyles.regularPink, {fontSize: size}, style]}
+        {...props}
+    >
+        {children}
+    </RNEText>
+);
+
 const Error: React.FC<CustomTextProps> = ({
     children,
     size = 16,
@@ -94,6 +108,7 @@ const Text = {
     SemiBold,
     Light,
     RegularGray,
+    RegularPink,
     Error,
 };
 

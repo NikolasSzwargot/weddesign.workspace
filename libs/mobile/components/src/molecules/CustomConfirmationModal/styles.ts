@@ -9,7 +9,6 @@ export const ModalContent = styled.View`
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-height: 200px;
 `;
 
 export const ButtonContainer = styled.View`
