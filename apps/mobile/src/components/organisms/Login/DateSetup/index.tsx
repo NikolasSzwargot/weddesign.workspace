@@ -6,9 +6,10 @@ import {useTranslation} from 'react-i18next';
 import {Text} from '@weddesign/themes';
 import {Platform} from 'react-native';
 import {useState} from 'react';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 import {formatDate} from '@mobile/utils';
 import {useFormContext} from 'react-hook-form';
+import {DateType} from 'react-native-ui-datepicker';
 
 import {
     ButtonsContainer,
@@ -29,8 +30,9 @@ const DateSetup = () => {
     const {router} = useRouting();
     const {t, i18n} = useTranslation('login');
     const {setValue, watch, getValues} = useFormContext<RegisterFormType>();
+    const [weddingDate, setWeddingDate] = useState<DateType>(dayjs());
 
-    const weddingDate = watch('weddingDate', dayjs());
+    const formWeddingDate = watch('weddingDate', new Date());
     const [showDateModal, setShowDateModal] = useState<boolean>(false);
     const {register} = useUser();
 
@@ -70,8 +72,9 @@ const DateSetup = () => {
                         {showDateModal ? (
                             <Calendar
                                 mode={'single'}
-                                onDateChange={(date) => {
-                                    setValue('weddingDate', date);
+                                onDateChange={(date: Dayjs) => {
+                                    setWeddingDate(date);
+                                    setValue('weddingDate', date.toDate());
                                 }}
                                 date={weddingDate}
                                 minDate={dayjs()}

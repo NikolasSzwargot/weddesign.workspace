@@ -3,7 +3,6 @@ import {Login} from '@mobile/components';
 import {LoginScreens} from '@weddesign/enums';
 import {CreateUserDto} from '@shared/dto';
 import {FormProvider, useForm} from 'react-hook-form';
-import {DateType} from 'react-native-ui-datepicker';
 
 import LanguageSetup from '../../organisms/Login/LanguageSetup';
 import Register from '../../organisms/Login/Register';
@@ -18,7 +17,7 @@ export type RegisterFormType = {
     firstNameBride: string;
     firstNameGroom: string;
     lastName: string;
-    weddingDate: DateType;
+    weddingDate: Date;
     language: string;
     email: string;
     password: string;
