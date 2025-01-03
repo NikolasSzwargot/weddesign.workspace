@@ -7,6 +7,7 @@ import {
     Header,
     IconButton,
     LoadingSpinner,
+    ProviderItem,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
@@ -114,6 +115,10 @@ const GuestList = () => {
                             </View>
                         </TouchableWithoutFeedback>
                         {/*TODO: Dodać section list*/}
+
+                        <ProviderItem title={'oh'}>
+                            <Text.Regular>{'123'}</Text.Regular>
+                        </ProviderItem>
 
                         <CustomOverlay
                             isVisible={isDeleting || isFetching}
