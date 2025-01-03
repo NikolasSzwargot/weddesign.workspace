@@ -4,6 +4,7 @@ export enum AppRootRoutes {
     GUESTLIST = '/guests',
     BUDGET = '/budget',
     ERROR = '/error',
+    PROVIDERS = '/providers',
 }
 
 export enum LoginRoutes {
@@ -34,9 +35,17 @@ export enum ErrorRoutes {
     GENERAL = '/error/general',
 }
 
+export enum ProvidersRoutes {
+    PROVIDERS = '/providers',
+    GROUPED = '/providers/grouped',
+    LIST = '/providers/list',
+    ADD = '/providers/add',
+}
+
 export type WeddesignRoutes =
     | LoginRoutes
     | HomeRoutes
     | GuestListRoutes
     | ExpenseListRoutes
-    | ErrorRoutes;
+    | ErrorRoutes
+    | ProvidersRoutes;

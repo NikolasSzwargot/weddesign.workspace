@@ -10,6 +10,7 @@ import {
     ExpenseListRoutes,
     GuestListRoutes,
     HomeRoutes,
+    ProvidersRoutes,
 } from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
@@ -35,8 +36,12 @@ const Home = () => {
             label: t('buttons.budget'),
             onPress: () => router.navigate(ExpenseListRoutes.LIST),
         },
-        {color: Colors.LightPurple, label: t('buttons.subcontractors')},
-        {color: Colors.Yellow, label: t('buttons.tasks')},
+        {
+            color: Colors.LightPurple,
+            label: t('buttons.providers'),
+            onPress: () => router.navigate(ProvidersRoutes.GROUPED),
+        },
+        {color: Colors.StatusInvited, label: t('buttons.tasks')},
     ];
 
     return (

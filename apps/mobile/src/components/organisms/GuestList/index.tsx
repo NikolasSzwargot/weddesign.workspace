@@ -165,10 +165,12 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.Filter}
+                                        fillColor={Colors.WhiteSmokeDarker}
                                         onPress={() => console.log('clicked Filter')}
                                     />
                                     <IconButton
-                                        Icon={Icons.AddGuest}
+                                        Icon={Icons.AddPerson}
+                                        fillColor={Colors.LightBlue}
                                         onPress={() =>
                                             router.navigate(GuestListRoutes.ADD)
                                         }

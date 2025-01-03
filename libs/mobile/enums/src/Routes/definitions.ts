@@ -29,3 +29,9 @@ export enum ExpensesScreens {
 export enum ErrorScreens {
     GENERAL = '/general',
 }
+
+export enum ProvidersScreens {
+    GROUPED = '/grouped',
+    LIST = '/list',
+    ADD = '/add',
+}
