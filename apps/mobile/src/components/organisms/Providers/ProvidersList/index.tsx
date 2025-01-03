@@ -10,7 +10,7 @@ import {
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors, ErrorRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 
 import {WeddesignConfirmationModal} from '../../../molecules';
@@ -67,7 +67,7 @@ const GuestList = () => {
         <Container>
             <BackgroundEllipse variant={'providers'} />
             <ProvidersListWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <CategoryName>
                     {/*TODO: Zamienić na category.name*/}
                     <Text.SemiBold size={32}>{category.name}</Text.SemiBold>

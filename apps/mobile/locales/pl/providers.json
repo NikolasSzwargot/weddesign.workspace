@@ -2,7 +2,7 @@
   "inDatabase": "w bazie:",
   "reserved": "zarezerwowano:",
   "deleteMessage": "Czy na pewno chcesz usunąć kategorię {{name}}?",
-  "deleteWarning": "Spowoduje to usunięcie wszystkich podwykonawców powiązanych z tą kategorią!"
+  "deleteWarning": "Spowoduje to usunięcie wszystkich podwykonawców powiązanych z tą kategorią!",
   "providersList": {
     "searchPlaceholder": "Wyszukaj"
   }
