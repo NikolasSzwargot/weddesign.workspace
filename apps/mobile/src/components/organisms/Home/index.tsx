@@ -41,7 +41,7 @@ const Home = () => {
             label: t('buttons.providers'),
             onPress: () => router.navigate(ProvidersRoutes.GROUPED),
         },
-        {color: Colors.Yellow, label: t('buttons.tasks')},
+        {color: Colors.StatusInvited, label: t('buttons.tasks')},
     ];
 
     return (

@@ -10,7 +10,7 @@ import {
 } from '@weddesign/components';
 import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
-import {Colors, ErrorRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
 import {CategoryToSummaryDto} from '@shared/dto';
 
@@ -83,7 +83,7 @@ const ProvidersGrouped = () => {
         <Container>
             <BackgroundEllipse variant={'providers'} />
             <ProvidersCategoriesWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 {isLoading ? (
                     <LoadingSpinner
                         color={Colors.LightPurple}
