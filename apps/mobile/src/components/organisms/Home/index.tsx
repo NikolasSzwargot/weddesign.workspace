@@ -5,20 +5,36 @@ import {
     RoundButton,
     TaskFrame,
 } from '@weddesign/components';
-import {Colors} from '@weddesign/enums';
+import {
+    Colors,
+    ExpenseListRoutes,
+    GuestListRoutes,
+    HomeRoutes,
+} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {getDaysDifference} from '@weddesign/utils';
 import {MockedUser} from '@mobile/mocks';
 
+import {useRouting} from '../../providers';
+
 import {ButtonRow, Container, HomeWrapper, MainFrame} from './styles';
 
 const Home = () => {
     const {t} = useTranslation('home');
+    const {router} = useRouting();
 
     const buttons = [
-        {color: Colors.LightBlue, label: t('buttons.guests')},
-        {color: Colors.LightGreen, label: t('buttons.budget')},
+        {
+            color: Colors.LightBlue,
+            label: t('buttons.guests'),
+            onPress: () => router.navigate(GuestListRoutes.LIST),
+        },
+        {
+            color: Colors.LightGreen,
+            label: t('buttons.budget'),
+            onPress: () => router.navigate(ExpenseListRoutes.LIST),
+        },
         {color: Colors.LightPurple, label: t('buttons.subcontractors')},
         {color: Colors.Yellow, label: t('buttons.tasks')},
     ];
@@ -27,7 +43,7 @@ const Home = () => {
         <Container>
             <BackgroundEllipse variant={'home'} />
             <HomeWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <MainFrame>
                     <Text.SemiBold size={20}>
                         {t('welcome', {

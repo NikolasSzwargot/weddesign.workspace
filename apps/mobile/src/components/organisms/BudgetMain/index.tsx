@@ -11,7 +11,12 @@ import {
     BudgetStatusBar,
     BackgroundEllipse,
 } from '@weddesign/components';
-import {Colors, ErrorRoutes, ExpenseGroupingMode} from '@weddesign/enums';
+import {
+    Colors,
+    ErrorRoutes,
+    ExpenseGroupingMode,
+    HomeRoutes,
+} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@mobile/utils';
@@ -58,14 +63,14 @@ const BudgetMain = () => {
     } = useExpensesByDate();
 
     useEffect(() => {
-        if (!isFetchingByDate && !isFetchingByCategories) {
+        if (!isLoadingByDate && !isLoadingByCategories) {
             setListData(
                 groupingMode === ExpenseGroupingMode.Categories
                     ? groupedByCategories
                     : groupedByDate,
             );
         }
-    }, [groupingMode, groupedByCategories, groupedByDate]);
+    }, [groupingMode, groupedByCategories, groupedByDate, router]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const infoTextAnimation = {
@@ -106,7 +111,7 @@ const BudgetMain = () => {
             <>
                 <BackgroundEllipse variant={'budget'} />
                 <BudgetMainWrapper>
-                    <Header />
+                    <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <BudgetMainFrame
                         onLongPress={() => console.log('odpalaj edycje kategorii')}
                         activeOpacity={0.5}
