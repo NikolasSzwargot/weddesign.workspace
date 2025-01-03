@@ -95,3 +95,33 @@ model MainBudgetLimit {
 
   @@map("mainBudgetLimits")
 }
+
+model ProviderCategory {
+  id        Int        @id @default(autoincrement())
+  iconId    Int
+  name      String
+  providers Provider[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+
+  @@map("providerCategories")
+}
+
+model Provider {
+  id          Int              @id @default(autoincrement())
+  name        String
+  description String?
+  categoryId  Int
+  category    ProviderCategory @relation(fields: [categoryId], references: [id])
+  amount      Float?
+  website     String?
+  instagram   String?
+  email       String?
+  phoneNumber String?
+  stars       Int              @default(1)
+  isReserved  Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @default(now()) @updatedAt
+
+  @@map("providers")
+}

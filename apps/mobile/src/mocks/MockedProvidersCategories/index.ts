@@ -79,7 +79,7 @@ export const MockedProvidersCategories = [
     {
         id: 12,
         iconId: 12,
-        name: 'Makijarzysta',
+        name: 'Makijażysta',
         inDatabase: 3,
         reserved: 0,
     },

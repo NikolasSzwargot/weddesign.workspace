@@ -10,12 +10,13 @@ import {
 } from '@weddesign/components';
 import {useRouting} from '@mobile/components';
 import {useTranslation} from 'react-i18next';
-import {Colors, ErrorRoutes, ProvidersRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, ProvidersRoutes, HomeRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
-import {Category} from '@weddesign/types';
+import {CategoryToSummaryDto} from '@shared/dto';
 
-import {MockedProvidersCategories} from '../../../mocks/MockedProvidersCategories';
 import {WeddesignConfirmationModal} from '../../molecules';
+import {useProvidersCategoriesAll} from '../../../api/Providers/useProvidersCategoriesAll';
+import {useDeleteCategory} from '../../../api/Providers/useDeleteCategory';
 
 import {CategoriesWrapper, Container, ProvidersCategoriesWrapper} from './styles';
 
@@ -24,14 +25,21 @@ const ProvidersGrouped = () => {
     const {t} = useTranslation('providers');
 
     const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<Category | null>(null); //@TODO: Użyć DTO z shared
+    const [selectedItem, setSelectedItem] = useState<CategoryToSummaryDto | null>(
+        null,
+    );
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
-    const isLoading = false;
-    const isDeleting = false;
-    const isFetching = false;
+    const {mutate: deleteCategory, isLoading: isDeleting} = useDeleteCategory();
+    const {
+        data: categoriesAll,
+        isLoading,
+        isError,
+        isFetching,
+    } = useProvidersCategoriesAll();
+
+    //@TODO: Dodać dodawania kategorii
     const isAdding = false;
-    const isError = false;
 
     const handleSuccess = () => {
         console.log('Success');
@@ -41,8 +49,7 @@ const ProvidersGrouped = () => {
         router.navigate(ErrorRoutes.GENERAL, 'providers');
     };
 
-    const handleDelete = (category: Category) => {
-        //@TODO: użyć DTO z shared
+    const handleDelete = (category: CategoryToSummaryDto) => {
         setSelectedItem(category);
         setConfirmationModalText(
             t('deleteMessage', {
@@ -53,8 +60,13 @@ const ProvidersGrouped = () => {
     };
     const handleYes = () => {
         setModalVisible(false);
-        console.log('Yes');
-        console.log(selectedItem);
+        deleteCategory(
+            {categoryId: selectedItem.id},
+            {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            },
+        );
     };
     const handleCancel = () => {
         setModalVisible(false);
@@ -71,7 +83,7 @@ const ProvidersGrouped = () => {
         <Container>
             <BackgroundEllipse variant={'providers'} />
             <ProvidersCategoriesWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 {isLoading ? (
                     <LoadingSpinner
                         color={Colors.LightPurple}
@@ -81,7 +93,7 @@ const ProvidersGrouped = () => {
                     <>
                         <CategoriesWrapper>
                             <FlatList
-                                data={MockedProvidersCategories}
+                                data={categoriesAll}
                                 keyExtractor={(item) => item.id.toString()}
                                 renderItem={({item}) => (
                                     <ProvidersCategoryItem
@@ -127,6 +139,7 @@ const ProvidersGrouped = () => {
                             onYesPress={handleYes}
                             onNoPress={handleCancel}
                             message={confirmationModalText}
+                            warning={t('deleteWarning')}
                         ></WeddesignConfirmationModal>
                     </>
                 )}
