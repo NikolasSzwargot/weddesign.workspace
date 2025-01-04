@@ -36,5 +36,5 @@ export const IconRow = styled.View`
 `;
 
 export const IconWrapper = styled.View`
-    padding: 5px 15px 0;
+    padding: 0 15px 0;
 `;

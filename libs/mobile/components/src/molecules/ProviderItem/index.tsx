@@ -52,7 +52,17 @@ const ProviderItem = ({
 
     const animatedContentHeight = animation.interpolate({
         inputRange: [0, 1],
-        outputRange: [0, contentHeight],
+        outputRange: [
+            0,
+            provider.phoneNumber ||
+            provider.email ||
+            provider.description ||
+            provider.instagram ||
+            provider.website ||
+            provider.amount
+                ? contentHeight
+                : 0,
+        ],
     });
 
     const onContentLayout = useCallback(
@@ -110,7 +120,9 @@ const ProviderItem = ({
                     </DetailsRow>
 
                     {provider.description && (
-                        <Text.Regular size={14}>{provider.description}</Text.Regular>
+                        <Text.Regular size={14} style={{paddingBottom: 5}}>
+                            {provider.description}
+                        </Text.Regular>
                     )}
                     <IconWrapper>
                         <IconRow>
