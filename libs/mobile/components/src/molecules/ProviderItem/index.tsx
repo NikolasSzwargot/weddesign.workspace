@@ -76,7 +76,10 @@ const ProviderItem = ({
 
                     <IconRow>
                         {provider.isReserved && <Icons.ProviderReserved />}
-                        <TouchableOpacity onPress={() => onDeletePress(provider)}>
+                        <TouchableOpacity
+                            style={{height: 'auto', width: 'auto'}}
+                            onPress={() => onDeletePress(provider)}
+                        >
                             <Icons.X />
                         </TouchableOpacity>
                         <ArrowWrapper style={{transform: [{rotate: arrowRotation}]}}>
@@ -96,27 +99,42 @@ const ProviderItem = ({
             >
                 <DetailsWrapper onLayout={onContentLayout}>
                     <DetailsRow>
-                        <Text.Regular size={14}>{provider.phoneNumber}</Text.Regular>
-                        <Text.Regular size={14}>{provider.email}</Text.Regular>
+                        {provider.phoneNumber && (
+                            <Text.Regular size={14}>
+                                {provider.phoneNumber}
+                            </Text.Regular>
+                        )}
+                        {provider.email && (
+                            <Text.Regular size={14}>{provider.email}</Text.Regular>
+                        )}
                     </DetailsRow>
 
-                    <Text.Regular size={14}>{provider.description}</Text.Regular>
+                    {provider.description && (
+                        <Text.Regular size={14}>{provider.description}</Text.Regular>
+                    )}
                     <IconWrapper>
                         <IconRow>
-                            <TouchableOpacity
-                                onPress={() => console.log('Open instagram')}
-                            >
-                                <Icons.Instagram />
-                            </TouchableOpacity>
+                            {provider.instagram && (
+                                <TouchableOpacity
+                                    onPress={() => console.log('Open instagram')}
+                                >
+                                    <Icons.Instagram />
+                                </TouchableOpacity>
+                            )}
 
-                            <TouchableOpacity
-                                onPress={() => console.log('Open website')}
-                            >
-                                <Icons.Website />
-                            </TouchableOpacity>
-                            <Text.Regular size={14}>
-                                {provider.amount} {currency}
-                            </Text.Regular>
+                            {provider.website && (
+                                <TouchableOpacity
+                                    onPress={() => console.log('Open website')}
+                                >
+                                    <Icons.Website />
+                                </TouchableOpacity>
+                            )}
+
+                            {provider.amount && (
+                                <Text.Regular size={14}>
+                                    {provider.amount} {currency}
+                                </Text.Regular>
+                            )}
                         </IconRow>
                     </IconWrapper>
                 </DetailsWrapper>

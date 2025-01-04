@@ -14,6 +14,8 @@ export const Header = styled.View`
 
 export const ArrowWrapper = styled(Animated.View)`
     margin-right: 10px;
+    height: auto;
+    width: auto;
 `;
 
 export const DetailsWrapper = styled.View`
