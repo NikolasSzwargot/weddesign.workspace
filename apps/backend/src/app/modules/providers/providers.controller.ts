@@ -27,10 +27,6 @@ export class ProvidersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateProviderDto: UpdateProviderDto
   ): Promise<ProviderDto> {
-    // const id = parseInt(idString);
-    // if (isNaN(id) && idString) {
-    //   throw new BadRequestException('Id should be a number');
-    // }
     return await this.providersService.updateProvider(id, updateProviderDto);
   }
 

@@ -39,9 +39,6 @@ const ProviderForm = () => {
 
     const {category, provider} = router.location.state;
 
-    console.log(category);
-    console.log(provider);
-
     const {control, handleSubmit, setValue} = useForm<CreateProviderDto>({
         defaultValues: {
             name: '',
@@ -247,7 +244,7 @@ const ProviderForm = () => {
                                             handleChange={onChange}
                                             placeholder={t('providersForm.email')}
                                             inputMode={'email'}
-                                            maxLength={10}
+                                            maxLength={50}
                                         />
                                     )}
                                 />
