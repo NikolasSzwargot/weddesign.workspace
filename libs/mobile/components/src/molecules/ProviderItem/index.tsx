@@ -9,6 +9,9 @@ import {
     IconRow,
     IconWrapper,
     DetailsRow,
+    HeaderIcon,
+    HeaderIconRow,
+    ReservedWrapper,
 } from './styles';
 import {ProviderDto} from '@shared/dto';
 import {getProviderCategoryIconAndColor} from '../ProvidersCategoryItem/getProviderCategoryIconAndColor';
@@ -84,20 +87,22 @@ const ProviderItem = ({
                         {provider.name}
                     </Text.Bold>
 
-                    <IconRow>
-                        {provider.isReserved && <Icons.ProviderReserved />}
-                        <TouchableOpacity
-                            style={{height: 'auto', width: 'auto'}}
-                            onPress={() => onDeletePress(provider)}
-                        >
+                    <HeaderIconRow>
+                        {provider.isReserved && (
+                            <ReservedWrapper>
+                                <Icons.ProviderReserved />
+                            </ReservedWrapper>
+                        )}
+
+                        <HeaderIcon onPress={() => onDeletePress(provider)}>
                             <Icons.X />
-                        </TouchableOpacity>
+                        </HeaderIcon>
                         <ArrowWrapper style={{transform: [{rotate: arrowRotation}]}}>
-                            <TouchableOpacity onPress={toggleExpand}>
+                            <HeaderIcon onPress={toggleExpand}>
                                 <Icons.ArrowRightGray width={20} height={20} />
-                            </TouchableOpacity>
+                            </HeaderIcon>
                         </ArrowWrapper>
-                    </IconRow>
+                    </HeaderIconRow>
                 </Header>
             </TouchableOpacity>
 
