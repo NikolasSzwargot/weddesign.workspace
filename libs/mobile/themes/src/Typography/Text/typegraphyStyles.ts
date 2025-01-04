@@ -27,6 +27,11 @@ export const typographyStyles = StyleSheet.create({
         fontWeight: 'normal',
         color: Colors.LightGray,
     },
+    regularPink: {
+        fontFamily: 'Inter-regular',
+        fontWeight: 'normal',
+        color: Colors.PinkDark,
+    },
     error: {
         fontFamily: 'Inter-regular',
         fontWeight: 'normal',

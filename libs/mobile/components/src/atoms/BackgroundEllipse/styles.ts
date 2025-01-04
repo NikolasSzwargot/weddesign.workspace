@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 type VariantProps = {
-    variant: 'home' | 'guests' | 'budget';
+    variant: 'home' | 'guests' | 'budget' | 'providers';
 };
 
 export const EllipseContainer = styled.View<VariantProps>`
@@ -19,6 +19,7 @@ export const EllipseContainer = styled.View<VariantProps>`
                 `;
             case 'guests':
             case 'budget':
+            case 'providers':
             default:
                 return `
                     width: 150%;

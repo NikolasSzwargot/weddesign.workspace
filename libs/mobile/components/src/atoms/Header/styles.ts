@@ -18,7 +18,7 @@ export const ItemWrapper = styled.View`
     flex: 1;
 `;
 
-export const TitleWrapper = styled.View`
+export const TitleWrapper = styled.TouchableOpacity`
     flex: 2;
     justify-content: center;
     align-items: center;

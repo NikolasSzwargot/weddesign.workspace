@@ -5,16 +5,17 @@ import {
     ErrorScreens,
     GuestsScreens,
     LoginScreens,
+    ProvidersScreens,
     Route,
 } from '@weddesign/enums';
 import {
-    BudgetMainPage,
+    ErrorPage,
     GuestListPage,
     HomePage,
     LoginPage,
+    ProvidersPage,
+    BudgetMainPage,
 } from '@mobile/components';
-
-import ErrorPage from '../components/pages/ErrorPage';
 
 export const LoginRoutingRoutes: Route[] = [
     {
@@ -94,10 +95,29 @@ export const ErrorRoutingRoutes: Route[] = [
     },
 ];
 
+export const ProvidersRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.PROVIDERS,
+        screen: ProvidersScreens.GROUPED,
+        element: <ProvidersPage screen={ProvidersScreens.GROUPED} />,
+    },
+    {
+        route: AppRootRoutes.PROVIDERS,
+        screen: ProvidersScreens.LIST,
+        element: <ProvidersPage screen={ProvidersScreens.LIST} />,
+    },
+    {
+        route: AppRootRoutes.PROVIDERS,
+        screen: ProvidersScreens.ADD,
+        element: <ProvidersPage screen={ProvidersScreens.ADD} />,
+    },
+];
+
 export const WeddesignRoutingRoutes: Route[] = [
     ...LoginRoutingRoutes,
     ...HomeRoutingRoutes,
     ...GuestsRoutingRoutes,
     ...BudgetRoutingRoutes,
     ...ErrorRoutingRoutes,
+    ...ProvidersRoutingRoutes,
 ];

@@ -13,9 +13,10 @@ import {
 } from '@weddesign/components';
 import {
     Colors,
+    ErrorRoutes,
     ExpenseGroupingMode,
     ExpenseListRoutes,
-    ErrorRoutes,
+    HomeRoutes,
 } from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
@@ -63,14 +64,14 @@ const BudgetMain = () => {
     } = useExpensesByDate();
 
     useEffect(() => {
-        if (!isFetchingByDate && !isFetchingByCategories) {
+        if (!isLoadingByDate && !isLoadingByCategories) {
             setListData(
                 groupingMode === ExpenseGroupingMode.Categories
                     ? groupedByCategories
                     : groupedByDate,
             );
         }
-    }, [groupingMode, groupedByCategories, groupedByDate]);
+    }, [groupingMode, groupedByCategories, groupedByDate, router]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const infoTextAnimation = {
@@ -111,7 +112,7 @@ const BudgetMain = () => {
             <>
                 <BackgroundEllipse variant={'budget'} />
                 <BudgetMainWrapper>
-                    <Header />
+                    <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <BudgetMainFrame
                         onLongPress={() => router.navigate(ExpenseListRoutes.LIMITS)}
                         activeOpacity={0.5}

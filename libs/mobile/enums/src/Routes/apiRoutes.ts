@@ -12,4 +12,9 @@ export enum ApiRoutes {
     ExpensesByDate = '/budget/expense/groupedByDate',
     MainLimitStats = '/budget/limit',
     CategoriesData = '/budget/categories',
+
+    ProvidersCategoriesAll = '/providers/categories/all',
+    ProvidersCategoriesDelete = '/providers/categories/delete',
+    ProvidersGroupedByStarsInCategory = '/providers/groupedByStarsInCategory',
+    ProvidersDelete = '/providers',
 }
