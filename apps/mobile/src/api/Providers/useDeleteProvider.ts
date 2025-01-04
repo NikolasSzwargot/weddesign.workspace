@@ -15,7 +15,7 @@ export const useDeleteProvider = () => {
     return useMutation<ProviderDto, Error, DeleteProviderParams>(
         ({providerId}: DeleteProviderParams) => {
             if (!providerId) {
-                throw new Error('Guest ID is required to delete a guest');
+                throw new Error('Provider ID is required to delete provider');
             }
             return api.DELETE<ProviderDto>(ApiRoutes.ProvidersDelete, {
                 params: {id: providerId},
@@ -29,7 +29,7 @@ export const useDeleteProvider = () => {
                 ]);
             },
             onError: (error) => {
-                console.error('Failed to delete guest:', error.message);
+                console.error('Failed to delete provider:', error.message);
             },
         },
     );
