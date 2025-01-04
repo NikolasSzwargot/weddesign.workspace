@@ -108,7 +108,7 @@ const ProvidersList = () => {
                                         Icon={Icons.AddPerson}
                                         fillColor={Colors.LightPurple}
                                         onPress={() =>
-                                            //@TODO: zamienić na przejście do dodawania
+                                            //@TODO: Navigate to Form
                                             console.log('Dodawanie podwykonawcy')
                                         }
                                     />

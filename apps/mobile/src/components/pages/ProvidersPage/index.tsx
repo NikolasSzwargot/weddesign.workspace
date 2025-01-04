@@ -14,7 +14,7 @@ const ProvidersPage = ({screen}: ProvidersPageProps) => {
         case ProvidersScreens.LIST:
             return <ProvidersList />;
         case ProvidersScreens.ADD:
-            //@TODO: zamienić na stronę z formularzem dodawania podwykonawcy
+            //@TODO: Change to screen with Form
             return <ProvidersGrouped />;
     }
 };

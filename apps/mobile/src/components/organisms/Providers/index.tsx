@@ -38,7 +38,7 @@ const ProvidersGrouped = () => {
         isFetching,
     } = useProvidersCategoriesAll();
 
-    //@TODO: Dodać dodawania kategorii
+    //@TODO: Add option to add categories
     const isAdding = false;
 
     const handleSuccess = () => {

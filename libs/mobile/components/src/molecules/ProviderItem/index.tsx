@@ -66,25 +66,27 @@ const ProviderItem = ({
     );
 
     return (
-        <Container onPress={onProviderPress}>
-            <Header>
-                <IconDot color={color} Icon={icon} />
-                <Text.Bold style={{flex: 1, marginLeft: 20}}>
-                    {provider.name}
-                </Text.Bold>
+        <Container>
+            <TouchableOpacity onPress={onProviderPress}>
+                <Header>
+                    <IconDot color={color} Icon={icon} />
+                    <Text.Bold style={{flex: 1, marginLeft: 20}}>
+                        {provider.name}
+                    </Text.Bold>
 
-                <IconRow>
-                    {provider.isReserved && <Icons.ProviderReserved />}
-                    <TouchableOpacity onPress={() => onDeletePress(provider)}>
-                        <Icons.X />
-                    </TouchableOpacity>
-                    <ArrowWrapper style={{transform: [{rotate: arrowRotation}]}}>
-                        <TouchableOpacity onPress={toggleExpand}>
-                            <Icons.ArrowRightGray width={20} height={20} />
+                    <IconRow>
+                        {provider.isReserved && <Icons.ProviderReserved />}
+                        <TouchableOpacity onPress={() => onDeletePress(provider)}>
+                            <Icons.X />
                         </TouchableOpacity>
-                    </ArrowWrapper>
-                </IconRow>
-            </Header>
+                        <ArrowWrapper style={{transform: [{rotate: arrowRotation}]}}>
+                            <TouchableOpacity onPress={toggleExpand}>
+                                <Icons.ArrowRightGray width={20} height={20} />
+                            </TouchableOpacity>
+                        </ArrowWrapper>
+                    </IconRow>
+                </Header>
+            </TouchableOpacity>
 
             <Animated.View
                 style={{
