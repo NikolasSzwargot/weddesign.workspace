@@ -4,6 +4,8 @@
   "deleteMessage": "Are you sure you want to delete category {{name}}?",
   "deleteWarning": "This will delete all providers associated with this category!",
   "providersList": {
-    "searchPlaceholder": "Search"
+    "searchPlaceholder": "Search",
+    "currency": "$",
+    "rating": "Rating"
   }
 }

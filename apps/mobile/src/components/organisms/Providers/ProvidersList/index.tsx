@@ -124,7 +124,7 @@ const ProvidersList = () => {
                                 <ProviderItem
                                     provider={item}
                                     categoryIconId={category.iconId}
-                                    currency={'$'}
+                                    currency={t('providersList.currency')}
                                     onProviderPress={() =>
                                         console.log('Provider clicked')
                                     }
@@ -133,7 +133,12 @@ const ProvidersList = () => {
                                     }
                                 />
                             )}
-                            renderSectionHeader={CustomSectionHeader}
+                            renderSectionHeader={({section}) => (
+                                <CustomSectionHeader
+                                    section={section}
+                                    titlePrefix={t('providersList.rating')}
+                                />
+                            )}
                             showsVerticalScrollIndicator={true}
                         />
 

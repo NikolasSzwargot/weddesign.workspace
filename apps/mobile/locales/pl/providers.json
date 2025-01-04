@@ -4,6 +4,8 @@
   "deleteMessage": "Czy na pewno chcesz usunąć kategorię {{name}}?",
   "deleteWarning": "Spowoduje to usunięcie wszystkich podwykonawców powiązanych z tą kategorią!",
   "providersList": {
-    "searchPlaceholder": "Wyszukaj"
+    "searchPlaceholder": "Wyszukaj",
+    "currency": "zł",
+    "rating": "Ocena"
   }
 }
