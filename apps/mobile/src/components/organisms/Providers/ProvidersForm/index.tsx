@@ -10,18 +10,17 @@ import {
     Input,
     LoadingSpinner,
 } from '@weddesign/components';
-import {Colors, ErrorRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {Keyboard, TouchableWithoutFeedback, ScrollView} from 'react-native';
+import StarRating from 'react-native-star-rating-widget';
 
 // import {CreateGuestDto, UpdateGuestDto} from '@shared/dto'; @TODO: Użyć DTO do providerów
 
 //@TODO: Użyć api od providerów
 // import {useCreateGuest} from '../../../../api/Guests/useCreateGuest';
 // import {useUpdateGuest} from '../../../../api/Guests/useUpdateGuest';
-
-import StarRating from 'react-native-star-rating-widget';
 
 import {
     Container,
@@ -111,7 +110,7 @@ const ProviderForm = () => {
             <Container>
                 <BackgroundEllipse variant={'providers'} />
                 <ProvidersFormWrapper>
-                    <Header />
+                    <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <ScrollView>
                         <FormInputWrapper>
                             <InputRow>
