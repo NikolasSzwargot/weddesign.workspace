@@ -11,8 +11,8 @@
   },
   "providersForm": {
     "name": "Provider's name",
-    "notes": "Here you can add any notes about the guest :)",
-    "offer": "Offer",
+    "description": "Here you can add any notes about the guest :)",
+    "amount": "Offer",
     "website": "Website",
     "instagram": "Instagram",
     "email": "Email",

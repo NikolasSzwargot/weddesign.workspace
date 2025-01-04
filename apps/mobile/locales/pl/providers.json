@@ -11,8 +11,8 @@
   },
   "providersForm": {
     "name": "Nazwa podwykonawcy",
-    "notes": "Tu możesz zapisać swoje notatki :)",
-    "offer": "Oferta",
+    "description": "Tu możesz zapisać swoje notatki :)",
+    "amount": "Oferta",
     "website": "Strona internetowa",
     "instagram": "Instagram",
     "email": "Email",

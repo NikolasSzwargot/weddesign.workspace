@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {useRouting} from '@mobile/components';
 import {
@@ -10,17 +10,15 @@ import {
     Input,
     LoadingSpinner,
 } from '@weddesign/components';
-import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes, ProvidersRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {Keyboard, TouchableWithoutFeedback, ScrollView} from 'react-native';
 import StarRating from 'react-native-star-rating-widget';
+import {CreateProviderDto, UpdateProviderDto} from '@shared/dto';
 
-// import {CreateGuestDto, UpdateGuestDto} from '@shared/dto'; @TODO: Użyć DTO do providerów
-
-//@TODO: Użyć api od providerów
-// import {useCreateGuest} from '../../../../api/Guests/useCreateGuest';
-// import {useUpdateGuest} from '../../../../api/Guests/useUpdateGuest';
+import {useCreateProvider} from '../../../../api/Providers/useCreateProvider';
+import {useUpdateProvider} from '../../../../api/Providers/useUpdateProvider';
 
 import {
     Container,
@@ -36,73 +34,92 @@ import {
 const ProviderForm = () => {
     const {router} = useRouting();
     const {t} = useTranslation('providers');
-    //@TODO: zamienić na endpointy providerów
-    // const {mutate: createGuest, isLoading: isLoadingCreate} = useCreateGuest();
-    // const {mutate: updateGuest, isLoading: isLoadingUpdate} = useUpdateGuest();
-    const isLoadingCreate = false;
-    const isLoadingUpdate = false;
+    const {mutate: createProvider, isLoading: isLoadingCreate} = useCreateProvider();
+    const {mutate: updateProvider, isLoading: isLoadingUpdate} = useUpdateProvider();
 
-    //@TODO: Zmienić any na DTO od tworzenia
-    const {control, handleSubmit, setValue} = useForm<any>({
+    const {category, provider} = router.location.state;
+
+    console.log(category);
+    console.log(provider);
+
+    const {control, handleSubmit, setValue} = useForm<CreateProviderDto>({
         defaultValues: {
             name: '',
-            notes: '',
-            offer: '',
+            categoryId: category.id,
+            description: '',
+            amount: null,
             website: '',
             instagram: '',
+            email: '',
             phoneNumber: '',
-            rating: 4,
-            reserved: false,
+            stars: 1,
+            isReserved: false,
         },
     });
 
-    const routerState = router.location.state;
+    const scrollViewRef = useRef<ScrollView>(null);
+    const [keyboardOffset, setKeyboardOffset] = useState(0);
+
+    useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            (event) => {
+                const keyboardHeight = event.endCoordinates.height;
+                setKeyboardOffset(keyboardHeight);
+            },
+        );
+        const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+                setKeyboardOffset(0);
+            },
+        );
+
+        return () => {
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
+        };
+    }, []);
 
     React.useEffect(() => {
-        if (routerState) {
-            //@TODO: Coś tu wymyślić, żeby tak nie było
-            const provider = routerState.provider;
-            const category = routerState.category;
-
+        if (provider) {
             setValue('name', provider.name);
-            setValue('notes', provider.notes);
-            setValue('offer', provider.offer);
+            setValue('categoryId', provider.categoryId);
+            setValue('description', provider.description);
+            setValue('amount', provider.amount);
             setValue('website', provider.website);
             setValue('instagram', provider.instagram);
+            setValue('email', provider.email);
             setValue('phoneNumber', provider.phoneNumber);
-            setValue('rating', provider.rating);
-            setValue('reserved', provider.reserved);
+            setValue('stars', provider.stars);
+            setValue('isReserved', provider.isReserved);
         }
-    }, [routerState, setValue]);
+    }, [provider, setValue]);
 
-    //@TODO: zamienić any na CreateDTO | UpdateDTO`
-    const handleSave = (data: any) => {
+    const handleSave = (data: CreateProviderDto | UpdateProviderDto) => {
         const handleSuccess = () => {
             console.log('Provider saved successfully!');
-            //@TODO: dodać powrót
-            // router.navigate(ProvidersRoutes.LIST, category);
+            router.navigate(ProvidersRoutes.LIST, category);
         };
 
         const handleError = () => {
             router.navigate(ErrorRoutes.GENERAL, 'providers');
         };
 
-        //@TODO: odkomentować i dostosować do endpointów
-        // if (provider) {
-        //     updateProvider(
-        //         {
-        //             id: provider.id,
-        //             updateProviderDto: data as UpdateProviderDto,
-        //         },
-        //         {onSuccess: handleSuccess, onError: handleError},
-        //     );
-        // } else {
-        //     createProvider(data as CreateProviderDto, {
-        //         onSuccess: handleSuccess,
-        //         onError: handleError,
-        //     });
-        // }
-        console.log(data);
+        if (provider) {
+            updateProvider(
+                {
+                    id: provider.id,
+                    updateProviderDto: data as UpdateProviderDto,
+                },
+                {onSuccess: handleSuccess, onError: handleError},
+            );
+        } else {
+            createProvider(data as CreateProviderDto, {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            });
+        }
     };
 
     return (
@@ -111,7 +128,11 @@ const ProviderForm = () => {
                 <BackgroundEllipse variant={'providers'} />
                 <ProvidersFormWrapper>
                     <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
-                    <ScrollView>
+                    <ScrollView
+                        ref={scrollViewRef}
+                        contentContainerStyle={{paddingBottom: keyboardOffset}}
+                        keyboardShouldPersistTaps="handled"
+                    >
                         <FormInputWrapper>
                             <InputRow>
                                 <Controller
@@ -131,7 +152,7 @@ const ProviderForm = () => {
                                                 handleChange={onChange}
                                                 placeholder={t('providersForm.name')}
                                                 inputMode={'text'}
-                                                maxLength={25}
+                                                maxLength={22}
                                             />
                                             <ErrorArea>
                                                 {error && (
@@ -147,30 +168,38 @@ const ProviderForm = () => {
 
                             <InputRow>
                                 <Controller
-                                    name="notes"
+                                    name="description"
                                     control={control}
                                     render={({field: {onChange, value}}) => (
                                         <Input
                                             value={value}
                                             handleChange={onChange}
-                                            placeholder={t('providersForm.notes')}
+                                            placeholder={t(
+                                                'providersForm.description',
+                                            )}
                                             inputMode={'text'}
                                             multiline={true}
-                                            maxLength={400}
+                                            maxLength={200}
                                         />
                                     )}
                                 />
                             </InputRow>
                             <InputRow>
                                 <Controller
-                                    name="offer"
+                                    name="amount"
                                     control={control}
                                     render={({field: {onChange, value}}) => (
                                         <Input
-                                            value={value}
-                                            handleChange={onChange}
-                                            placeholder={t('providersForm.offer')}
-                                            inputMode={'text'}
+                                            value={value ? value.toString() : ''}
+                                            handleChange={(newValue) =>
+                                                onChange(
+                                                    newValue
+                                                        ? parseFloat(newValue)
+                                                        : null,
+                                                )
+                                            }
+                                            placeholder={t('providersForm.amount')}
+                                            inputMode={'numeric'}
                                             maxLength={10}
                                         />
                                     )}
@@ -185,7 +214,8 @@ const ProviderForm = () => {
                                             value={value}
                                             handleChange={onChange}
                                             placeholder={t('providersForm.website')}
-                                            inputMode={'text'}
+                                            inputMode={'url'}
+                                            maxLength={70}
                                         />
                                     )}
                                 />
@@ -217,6 +247,7 @@ const ProviderForm = () => {
                                             handleChange={onChange}
                                             placeholder={t('providersForm.email')}
                                             inputMode={'email'}
+                                            maxLength={10}
                                         />
                                     )}
                                 />
@@ -234,6 +265,7 @@ const ProviderForm = () => {
                                                 'providersForm.phoneNumber',
                                             )}
                                             inputMode={'tel'}
+                                            maxLength={15}
                                         />
                                     )}
                                 />
@@ -241,7 +273,7 @@ const ProviderForm = () => {
 
                             <RatingRow>
                                 <Controller
-                                    name="rating"
+                                    name="stars"
                                     control={control}
                                     render={({field: {onChange, value}}) => (
                                         <StarRating
@@ -249,6 +281,8 @@ const ProviderForm = () => {
                                             onChange={onChange}
                                             color={Colors.Pink}
                                             starSize={50}
+                                            enableSwiping={false}
+                                            enableHalfStar={false}
                                         />
                                     )}
                                 />
@@ -256,7 +290,7 @@ const ProviderForm = () => {
 
                             <Row>
                                 <Controller
-                                    name="reserved"
+                                    name="isReserved"
                                     control={control}
                                     render={({field: {onChange, value}}) => (
                                         <CustomSwitch

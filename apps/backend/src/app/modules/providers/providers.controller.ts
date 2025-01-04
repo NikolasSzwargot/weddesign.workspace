@@ -1,5 +1,16 @@
 import { ProvidersService } from './services/providers.service';
-import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateProviderDto, ProviderDto, UpdateProviderDto } from '@shared/dto';
 
 @Controller('providers')
@@ -12,11 +23,14 @@ export class ProvidersController {
   }
 
   @Patch(':id')
-  async update(@Query('id') idString: string, @Body() updateProviderDto: UpdateProviderDto): Promise<ProviderDto> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProviderDto: UpdateProviderDto
+  ): Promise<ProviderDto> {
+    // const id = parseInt(idString);
+    // if (isNaN(id) && idString) {
+    //   throw new BadRequestException('Id should be a number');
+    // }
     return await this.providersService.updateProvider(id, updateProviderDto);
   }
 
