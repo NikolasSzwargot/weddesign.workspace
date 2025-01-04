@@ -6,6 +6,7 @@
   "providersList": {
     "searchPlaceholder": "Search",
     "currency": "$",
-    "rating": "Rating"
+    "rating": "Rating",
+    "deleteMessage": "Are you sure you want to delete provider {{name}}?"
   }
 }

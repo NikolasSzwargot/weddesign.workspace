@@ -19,6 +19,7 @@ import {ProviderDto} from '@shared/dto';
 import {WeddesignConfirmationModal} from '../../../molecules';
 import {useRouting} from '../../../providers';
 import {useProvidersByStarsInCategory} from '../../../../api/Providers/useGroupedByStarsInCategory';
+import {useDeleteProvider} from '../../../../api/Providers/useDeleteProvider';
 
 import {
     Container,
@@ -32,6 +33,7 @@ const ProvidersList = () => {
     const {t} = useTranslation('providers');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
+    const {mutate: deleteProvider, isLoading: isDeleting} = useDeleteProvider();
     const [selectedItem, setSelectedItem] = useState<ProviderDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
@@ -44,8 +46,6 @@ const ProvidersList = () => {
         isFetching,
     } = useProvidersByStarsInCategory(category.id);
 
-    const isDeleting = false;
-
     const handleSuccess = () => {
         console.log('Success');
     };
@@ -54,11 +54,27 @@ const ProvidersList = () => {
         router.navigate(ErrorRoutes.GENERAL, 'providers');
     };
 
+    const handleDelete = (provider: ProviderDto) => {
+        setSelectedItem(provider);
+        setConfirmationModalText(
+            t('providersList.deleteMessage', {
+                name: provider.name,
+            }),
+        );
+        setModalVisible(!isModalVisible);
+    };
+
     const handleYes = () => {
         setModalVisible(false);
-        console.log('Yes');
-        console.log(selectedItem);
+        deleteProvider(
+            {providerId: selectedItem.id},
+            {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            },
+        );
     };
+
     const handleCancel = () => {
         setModalVisible(false);
         console.log('No');
@@ -126,11 +142,10 @@ const ProvidersList = () => {
                                     categoryIconId={category.iconId}
                                     currency={t('providersList.currency')}
                                     onProviderPress={() =>
+                                        //@TODO: Navigate to Form
                                         console.log('Provider clicked')
                                     }
-                                    onDeletePress={() =>
-                                        console.log('Delete provider clicked')
-                                    }
+                                    onDeletePress={handleDelete}
                                 />
                             )}
                             renderSectionHeader={({section}) => (

@@ -39,7 +39,7 @@ export class ProvidersController {
     return await this.providersService.getProviderById(id);
   }
 
-  @Delete(':id')
+  @Delete()
   async remove(@Query('id') idString: string): Promise<ProviderDto> {
     const id = parseInt(idString);
     if (isNaN(id) && idString) {

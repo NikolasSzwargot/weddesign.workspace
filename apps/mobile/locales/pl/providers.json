@@ -6,6 +6,7 @@
   "providersList": {
     "searchPlaceholder": "Wyszukaj",
     "currency": "zł",
-    "rating": "Ocena"
+    "rating": "Ocena",
+    "deleteMessage": "Czy na pewno chcesz usunąć podwykonawcę {{name}}?"
   }
 }
