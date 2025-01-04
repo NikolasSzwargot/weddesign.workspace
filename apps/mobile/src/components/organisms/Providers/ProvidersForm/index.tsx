@@ -244,7 +244,7 @@ const ProviderForm = () => {
                                             handleChange={onChange}
                                             placeholder={t('providersForm.email')}
                                             inputMode={'email'}
-                                            maxLength={50}
+                                            maxLength={45}
                                         />
                                     )}
                                 />
