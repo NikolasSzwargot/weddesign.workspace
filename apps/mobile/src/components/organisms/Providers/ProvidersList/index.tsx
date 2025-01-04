@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, TouchableWithoutFeedback, View} from 'react-native';
+import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
 import {
     BackgroundEllipse,
     CustomOverlay,
     CustomSearchBar,
+    CustomSectionHeader,
     Header,
     IconButton,
     LoadingSpinner,
@@ -26,7 +27,7 @@ import {
     CategoryName,
 } from './styles';
 
-const GuestList = () => {
+const ProvidersList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('providers');
     const [searchQuery, setSearchQuery] = useState('');
@@ -114,11 +115,27 @@ const GuestList = () => {
                                 </SearchBarWrapper>
                             </View>
                         </TouchableWithoutFeedback>
-                        {/*TODO: Dodać section list*/}
 
-                        <ProviderItem title={'oh'}>
-                            <Text.Regular>{'123'}</Text.Regular>
-                        </ProviderItem>
+                        <SectionList
+                            sections={providersGroupedByStars}
+                            initialNumToRender={20}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({item}) => (
+                                <ProviderItem
+                                    provider={item}
+                                    categoryIconId={category.iconId}
+                                    currency={'$'}
+                                    onProviderPress={() =>
+                                        console.log('Provider clicked')
+                                    }
+                                    onDeletePress={() =>
+                                        console.log('Delete provider clicked')
+                                    }
+                                />
+                            )}
+                            renderSectionHeader={CustomSectionHeader}
+                            showsVerticalScrollIndicator={true}
+                        />
 
                         <CustomOverlay
                             isVisible={isDeleting || isFetching}
@@ -143,4 +160,4 @@ const GuestList = () => {
     );
 };
 
-export default GuestList;
+export default ProvidersList;

@@ -1,23 +1,38 @@
 import styled from 'styled-components/native';
 import {Animated} from 'react-native';
 
-export const Container = styled.View`
-    border-bottom-width: 1px;
-    border-bottom-color: #ddd;
-    margin-bottom: 10px;
+export const Container = styled.TouchableOpacity`
+    padding: 10px 15px 10px 15px;
 `;
 
-export const Title = styled.Text`
-    font-size: 16px;
-    font-weight: bold;
-    flex: 1;
-`;
-
-export const ContentWrapper = styled.View`
-    padding: 10px;
-    background-color: #f9f9f9;
+export const Header = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
 `;
 
 export const ArrowWrapper = styled(Animated.View)`
-    margin-left: 10px;
+    margin-right: 10px;
+`;
+
+export const DetailsWrapper = styled.View`
+    padding: 10px 10px 0;
+    gap: 10px;
+`;
+
+export const DetailsRow = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 15px 0;
+`;
+
+export const IconRow = styled.View`
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+`;
+
+export const IconWrapper = styled.View`
+    padding: 5px 15px 0;
 `;
