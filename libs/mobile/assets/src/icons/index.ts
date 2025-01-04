@@ -7,6 +7,7 @@ import Dress from './Dress.svg';
 import Earrings from './Earrings.svg';
 import File from './File.svg';
 import FilterDate from './FilterDate.svg';
+import FilterDollar from './FilterDollar.svg';
 import Gift from './Gift.svg';
 import House from './House.svg';
 import Map from './Map.svg';
@@ -23,6 +24,10 @@ import ArrowRight from './ArrowRight.svg';
 import Clip from './Clip.svg';
 import Scizzors from './Scizzors.svg';
 import Makeup from './Makeup.svg';
+import ArrowRightGray from './ArrowRightGray.svg';
+import ProviderReserved from './ProviderReserved.svg';
+import Instagram from './Instagram.svg';
+import Website from './Website.svg';
 
 export const Icons = {
     Camera,
@@ -34,6 +39,7 @@ export const Icons = {
     Earrings,
     File,
     FilterDate,
+    FilterDollar,
     Gift,
     House,
     Map,
@@ -50,4 +56,8 @@ export const Icons = {
     Clip,
     Scizzors,
     Makeup,
+    ArrowRightGray,
+    ProviderReserved,
+    Instagram,
+    Website,
 };

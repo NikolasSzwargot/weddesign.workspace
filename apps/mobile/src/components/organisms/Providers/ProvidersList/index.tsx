@@ -1,20 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {Keyboard, TouchableWithoutFeedback, View} from 'react-native';
+import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
 import {
     BackgroundEllipse,
     CustomOverlay,
     CustomSearchBar,
+    CustomSectionHeader,
     Header,
     IconButton,
     LoadingSpinner,
+    ProviderItem,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors, ErrorRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
+import {ProviderDto} from '@shared/dto';
 
 import {WeddesignConfirmationModal} from '../../../molecules';
 import {useRouting} from '../../../providers';
+import {useProvidersByStarsInCategory} from '../../../../api/Providers/useGroupedByStarsInCategory';
+import {useDeleteProvider} from '../../../../api/Providers/useDeleteProvider';
 
 import {
     Container,
@@ -23,21 +28,23 @@ import {
     CategoryName,
 } from './styles';
 
-const GuestList = () => {
+const ProvidersList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('providers');
     const [searchQuery, setSearchQuery] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState<null>(null); //@TODO: Zamienić na DTO | null
+    const {mutate: deleteProvider, isLoading: isDeleting} = useDeleteProvider();
+    const [selectedItem, setSelectedItem] = useState<ProviderDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
-    //TODO: Wyciągać grupĘ podwykonawców i użyć do zaciągnięcia listy | Dodać coś w przypadku nulla
     const category = router.location.state;
 
-    const isLoading = false;
-    const isDeleting = false;
-    const isFetching = false;
-    const isError = false;
+    const {
+        data: providersGroupedByStars,
+        isLoading,
+        isError,
+        isFetching,
+    } = useProvidersByStarsInCategory(category.id);
 
     const handleSuccess = () => {
         console.log('Success');
@@ -47,11 +54,27 @@ const GuestList = () => {
         router.navigate(ErrorRoutes.GENERAL, 'providers');
     };
 
+    const handleDelete = (provider: ProviderDto) => {
+        setSelectedItem(provider);
+        setConfirmationModalText(
+            t('providersList.deleteMessage', {
+                name: provider.name,
+            }),
+        );
+        setModalVisible(!isModalVisible);
+    };
+
     const handleYes = () => {
         setModalVisible(false);
-        console.log('Yes');
-        console.log(selectedItem);
+        deleteProvider(
+            {providerId: selectedItem.id},
+            {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            },
+        );
     };
+
     const handleCancel = () => {
         setModalVisible(false);
         console.log('No');
@@ -67,9 +90,8 @@ const GuestList = () => {
         <Container>
             <BackgroundEllipse variant={'providers'} />
             <ProvidersListWrapper>
-                <Header />
+                <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <CategoryName>
-                    {/*TODO: Zamienić na category.name*/}
                     <Text.SemiBold size={32}>{category.name}</Text.SemiBold>
                 </CategoryName>
 
@@ -102,14 +124,38 @@ const GuestList = () => {
                                         Icon={Icons.AddPerson}
                                         fillColor={Colors.LightPurple}
                                         onPress={() =>
-                                            //@TODO: zamienić na przejście do dodawania
+                                            //@TODO: Navigate to Form
                                             console.log('Dodawanie podwykonawcy')
                                         }
                                     />
                                 </SearchBarWrapper>
                             </View>
                         </TouchableWithoutFeedback>
-                        {/*TODO: Dodać section list*/}
+
+                        <SectionList
+                            sections={providersGroupedByStars}
+                            initialNumToRender={20}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({item}) => (
+                                <ProviderItem
+                                    provider={item}
+                                    categoryIconId={category.iconId}
+                                    currency={t('providersList.currency')}
+                                    onProviderPress={() =>
+                                        //@TODO: Navigate to Form
+                                        console.log('Provider clicked')
+                                    }
+                                    onDeletePress={handleDelete}
+                                />
+                            )}
+                            renderSectionHeader={({section}) => (
+                                <CustomSectionHeader
+                                    section={section}
+                                    titlePrefix={t('providersList.rating')}
+                                />
+                            )}
+                            showsVerticalScrollIndicator={true}
+                        />
 
                         <CustomOverlay
                             isVisible={isDeleting || isFetching}
@@ -120,7 +166,6 @@ const GuestList = () => {
                             ></LoadingSpinner>
                         </CustomOverlay>
 
-                        {/*TODO: Użyć modala do usuwania podwykonawcy*/}
                         <WeddesignConfirmationModal
                             isVisible={isModalVisible}
                             onBackdropPress={handleCancel}
@@ -135,4 +180,4 @@ const GuestList = () => {
     );
 };
 
-export default GuestList;
+export default ProvidersList;

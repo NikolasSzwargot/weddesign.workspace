@@ -4,14 +4,14 @@ import IconDot from '../../atoms/IconDot';
 import {Text} from '@weddesign/themes';
 import {Icons} from '@weddesign/assets';
 import {getProviderCategoryIconAndColor} from './getProviderCategoryIconAndColor';
-import {Category} from '@weddesign/types';
+import {CategoryToSummaryDto} from '@shared/dto';
 
 type CategoryItemProps = {
-    category: Category; //@TODO: Zastąpić DTO z shared
+    category: CategoryToSummaryDto;
     inDatabaseLabel: string;
     reservedLabel: string;
     onPress: () => void;
-    onLongPress: (category: Category) => void;
+    onLongPress: (category: CategoryToSummaryDto) => void;
 };
 
 const ProvidersCategoryItem: React.FC<CategoryItemProps> = ({
