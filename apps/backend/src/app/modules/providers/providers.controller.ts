@@ -39,7 +39,7 @@ export class ProvidersController {
     return await this.providersService.getProviderById(id);
   }
 
-  @Delete(':id')
+  @Delete()
   async remove(@Query('id') idString: string): Promise<ProviderDto> {
     const id = parseInt(idString);
     if (isNaN(id) && idString) {
@@ -48,7 +48,7 @@ export class ProvidersController {
     return await this.providersService.removeProvider(id);
   }
 
-  @Get('groupedByStarsInCategory/:categoryId')
+  @Get('groupedByStarsInCategory')
   async getAllProvidersInCategoryGrouped(
     @Query('categoryId') idString: string
   ): Promise<{ title: string; data: ProviderDto[] }[]> {

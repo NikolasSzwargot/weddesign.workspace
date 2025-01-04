@@ -2,5 +2,11 @@
   "inDatabase": "in database:",
   "reserved": "reserved:",
   "deleteMessage": "Are you sure you want to delete category {{name}}?",
-  "deleteWarning": "This will delete all providers associated with this category!"
+  "deleteWarning": "This will delete all providers associated with this category!",
+  "providersList": {
+    "searchPlaceholder": "Search",
+    "currency": "$",
+    "rating": "Rating",
+    "deleteMessage": "Are you sure you want to delete provider {{name}}?"
+  }
 }

@@ -13,13 +13,16 @@ type CustomSectionHeaderProps = {
         title: string;
         subtitle?: string;
     };
+    titlePrefix?: string;
 };
 
 const CustomSectionHeader = ({
     section: {title, subtitle},
+    titlePrefix,
 }: CustomSectionHeaderProps) => (
     <UniversalSeparatorContainer>
         <StartSeparatorLine />
+        {titlePrefix && <Text.RegularGray>{titlePrefix} </Text.RegularGray>}
         <Text.RegularGray>{title}</Text.RegularGray>
         {subtitle ? (
             <>

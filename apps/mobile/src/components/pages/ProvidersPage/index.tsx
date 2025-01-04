@@ -2,6 +2,8 @@ import React from 'react';
 import {ProvidersGrouped} from '@mobile/components';
 import {ProvidersScreens} from '@weddesign/enums';
 
+import ProvidersList from '../../organisms/Providers/ProvidersList';
+
 type ProvidersPageProps = {
     screen?: ProvidersScreens;
 };
@@ -10,10 +12,9 @@ const ProvidersPage = ({screen}: ProvidersPageProps) => {
         case ProvidersScreens.GROUPED:
             return <ProvidersGrouped />;
         case ProvidersScreens.LIST:
-            //@TODO: zamienić na stronę ze szczegółami grupy
-            return <ProvidersGrouped />;
+            return <ProvidersList />;
         case ProvidersScreens.ADD:
-            //@TODO: zamienić na stronę z formularzem dodawania podwykonawcy
+            //@TODO: Change to screen with Form
             return <ProvidersGrouped />;
     }
 };
