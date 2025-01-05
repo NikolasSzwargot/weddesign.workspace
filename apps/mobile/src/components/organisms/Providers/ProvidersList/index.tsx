@@ -12,7 +12,7 @@ import {
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes, ProvidersRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {ProviderDto} from '@shared/dto';
 
@@ -124,8 +124,10 @@ const ProvidersList = () => {
                                         Icon={Icons.AddPerson}
                                         fillColor={Colors.LightPurple}
                                         onPress={() =>
-                                            //@TODO: Navigate to Form
-                                            console.log('Dodawanie podwykonawcy')
+                                            router.navigate(ProvidersRoutes.ADD, {
+                                                category,
+                                                undefined,
+                                            })
                                         }
                                     />
                                 </SearchBarWrapper>
@@ -142,8 +144,10 @@ const ProvidersList = () => {
                                     categoryIconId={category.iconId}
                                     currency={t('providersList.currency')}
                                     onProviderPress={() =>
-                                        //@TODO: Navigate to Form
-                                        console.log('Provider clicked')
+                                        router.navigate(ProvidersRoutes.ADD, {
+                                            category,
+                                            provider: item,
+                                        })
                                     }
                                     onDeletePress={handleDelete}
                                 />

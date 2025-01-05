@@ -7,19 +7,18 @@ export const Container = styled.View`
     align-items: center;
 `;
 
-export const GuestFormWrapper = styled.View`
+export const ProvidersFormWrapper = styled.View`
     position: relative;
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    height: 100%;
-    margin-top: 20px;
+    flex: 1;
+    margin-top: 10px;
+    gap: 70px;
 `;
 
 export const FormInputWrapper = styled.View`
     justify-content: flex-start;
-    padding-top: 18%;
     padding-left: 20px;
     padding-right: 20px;
 `;
@@ -32,10 +31,23 @@ export const InputRow = styled.View`
 export const Row = styled.View`
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 16px;
 `;
 
+export const RatingRow = styled.View`
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+`;
+
 export const ErrorArea = styled.View`
     min-height: 20px;
+`;
+
+export const ButtonRow = styled.View`
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
 `;

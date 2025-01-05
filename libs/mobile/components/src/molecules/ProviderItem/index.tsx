@@ -146,9 +146,8 @@ const ProviderItem = ({
                                     <Icons.Website />
                                 </TouchableOpacity>
                             )}
-
-                            {provider.amount && (
-                                <Text.Regular size={14}>
+                            {provider?.amount != null && (
+                                <Text.Regular size={14} style={{paddingBottom: 5}}>
                                     {provider.amount} {currency}
                                 </Text.Regular>
                             )}

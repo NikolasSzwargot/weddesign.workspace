@@ -8,5 +8,19 @@
     "currency": "zł",
     "rating": "Ocena",
     "deleteMessage": "Czy na pewno chcesz usunąć podwykonawcę {{name}}?"
+  },
+  "providersForm": {
+    "name": "Nazwa podwykonawcy",
+    "description": "Tu możesz zapisać swoje notatki :)",
+    "amount": "Oferta",
+    "website": "Strona internetowa",
+    "instagram": "Instagram",
+    "email": "Email",
+    "phoneNumber": "Numer telefonu",
+    "reserved": "Zarezerwowano",
+    "save": "Zapisz"
+  },
+  "errors": {
+    "name": "Nazwa jest wymagana"
   }
 }

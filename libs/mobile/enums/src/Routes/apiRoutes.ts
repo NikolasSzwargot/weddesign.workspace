@@ -17,4 +17,6 @@ export enum ApiRoutes {
     ProvidersCategoriesDelete = '/providers/categories/delete',
     ProvidersGroupedByStarsInCategory = '/providers/groupedByStarsInCategory',
     ProvidersDelete = '/providers',
+    ProvidersCreate = '/providers',
+    ProvidersUpdate = '/providers/:id',
 }
