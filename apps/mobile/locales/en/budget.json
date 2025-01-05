@@ -22,4 +22,5 @@
   "searchPlaceholder": "Search",
   "loading": "Loading budget page...",
   "total": "TOTAL",
+  "noLimit": "Not set"
 }

@@ -22,4 +22,5 @@
   "searchPlaceholder": "Szukaj",
   "loading": "Ładowanie budżetu...",
   "total": "LIMIT",
+  "noLimit": "Brak limitu"
 }

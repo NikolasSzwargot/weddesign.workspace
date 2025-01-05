@@ -1,13 +1,14 @@
 import {Text} from '@weddesign/themes';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {getBudgetCategoryData} from '@mobile/utils';
 import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
-import {Colors} from '@weddesign/enums';
+import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
 import {useCatsData} from '../../../api/Budget/useCatsData';
+import {useRouting} from '../../providers';
 
 import {
     Container,
@@ -20,6 +21,7 @@ import {
 
 const BudgetLimits = () => {
     const {t} = useTranslation('budget');
+    const {router} = useRouting();
 
     const {
         data: mainLimitData,
@@ -48,26 +50,26 @@ const BudgetLimits = () => {
                 </CategoryInfoContainer>
 
                 <Text.Bold size={14}>
-                    {item.limit ? `${item.limit} $` : 'Brak limitu'}
+                    {item.limit ? `${item.limit}${t('currency')}` : t('noLimit')}
                 </Text.Bold>
             </CategoryListItem>
         );
     };
+
+    useEffect(() => {
+        if (isErrorCats || isErrorMainLimit) {
+            router.navigate(ErrorRoutes.GENERAL, 'budget');
+        }
+    }, [isErrorCats, isErrorMainLimit, router]);
 
     return (
         <Container>
             <BackgroundEllipse variant={'budget'} />
             {isLoadingMainLimit || isLoadingCats ? (
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
-            ) : isErrorCats || isErrorMainLimit ? (
-                <Text.Regular style={{position: 'absolute', top: '50%'}}>
-                    {/* @TODO przejście na ekran z błędem*/}
-                    {/* eslint-disable-next-line react-native/no-raw-text */}
-                    {'Tu będzie takie fajne przejście do ekranu błędu'}
-                </Text.Regular>
             ) : (
                 <MainWrapper>
-                    <Header />
+                    <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <TotalWrapper onPress={() => console.log('edit: MAIN')}>
                         {/* eslint-disable-next-line react-native/no-raw-text */}
                         <Text.Bold size={24}>{`${t('total')}:`}</Text.Bold>
