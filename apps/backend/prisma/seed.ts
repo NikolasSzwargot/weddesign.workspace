@@ -26,42 +26,48 @@ async function main() {
     data: [
       {
         name: 'food',
+        limit: 10000,
       },
       {
         name: 'place',
       },
       {
-        name: 'decor',
+        name: 'decoration',
+        limit: 30000,
       },
       {
         name: 'flowers',
       },
       {
         name: 'photos',
+        limit: 40000,
       },
       {
         name: 'music',
       },
       {
         name: 'entertainment',
+        limit: 50000,
       },
       {
-        name: 'gifts',
+        name: 'presents',
       },
       {
-        name: 'dress',
+        name: 'outfits',
+        limit: 60000,
       },
       {
-        name: 'appearance',
+        name: 'beauty',
       },
       {
         name: 'accessories',
+        limit: 70000,
       },
       {
         name: 'rings',
       },
       {
-        name: 'accommodation',
+        name: 'accomodation',
       },
       {
         name: 'legal',
