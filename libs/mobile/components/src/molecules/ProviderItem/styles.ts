@@ -47,6 +47,7 @@ export const DetailsRow = styled.View`
     flex-direction: row;
     justify-content: space-between;
     padding: 0 15px 0;
+    flex-wrap: wrap;
 `;
 
 export const IconRow = styled.View`

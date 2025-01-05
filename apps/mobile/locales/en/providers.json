@@ -8,5 +8,19 @@
     "currency": "$",
     "rating": "Rating",
     "deleteMessage": "Are you sure you want to delete provider {{name}}?"
+  },
+  "providersForm": {
+    "name": "Provider's name",
+    "description": "Here you can add any notes about the guest :)",
+    "amount": "Offer",
+    "website": "Website",
+    "instagram": "Instagram",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "reserved": "Reserved",
+    "save": "Save"
+  },
+  "errors": {
+    "name": "Name is required"
   }
 }
