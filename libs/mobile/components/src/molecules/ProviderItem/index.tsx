@@ -17,6 +17,7 @@ import {ProviderDto} from '@shared/dto';
 import {getProviderCategoryIconAndColor} from '../ProvidersCategoryItem/getProviderCategoryIconAndColor';
 import {IconDot} from '../../atoms';
 import {Text} from '@weddesign/themes';
+import {openInstagram, openWebsite} from '@weddesign/utils';
 
 type ProviderItemProps = {
     provider: ProviderDto;
@@ -133,7 +134,7 @@ const ProviderItem = ({
                         <IconRow>
                             {provider.instagram && (
                                 <TouchableOpacity
-                                    onPress={() => console.log('Open instagram')}
+                                    onPress={() => openInstagram(provider.instagram)}
                                 >
                                     <Icons.Instagram />
                                 </TouchableOpacity>
@@ -141,7 +142,7 @@ const ProviderItem = ({
 
                             {provider.website && (
                                 <TouchableOpacity
-                                    onPress={() => console.log('Open website')}
+                                    onPress={() => openWebsite(provider.website)}
                                 >
                                     <Icons.Website />
                                 </TouchableOpacity>
