@@ -114,7 +114,7 @@ const BudgetMain = () => {
                 <BudgetMainWrapper>
                     <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <BudgetMainFrame
-                        onLongPress={() => router.navigate(ExpenseListRoutes.LIMITS)}
+                        onPress={() => router.navigate(ExpenseListRoutes.LIMITS)}
                         activeOpacity={0.5}
                     >
                         <BudgetFrame

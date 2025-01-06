@@ -67,7 +67,7 @@ async function main() {
         name: 'rings',
       },
       {
-        name: 'accomodation',
+        name: 'accommodation',
       },
       {
         name: 'legal',
