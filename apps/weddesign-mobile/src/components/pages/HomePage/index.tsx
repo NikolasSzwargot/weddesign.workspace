@@ -1,8 +1,8 @@
 import React from 'react';
-import { Home } from '@weddesign-mobile/components';
+import {Home} from '@weddesign-mobile/components';
 
 const HomePage = () => {
-  return <Home />;
+    return <Home />;
 };
 
 export default HomePage;
