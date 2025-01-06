@@ -1,0 +1,24 @@
+{
+  "mainProgressbarText": "Wykorzystano {{percent}}% zaplanowanego budżetu",
+  "currency": "zł",
+  "category": {
+    "food": "Jedzenie i picie",
+    "place": "Miejsce",
+    "decor": "Dekoracje",
+    "flowers": "Kwiaty",
+    "photos": "Zdjęcia",
+    "music": "Muzyka",
+    "entertainment": "Rozrywka",
+    "gifts": "Prezenty",
+    "dress": "Stroje",
+    "appearance": "Wygląd",
+    "accessories": "Akcesoria",
+    "rings": "Obrączki",
+    "accommodation": "Noclegi",
+    "legal": "Prawne",
+    "transport": "Transport",
+    "other": "Inne"
+  },
+  "searchPlaceholder": "Szukaj",
+  "loading": "Ładowanie budżetu..."
+}

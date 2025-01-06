@@ -6,8 +6,8 @@ import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {changeLanguage} from 'i18next';
 import {LanguagesEnum, LoginRoutes} from '@weddesign/enums';
-import {RegisterFormType, useRouting} from '@mobile/components';
 import {useFormContext} from 'react-hook-form';
+import {RegisterFormType, useRouting} from '@mobile/components';
 
 import {Container, NextButtonContainer, ProgressLogoContainer} from '../styles';
 

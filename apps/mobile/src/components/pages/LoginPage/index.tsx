@@ -28,7 +28,7 @@ const defaultUserValues: RegisterFormType = {
     firstNameGroom: '',
     lastName: 'mock',
     weddingDate: new Date(),
-    language: 'en',
+    language: 'pl',
     email: '',
     password: '',
 } as const;
