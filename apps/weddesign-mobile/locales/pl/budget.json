@@ -4,14 +4,14 @@
   "category": {
     "food": "Jedzenie i picie",
     "place": "Miejsce",
-    "decor": "Dekoracje",
+    "decoration": "Dekoracje",
     "flowers": "Kwiaty",
     "photos": "Zdjęcia",
     "music": "Muzyka",
     "entertainment": "Rozrywka",
-    "gifts": "Prezenty",
-    "dress": "Stroje",
-    "appearance": "Wygląd",
+    "presents": "Prezenty",
+    "outfits": "Stroje",
+    "beauty": "Wygląd",
     "accessories": "Akcesoria",
     "rings": "Obrączki",
     "accommodation": "Noclegi",
@@ -20,5 +20,7 @@
     "other": "Inne"
   },
   "searchPlaceholder": "Szukaj",
-  "loading": "Ładowanie budżetu..."
+  "loading": "Ładowanie budżetu...",
+  "total": "LIMIT",
+  "noLimit": "Brak limitu"
 }
