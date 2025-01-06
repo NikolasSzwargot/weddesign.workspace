@@ -81,6 +81,11 @@ export const BudgetRoutingRoutes: Route[] = [
         screen: ExpensesScreens.ADD,
         element: <BudgetMainPage screen={ExpensesScreens.ADD} />,
     },
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.LIMITS,
+        element: <BudgetMainPage screen={ExpensesScreens.LIMITS} />,
+    },
 ];
 
 export const ErrorRoutingRoutes: Route[] = [
