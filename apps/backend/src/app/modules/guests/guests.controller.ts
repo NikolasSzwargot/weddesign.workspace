@@ -47,13 +47,8 @@ export class GuestsController {
     return await this.guestService.findAll(req.user.userId);
   }
 
-  @Get()
-  async findOne(@Query('id') idString: string): Promise<Guest> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-
+  @Get('/:id')
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Guest> {
     return await this.guestService.findOne(id);
   }
 
@@ -80,12 +75,8 @@ export class GuestsController {
     return { count };
   }
 
-  @Delete()
-  async remove(@Query('id') idString: string): Promise<Guest> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
+  @Delete('/:id')
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<Guest> {
     return await this.guestService.remove(id);
   }
 
@@ -101,12 +92,8 @@ export class GuestsController {
   }
 
   @Public()
-  @Get('status/id')
-  async getStatusById(@Query('id') idString: string): Promise<GuestStatus> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
+  @Get('status/:id')
+  async getStatusById(@Param('id', ParseIntPipe) id: number): Promise<GuestStatus> {
     return await this.guestStatusesService.findById(id);
   }
 

@@ -41,7 +41,7 @@ export class AuthService {
     const account = await this.prisma.userLogin.findFirst({
       where: { email: loginDto.email },
     });
-    if ((await this.checkLoginAndPassword(account, loginDto)) == false) {
+    if (!(await this.checkLoginAndPassword(account, loginDto))) {
       console.log(account, loginDto);
       throw new UnauthorizedException();
     }
