@@ -488,12 +488,12 @@ COPY public."expenseCategories" (id, name, "limit", "createdAt", "updatedAt") FR
 --
 
 COPY public.expenses (id, name, description, "categoryId", amount, deadline, "isPaid", "userId", "createdAt", "updatedAt") FROM stdin;
-1	W├│dka	\N	1	1000	2025-01-03 20:38:44.188	t	1	2025-01-03 20:40:13.011	2025-01-03 20:40:13.011
-2	S┼éodki st├│┼é	\N	1	1200	2027-01-03 20:38:44.188	t	1	2025-01-03 20:40:30.286	2025-01-03 20:40:30.286
+1	Wódka	\N	1	1000	2025-01-03 20:38:44.188	t	1	2025-01-03 20:40:13.011	2025-01-03 20:40:13.011
+2	Słodki stół	\N	1	1200	2027-01-03 20:38:44.188	t	1	2025-01-03 20:40:30.286	2025-01-03 20:40:30.286
 3	Sala weselna	\N	2	35000	2027-01-03 20:38:44.188	t	1	2025-01-03 20:40:41.87	2025-01-03 20:40:41.87
-4	┼Üwieczki	\N	3	550	2027-01-03 20:38:44.188	t	1	2025-01-03 20:41:27.361	2025-01-03 20:41:27.361
+4	Świeczki	\N	3	550	2027-01-03 20:38:44.188	t	1	2025-01-03 20:41:27.361	2025-01-03 20:41:27.361
 5	fotograf	\N	5	5000	2026-01-03 20:38:44.188	t	1	2025-01-03 20:41:50.597	2025-01-03 20:41:50.597
-6	Obr─àczki - warsztaty	\N	12	5000	2025-05-03 20:38:44.188	f	1	2025-01-03 20:42:17.412	2025-01-03 20:42:17.412
+6	Obrączki - warsztaty	\N	12	5000	2025-05-03 20:38:44.188	f	1	2025-01-03 20:42:17.412	2025-01-03 20:42:17.412
 7	Szminka	\N	10	60	2024-05-17 20:38:44.188	t	1	2025-01-03 20:43:41.912	2025-01-03 20:43:41.912
 \.
 
@@ -515,38 +515,38 @@ COPY public."guestStatuses" (id, name, "createdAt", "updatedAt") FROM stdin;
 --
 
 COPY public.guests (id, "firstName", "lastName", "isVege", "isCompanion", "isChild", "canGetThere", overnight, notes, "guestStatusId", "userId", "createdAt", "updatedAt") FROM stdin;
-3	Edyta	Wo┼║niak	f	f	f	t	t	\N	3	1	2025-01-03 20:21:31.566	2025-01-03 20:21:31.566
-1	Lena	Wo┼║niak	f	f	f	t	t	\N	3	1	2025-01-03 20:22:32.564	2025-01-03 20:22:32.564
-2	Mateusz	Brz├│ska	f	f	f	t	t	\N	3	1	2025-01-03 20:22:32.564	2025-01-03 20:22:32.564
-4	Pawe┼é	Wo┼║niak	f	f	f	t	t	\N	3	1	2025-01-03 20:28:59.926	2025-01-03 20:28:59.926
-5	Rafa┼é	Wo┼║niak	f	f	f	t	t	\N	3	1	2025-01-03 20:29:04.327	2025-01-03 20:29:04.327
-6	Justyna	Brz├│ska	f	f	f	t	t	\N	3	1	2025-01-03 20:29:12.156	2025-01-03 20:29:12.156
-7	Witold	Brz├│ska	f	f	f	t	t	\N	3	1	2025-01-03 20:29:37.254	2025-01-03 20:29:37.254
-8	Gra┼╝yna	Brz├│ska	f	f	f	t	t	\N	3	1	2025-01-03 20:30:00.438	2025-01-03 20:30:00.438
+3	Edyta	Woźniak	f	f	f	t	t	\N	3	1	2025-01-03 20:21:31.566	2025-01-03 20:21:31.566
+1	Lena	Woźniak	f	f	f	t	t	\N	3	1	2025-01-03 20:22:32.564	2025-01-03 20:22:32.564
+2	Mateusz	Brzóska	f	f	f	t	t	\N	3	1	2025-01-03 20:22:32.564	2025-01-03 20:22:32.564
+4	Paweł	Woźniak	f	f	f	t	t	\N	3	1	2025-01-03 20:28:59.926	2025-01-03 20:28:59.926
+5	Rafał	Woźniak	f	f	f	t	t	\N	3	1	2025-01-03 20:29:04.327	2025-01-03 20:29:04.327
+6	Justyna	Brzóska	f	f	f	t	t	\N	3	1	2025-01-03 20:29:12.156	2025-01-03 20:29:12.156
+7	Witold	Brzóska	f	f	f	t	t	\N	3	1	2025-01-03 20:29:37.254	2025-01-03 20:29:37.254
+8	Grażyna	Brzóska	f	f	f	t	t	\N	3	1	2025-01-03 20:30:00.438	2025-01-03 20:30:00.438
 9	Irena	Antkowiak	f	f	f	t	t	\N	3	1	2025-01-03 20:30:08.096	2025-01-03 20:30:08.096
 10	Monika	Antkowiak	f	f	f	t	t	\N	3	1	2025-01-03 20:30:16.167	2025-01-03 20:30:16.167
 11	Tomasz	Antkowiak	f	f	f	t	t	\N	3	1	2025-01-03 20:30:22.949	2025-01-03 20:30:22.949
 12	Agata	Antkowiak	f	f	f	t	t	\N	3	1	2025-01-03 20:30:26.887	2025-01-03 20:30:26.887
-13	Przemys┼éaw	Cyl	f	f	f	t	t	\N	3	1	2025-01-03 20:30:35.005	2025-01-03 20:30:35.005
+13	Przemysław	Cyl	f	f	f	t	t	\N	3	1	2025-01-03 20:30:35.005	2025-01-03 20:30:35.005
 14	Kinga	Ozorkiewicz	f	f	f	t	t	\N	3	1	2025-01-03 20:30:46.541	2025-01-03 20:30:46.541
-15	Micha┼é	Ozorkiewicz	f	f	f	t	t	\N	3	1	2025-01-03 20:30:52.125	2025-01-03 20:30:52.125
-16	Maria	Wo┼║niak	f	f	f	f	t	\N	3	1	2025-01-03 20:31:18.476	2025-01-03 20:31:18.476
-17	Jerzy	Wo┼║niak	f	f	f	f	t	\N	3	1	2025-01-03 20:31:22.857	2025-01-03 20:31:22.857
+15	Michał	Ozorkiewicz	f	f	f	t	t	\N	3	1	2025-01-03 20:30:52.125	2025-01-03 20:30:52.125
+16	Maria	Woźniak	f	f	f	f	t	\N	3	1	2025-01-03 20:31:18.476	2025-01-03 20:31:18.476
+17	Jerzy	Woźniak	f	f	f	f	t	\N	3	1	2025-01-03 20:31:22.857	2025-01-03 20:31:22.857
 18	Agnieszka	Rybarczyk	f	f	f	t	t	\N	3	1	2025-01-03 20:31:38.642	2025-01-03 20:31:38.642
-19	Przemys┼éaw	Rybarczyk	f	f	f	t	t	\N	3	1	2025-01-03 20:31:44.061	2025-01-03 20:31:44.061
+19	Przemysław	Rybarczyk	f	f	f	t	t	\N	3	1	2025-01-03 20:31:44.061	2025-01-03 20:31:44.061
 20	Maja	Rybarczyk	f	f	t	t	f	\N	3	1	2025-01-03 20:31:59.138	2025-01-03 20:31:59.138
-21	Andrzej	Ko┼épowski	f	f	f	t	f	\N	3	1	2025-01-03 20:32:21.014	2025-01-03 20:32:21.014
-22	Ania	Ko┼épowska	f	f	f	t	f	\N	3	1	2025-01-03 20:32:35.015	2025-01-03 20:32:35.015
-23	Artur	Ko┼épowski	f	f	f	t	f	\N	3	1	2025-01-03 20:32:44.022	2025-01-03 20:32:44.022
-24	Karolina	Ko┼épowska	f	f	f	t	f	\N	3	1	2025-01-03 20:32:50.542	2025-01-03 20:32:50.542
-25	B┼éa┼╝ej	Czeka┼éa	f	f	f	t	t	\N	1	1	2025-01-03 20:33:22.354	2025-01-03 20:33:22.354
-26	Paula	Lewandowska-Czeka┼éa	f	f	f	t	t	\N	1	1	2025-01-03 20:33:30.364	2025-01-03 20:33:30.364
+21	Andrzej	Kołpowski	f	f	f	t	f	\N	3	1	2025-01-03 20:32:21.014	2025-01-03 20:32:21.014
+22	Ania	Kołpowska	f	f	f	t	f	\N	3	1	2025-01-03 20:32:35.015	2025-01-03 20:32:35.015
+23	Artur	Kołpowski	f	f	f	t	f	\N	3	1	2025-01-03 20:32:44.022	2025-01-03 20:32:44.022
+24	Karolina	Kołpowska	f	f	f	t	f	\N	3	1	2025-01-03 20:32:50.542	2025-01-03 20:32:50.542
+25	Błażej	Czekała	f	f	f	t	t	\N	1	1	2025-01-03 20:33:22.354	2025-01-03 20:33:22.354
+26	Paula	Lewandowska-Czekała	f	f	f	t	t	\N	1	1	2025-01-03 20:33:30.364	2025-01-03 20:33:30.364
 27	Wojciech	Walczak	f	f	f	t	f	\N	1	1	2025-01-03 20:33:50.91	2025-01-03 20:33:50.91
 28	Monika	Singh-Walczak	f	f	f	t	f	\N	1	1	2025-01-03 20:33:58.944	2025-01-03 20:33:58.944
 29	Nadia	Plenzler	f	f	f	t	t	\N	1	1	2025-01-03 20:34:22.787	2025-01-03 20:34:22.787
 30	Filip	Borkowski	f	f	f	t	t	\N	1	1	2025-01-03 20:34:31.894	2025-01-03 20:34:31.894
-31	Paulina	W├│jcik	f	f	f	t	t	\N	1	1	2025-01-03 20:34:45.519	2025-01-03 20:34:45.519
-32	Micha┼é	Kalinowski	f	f	f	t	t	\N	1	1	2025-01-03 20:34:54.661	2025-01-03 20:34:54.661
+31	Paulina	Wójcik	f	f	f	t	t	\N	1	1	2025-01-03 20:34:45.519	2025-01-03 20:34:45.519
+32	Michał	Kalinowski	f	f	f	t	t	\N	1	1	2025-01-03 20:34:54.661	2025-01-03 20:34:54.661
 33	Alicja	Tacakiewicz	t	f	f	t	t	\N	1	1	2025-01-03 20:35:19.96	2025-01-03 20:35:19.96
 34	Jan	Tacakiewicz	f	f	f	t	t	\N	1	1	2025-01-03 20:35:28.522	2025-01-03 20:35:28.522
 35	Partner Alicji?	Tacakiewicz	f	t	f	t	t	\N	1	1	2025-01-03 20:35:52.229	2025-01-03 20:35:52.229
@@ -580,17 +580,17 @@ COPY public."providerCategories" (id, "iconId", name, "userId", "createdAt", "up
 --
 
 COPY public.providers (id, name, description, "categoryId", amount, website, instagram, email, "phoneNumber", stars, "isReserved", "userId", "createdAt", "updatedAt") FROM stdin;
-1	Pa┼éac ┼Ür├│dka	Jedzenie bardzo dobre, sala ┼éadna, Monia i Wojtek zadowoleni. Ma dobr─à lokalizacj─Ö	1	26496	https://palac-srodka.pl/	https://www.instagram.com/explore/locations/1016410804/palac-srodka/	\N	\N	5	t	1	2025-01-03 20:50:37.447	2025-01-03 20:50:37.447
-2	Dw├│r Wierzenica	Pi─Ökny, ale sala wydaje si─Ö ma┼éa (i jest max 80 os├│b)	1	32500	\N	\N	info@dwor-wierzenica.pl	503503034	5	f	1	2025-01-03 20:52:17.65	2025-01-03 20:52:17.65
-3	Przyborowo11	Na ┼╝ywo brzydko. W dodatku drogo	1	100000000	\N	\N	\N	\N	1	f	1	2025-01-03 20:54:31.66	2025-01-03 20:54:31.66
-4	S┼éoneczko Sierak├│w	Niby tanio niby ┼éadnie, ale kto by chcia┼é mie─ç wesele na s┼éoneczku w Sierakowie? xD	1	25000	\N	\N	\N	\N	3	f	1	2025-01-03 20:56:42.258	2025-01-03 20:56:42.258
-5	Pa┼éac Szczepowice	┼üadny namiot maj─à i jest niedrogo	1	26000	\N	\N	\N	\N	4	f	1	2025-01-03 20:57:47.852	2025-01-03 20:57:47.852
-6	Marika S─Ökowska	Ta od Moni i Wojtka	2	\N	https://www.marikasekowska.pl/	https://www.instagram.com/marikasekowskafotografie/?hl=en	\N	\N	5	f	1	2025-01-03 21:01:33.822	2025-01-03 21:01:33.822
+1	Pałac Śródka	Jedzenie bardzo dobre, sala ładna, Monia i Wojtek zadowoleni. Ma dobrą lokalizację	1	26496	https://palac-srodka.pl/	https://www.instagram.com/explore/locations/1016410804/palac-srodka/	\N	\N	5	t	1	2025-01-03 20:50:37.447	2025-01-03 20:50:37.447
+2	Dwór Wierzenica	Pięny, ale sala wydaje się mała (i jest max 80 osób)	1	32500	\N	\N	info@dwor-wierzenica.pl	503503034	5	f	1	2025-01-03 20:52:17.65	2025-01-03 20:52:17.65
+3	Przyborowo11	Na żywo brzydko. W dodatku drogo	1	100000000	\N	\N	\N	\N	1	f	1	2025-01-03 20:54:31.66	2025-01-03 20:54:31.66
+4	Słoneczko Sieraków	Niby tanio niby ładnie, ale kto by chciał mieć wesele na słoneczku w Sierakowie? xD	1	25000	\N	\N	\N	\N	3	f	1	2025-01-03 20:56:42.258	2025-01-03 20:56:42.258
+5	Pałac Szczepowice	ładny namiot mają i jest niedrogo	1	26000	\N	\N	\N	\N	4	f	1	2025-01-03 20:57:47.852	2025-01-03 20:57:47.852
+6	Marika Sęowska	Ta od Moni i Wojtka	2	\N	https://www.marikasekowska.pl/	https://www.instagram.com/marikasekowskafotografie/?hl=en	\N	\N	5	f	1	2025-01-03 21:01:33.822	2025-01-03 21:01:33.822
 7	Nina&Darek	Bardzo nostalgiczny vibe	2	\N	https://ninaanddarek.com	https://www.instagram.com/ninaanddarek/?hl=en	\N	\N	5	f	1	2025-01-03 21:02:57.722	2025-01-03 21:02:57.722
-8	Dominika Mi┼ø	W ostateczno┼øci xD	2	\N	https://www.dominikamis.com/	https://www.instagram.com/dominikamis_fotografia/	\N	\N	2	f	1	2025-01-03 21:04:14.425	2025-01-03 21:04:14.425
-9	Mybestphoto.pl	Ja uwa┼╝am, ┼╝e ┼éadne - Nadia nie	2	\N	https://mybestphoto.pl/	https://www.instagram.com/mybestphoto.pl/	\N	\N	4	f	1	2025-01-03 21:06:07.401	2025-01-03 21:06:07.401
+8	Dominika Miś	W ostateczności xD	2	\N	https://www.dominikamis.com/	https://www.instagram.com/dominikamis_fotografia/	\N	\N	2	f	1	2025-01-03 21:04:14.425	2025-01-03 21:04:14.425
+9	Mybestphoto.pl	Ja uważam, że ładne - Nadia nie	2	\N	https://mybestphoto.pl/	https://www.instagram.com/mybestphoto.pl/	\N	\N	4	f	1	2025-01-03 21:06:07.401	2025-01-03 21:06:07.401
 10	Studio lento fotografia film	Meh	2	\N	\N	https://www.instagram.com/studiolento_fotografia.film	\N	\N	2	f	1	2025-01-03 21:07:20.915	2025-01-03 21:07:20.915
-11	Zara Zarachowicz	Robi pi─Ökne filmy, ale jest z podlasia XD	2	\N	\N	https://www.instagram.com/zara.zarachowicz/reels/?__d=1	\N	\N	5	f	1	2025-01-03 21:08:28.159	2025-01-03 21:08:28.159
+11	Zara Zarachowicz	Robi pięne filmy, ale jest z podlasia XD	2	\N	\N	https://www.instagram.com/zara.zarachowicz/reels/?__d=1	\N	\N	5	f	1	2025-01-03 21:08:28.159	2025-01-03 21:08:28.159
 \.
 
 
@@ -599,7 +599,7 @@ COPY public.providers (id, name, description, "categoryId", amount, website, ins
 --
 
 COPY public.users (id, "firstNameBride", "firstNameGroom", "lastName", "weddingDate", language, "createdAt", "updatedAt") FROM stdin;
-1	Lena	Mateusz	BrzÔö£Ôöéska	2027-01-03 19:17:28.919	pl	2025-01-03 19:27:35.822	2025-01-03 19:27:35.822
+1	Lena	Mateusz	Brzóska	2027-01-03 19:17:28.919	pl	2025-01-03 19:27:35.822	2025-01-03 19:27:35.822
 \.
 
 

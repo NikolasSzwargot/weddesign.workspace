@@ -33,11 +33,11 @@ For further information please go to the official prisma documentation.
 
 ## Database dumps
 To make a dump write in terminal:
-```pg_dump -U admin -h localhost -p 5432 postgres > SQL_FILE_FULL_PATH```
+```pg_dump -U admin -h localhost -p 5432 --encoding=UTF8 postgres > SQL_FILE_FULL_PATH```
 You will need to provide a password for our database (weLoveWeddings!).
 please, copy that file to the migration folder.
 To import a dump write in terminal:
-```psql -U admin -h localhost -p 5432 -d postgres -f SQL_FILE_FULL_PATH```
+```psql -U admin -h localhost -p 5432 -d postgres --set=client_encoding=UTF8 -f SQL_FILE_FULL_PATH```
 You will need to provide a password for our database (weLoveWeddings!).
 
 
