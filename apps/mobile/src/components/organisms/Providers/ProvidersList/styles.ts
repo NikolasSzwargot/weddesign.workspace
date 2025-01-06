@@ -7,7 +7,7 @@ export const Container = styled.View`
     align-items: center;
 `;
 
-export const ProvidersCategoriesWrapper = styled.View`
+export const ProvidersListWrapper = styled.View`
     flex: 1;
     position: relative;
     display: flex;
@@ -17,11 +17,16 @@ export const ProvidersCategoriesWrapper = styled.View`
     margin-top: 10px;
 `;
 
-export const CategoriesWrapper = styled.View`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 15%;
-    margin: 10px;
+export const SearchBarWrapper = styled.View`
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    justify-content: space-between;
+`;
+
+export const CategoryName = styled.View`
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
 `;

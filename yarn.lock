@@ -16000,6 +16000,11 @@ react-native-size-matters@^0.3.1:
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
   integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
 
+react-native-star-rating-widget@1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/react-native-star-rating-widget/-/react-native-star-rating-widget-1.9.2.tgz#f0c7de8acd1262a15b7f9e1a526607980b099d3b"
+  integrity sha512-yTAajy7ow6M5+ICkCN24XhsW+jQYTDYEB9QP2KXbE1333ilQDWQupsmHVH9+Ob53Qy7TTAYqIJeNyAm5bKWbYA==
+
 react-native-styled-components@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-native-styled-components/-/react-native-styled-components-2.1.0.tgz#355666b94d2f013197eb239823894964abd37634"

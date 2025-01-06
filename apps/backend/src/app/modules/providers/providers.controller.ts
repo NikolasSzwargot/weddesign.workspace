@@ -1,5 +1,16 @@
 import { ProvidersService } from './services/providers.service';
-import { BadRequestException, Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateProviderDto, ProviderDto, UpdateProviderDto } from '@shared/dto';
 
 @Controller('providers')
@@ -12,11 +23,10 @@ export class ProvidersController {
   }
 
   @Patch(':id')
-  async update(@Query('id') idString: string, @Body() updateProviderDto: UpdateProviderDto): Promise<ProviderDto> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProviderDto: UpdateProviderDto
+  ): Promise<ProviderDto> {
     return await this.providersService.updateProvider(id, updateProviderDto);
   }
 
@@ -39,7 +49,7 @@ export class ProvidersController {
     return await this.providersService.getProviderById(id);
   }
 
-  @Delete(':id')
+  @Delete()
   async remove(@Query('id') idString: string): Promise<ProviderDto> {
     const id = parseInt(idString);
     if (isNaN(id) && idString) {
@@ -48,7 +58,7 @@ export class ProvidersController {
     return await this.providersService.removeProvider(id);
   }
 
-  @Get('groupedByStarsInCategory/:categoryId')
+  @Get('groupedByStarsInCategory')
   async getAllProvidersInCategoryGrouped(
     @Query('categoryId') idString: string
   ): Promise<{ title: string; data: ProviderDto[] }[]> {

@@ -15,6 +15,7 @@ import {
     Colors,
     ErrorRoutes,
     ExpenseGroupingMode,
+    ExpenseListRoutes,
     HomeRoutes,
 } from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
@@ -113,7 +114,7 @@ const BudgetMain = () => {
                 <BudgetMainWrapper>
                     <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <BudgetMainFrame
-                        onLongPress={() => console.log('odpalaj edycje kategorii')}
+                        onPress={() => router.navigate(ExpenseListRoutes.LIMITS)}
                         activeOpacity={0.5}
                     >
                         <BudgetFrame
