@@ -1,11 +1,11 @@
 import {Button, Input, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
-import {useRouting} from '@mobile/components';
+import {RegisterFormType, useRouting} from '@mobile/components';
 import {LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Text} from '@weddesign/themes';
 import {Platform} from 'react-native';
-import {useState} from 'react';
+import {useFormContext} from 'react-hook-form';
 
 import {
     ButtonsContainer,
@@ -20,8 +20,10 @@ import {FormContainer, Container} from './styles';
 const BrideGroomSetup = () => {
     const {router} = useRouting();
     const {t} = useTranslation('login');
-    const [brideName, setBrideName] = useState<string>('');
-    const [groomName, setGroomName] = useState<string>('');
+    const {setValue, watch} = useFormContext<RegisterFormType>();
+
+    const brideName = watch('firstNameBride', '');
+    const groomName = watch('firstNameGroom', '');
 
     const isDisabled =
         groomName.trim().length === 0 || brideName.trim().length === 0;
@@ -47,14 +49,14 @@ const BrideGroomSetup = () => {
                         <Input
                             value={groomName}
                             handleChange={(val) => {
-                                setGroomName(val);
+                                setValue('firstNameGroom', val);
                             }}
                             placeholder={t('names.groomName')}
                         />
                         <Input
                             value={brideName}
                             handleChange={(val) => {
-                                setBrideName(val);
+                                setValue('firstNameBride', val);
                             }}
                             placeholder={t('names.brideName')}
                         />

@@ -1,0 +1,31 @@
+{
+  "statusBarText": "{{confirmed}} out of {{total}} guests confirmed their arrival",
+  "counters": {
+    "child": "child",
+    "accommodation": "overnight",
+    "vege": "vege"
+  },
+  "searchPlaceholder": "Search",
+  "deleteMessage": "Are you sure you want to delete guest {{firstName}} {{lastName}}?",
+  "guestForm": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "notes": "Here you can add any notes about the guest :)",
+    "child": "Child",
+    "accommodation": "Needs accommodation",
+    "transport": "Needs transport",
+    "vege": "Has special diet",
+    "save": "Save"
+  },
+  "statusModal": {
+    "title": "Change status",
+    "created": "Waits for invitation",
+    "invited": "Invitation sent",
+    "accepted": "Accepted",
+    "rejected": "Rejected"
+  },
+  "errors": {
+    "firstName": "First name is required",
+    "lastName": "Last name is required"
+  }
+}

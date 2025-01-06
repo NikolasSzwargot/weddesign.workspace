@@ -1,14 +1,15 @@
 import {Button, Calendar, Input, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
-import {useRouting} from '@mobile/components';
-import {AppRootRoutes, LoginRoutes} from '@weddesign/enums';
+import {RegisterFormType, useRouting} from '@mobile/components';
+import {LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Text} from '@weddesign/themes';
 import {Platform} from 'react-native';
 import {useState} from 'react';
-import dayjs from 'dayjs';
-import {DateType} from 'react-native-ui-datepicker';
+import dayjs, {Dayjs} from 'dayjs';
 import {formatDate} from '@mobile/utils';
+import {useFormContext} from 'react-hook-form';
+import {DateType} from 'react-native-ui-datepicker';
 
 import {
     ButtonsContainer,
@@ -17,6 +18,8 @@ import {
     StyledKeyboardAvoidingView,
     StyledScrollView,
 } from '../styles';
+import {useUser} from '../../../providers/UserProvider';
+import {RegisterDto} from '../../../../api';
 
 import {FormContainer, Container} from './styles';
 
@@ -26,9 +29,29 @@ const MAX_YEARS_TO_WEDDING = 5;
 const DateSetup = () => {
     const {router} = useRouting();
     const {t, i18n} = useTranslation('login');
-
+    const {setValue, watch, getValues} = useFormContext<RegisterFormType>();
     const [weddingDate, setWeddingDate] = useState<DateType>(dayjs());
+
+    const formWeddingDate = watch('weddingDate', new Date());
     const [showDateModal, setShowDateModal] = useState<boolean>(false);
+    const {register} = useUser();
+
+    const handleRegister = async () => {
+        const formValues = getValues();
+        const userData: RegisterDto = {
+            email: formValues.email,
+            password: formValues.password,
+            user: {
+                firstNameBride: formValues.firstNameBride,
+                firstNameGroom: formValues.firstNameGroom,
+                lastName: formValues.lastName,
+                weddingDate: formValues.weddingDate,
+                language: formValues.language,
+            },
+        };
+
+        await register(userData);
+    };
 
     return (
         <StyledKeyboardAvoidingView
@@ -49,8 +72,9 @@ const DateSetup = () => {
                         {showDateModal ? (
                             <Calendar
                                 mode={'single'}
-                                onDateChange={(date) => {
+                                onDateChange={(date: Dayjs) => {
                                     setWeddingDate(date);
+                                    setValue('weddingDate', date.toDate());
                                 }}
                                 date={weddingDate}
                                 minDate={dayjs()}
@@ -98,7 +122,7 @@ const DateSetup = () => {
                         <Button
                             onPress={() => {
                                 if (!showDateModal) {
-                                    router.navigate(AppRootRoutes.HOME);
+                                    handleRegister();
                                 } else {
                                     setShowDateModal(false);
                                 }

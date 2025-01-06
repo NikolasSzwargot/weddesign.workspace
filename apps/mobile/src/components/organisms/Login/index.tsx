@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {Platform, TextInput} from 'react-native';
 
 import {useRouting} from '../../providers';
-import {useLogin} from '../../../api/Login/useLogin';
+import {useUser} from '../../providers/UserProvider';
 
 import {
     Container,
@@ -27,8 +27,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const {t} = useTranslation('login');
 
-    const {mutate} = useLogin();
     const {router} = useRouting();
+    const {login} = useUser();
 
     return (
         <StyledKeyboardAvoidingView
@@ -78,7 +78,7 @@ const Login = () => {
                                 variant={'secondary'}
                                 size={'medium'}
                                 onPress={() => {
-                                    mutate({email: email, password: password});
+                                    login({email: email, password: password});
                                 }}
                             >
                                 {t('loginScreen.login_with_email')}

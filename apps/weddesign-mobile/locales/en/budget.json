@@ -1,0 +1,26 @@
+{
+  "mainProgressbarText": "{{percent}}% of planned budget have been used",
+  "currency": "$",
+  "category": {
+    "food": "Food and Drink",
+    "place": "Venue",
+    "decoration": "Decorations",
+    "flowers": "Flowers",
+    "photos": "Photography",
+    "music": "Music",
+    "entertainment": "Entertainment",
+    "presents": "Gifts",
+    "outfits": "Outfits",
+    "beauty": "Appearance",
+    "accessories": "Accessories",
+    "rings": "Rings",
+    "accommodation": "Accommodation",
+    "legal": "Legal",
+    "transport": "Transportation",
+    "other": "Other"
+  },
+  "searchPlaceholder": "Search",
+  "loading": "Loading budget page...",
+  "total": "TOTAL",
+  "noLimit": "Not set"
+}

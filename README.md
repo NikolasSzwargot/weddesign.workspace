@@ -27,7 +27,22 @@
 ## Scripts
 This project uses several scripts to manage different tasks. Below is a list of the available scripts and their descriptions:
 
-### Mobile
+### Weddesign-mobile
+
+```yarn prebuild weddesign-mobile```
+
+Prebuild the app. Needed to do only once when first time setting up
+
+```yarn run-android weddesign-mobile```
+
+Run app on Android
+
+```yarn run-ios weddesign-mobile```
+
+Run app on IOS
+
+
+### Mobile - DEPRACATED
 - #### Build Mobile Application:
 
 ```yarn build:mobile```
