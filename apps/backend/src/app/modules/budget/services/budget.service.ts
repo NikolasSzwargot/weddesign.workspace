@@ -28,7 +28,7 @@ export class BudgetService {
     return this.prisma.expense.findMany({ where: { userId } });
   }
 
-  async getExpenseById(userId, id: number): Promise<ExpenseDto> {
+  async getExpenseById(userId: number, id: number): Promise<ExpenseDto> {
     try {
       return await this.prisma.expense.findUnique({ where: { id, userId } });
     } catch (e) {
@@ -71,6 +71,10 @@ export class BudgetService {
   async getCategoryName(categoryId: number): Promise<string> {
     const category = await this.prisma.expenseCategory.findUnique({ where: { id: categoryId } });
     return category?.name || 'Unknown';
+  }
+
+  async getCategoryLimits(userId: number): Promise<CategoryLimitDto[]> {
+    return await this.prisma.expenseCategoryLimit.findMany({ where: { userId } });
   }
 
   async getCategoryLimit(userId: number, id: number): Promise<number> {
@@ -183,7 +187,7 @@ export class BudgetService {
   }
 
   async getBudgetLimit(userId: number): Promise<GetBudgetLimitsDto> {
-    const budgetLimit = await this.prisma.mainBudgetLimit.findFirst();
+    const budgetLimit = await this.prisma.mainBudgetLimit.findFirst({ where: { userId } });
     const expenses = await this.getExpenses(userId);
     const paidExpenses = expenses.filter((expense) => expense.isPaid);
     const notPaidExpenses = expenses.filter((expense) => !expense.isPaid);

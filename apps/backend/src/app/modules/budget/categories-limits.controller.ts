@@ -5,8 +5,13 @@ import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
 @ApiGlobalDecorators()
 @Controller('budget/categories')
-export class CategoriesController {
+export class CategoriesLimitController {
   constructor(private readonly budgetService: BudgetService) {}
+
+  @Get('limit')
+  async getCategoriesLimit(@Request() req): Promise<CategoryLimitDto[]> {
+    return await this.budgetService.getCategoryLimits(req.user.userId);
+  }
 
   @Get('limit/:categoryId')
   async getCategoryLimit(@Request() req, @Param('categoryId', ParseIntPipe) id: number): Promise<number> {
