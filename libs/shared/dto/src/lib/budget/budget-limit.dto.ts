@@ -8,6 +8,9 @@ export class BudgetLimitDto {
   limit: number;
 
   @ApiProperty()
+  userId: number;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()

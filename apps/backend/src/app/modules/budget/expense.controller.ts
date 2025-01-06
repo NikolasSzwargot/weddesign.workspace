@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, ParseIntPipe } from '@nestjs/common';
 import { BudgetService } from './services/budget.service';
 import { CreateExpenseDto, ExpenseDto, UpdateExpenseDto, ExpensesByCategoryDto, ExpensesByDateDto } from '@shared/dto';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
@@ -29,17 +29,17 @@ export class ExpenseController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ExpenseDto> {
-    return await this.budgetService.getExpenseById(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ExpenseDto> {
+    return await this.budgetService.getExpenseById(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
-    return await this.budgetService.updateExpense(+id, updateExpenseDto);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
+    return await this.budgetService.updateExpense(id, updateExpenseDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<ExpenseDto> {
-    return await this.budgetService.deleteExpenseById(+id);
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<ExpenseDto> {
+    return await this.budgetService.deleteExpenseById(id);
   }
 }

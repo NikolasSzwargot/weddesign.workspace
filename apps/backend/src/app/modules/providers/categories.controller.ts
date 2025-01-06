@@ -1,5 +1,5 @@
 import { ProvidersService } from './services/providers.service';
-import { BadRequestException, Body, Controller, Delete, Get, Post, Query, Request } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Request } from '@nestjs/common';
 import { CategoryToSummaryDto, CreateProviderCategoryDto, ProviderCategoryDto } from '@shared/dto';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
@@ -22,21 +22,12 @@ export class CategoriesController {
   }
 
   @Get(':id')
-  async findOne(@Query('id') idString: string): Promise<ProviderCategoryDto> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ProviderCategoryDto> {
     return await this.providersService.getCategoryById(id);
   }
 
   @Delete(':id')
-  async remove(@Query('id') idString: string): Promise<ProviderCategoryDto> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
+  async remove(@Param('id') id: number): Promise<ProviderCategoryDto> {
     return await this.providersService.removeCategory(id);
   }
 }

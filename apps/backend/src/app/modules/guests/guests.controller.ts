@@ -28,12 +28,12 @@ export class GuestsController {
     private readonly guestStatusesService: GuestsStatusesService
   ) {}
 
-  @Post('create')
+  @Post()
   async create(@Request() req, @Body() createGuestDto: CreateGuestDto): Promise<Guest> {
     return await this.guestService.create(req.user.userId, createGuestDto);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   async updateGuest(@Param('id', ParseIntPipe) id: number, @Body() updateGuestDto: UpdateGuestDto): Promise<Guest> {
     const guest = await this.guestService.update(id, updateGuestDto);
     if (!guest) {
@@ -42,12 +42,12 @@ export class GuestsController {
     return guest;
   }
 
-  @Get('all')
+  @Get()
   async findAll(@Request() req): Promise<Guest[]> {
     return await this.guestService.findAll(req.user.userId);
   }
 
-  @Get('/:id')
+  @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<Guest> {
     return await this.guestService.findOne(id);
   }
@@ -75,7 +75,7 @@ export class GuestsController {
     return { count };
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number): Promise<Guest> {
     return await this.guestService.remove(id);
   }
@@ -86,7 +86,7 @@ export class GuestsController {
   }
 
   @Public()
-  @Get('status/all')
+  @Get('status')
   async findAllStatuses(): Promise<GuestStatus[]> {
     return await this.guestStatusesService.findAll();
   }

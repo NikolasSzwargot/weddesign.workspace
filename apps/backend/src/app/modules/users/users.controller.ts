@@ -9,7 +9,7 @@ export class UsersController {
 
   @Public()
   @Post()
-  async login(@Body() createUser: CreateUserDto): Promise<UserDto> {
+  async createUser(@Body() createUser: CreateUserDto): Promise<UserDto> {
     return await this.usersService.createNewUser(createUser);
   }
 }
