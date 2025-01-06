@@ -34,8 +34,12 @@ export class GuestsController {
   }
 
   @Patch(':id')
-  async updateGuest(@Param('id', ParseIntPipe) id: number, @Body() updateGuestDto: UpdateGuestDto): Promise<Guest> {
-    const guest = await this.guestService.update(id, updateGuestDto);
+  async updateGuest(
+    @Request() req,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateGuestDto: UpdateGuestDto
+  ): Promise<Guest> {
+    const guest = await this.guestService.update(req.user.userId, id, updateGuestDto);
     if (!guest) {
       throw new NotFoundException('Guest not found');
     }
@@ -48,8 +52,8 @@ export class GuestsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Guest> {
-    return await this.guestService.findOne(id);
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<Guest> {
+    return await this.guestService.findOne(req.user.userId, id);
   }
 
   @Get('count')
@@ -76,8 +80,8 @@ export class GuestsController {
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<Guest> {
-    return await this.guestService.remove(id);
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<Guest> {
+    return await this.guestService.remove(req.user.userId, id);
   }
 
   @Get('grouped')

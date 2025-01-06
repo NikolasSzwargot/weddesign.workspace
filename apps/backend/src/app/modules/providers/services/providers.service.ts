@@ -18,13 +18,13 @@ export class ProvidersService {
     return this.prisma.providerCategory.create({ data: { ...newCategoryDto, userId } });
   }
 
-  async removeCategory(id: number): Promise<ProviderCategoryDto> {
+  async removeCategory(userId: number, id: number): Promise<ProviderCategoryDto> {
     try {
       await this.prisma.provider.deleteMany({
-        where: { categoryId: id },
+        where: { categoryId: id, userId },
       });
 
-      return this.prisma.providerCategory.delete({ where: { id: id } });
+      return this.prisma.providerCategory.delete({ where: { id, userId } });
     } catch (e) {
       if (e.code === 'P2025') {
         throw new Error('Provider category not found');
@@ -33,9 +33,9 @@ export class ProvidersService {
     }
   }
 
-  async getCategoryById(id: number): Promise<ProviderCategoryDto> {
+  async getCategoryById(userId: number, id: number): Promise<ProviderCategoryDto> {
     try {
-      return this.prisma.providerCategory.findUnique({ where: { id: id } });
+      return this.prisma.providerCategory.findUnique({ where: { id, userId } });
     } catch (e) {
       if (e.code === 'P2025') {
         throw new Error('Provider category not found');
@@ -78,10 +78,10 @@ export class ProvidersService {
     return this.prisma.provider.create({ data: { ...newProviderDto, userId } });
   }
 
-  async updateProvider(id: number, updateProviderDto: UpdateProviderDto): Promise<ProviderDto> {
+  async updateProvider(userId: number, id: number, updateProviderDto: UpdateProviderDto): Promise<ProviderDto> {
     try {
       return await this.prisma.provider.update({
-        where: { id },
+        where: { id, userId },
         data: updateProviderDto,
       });
     } catch (e) {
@@ -102,10 +102,10 @@ export class ProvidersService {
     }
   }
 
-  async getProviderById(id: number): Promise<ProviderDto> {
+  async getProviderById(userId: number, id: number): Promise<ProviderDto> {
     try {
       return await this.prisma.provider.findFirst({
-        where: { id },
+        where: { id, userId },
       });
     } catch (e) {
       if (e.code === 'P2025') {
@@ -115,9 +115,9 @@ export class ProvidersService {
     }
   }
 
-  async removeProvider(id: number): Promise<ProviderDto> {
+  async removeProvider(userId: number, id: number): Promise<ProviderDto> {
     try {
-      return await this.prisma.provider.delete({ where: { id } });
+      return await this.prisma.provider.delete({ where: { id, userId } });
     } catch (e) {
       if (e.code === 'P2025') {
         throw new Error('Provider not found');

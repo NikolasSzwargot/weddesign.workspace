@@ -29,17 +29,21 @@ export class ExpenseController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ExpenseDto> {
-    return await this.budgetService.getExpenseById(id);
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ExpenseDto> {
+    return await this.budgetService.getExpenseById(req.user.userId, id);
   }
 
   @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
-    return await this.budgetService.updateExpense(id, updateExpenseDto);
+  async update(
+    @Request() req,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateExpenseDto: UpdateExpenseDto
+  ): Promise<ExpenseDto> {
+    return await this.budgetService.updateExpense(req.user.userId, id, updateExpenseDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<ExpenseDto> {
-    return await this.budgetService.deleteExpenseById(id);
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ExpenseDto> {
+    return await this.budgetService.deleteExpenseById(req.user.userId, id);
   }
 }

@@ -20,9 +20,10 @@ export class LimitBudgetController {
 
   @Patch(':id')
   async update(
+    @Request() req,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateBudgetLimit: UpdateBudgetLimitDto
   ): Promise<BudgetLimitDto> {
-    return await this.budgetService.updateBudgetLimit(id, updateBudgetLimit);
+    return await this.budgetService.updateBudgetLimit(req.user.userId, id, updateBudgetLimit);
   }
 }

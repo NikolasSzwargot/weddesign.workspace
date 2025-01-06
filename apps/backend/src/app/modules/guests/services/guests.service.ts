@@ -15,18 +15,17 @@ export class GuestsService {
     });
   }
 
-  async update(id: number, updateGuestDto: UpdateGuestDto): Promise<Guest | null> {
+  async update(userId: number, id: number, updateGuestDto: UpdateGuestDto): Promise<Guest | null> {
     try {
       return await this.prisma.guest.update({
-        where: { id },
+        where: { id, userId },
         data: updateGuestDto,
       });
-    } catch (error) {
-      if (error.code === 'P2025') {
-        //guest not found
-        return null;
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Expense not found');
       }
-      throw error;
+      throw e;
     }
   }
 
@@ -73,12 +72,12 @@ export class GuestsService {
     return this.prisma.guest.findMany({ where: { userId } });
   }
 
-  async findOne(id: number): Promise<Guest> {
-    return this.prisma.guest.findUnique({ where: { id: id } });
+  async findOne(userId: number, id: number): Promise<Guest> {
+    return this.prisma.guest.findUnique({ where: { id, userId } });
   }
 
-  async remove(id: number): Promise<Guest> {
-    return this.prisma.guest.delete({ where: { id: id } });
+  async remove(userId: number, id: number): Promise<Guest> {
+    return this.prisma.guest.delete({ where: { id, userId } });
   }
 
   async getGuestsGroupedByFirstLetter(userId: number): Promise<{ data: Guest[]; title: string }[]> {

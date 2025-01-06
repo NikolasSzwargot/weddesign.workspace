@@ -16,18 +16,18 @@ export class CategoriesController {
     return await this.providersService.createNewCategory(req.user.userId, createProviderCategoryDto);
   }
 
-  @Get('all')
+  @Get()
   async findAll(@Request() req): Promise<CategoryToSummaryDto[]> {
     return await this.providersService.getCategoriesSummary(req.user.userId);
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ProviderCategoryDto> {
-    return await this.providersService.getCategoryById(id);
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ProviderCategoryDto> {
+    return await this.providersService.getCategoryById(req.user.userId, id);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number): Promise<ProviderCategoryDto> {
-    return await this.providersService.removeCategory(id);
+  async remove(@Request() req, @Param('id') id: number): Promise<ProviderCategoryDto> {
+    return await this.providersService.removeCategory(req.user.userId, id);
   }
 }

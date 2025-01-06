@@ -55,13 +55,13 @@ async function main() {
         name: 'beauty',
       },
       {
-        name: 'accesories',
+        name: 'accessories',
       },
       {
         name: 'rings',
       },
       {
-        name: 'accomodation',
+        name: 'accommodation',
       },
       {
         name: 'legal',

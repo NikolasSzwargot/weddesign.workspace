@@ -15,10 +15,11 @@ export class ProvidersController {
 
   @Patch(':id')
   async update(
+    @Request() req,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateProviderDto: UpdateProviderDto
   ): Promise<ProviderDto> {
-    return await this.providersService.updateProvider(id, updateProviderDto);
+    return await this.providersService.updateProvider(req.user.userId, id, updateProviderDto);
   }
 
   @Get('allInCategory/:categoryId')
@@ -27,13 +28,13 @@ export class ProvidersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<ProviderDto> {
-    return await this.providersService.getProviderById(id);
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ProviderDto> {
+    return await this.providersService.getProviderById(req.user.userId, id);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number): Promise<ProviderDto> {
-    return await this.providersService.removeProvider(id);
+  async remove(@Request() req, @Param('id') id: number): Promise<ProviderDto> {
+    return await this.providersService.removeProvider(req.user.userId, id);
   }
 
   @Get('groupedByStarsInCategory/:categoryId')

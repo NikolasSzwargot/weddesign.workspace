@@ -9,6 +9,8 @@ import {
   UpdateBudgetLimitDto,
   ExpensesByDateDto,
   CreateBudgetLimitDto,
+  CategoryLimitDto,
+  UpdateCategoryLimitDto,
 } from '@shared/dto';
 import { ExpenseCategory } from '@prisma/client';
 import { PrismaService } from '../../../prisma-client.service';
@@ -26,9 +28,9 @@ export class BudgetService {
     return this.prisma.expense.findMany({ where: { userId } });
   }
 
-  async getExpenseById(id: number): Promise<ExpenseDto> {
+  async getExpenseById(userId, id: number): Promise<ExpenseDto> {
     try {
-      return this.prisma.expense.findUnique({ where: { id } });
+      return await this.prisma.expense.findUnique({ where: { id, userId } });
     } catch (e) {
       if (e.code === 'P2025') {
         throw new Error('Expense not found');
@@ -37,10 +39,10 @@ export class BudgetService {
     }
   }
 
-  async updateExpense(id: number, updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
+  async updateExpense(userId: number, id: number, updateExpenseDto: UpdateExpenseDto): Promise<ExpenseDto> {
     try {
       return await this.prisma.expense.update({
-        where: { id },
+        where: { id, userId },
         data: updateExpenseDto,
       });
     } catch (e) {
@@ -51,9 +53,9 @@ export class BudgetService {
     }
   }
 
-  async deleteExpenseById(id: number): Promise<ExpenseDto> {
+  async deleteExpenseById(userId: number, id: number): Promise<ExpenseDto> {
     try {
-      return this.prisma.expense.delete({ where: { id: id } });
+      return this.prisma.expense.delete({ where: { id, userId } });
     } catch (e) {
       if (e.code === 'P2025') {
         throw new Error('Expense not found');
@@ -71,15 +73,19 @@ export class BudgetService {
     return category?.name || 'Unknown';
   }
 
-  async getCategoryLimit(categoryId: number): Promise<number> {
-    const category = await this.prisma.expenseCategory.findUnique({ where: { id: categoryId } });
+  async getCategoryLimit(userId: number, id: number): Promise<number> {
+    const category = await this.prisma.expenseCategoryLimit.findUnique({ where: { id, userId } });
     return category?.limit || null;
   }
 
-  async setCategoryLimit(id: number, updateCategoryLimit: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
+  async setCategoryLimit(
+    userId: number,
+    id: number,
+    updateCategoryLimit: UpdateCategoryLimitDto
+  ): Promise<CategoryLimitDto> {
     try {
-      return this.prisma.expenseCategory.update({
-        where: { id: id },
+      return this.prisma.expenseCategoryLimit.update({
+        where: { id, userId },
         data: updateCategoryLimit,
       });
     } catch (e) {
@@ -97,7 +103,7 @@ export class BudgetService {
 
     const expenseDetails = await Promise.all(
       Object.keys(groupedExpenses).map(async (categoryIdStr) => {
-        return this.createExpenseByCategoryDetailDto(categoryIdStr, groupedExpenses[categoryIdStr]);
+        return this.createExpenseByCategoryDetailDto(userId, categoryIdStr, groupedExpenses[categoryIdStr]);
       })
     );
     return expenseDetails.sort((a, b) => b.spent - a.spent);
@@ -118,13 +124,14 @@ export class BudgetService {
   }
 
   private async createExpenseByCategoryDetailDto(
+    userId: number,
     categoryIdStr: string,
     expenses: ExpenseDto[]
   ): Promise<ExpensesByCategoryDto> {
     const categoryId = parseInt(categoryIdStr, 10);
     const [categoryName, limit] = await Promise.all([
       this.getCategoryName(categoryId),
-      this.getCategoryLimit(categoryId),
+      this.getCategoryLimit(userId, categoryId),
     ]);
 
     const spent = expenses.reduce((total, expense) => total + expense.amount, 0);
@@ -195,10 +202,14 @@ export class BudgetService {
     return this.prisma.mainBudgetLimit.create({ data: { ...newBudgetLimit, userId } });
   }
 
-  async updateBudgetLimit(id: number, updateBudgetLimitDto: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
+  async updateBudgetLimit(
+    userId: number,
+    id: number,
+    updateBudgetLimitDto: UpdateBudgetLimitDto
+  ): Promise<BudgetLimitDto> {
     try {
       return this.prisma.mainBudgetLimit.update({
-        where: { id },
+        where: { id, userId },
         data: updateBudgetLimitDto,
       });
     } catch (e) {
