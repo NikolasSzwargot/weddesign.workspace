@@ -80,7 +80,7 @@ const GuestList = () => {
     const handleYes = () => {
         setModalVisible(false);
         deleteGuest(
-            {guestId: selectedItem.id},
+            {guestId: selectedItem?.id},
             {
                 onSuccess: handleSuccess,
                 onError: handleError,
@@ -101,7 +101,7 @@ const GuestList = () => {
         setStatusModalVisible(false);
         updateGuest(
             {
-                id: selectedItem.id,
+                id: selectedItem?.id,
                 updateGuestDto: {guestStatusId: newGuestStatusId},
             },
             {onSuccess: handleSuccess, onError: handleError},
