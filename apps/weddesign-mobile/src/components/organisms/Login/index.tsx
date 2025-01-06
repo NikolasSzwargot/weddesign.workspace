@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Input, ProgressBar} from '@weddesign/components';
+import {Button, Input, LoadingSpinner, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
-import {Colors, LoginRoutes} from '@weddesign/enums';
+import {Colors, HomeRoutes, LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Platform, TextInput} from 'react-native';
 
@@ -29,6 +29,18 @@ const Login = () => {
 
     const {router} = useRouting();
     const {login} = useUser();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const handleLogin = async () => {
+        try {
+            setIsLoading(true);
+            await login({email: email, password: password});
+            router.navigate(HomeRoutes.HOME);
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <StyledKeyboardAvoidingView
@@ -74,15 +86,19 @@ const Login = () => {
                                 style={styles.textInput}
                             />
 
-                            <Button
-                                variant={'secondary'}
-                                size={'medium'}
-                                onPress={() => {
-                                    login({email: email, password: password});
-                                }}
-                            >
-                                {t('loginScreen.login_with_email')}
-                            </Button>
+                            {!isLoading ? (
+                                <Button
+                                    variant={'secondary'}
+                                    size={'medium'}
+                                    onPress={() => {
+                                        handleLogin();
+                                    }}
+                                >
+                                    {t('loginScreen.login_with_email')}
+                                </Button>
+                            ) : (
+                                <LoadingSpinner />
+                            )}
                             <Button
                                 variant={'gray-out'}
                                 size={'medium'}

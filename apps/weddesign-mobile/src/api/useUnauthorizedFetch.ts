@@ -1,5 +1,6 @@
 import {fetchWrapper} from '@weddesign/api';
+import {API_URL} from '@weddesign-mobile/config';
 
 export const useUnauthorizedFetch = () => {
-    return fetchWrapper('http://192.168.8.102:3000');
+    return fetchWrapper(API_URL);
 };

@@ -103,6 +103,7 @@ node_modules/
 /apps/backend/.env
 /apps/mobile/.env
 /apps/weddesign-mobile/.env
+/apps/weddesign-mobile/src/Config/index.ts
 
 # Expo
 node_modules/

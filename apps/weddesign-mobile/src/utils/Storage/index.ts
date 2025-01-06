@@ -1,12 +1,9 @@
-import {MMKV} from 'react-native-mmkv';
-
-const storage = new MMKV();
+import * as SecureStore from 'expo-secure-store';
 
 export const saveToCache = async <T>(key: string, value: T): Promise<void> => {
     try {
         const stringValue = JSON.stringify(value);
-        storage.set(key, stringValue);
-        console.log(`Saved ${key} to MMKV.`);
+        await SecureStore.setItemAsync(key, stringValue);
     } catch (error) {
         console.error(`Error saving ${key}:`, error);
     }
@@ -14,9 +11,8 @@ export const saveToCache = async <T>(key: string, value: T): Promise<void> => {
 
 export const getFromCache = async <T>(key: string): Promise<T | null> => {
     try {
-        const stringValue = storage.getString(key);
-        if (stringValue === undefined) {
-            console.log(`No value found for ${key} in MMKV.`);
+        const stringValue = await SecureStore.getItemAsync(key);
+        if (stringValue === null) {
             return null;
         }
         return JSON.parse(stringValue) as T;
@@ -28,8 +24,7 @@ export const getFromCache = async <T>(key: string): Promise<T | null> => {
 
 export const removeFromCache = async (key: string): Promise<void> => {
     try {
-        storage.delete(key);
-        console.log(`Removed ${key} from MMKV.`);
+        await SecureStore.deleteItemAsync(key);
     } catch (error) {
         console.error(`Error removing ${key}:`, error);
     }

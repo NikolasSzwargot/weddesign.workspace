@@ -8,9 +8,9 @@
     "metro-config": "*",
     "react-native": "*",
     "expo": "*",
+    "react": "*",
     "react-native-svg": "*",
-    "react-native-web": "*",
-    "react": "18.3.1"
+    "expo-secure-store": "*"
   },
   "scripts": {
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/weddesign-mobile",

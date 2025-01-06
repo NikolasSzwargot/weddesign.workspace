@@ -1,4 +1,10 @@
-import {Button, Calendar, Input, ProgressBar} from '@weddesign/components';
+import {
+    Button,
+    Calendar,
+    Input,
+    LoadingSpinner,
+    ProgressBar,
+} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
 import {RegisterFormType, useRouting} from '@weddesign-mobile/components';
 import {LoginRoutes} from '@weddesign/enums';
@@ -31,28 +37,34 @@ const DateSetup = () => {
     const {t, i18n} = useTranslation('login');
     const {setValue, watch, getValues} = useFormContext<RegisterFormType>();
     const [weddingDate, setWeddingDate] = useState<DateType>(dayjs());
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const formWeddingDate = watch('weddingDate', new Date());
     const [showDateModal, setShowDateModal] = useState<boolean>(false);
     const {register} = useUser();
 
     const handleRegister = async () => {
-        const formValues = getValues();
-        const userData: RegisterDto = {
-            email: formValues.email,
-            password: formValues.password,
-            user: {
-                firstNameBride: formValues.firstNameBride,
-                firstNameGroom: formValues.firstNameGroom,
-                lastName: formValues.lastName,
-                weddingDate: formValues.weddingDate,
-                language: formValues.language,
-            },
-        };
+        try {
+            setIsLoading(true);
+            const formValues = getValues();
+            const userData: RegisterDto = {
+                email: formValues.email,
+                password: formValues.password,
+                user: {
+                    firstNameBride: formValues.firstNameBride,
+                    firstNameGroom: formValues.firstNameGroom,
+                    lastName: formValues.lastName,
+                    weddingDate: formValues.weddingDate,
+                    language: formValues.language,
+                },
+            };
 
-        console.log(userData);
-
-        await register(userData);
+            await register(userData);
+            setIsLoading(false);
+        } catch (error) {
+            console.error(error);
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -110,30 +122,36 @@ const DateSetup = () => {
                 <NextButtonContainer
                     style={showDateModal ? {height: '10%'} : {height: '15%'}}
                 >
-                    <ButtonsContainer>
-                        {!showDateModal && (
+                    {!isLoading ? (
+                        <ButtonsContainer>
+                            {!showDateModal && (
+                                <Button
+                                    onPress={() => {
+                                        router.navigate(LoginRoutes.NAMESSETUP);
+                                    }}
+                                    variant={'pink-out'}
+                                >
+                                    {t('back')}
+                                </Button>
+                            )}
                             <Button
                                 onPress={() => {
-                                    router.navigate(LoginRoutes.NAMESSETUP);
+                                    if (!showDateModal) {
+                                        handleRegister();
+                                    } else {
+                                        setShowDateModal(false);
+                                    }
                                 }}
-                                variant={'pink-out'}
+                                disabled={!weddingDate}
                             >
-                                {t('back')}
+                                {showDateModal
+                                    ? t('date.submitDate')
+                                    : t('date.end')}
                             </Button>
-                        )}
-                        <Button
-                            onPress={() => {
-                                if (!showDateModal) {
-                                    handleRegister();
-                                } else {
-                                    setShowDateModal(false);
-                                }
-                            }}
-                            disabled={!weddingDate}
-                        >
-                            {showDateModal ? t('date.submitDate') : t('date.end')}
-                        </Button>
-                    </ButtonsContainer>
+                        </ButtonsContainer>
+                    ) : (
+                        <LoadingSpinner />
+                    )}
                 </NextButtonContainer>
             </StyledScrollView>
         </StyledKeyboardAvoidingView>

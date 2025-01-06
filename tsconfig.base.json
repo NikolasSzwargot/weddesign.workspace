@@ -22,6 +22,7 @@
       "@weddesign-mobile/utils": ["apps/weddesign-mobile/src/utils/index.ts"],
       "@weddesign-mobile/api": ["libs/weddesign-mobile/api/src/index.ts"],
       "@weddesign-mobile/hooks": ["apps/weddesign-mobile/src/hooks/index.ts"],
+      "@weddesign-mobile/config": ["apps/weddesign-mobile/src/config/index.ts"],
       "@mobile/assets": ["apps/mobile/src/assets/index.ts"],
       "@mobile/components": ["apps/mobile/src/components/index.ts"],
       "@mobile/hooks": ["apps/mobile/src/hooks/index.ts"],

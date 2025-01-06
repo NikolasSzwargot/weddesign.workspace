@@ -83,7 +83,7 @@ export const UserProvider = ({children}) => {
 
     useEffect(() => {
         if (user) {
-            // router.navigate(HomeRoutes.HOME);
+            router.navigate(HomeRoutes.HOME);
         }
     }, [user]);
 
