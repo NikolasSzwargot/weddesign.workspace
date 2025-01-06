@@ -65,7 +65,7 @@ export class BudgetService {
   }
 
   async getCategories(): Promise<ExpenseCategory[]> {
-    return this.prisma.expenseCategory.findMany();
+    return this.prisma.expenseCategory.findMany({ orderBy: { id: 'asc' } });
   }
 
   async getCategoryName(categoryId: number): Promise<string> {

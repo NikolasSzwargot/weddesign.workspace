@@ -1,6 +1,8 @@
 import React from 'react';
 import {Login} from '@mobile/components';
 import {LoginScreens} from '@weddesign/enums';
+import {CreateUserDto} from '@shared/dto';
+import {FormProvider, useForm} from 'react-hook-form';
 
 import LanguageSetup from '../../organisms/Login/LanguageSetup';
 import Register from '../../organisms/Login/Register';
@@ -10,19 +12,56 @@ import DateSetup from '../../organisms/Login/DateSetup';
 type loginPageProps = {
     screen?: LoginScreens;
 };
-const LoginPage = ({screen}: loginPageProps) => {
+
+export type RegisterFormType = {
+    firstNameBride: string;
+    firstNameGroom: string;
+    lastName: string;
+    weddingDate: Date;
+    language: string;
+    email: string;
+    password: string;
+};
+
+const defaultUserValues: RegisterFormType = {
+    firstNameBride: '',
+    firstNameGroom: '',
+    lastName: 'mock',
+    weddingDate: new Date(),
+    language: 'pl',
+    email: '',
+    password: '',
+} as const;
+
+export const LoginPage = ({screen}: loginPageProps) => {
+    const methods = useForm<CreateUserDto>({defaultValues: {...defaultUserValues}});
+
     switch (screen) {
         case LoginScreens.LANGUAGE:
-            return <LanguageSetup />;
+            return (
+                <FormProvider {...methods}>
+                    <LanguageSetup />
+                </FormProvider>
+            );
         case LoginScreens.REGISTER:
-            return <Register />;
+            return (
+                <FormProvider {...methods}>
+                    <Register />
+                </FormProvider>
+            );
         case LoginScreens.NAMES:
-            return <BrideGroomSetup />;
+            return (
+                <FormProvider {...methods}>
+                    <BrideGroomSetup />
+                </FormProvider>
+            );
         case LoginScreens.DATE:
-            return <DateSetup />;
+            return (
+                <FormProvider {...methods}>
+                    <DateSetup />
+                </FormProvider>
+            );
         default:
             return <Login />;
     }
 };
-
-export default LoginPage;

@@ -19,7 +19,7 @@ export const GuestFormWrapper = styled.View`
 
 export const FormInputWrapper = styled.View`
     justify-content: flex-start;
-    margin-top: 25%;
+    padding-top: 18%;
     padding-left: 20px;
     padding-right: 20px;
 `;

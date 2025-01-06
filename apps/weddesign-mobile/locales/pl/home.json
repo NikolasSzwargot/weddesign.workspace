@@ -1,0 +1,11 @@
+{
+  "welcome": "Cześć {{groomName}} i {{brideName}}",
+  "counter": "Do wielkiego dnia zostało {{days}} dni",
+  "nextTask": "Następne zadanie",
+  "buttons": {
+    "guests": "Lista gości",
+    "budget": "Budżet",
+    "providers": "Podwykonawcy",
+    "tasks": "Zadania"
+  }
+}
