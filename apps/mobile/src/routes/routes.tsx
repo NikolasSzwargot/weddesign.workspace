@@ -1,8 +1,8 @@
 import React from 'react';
 import {
     AppRootRoutes,
-    ErrorScreens,
     ExpensesScreens,
+    ErrorScreens,
     GuestsScreens,
     LoginScreens,
     ProvidersScreens,
@@ -79,6 +79,11 @@ export const BudgetRoutingRoutes: Route[] = [
         route: AppRootRoutes.BUDGET,
         screen: ExpensesScreens.ADD,
         element: <BudgetMainPage screen={ExpensesScreens.ADD} />,
+    },
+    {
+        route: AppRootRoutes.BUDGET,
+        screen: ExpensesScreens.LIMITS,
+        element: <BudgetMainPage screen={ExpensesScreens.LIMITS} />,
     },
 ];
 

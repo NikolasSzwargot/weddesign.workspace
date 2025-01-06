@@ -23,6 +23,7 @@ export enum GuestsScreens {
 
 export enum ExpensesScreens {
     LIST = '/list',
+    LIMITS = '/limits',
     ADD = '/add',
 }
 

@@ -26,42 +26,48 @@ async function main() {
     data: [
       {
         name: 'food',
+        limit: 10000,
       },
       {
         name: 'place',
       },
       {
         name: 'decoration',
+        limit: 30000,
       },
       {
         name: 'flowers',
       },
       {
         name: 'photos',
+        limit: 40000,
       },
       {
         name: 'music',
       },
       {
         name: 'entertainment',
+        limit: 50000,
       },
       {
         name: 'presents',
       },
       {
         name: 'outfits',
+        limit: 60000,
       },
       {
         name: 'beauty',
       },
       {
-        name: 'accesories',
+        name: 'accessories',
+        limit: 70000,
       },
       {
         name: 'rings',
       },
       {
-        name: 'accomodation',
+        name: 'accommodation',
       },
       {
         name: 'legal',
@@ -143,7 +149,7 @@ async function main() {
     data: { limit: 213769 },
   });
 
-  console.log('main limit set correctly');
+  console.log('main limit has been imported correctly');
 }
 
 main()
