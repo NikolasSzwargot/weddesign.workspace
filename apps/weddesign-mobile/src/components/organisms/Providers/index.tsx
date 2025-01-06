@@ -9,11 +9,11 @@ import {
     ProvidersCategoryItem,
 } from '@weddesign/components';
 import {useTranslation} from 'react-i18next';
-import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
+import {Colors, ErrorRoutes, ProvidersRoutes, HomeRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
 import {CategoryToSummaryDto} from '@shared/dto';
-import {useRouting} from '@weddesign-mobile/components';
 
+import {useRouting} from '../../providers';
 import {WeddesignConfirmationModal} from '../../molecules';
 import {useProvidersCategoriesAll} from '../../../api/Providers/useProvidersCategoriesAll';
 import {useDeleteCategory} from '../../../api/Providers/useDeleteCategory';
@@ -38,7 +38,7 @@ const ProvidersGrouped = () => {
         isFetching,
     } = useProvidersCategoriesAll();
 
-    //@TODO: Dodać dodawania kategorii
+    //@TODO: Add option to add categories
     const isAdding = false;
 
     const handleSuccess = () => {
@@ -101,7 +101,10 @@ const ProvidersGrouped = () => {
                                         inDatabaseLabel={t('inDatabase')}
                                         reservedLabel={t('reserved')}
                                         onPress={() =>
-                                            console.log('Idziemy do listy')
+                                            router.navigate(
+                                                ProvidersRoutes.LIST,
+                                                item,
+                                            )
                                         }
                                         onLongPress={handleDelete}
                                     />
