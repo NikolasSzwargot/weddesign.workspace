@@ -1,8 +1,0 @@
-{
-  "spinnerMessage": "This can take a few seconds...",
-  "confirmationModal" : {
-    "yesText": "Yes",
-    "noText": "No",
-    "message": "Are you sure you want to proceed?"
-  }
-}
