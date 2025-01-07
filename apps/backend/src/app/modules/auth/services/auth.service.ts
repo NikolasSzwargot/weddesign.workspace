@@ -48,7 +48,14 @@ export class AuthService {
       throw new UnauthorizedException();
     }
     const user = await this.prisma.user.findUnique({ where: { id: account.userId } });
-    const payload = { email: loginDto.email, userId: user.id };
+    const payload = {
+      email: loginDto.email,
+      userId: user.id,
+      brideName: user.firstNameBride,
+      groomName: user.firstNameGroom,
+      lastName: user.lastName,
+      weddingDate: user.weddingDate,
+    };
 
     const expiresIn = jwtConstants.expiresIn;
     const expiresInMs = typeof expiresIn === 'string' ? ms(expiresIn) : expiresIn * 1000;
