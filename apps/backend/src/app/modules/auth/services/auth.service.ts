@@ -55,6 +55,7 @@ export class AuthService {
       groomName: user.firstNameGroom,
       lastName: user.lastName,
       weddingDate: user.weddingDate,
+      language: user.language,
     };
 
     const expiresIn = jwtConstants.expiresIn;

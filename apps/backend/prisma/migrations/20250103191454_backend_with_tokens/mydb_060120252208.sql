@@ -655,17 +655,17 @@ COPY public."providerCategories" (id, "iconId", name, "userId", "createdAt", "up
 --
 
 COPY public.providers (id, name, description, "categoryId", amount, website, instagram, email, "phoneNumber", stars, "isReserved", "userId", "createdAt", "updatedAt") FROM stdin;
-1	Pałac Śródka	Jedzenie bardzo dobre, sala ładna, Monia i Wojtek zadowoleni. Ma dobrą lokalizację	1	26496	https://palac-srodka.pl/	https://www.instagram.com/explore/locations/1016410804/palac-srodka/	\N	\N	5	t	1	2025-01-03 20:50:37.447	2025-01-03 20:50:37.447
+1	Pałac Śródka	Jedzenie bardzo dobre, sala ładna, Monia i Wojtek zadowoleni. Ma dobrą lokalizację	1	26496	https://palac-srodka.pl/	@palacsrodka	\N	\N	5	t	1	2025-01-03 20:50:37.447	2025-01-03 20:50:37.447
 2	Dwór Wierzenica	Piękny, ale sala wydaje się mała (i jest max 80 osób)	1	32500	\N	\N	info@dwor-wierzenica.pl	503503034	5	f	1	2025-01-03 20:52:17.65	2025-01-03 20:52:17.65
 3	Przyborowo11	Na żywo brzydko. W dodatku drogo	1	100000000	\N	\N	\N	\N	1	f	1	2025-01-03 20:54:31.66	2025-01-03 20:54:31.66
 4	Słoneczko Sieraków	Niby tanio niby ładnie, ale kto by chciał mieć wesele na słoneczku w Sierakowie? xD	1	25000	\N	\N	\N	\N	3	f	1	2025-01-03 20:56:42.258	2025-01-03 20:56:42.258
 5	Pałac Szczepowice	ładny namiot mają i jest niedrogo	1	26000	\N	\N	\N	\N	4	f	1	2025-01-03 20:57:47.852	2025-01-03 20:57:47.852
-6	Marika Sęowska	Ta od Moni i Wojtka	2	\N	https://www.marikasekowska.pl/	https://www.instagram.com/marikasekowskafotografie/?hl=en	\N	\N	5	f	1	2025-01-03 21:01:33.822	2025-01-03 21:01:33.822
-7	Nina&Darek	Bardzo nostalgiczny vibe	2	\N	https://ninaanddarek.com	https://www.instagram.com/ninaanddarek/?hl=en	\N	\N	5	f	1	2025-01-03 21:02:57.722	2025-01-03 21:02:57.722
-8	Dominika Miś	W ostateczności xD	2	\N	https://www.dominikamis.com/	https://www.instagram.com/dominikamis_fotografia/	\N	\N	2	f	1	2025-01-03 21:04:14.425	2025-01-03 21:04:14.425
-9	Mybestphoto.pl	Ja uważam, że ładne - Nadia nie	2	\N	https://mybestphoto.pl/	https://www.instagram.com/mybestphoto.pl/	\N	\N	4	f	1	2025-01-03 21:06:07.401	2025-01-03 21:06:07.401
-10	Studio lento fotografia film	Meh	2	\N	\N	https://www.instagram.com/studiolento_fotografia.film	\N	\N	2	f	1	2025-01-03 21:07:20.915	2025-01-03 21:07:20.915
-11	Zara Zarachowicz	Robi pięne filmy, ale jest z podlasia XD	2	\N	\N	https://www.instagram.com/zara.zarachowicz/reels/?__d=1	\N	\N	5	f	1	2025-01-03 21:08:28.159	2025-01-03 21:08:28.159
+6	Marika Sęowska	Ta od Moni i Wojtka	2	\N	https://www.marikasekowska.pl/	@marikasekowskafotografie	\N	\N	5	f	1	2025-01-03 21:01:33.822	2025-01-03 21:01:33.822
+7	Nina&Darek	Bardzo nostalgiczny vibe	2	\N	https://ninaanddarek.com	@ninaanddarek	\N	\N	5	f	1	2025-01-03 21:02:57.722	2025-01-03 21:02:57.722
+8	Dominika Miś	W ostateczności xD	2	\N	https://www.dominikamis.com/	@dominikamis_com/	\N	\N	2	f	1	2025-01-03 21:04:14.425	2025-01-03 21:04:14.425
+9	Mybestphoto.pl	Ja uważam, że ładne - Nadia nie	2	\N	https://mybestphoto.pl/	@mybestphoto.pl	\N	\N	4	f	1	2025-01-03 21:06:07.401	2025-01-03 21:06:07.401
+10	Studio lento fotografia film	Meh	2	\N	\N	@studiolento_fotografia.film	\N	\N	2	f	1	2025-01-03 21:07:20.915	2025-01-03 21:07:20.915
+11	Zara Zarachowicz	Robi pięne filmy, ale jest z podlasia XD	2	\N	\N	@zara.zarachowicz	\N	\N	5	f	1	2025-01-03 21:08:28.159	2025-01-03 21:08:28.159
 \.
 
 
