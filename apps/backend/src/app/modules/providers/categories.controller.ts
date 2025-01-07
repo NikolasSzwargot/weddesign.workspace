@@ -2,7 +2,9 @@ import { ProvidersService } from './services/providers.service';
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Request } from '@nestjs/common';
 import { CategoryToSummaryDto, CreateProviderCategoryDto, ProviderCategoryDto } from '@shared/dto';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Providers')
 @ApiGlobalDecorators()
 @Controller('providers/categories')
 export class CategoriesController {

@@ -2,7 +2,9 @@ import { Body, Controller, Get, Param, ParseIntPipe, Patch, Request } from '@nes
 import { CategoryLimitDto, UpdateBudgetLimitDto } from '@shared/dto';
 import { BudgetService } from './services/budget.service';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Budget')
 @ApiGlobalDecorators()
 @Controller('budget/categories')
 export class CategoriesLimitController {

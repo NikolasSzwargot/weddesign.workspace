@@ -2,9 +2,10 @@ import { Controller, Post, Body, HttpCode, HttpStatus, Get, Request } from '@nes
 import { AuthService } from './services/auth.service';
 import { RegisterAccountDto } from '@shared/dto';
 import { LoginDto } from '@shared/dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from '../../../decorators/public.decorator';
 
+@ApiTags('Authorization')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
