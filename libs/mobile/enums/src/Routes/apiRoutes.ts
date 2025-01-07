@@ -17,11 +17,11 @@ export enum ApiRoutes {
     MainLimitStats = '/budget/limit',
     CategoriesData = '/budget/categories',
 
-    ProvidersCategoriesAll = '/providers/categories/all',
-    ProvidersCategoriesDelete = '/providers/categories/delete',
-    ProvidersGroupedByStarsInCategory = '/providers/groupedByStarsInCategory',
-    ProvidersDelete = '/providers',
-    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+    ProvidersCategories = '/providers/categories',
+    ProvidersCategoriesDelete = '/providers/categories/:id',
+    ProvidersGroupedByStarsInCategory = '/providers/groupedByStarsInCategory/:categoryId',
     ProvidersCreate = '/providers',
+    ProvidersDelete = '/providers/:id',
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     ProvidersUpdate = '/providers/:id',
 }

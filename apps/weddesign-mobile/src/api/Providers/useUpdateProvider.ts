@@ -23,7 +23,7 @@ export const useUpdateProvider = () => {
             ),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries([ApiRoutes.ProvidersCategoriesAll]);
+                queryClient.invalidateQueries([ApiRoutes.ProvidersCategories]);
                 queryClient.invalidateQueries([
                     ApiRoutes.ProvidersGroupedByStarsInCategory,
                 ]);

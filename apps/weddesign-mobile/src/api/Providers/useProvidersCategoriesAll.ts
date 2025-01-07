@@ -8,7 +8,7 @@ export const useProvidersCategoriesAll = () => {
     const api = useFetch();
 
     return useQuery<CategoryToSummaryDto[], Error>(
-        [ApiRoutes.ProvidersCategoriesAll],
-        () => api.GET<CategoryToSummaryDto[]>(ApiRoutes.ProvidersCategoriesAll),
+        [ApiRoutes.ProvidersCategories],
+        () => api.GET<CategoryToSummaryDto[]>(ApiRoutes.ProvidersCategories),
     );
 };
