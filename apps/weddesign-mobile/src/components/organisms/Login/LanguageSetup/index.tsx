@@ -35,7 +35,7 @@ const LanguageSetup = () => {
         <>
             <Container>
                 <ProgressLogoContainer>
-                    <ProgressBar progress={5} />
+                    <ProgressBar progress={30} />
                     <Images.Logo />
                 </ProgressLogoContainer>
 
@@ -53,7 +53,7 @@ const LanguageSetup = () => {
             <NextButtonContainer>
                 <Button
                     onPress={() => {
-                        router.navigate(LoginRoutes.REGISTER);
+                        router.navigate(LoginRoutes.NAMESSETUP);
                     }}
                 >
                     {t('next')}

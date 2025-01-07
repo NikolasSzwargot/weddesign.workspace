@@ -1,4 +1,4 @@
-import {LoginDto, UserDto} from '@shared/dto';
+import {LoginDto} from '@shared/dto';
 import {
     createContext,
     useCallback,
@@ -12,12 +12,13 @@ import {getFromCache, removeFromCache, saveToCache} from '@weddesign-mobile/util
 import {fetchWrapper} from '@weddesign/api';
 import {API_URL} from '@weddesign-mobile/config';
 import {ApiRoutes, AppRootRoutes, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
+import {User} from '@weddesign/types';
 
 import {useRegister} from '../../api';
 import {RegisterDto, useLogin} from '../../api';
 
 type UserContextType = {
-    user: UserDto | undefined | null;
+    user: User | undefined | null;
     accessToken: AccessTokenDto | undefined | null;
     login: (data: LoginDto) => void;
     register: (data: RegisterDto) => void;
@@ -43,7 +44,7 @@ const TOKEN_KEY = 'token_key' as const;
 
 export const UserProvider = ({children}) => {
     const [token, setToken] = useState<AccessTokenDto>(null);
-    const [user, setUser] = useState<UserDto | undefined | null>(null);
+    const [user, setUser] = useState<User | undefined | null>(null);
     const {router} = useRouting();
 
     const {mutateAsync: mutateLogin} = useLogin();
@@ -121,7 +122,7 @@ export const UserProvider = ({children}) => {
             if (token) {
                 const api = fetchWrapper(API_URL, () => token.access_token);
                 try {
-                    const profile = await api.GET<UserDto>(ApiRoutes.Profile);
+                    const profile = await api.GET<User>(ApiRoutes.Profile);
 
                     if (profile) {
                         setUser(profile);
