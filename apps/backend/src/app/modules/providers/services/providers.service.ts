@@ -18,13 +18,13 @@ export class ProvidersService {
     return this.prisma.providerCategory.create({ data: { ...newCategoryDto, userId } });
   }
 
-  async removeCategory(userId: number, id: number): Promise<ProviderCategoryDto> {
+  async removeCategory(userId: number, categoryId: number): Promise<ProviderCategoryDto> {
     try {
       await this.prisma.provider.deleteMany({
-        where: { categoryId: id, userId },
+        where: { categoryId, userId },
       });
 
-      return this.prisma.providerCategory.delete({ where: { id, userId } });
+      return this.prisma.providerCategory.delete({ where: { id: categoryId, userId } });
     } catch (e) {
       if (e.code === 'P2025') {
         throw new Error('Provider category not found');

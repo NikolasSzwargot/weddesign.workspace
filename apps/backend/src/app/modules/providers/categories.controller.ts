@@ -29,7 +29,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  async remove(@Request() req, @Param('id') id: number): Promise<ProviderCategoryDto> {
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ProviderCategoryDto> {
     return await this.providersService.removeCategory(req.user.userId, id);
   }
 }

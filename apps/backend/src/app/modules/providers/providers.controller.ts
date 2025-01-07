@@ -35,7 +35,7 @@ export class ProvidersController {
   }
 
   @Delete(':id')
-  async remove(@Request() req, @Param('id') id: number): Promise<ProviderDto> {
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ProviderDto> {
     return await this.providersService.removeProvider(req.user.userId, id);
   }
 
