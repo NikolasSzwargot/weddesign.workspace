@@ -12,13 +12,13 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<{ access_token: string }> {
+  async login(@Body() loginDto: LoginDto): Promise<{ access_token: string; expires_at: string }> {
     return await this.authService.login(loginDto);
   }
 
   @Public()
   @Post('register')
-  async register(@Body() createAccountDto: RegisterAccountDto): Promise<{ access_token: string }> {
+  async register(@Body() createAccountDto: RegisterAccountDto): Promise<{ access_token: string; expires_at: string }> {
     await this.authService.create(createAccountDto);
     const email = createAccountDto.email;
     const password = createAccountDto.password;
