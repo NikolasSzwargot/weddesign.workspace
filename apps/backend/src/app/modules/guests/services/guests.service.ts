@@ -6,27 +6,32 @@ import { Guest, PrismaClient } from '@prisma/client';
 export class GuestsService {
   private prisma = new PrismaClient();
 
-  async create(createGuestDto: CreateGuestDto): Promise<Guest> {
-    return this.prisma.guest.create({ data: createGuestDto });
+  async create(userId: number, createGuestDto: CreateGuestDto): Promise<Guest> {
+    return this.prisma.guest.create({
+      data: {
+        ...createGuestDto,
+        userId,
+      },
+    });
   }
 
-  async update(id: number, updateGuestDto: UpdateGuestDto): Promise<Guest | null> {
+  async update(userId: number, id: number, updateGuestDto: UpdateGuestDto): Promise<Guest | null> {
     try {
       return await this.prisma.guest.update({
-        where: { id },
+        where: { id, userId },
         data: updateGuestDto,
       });
-    } catch (error) {
-      if (error.code === 'P2025') {
-        //guest not found
-        return null;
+    } catch (e) {
+      if (e.code === 'P2025') {
+        throw new Error('Expense not found');
       }
-      throw error;
+      throw e;
     }
   }
 
-  async countGuests(filter?: string, statusName?: string, statusId?: number): Promise<number> {
+  async countGuests(userId: number, filter?: string, statusName?: string, statusId?: number): Promise<number> {
     const where: any = {};
+    where.userId = userId;
 
     switch (filter) {
       case 'overnight':
@@ -63,20 +68,20 @@ export class GuestsService {
     });
   }
 
-  async findAll(): Promise<Guest[]> {
-    return this.prisma.guest.findMany();
+  async findAll(userId: number): Promise<Guest[]> {
+    return this.prisma.guest.findMany({ where: { userId } });
   }
 
-  async findOne(id: number): Promise<Guest> {
-    return this.prisma.guest.findUnique({ where: { id: id } });
+  async findOne(userId: number, id: number): Promise<Guest> {
+    return this.prisma.guest.findUnique({ where: { id, userId } });
   }
 
-  async remove(id: number): Promise<Guest> {
-    return this.prisma.guest.delete({ where: { id: id } });
+  async remove(userId: number, id: number): Promise<Guest> {
+    return this.prisma.guest.delete({ where: { id, userId } });
   }
 
-  async getGuestsGroupedByFirstLetter(): Promise<{ data: Guest[]; title: string }[]> {
-    const guests = await this.findAll();
+  async getGuestsGroupedByFirstLetter(userId: number): Promise<{ data: Guest[]; title: string }[]> {
+    const guests = await this.findAll(userId);
 
     const groupedGuests: Record<string, Guest[]> = {};
 

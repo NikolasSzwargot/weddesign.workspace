@@ -29,6 +29,8 @@ model Guest {
   notes         String?
   guestStatusId Int         @default(1)
   status        GuestStatus @relation(fields: [guestStatusId], references: [id])
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @default(now()) @updatedAt
 
@@ -48,15 +50,21 @@ model UserLogin {
 }
 
 model User {
-  id             Int         @id @default(autoincrement())
-  firstNameBride String
-  firstNameGroom String
-  lastName       String
-  weddingDate    DateTime
-  language       String      @default("en")
-  UserLogin      UserLogin[]
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @default(now()) @updatedAt
+  id                   Int                    @id @default(autoincrement())
+  firstNameBride       String
+  firstNameGroom       String
+  lastName             String
+  weddingDate          DateTime
+  language             String                 @default("en")
+  UserLogin            UserLogin[]
+  Guest                Guest[]
+  Expense              Expense[]
+  MainBudgetLimit      MainBudgetLimit[]
+  ExpenseCategoryLimit ExpenseCategoryLimit[]
+  Provider             Provider[]
+  ProviderCategory     ProviderCategory[]
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @default(now()) @updatedAt
 
   @@map("users")
 }
@@ -64,12 +72,14 @@ model User {
 model Expense {
   id          Int             @id @default(autoincrement())
   name        String
-  description String
+  description String?
   categoryId  Int
   category    ExpenseCategory @relation(fields: [categoryId], references: [id])
-  amount      Float
+  amount      Float?
   deadline    DateTime        @default(now())
   isPaid      Boolean         @default(true)
+  userId      Int
+  user        User            @relation(fields: [userId], references: [id])
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @default(now()) @updatedAt
 
@@ -77,19 +87,34 @@ model Expense {
 }
 
 model ExpenseCategory {
-  id        Int       @id @default(autoincrement())
-  name      String
-  limit     Float?
-  expenses  Expense[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @default(now()) @updatedAt
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  ExpenseCategoryLimit ExpenseCategoryLimit[]
+  expenses             Expense[]
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @default(now()) @updatedAt
 
   @@map("expenseCategories")
+}
+
+model ExpenseCategoryLimit {
+  id         Int             @id @default(autoincrement())
+  categoryId Int
+  category   ExpenseCategory @relation(fields: [categoryId], references: [id])
+  limit      Float?
+  userId     Int
+  user       User            @relation(fields: [userId], references: [id])
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @default(now()) @updatedAt
+
+  @@map("expenseCategoriesLimits")
 }
 
 model MainBudgetLimit {
   id        Int      @id @default(autoincrement())
   limit     Float
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
@@ -101,6 +126,8 @@ model ProviderCategory {
   iconId    Int
   name      String
   providers Provider[]
+  userId    Int
+  user      User       @relation(fields: [userId], references: [id])
   createdAt DateTime   @default(now())
   updatedAt DateTime   @default(now()) @updatedAt
 
@@ -120,6 +147,8 @@ model Provider {
   phoneNumber String?
   stars       Int              @default(1)
   isReserved  Boolean          @default(false)
+  userId      Int
+  user        User             @relation(fields: [userId], references: [id])
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @default(now()) @updatedAt
 

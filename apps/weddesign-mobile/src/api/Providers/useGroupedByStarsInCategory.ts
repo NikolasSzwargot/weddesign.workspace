@@ -2,7 +2,7 @@ import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {ProviderDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 type providersByStarsProps = {
     title: string;
@@ -10,14 +10,19 @@ type providersByStarsProps = {
 };
 
 export const useProvidersByStarsInCategory = (categoryId: number) => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
+    const getProvidersGroupedByStarsUrl = (id: number): ApiRoutes => {
+        return ApiRoutes.ProvidersGroupedByStarsInCategory.replace(
+            ':categoryId',
+            id.toString(),
+        ) as ApiRoutes;
+    };
 
     return useQuery<providersByStarsProps[], Error>(
         [ApiRoutes.ProvidersGroupedByStarsInCategory],
         () =>
             api.GET<providersByStarsProps[]>(
-                ApiRoutes.ProvidersGroupedByStarsInCategory,
-                {params: {categoryId: categoryId}},
+                getProvidersGroupedByStarsUrl(categoryId),
             ),
     );
 };

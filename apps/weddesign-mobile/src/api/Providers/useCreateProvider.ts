@@ -2,10 +2,10 @@ import {useMutation, useQueryClient} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {CreateProviderDto, ProviderDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 export const useCreateProvider = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
     const queryClient = useQueryClient();
 
     return useMutation<ProviderDto, Error, CreateProviderDto>(
@@ -16,7 +16,7 @@ export const useCreateProvider = () => {
             ),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries([ApiRoutes.ProvidersCategoriesAll]);
+                queryClient.invalidateQueries([ApiRoutes.ProvidersCategories]);
                 queryClient.invalidateQueries([
                     ApiRoutes.ProvidersGroupedByStarsInCategory,
                 ]);

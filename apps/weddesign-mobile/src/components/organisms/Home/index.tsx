@@ -53,8 +53,8 @@ const Home = () => {
                 <MainFrame>
                     <Text.SemiBold size={20}>
                         {t('welcome', {
-                            groomName: user?.firstNameGroom,
-                            brideName: user?.firstNameBride,
+                            groomName: user?.groomName,
+                            brideName: user?.brideName,
                         })}
                     </Text.SemiBold>
                     <Text.SemiBold size={16}>

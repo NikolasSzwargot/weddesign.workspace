@@ -1,54 +1,77 @@
-import {LoginDto, UserDto} from '@shared/dto';
-import {createContext, useContext, useEffect, useMemo, useState} from 'react';
+import {LoginDto} from '@shared/dto';
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import {useRouting} from '@weddesign-mobile/components';
-import {HomeRoutes} from '@weddesign/enums';
 import {getFromCache, removeFromCache, saveToCache} from '@weddesign-mobile/utils';
+import {fetchWrapper} from '@weddesign/api';
+import {API_URL} from '@weddesign-mobile/config';
+import {ApiRoutes, AppRootRoutes, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
+import {User} from '@weddesign/types';
+import {changeLanguage} from 'i18next';
 
-import {RegisterDto, useLogin} from '../../api';
 import {useRegister} from '../../api';
+import {RegisterDto, useLogin} from '../../api';
 
 type UserContextType = {
-    user: UserDto | undefined | null;
+    user: User | undefined | null;
+    accessToken: AccessTokenDto | undefined | null;
     login: (data: LoginDto) => void;
-    register: (data: string) => void;
+    register: (data: RegisterDto) => void;
+    onUnauthorized: () => void;
+    onError: () => void;
+};
+
+export type AccessTokenDto = {
+    access_token: string;
+    expires_at: Date;
 };
 
 const UserContext = createContext<UserContextType>({
     user: null,
+    accessToken: null,
     login: (data: LoginDto) => {},
-    register: (data: string) => {},
+    register: (data: RegisterDto) => {},
+    onUnauthorized: () => {},
+    onError: () => {},
 });
 
-const USER_KEY = 'user_key' as const;
+const TOKEN_KEY = 'token_key' as const;
 
 export const UserProvider = ({children}) => {
-    const [user, setUser] = useState<UserDto | undefined | null>(null);
+    const [token, setToken] = useState<AccessTokenDto>(null);
+    const [user, setUser] = useState<User | undefined | null>(null);
     const {router} = useRouting();
 
     const {mutateAsync: mutateLogin} = useLogin();
     const {mutateAsync: mutateRegister} = useRegister();
 
-    const saveUserToStorage = async (user: UserDto | null) => {
+    const saveTokenToStorage = async (token: AccessTokenDto | null) => {
         try {
-            if (user) {
-                await saveToCache(USER_KEY, user);
+            if (token) {
+                await saveToCache(TOKEN_KEY, token);
             } else {
-                await removeFromCache(USER_KEY);
+                await removeFromCache(TOKEN_KEY);
             }
         } catch (error) {
             console.error('Error saving user to storage', error);
         }
     };
 
-    const loadUserFromStorage = async () => {
-        return getFromCache<UserDto>(USER_KEY);
+    const loadTokenFromStorage = async () => {
+        return getFromCache<AccessTokenDto>(TOKEN_KEY);
     };
 
     const login = async (data: LoginDto) => {
         try {
             const response = await mutateLogin(data);
-            setUser(response);
-            await saveUserToStorage(response);
+            setToken(response);
+            await saveTokenToStorage(response);
         } catch (error) {
             console.error(error);
         }
@@ -57,43 +80,74 @@ export const UserProvider = ({children}) => {
     const register = async (data: RegisterDto) => {
         try {
             await mutateRegister(data);
-            const userData = await mutateLogin({
+            const accessToken = await mutateLogin({
                 email: data.email,
                 password: data.password,
             });
-            setUser(userData);
-            await saveUserToStorage(userData);
-
-            router.navigate(HomeRoutes.HOME);
+            setToken(accessToken);
+            await saveTokenToStorage(accessToken);
         } catch (error) {
             console.log(error.message());
         }
     };
 
+    const onUnauthorized = useCallback(() => {
+        setToken(null);
+        setUser(null);
+        router.navigate(AppRootRoutes.LOGIN);
+    }, [router]);
+
+    const onError = useCallback(() => {
+        router.navigate(ErrorRoutes.GENERAL);
+    }, [router]);
+
     useEffect(() => {
-        const initializeUser = async () => {
-            const storedUser = await loadUserFromStorage();
-            if (storedUser) {
-                setUser(storedUser);
+        const initializeToken = async () => {
+            const storedToken = await loadTokenFromStorage();
+            if (storedToken) {
+                const now = new Date();
+                const expiresAt = new Date(storedToken.expires_at);
+
+                if (expiresAt > now) {
+                    setToken(storedToken);
+                } else {
+                    setToken(null);
+                }
             }
-            loadUserFromStorage();
         };
-        initializeUser();
+        initializeToken();
     }, []);
 
     useEffect(() => {
-        if (user) {
-            router.navigate(HomeRoutes.HOME);
-        }
-    }, [user]);
+        const initializeUser = async () => {
+            if (token) {
+                const api = fetchWrapper(API_URL, () => token.access_token);
+                try {
+                    const profile = await api.GET<User>(ApiRoutes.Profile);
+
+                    if (profile) {
+                        setUser(profile);
+                        await changeLanguage(profile.language);
+                        router.navigate(HomeRoutes.HOME);
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        };
+        initializeUser();
+    }, [token]);
 
     const contextValues = useMemo(
         () => ({
             login: login,
             register: register,
             user: user,
+            accessToken: token,
+            onUnauthorized: onUnauthorized,
+            onError: onError,
         }),
-        [login, register, user],
+        [login, register, user, token],
     );
 
     return (

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button, Input, LoadingSpinner, ProgressBar} from '@weddesign/components';
 import {Images} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
-import {Colors, HomeRoutes, LoginRoutes} from '@weddesign/enums';
+import {Colors, LoginRoutes} from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Platform, TextInput} from 'react-native';
 
@@ -35,7 +35,6 @@ const Login = () => {
         try {
             setIsLoading(true);
             await login({email: email, password: password});
-            router.navigate(HomeRoutes.HOME);
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
@@ -93,6 +92,7 @@ const Login = () => {
                                     onPress={() => {
                                         handleLogin();
                                     }}
+                                    disabled={isLoading}
                                 >
                                     {t('loginScreen.login_with_email')}
                                 </Button>
@@ -105,6 +105,7 @@ const Login = () => {
                                 onPress={() => {
                                     router.navigate(LoginRoutes.REGISTER);
                                 }}
+                                disabled={isLoading}
                             >
                                 {t('loginScreen.no_account_register')}
                             </Button>
@@ -118,6 +119,7 @@ const Login = () => {
                             router.navigate(LoginRoutes.LANGUAGE);
                         }}
                         variant={'pink-out'}
+                        disabled={isLoading}
                     >
                         {t('back')}
                     </Button>

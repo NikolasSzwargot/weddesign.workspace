@@ -10,13 +10,18 @@ import {
   Patch,
   ParseIntPipe,
   NotFoundException,
+  Request,
 } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
 import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
-import { ApiQuery } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Guest, GuestStatus } from '@prisma/client';
+import { Public } from '../../../decorators/public.decorator';
+import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
+@ApiTags('Guests')
+@ApiGlobalDecorators()
 @Controller('guests')
 export class GuestsController {
   constructor(
@@ -24,33 +29,32 @@ export class GuestsController {
     private readonly guestStatusesService: GuestsStatusesService
   ) {}
 
-  @Post('create')
-  async create(@Body() createGuestDto: CreateGuestDto): Promise<Guest> {
-    return await this.guestService.create(createGuestDto);
+  @Post()
+  async create(@Request() req, @Body() createGuestDto: CreateGuestDto): Promise<Guest> {
+    return await this.guestService.create(req.user.userId, createGuestDto);
   }
 
-  @Patch('update/:id')
-  async updateGuest(@Param('id', ParseIntPipe) id: number, @Body() updateGuestDto: UpdateGuestDto): Promise<Guest> {
-    const guest = await this.guestService.update(id, updateGuestDto);
+  @Patch(':id')
+  async updateGuest(
+    @Request() req,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateGuestDto: UpdateGuestDto
+  ): Promise<Guest> {
+    const guest = await this.guestService.update(req.user.userId, id, updateGuestDto);
     if (!guest) {
       throw new NotFoundException('Guest not found');
     }
     return guest;
   }
 
-  @Get('all')
-  async findAll(): Promise<Guest[]> {
-    return await this.guestService.findAll();
+  @Get()
+  async findAll(@Request() req): Promise<Guest[]> {
+    return await this.guestService.findAll(req.user.userId);
   }
 
-  @Get()
-  async findOne(@Query('id') idString: string): Promise<Guest> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-
-    return await this.guestService.findOne(id);
+  @Get(':id')
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<Guest> {
+    return await this.guestService.findOne(req.user.userId, id);
   }
 
   @Get('count')
@@ -58,6 +62,7 @@ export class GuestsController {
   @ApiQuery({ name: 'statusName', required: false, type: String })
   @ApiQuery({ name: 'statusId', required: false, type: Number })
   async getCount(
+    @Request() req,
     @Query('filter') filter?: string,
     @Query('statusName') statusName?: string,
     @Query('statusId') statusIdString?: string
@@ -71,38 +76,33 @@ export class GuestsController {
       throw new BadRequestException('StatusId should be a number');
     }
 
-    const count = await this.guestService.countGuests(filter, statusName, statusId);
+    const count = await this.guestService.countGuests(req.user.userId, filter, statusName, statusId);
     return { count };
   }
 
-  @Delete()
-  async remove(@Query('id') idString: string): Promise<Guest> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-    return await this.guestService.remove(id);
+  @Delete(':id')
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<Guest> {
+    return await this.guestService.remove(req.user.userId, id);
   }
 
   @Get('grouped')
-  async getAllGuestsGrouped(): Promise<{ data: Guest[]; title: string }[]> {
-    return await this.guestService.getGuestsGroupedByFirstLetter();
+  async getAllGuestsGrouped(@Request() req): Promise<{ data: Guest[]; title: string }[]> {
+    return await this.guestService.getGuestsGroupedByFirstLetter(req.user.userId);
   }
 
-  @Get('status/all')
+  @Public()
+  @Get('status')
   async findAllStatuses(): Promise<GuestStatus[]> {
     return await this.guestStatusesService.findAll();
   }
 
-  @Get('status/id')
-  async getStatusById(@Query('id') idString: string): Promise<GuestStatus> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
+  @Public()
+  @Get('status/:id')
+  async getStatusById(@Param('id', ParseIntPipe) id: number): Promise<GuestStatus> {
     return await this.guestStatusesService.findById(id);
   }
 
+  @Public()
   @Get('status/name')
   async getStatusByName(@Query('name') name: string): Promise<GuestStatus> {
     return await this.guestStatusesService.findByName(name);

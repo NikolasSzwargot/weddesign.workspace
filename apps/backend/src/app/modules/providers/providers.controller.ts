@@ -1,71 +1,49 @@
 import { ProvidersService } from './services/providers.service';
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request } from '@nestjs/common';
 import { CreateProviderDto, ProviderDto, UpdateProviderDto } from '@shared/dto';
+import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Providers')
+@ApiGlobalDecorators()
 @Controller('providers')
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersService) {}
 
   @Post()
-  async create(@Body() createProviderDto: CreateProviderDto): Promise<ProviderDto> {
-    return await this.providersService.createNewProvider(createProviderDto);
+  async create(@Request() req, @Body() createProviderDto: CreateProviderDto): Promise<ProviderDto> {
+    return await this.providersService.createNewProvider(req.user.userId, createProviderDto);
   }
 
   @Patch(':id')
   async update(
+    @Request() req,
     @Param('id', ParseIntPipe) id: number,
     @Body() updateProviderDto: UpdateProviderDto
   ): Promise<ProviderDto> {
-    return await this.providersService.updateProvider(id, updateProviderDto);
+    return await this.providersService.updateProvider(req.user.userId, id, updateProviderDto);
   }
 
   @Get('allInCategory/:categoryId')
-  async findAll(@Query('categoryId') idString: string): Promise<ProviderDto[]> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-    return await this.providersService.getAllProvidersInCategory(id);
+  async findAll(@Request() req, @Param('categoryId', ParseIntPipe) categoryId: number): Promise<ProviderDto[]> {
+    return await this.providersService.getAllProvidersInCategory(req.user.userId, categoryId);
   }
 
   @Get(':id')
-  async findOne(@Query('id') idString: string): Promise<ProviderDto> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-
-    return await this.providersService.getProviderById(id);
+  async findOne(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ProviderDto> {
+    return await this.providersService.getProviderById(req.user.userId, id);
   }
 
-  @Delete()
-  async remove(@Query('id') idString: string): Promise<ProviderDto> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-    return await this.providersService.removeProvider(id);
+  @Delete(':id')
+  async remove(@Request() req, @Param('id', ParseIntPipe) id: number): Promise<ProviderDto> {
+    return await this.providersService.removeProvider(req.user.userId, id);
   }
 
-  @Get('groupedByStarsInCategory')
+  @Get('groupedByStarsInCategory/:categoryId')
   async getAllProvidersInCategoryGrouped(
-    @Query('categoryId') idString: string
+    @Request() req,
+    @Param('categoryId', ParseIntPipe) categoryId: number
   ): Promise<{ title: string; data: ProviderDto[] }[]> {
-    const id = parseInt(idString);
-    if (isNaN(id) && idString) {
-      throw new BadRequestException('Id should be a number');
-    }
-    return this.providersService.getProvidersGroupedByStarsForCategory(id);
+    return this.providersService.getProvidersGroupedByStarsForCategory(req.user.userId, categoryId);
   }
 }

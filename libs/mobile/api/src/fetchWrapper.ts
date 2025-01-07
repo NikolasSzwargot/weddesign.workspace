@@ -27,6 +27,8 @@ export interface FetchWrapper {
 export const fetchWrapper = (
     baseApiUrl: string,
     getToken?: () => string | null,
+    onUnauthorized?: () => void,
+    onInternal?: () => void,
 ): FetchWrapper => {
     const instance = axios.create({
         baseURL: baseApiUrl,
@@ -64,10 +66,19 @@ export const fetchWrapper = (
             return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                throw error.response?.data || error.message || 'Unknown error';
-            } else {
-                throw error;
+                const status = error.response?.status;
+
+                if (status === 401) {
+                    if (onUnauthorized) {
+                        onUnauthorized();
+                    }
+                } else if (status === 500) {
+                    if (onInternal) {
+                        onInternal();
+                    }
+                }
             }
+            return Promise.reject(error);
         }
     };
 

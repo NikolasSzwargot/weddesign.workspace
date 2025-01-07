@@ -49,7 +49,7 @@ const Register = () => {
             >
                 <Container>
                     <ProgressLogoContainer>
-                        <ProgressBar progress={30} />
+                        <ProgressBar progress={5} />
                         <LabelContainer>
                             <Images.Label />
                         </LabelContainer>
@@ -100,7 +100,7 @@ const Register = () => {
                             size={'medium'}
                             disabled={!isEgible()}
                             onPress={() => {
-                                router.navigate(LoginRoutes.NAMESSETUP);
+                                router.navigate(LoginRoutes.LANGUAGE);
                             }}
                         >
                             {t('register.registerNow')}

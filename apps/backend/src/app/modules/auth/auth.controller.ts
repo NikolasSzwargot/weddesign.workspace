@@ -1,19 +1,34 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, Get, Request } from '@nestjs/common';
 import { AuthService } from './services/auth.service';
-import { RegisterAccountDto, UserDto } from '@shared/dto';
+import { RegisterAccountDto } from '@shared/dto';
 import { LoginDto } from '@shared/dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Public } from '../../../decorators/public.decorator';
 
+@ApiTags('Authorization')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Public()
+  @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<UserDto> {
+  async login(@Body() loginDto: LoginDto): Promise<{ access_token: string; expires_at: string }> {
     return await this.authService.login(loginDto);
   }
 
+  @Public()
   @Post('register')
-  async register(@Body() createAccountDto: RegisterAccountDto): Promise<LoginDto> {
-    return this.authService.create(createAccountDto);
+  async register(@Body() createAccountDto: RegisterAccountDto): Promise<{ access_token: string; expires_at: string }> {
+    await this.authService.create(createAccountDto);
+    const email = createAccountDto.email;
+    const password = createAccountDto.password;
+    return await this.authService.login({ email, password });
+  }
+
+  @ApiBearerAuth('JWT-auth')
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
   }
 }

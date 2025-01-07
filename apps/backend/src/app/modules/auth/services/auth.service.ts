@@ -1,13 +1,18 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { BadRequestException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../../users/services/users.service';
 import * as bcrypt from 'bcrypt';
-import { LoginDto, RegisterAccountDto, UserDto } from '@shared/dto';
+import { LoginDto, RegisterAccountDto } from '@shared/dto';
 import { PrismaService } from '../../../prisma-client.service';
+import { JwtService } from '@nestjs/jwt';
+import ms from 'ms';
+import { jwtConstants } from '../constants';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService
+  ) {}
 
   private static readonly saltOrRounds = 10;
 
@@ -34,19 +39,37 @@ export class AuthService {
     return emailRegex.test(email);
   }
 
-  async login(loginDto: LoginDto): Promise<UserDto | null> {
+  async login(loginDto: LoginDto): Promise<{ access_token: string; expires_at: string }> {
     const account = await this.prisma.userLogin.findFirst({
       where: { email: loginDto.email },
     });
-    if (await this.checkLoginAndPassword(account, loginDto)) {
-      return this.prisma.user.findUnique({ where: { id: account.userId } });
+    if (!(await this.checkLoginAndPassword(account, loginDto))) {
+      console.log(account, loginDto);
+      throw new UnauthorizedException();
     }
-    return null;
+    const user = await this.prisma.user.findUnique({ where: { id: account.userId } });
+    const payload = {
+      email: loginDto.email,
+      userId: user.id,
+      brideName: user.firstNameBride,
+      groomName: user.firstNameGroom,
+      lastName: user.lastName,
+      weddingDate: user.weddingDate,
+      language: user.language,
+    };
+
+    const expiresIn = jwtConstants.expiresIn;
+    const expiresInMs = typeof expiresIn === 'string' ? ms(expiresIn) : expiresIn * 1000;
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      expires_at: new Date(Date.now() + expiresInMs).toISOString(),
+    };
   }
 
   private async checkLoginAndPassword(account: LoginDto, loginDto: LoginDto): Promise<boolean> {
     if (!account) {
-      return false;
+      throw new BadRequestException('User not found');
     }
     return await bcrypt.compare(loginDto.password, account.password);
   }

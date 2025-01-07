@@ -2,28 +2,29 @@ import {useMutation, useQueryClient} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {ProviderDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 type DeleteProviderParams = {
     providerId: number;
 };
 
 export const useDeleteProvider = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
     const queryClient = useQueryClient();
+    const getProviderDeleteUrl = (id: number): ApiRoutes => {
+        return ApiRoutes.ProvidersDelete.replace(':id', id.toString()) as ApiRoutes;
+    };
 
     return useMutation<ProviderDto, Error, DeleteProviderParams>(
         ({providerId}: DeleteProviderParams) => {
             if (!providerId) {
                 throw new Error('Provider ID is required to delete provider');
             }
-            return api.DELETE<ProviderDto>(ApiRoutes.ProvidersDelete, {
-                params: {id: providerId},
-            });
+            return api.DELETE<ProviderDto>(getProviderDeleteUrl(providerId));
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries([ApiRoutes.ProvidersCategoriesAll]);
+                queryClient.invalidateQueries([ApiRoutes.ProvidersCategories]);
                 queryClient.invalidateQueries([
                     ApiRoutes.ProvidersGroupedByStarsInCategory,
                 ]);
