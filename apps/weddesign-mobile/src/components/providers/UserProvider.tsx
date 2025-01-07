@@ -1,10 +1,17 @@
 import {LoginDto, UserDto} from '@shared/dto';
-import {createContext, useContext, useEffect, useMemo, useState} from 'react';
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import {useRouting} from '@weddesign-mobile/components';
 import {getFromCache, removeFromCache, saveToCache} from '@weddesign-mobile/utils';
 import {fetchWrapper} from '@weddesign/api';
 import {API_URL} from '@weddesign-mobile/config';
-import {ApiRoutes, HomeRoutes} from '@weddesign/enums';
+import {ApiRoutes, AppRootRoutes, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 
 import {useRegister} from '../../api';
 import {RegisterDto, useLogin} from '../../api';
@@ -14,10 +21,13 @@ type UserContextType = {
     accessToken: AccessTokenDto | undefined | null;
     login: (data: LoginDto) => void;
     register: (data: RegisterDto) => void;
+    onUnauthorized: () => void;
+    onError: () => void;
 };
 
 export type AccessTokenDto = {
     access_token: string;
+    expires_at: Date;
 };
 
 const UserContext = createContext<UserContextType>({
@@ -25,6 +35,8 @@ const UserContext = createContext<UserContextType>({
     accessToken: null,
     login: (data: LoginDto) => {},
     register: (data: RegisterDto) => {},
+    onUnauthorized: () => {},
+    onError: () => {},
 });
 
 const TOKEN_KEY = 'token_key' as const;
@@ -77,11 +89,28 @@ export const UserProvider = ({children}) => {
         }
     };
 
+    const onUnauthorized = useCallback(() => {
+        setToken(null);
+        setUser(null);
+        router.navigate(AppRootRoutes.LOGIN);
+    }, [router]);
+
+    const onError = useCallback(() => {
+        router.navigate(ErrorRoutes.GENERAL);
+    }, [router]);
+
     useEffect(() => {
         const initializeToken = async () => {
             const storedToken = await loadTokenFromStorage();
             if (storedToken) {
-                setToken(storedToken);
+                const now = new Date();
+                const expiresAt = new Date(storedToken.expires_at);
+
+                if (expiresAt > now) {
+                    setToken(storedToken);
+                } else {
+                    setToken(null);
+                }
             }
         };
         initializeToken();
@@ -112,6 +141,8 @@ export const UserProvider = ({children}) => {
             register: register,
             user: user,
             accessToken: token,
+            onUnauthorized: onUnauthorized,
+            onError: onError,
         }),
         [login, register, user, token],
     );
