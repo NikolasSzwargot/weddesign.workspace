@@ -15,11 +15,12 @@ import {
 import { GuestsService } from './services/guests.service';
 import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
-import { ApiQuery } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Guest, GuestStatus } from '@prisma/client';
 import { Public } from '../../../decorators/public.decorator';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 
+@ApiTags('Guests')
 @ApiGlobalDecorators()
 @Controller('guests')
 export class GuestsController {
