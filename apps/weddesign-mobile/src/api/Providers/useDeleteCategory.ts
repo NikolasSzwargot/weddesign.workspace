@@ -2,14 +2,14 @@ import {useMutation, useQueryClient} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {ProviderCategoryDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 type deleteCategoryParams = {
     categoryId: number;
 };
 
 export const useDeleteCategory = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
     const queryClient = useQueryClient();
 
     return useMutation<ProviderCategoryDto, Error, deleteCategoryParams>(

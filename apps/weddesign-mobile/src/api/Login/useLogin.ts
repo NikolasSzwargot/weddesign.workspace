@@ -1,8 +1,8 @@
 import {useMutation} from 'react-query';
-import {UserDto} from '@shared/dto';
 import {ApiRoutes} from '@weddesign/enums';
 
 import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {AccessTokenDto} from '../../components/providers/UserProvider';
 
 export type LoginDto = {
     email: string;
@@ -13,6 +13,9 @@ export const useLogin = () => {
     const api = useUnauthorizedFetch();
 
     return useMutation(({email, password}: LoginDto) => {
-        return api.POST<UserDto, LoginDto>(ApiRoutes.Login, {email, password});
+        return api.POST<AccessTokenDto, LoginDto>(ApiRoutes.Login, {
+            email,
+            password,
+        });
     });
 };

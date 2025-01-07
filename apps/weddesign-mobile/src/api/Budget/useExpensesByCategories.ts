@@ -2,10 +2,10 @@ import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {ExpensesByCategoryDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 export const useExpensesByCategories = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
 
     return useQuery<ExpensesByCategoryDto[], Error>(
         [ApiRoutes.ExpensesByCategory],

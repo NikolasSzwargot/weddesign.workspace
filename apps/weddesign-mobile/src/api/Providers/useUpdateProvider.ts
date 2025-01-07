@@ -2,10 +2,10 @@ import {useMutation, useQueryClient} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {ProviderDto, UpdateProviderDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 export const useUpdateProvider = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
     const queryClient = useQueryClient();
     const getProviderUpdateUrl = (id: number): ApiRoutes => {
         return ApiRoutes.ProvidersUpdate.replace(':id', id.toString()) as ApiRoutes;

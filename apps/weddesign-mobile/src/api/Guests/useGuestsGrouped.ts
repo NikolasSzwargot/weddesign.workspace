@@ -2,7 +2,7 @@ import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {GuestDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 type guestsGroupedProps = {
     title: string;
@@ -10,7 +10,7 @@ type guestsGroupedProps = {
 };
 
 export const useGuestsGrouped = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
 
     return useQuery<{title: string; data: GuestDto[]}[], Error>(
         [ApiRoutes.GuestsGrouped],

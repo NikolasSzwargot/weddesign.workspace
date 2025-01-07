@@ -2,14 +2,14 @@ import {useMutation, useQueryClient} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 import {ProviderDto} from '@shared/dto';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 type DeleteProviderParams = {
     providerId: number;
 };
 
 export const useDeleteProvider = () => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
     const queryClient = useQueryClient();
 
     return useMutation<ProviderDto, Error, DeleteProviderParams>(

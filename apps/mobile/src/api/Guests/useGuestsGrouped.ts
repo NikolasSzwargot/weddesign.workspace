@@ -4,7 +4,7 @@ import {GuestDto} from '@shared/dto';
 
 import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
 
-type guestsGroupedProps = {
+type GuestsGroupedProps = {
     title: string;
     data: GuestDto[];
 };
@@ -12,8 +12,7 @@ type guestsGroupedProps = {
 export const useGuestsGrouped = () => {
     const api = useUnauthorizedFetch();
 
-    return useQuery<{title: string; data: GuestDto[]}[], Error>(
-        [ApiRoutes.GuestsGrouped],
-        () => api.GET<guestsGroupedProps[]>(ApiRoutes.GuestsGrouped),
+    return useQuery<GuestsGroupedProps[], Error>([ApiRoutes.GuestsGrouped], () =>
+        api.GET<GuestsGroupedProps[]>(ApiRoutes.GuestsGrouped),
     );
 };
