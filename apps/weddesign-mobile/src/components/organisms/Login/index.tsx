@@ -92,6 +92,7 @@ const Login = () => {
                                     onPress={() => {
                                         handleLogin();
                                     }}
+                                    disabled={isLoading}
                                 >
                                     {t('loginScreen.login_with_email')}
                                 </Button>
@@ -104,6 +105,7 @@ const Login = () => {
                                 onPress={() => {
                                     router.navigate(LoginRoutes.REGISTER);
                                 }}
+                                disabled={isLoading}
                             >
                                 {t('loginScreen.no_account_register')}
                             </Button>
@@ -117,6 +119,7 @@ const Login = () => {
                             router.navigate(LoginRoutes.LANGUAGE);
                         }}
                         variant={'pink-out'}
+                        disabled={isLoading}
                     >
                         {t('back')}
                     </Button>
