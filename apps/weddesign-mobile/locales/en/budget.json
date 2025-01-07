@@ -12,9 +12,9 @@
     "presents": "Gifts",
     "outfits": "Outfits",
     "beauty": "Appearance",
-    "accessories": "Accessories",
+    "accesories": "Accessories",
     "rings": "Rings",
-    "accommodation": "Accommodation",
+    "accomodation": "Accommodation",
     "legal": "Legal",
     "transport": "Transportation",
     "other": "Other"
@@ -22,5 +22,10 @@
   "searchPlaceholder": "Search",
   "loading": "Loading budget page...",
   "total": "TOTAL",
-  "noLimit": "Not set"
+  "noLimit": "Not set",
+  "budgetForm": {
+    "save": "Save",
+    "add": "Add",
+    "cancel": "Cancel"
+  }
 }

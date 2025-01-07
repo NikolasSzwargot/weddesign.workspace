@@ -16,11 +16,18 @@ type ExpenseItemProps = {
     expAmount: number;
     currency?: string;
     catData: categoryData;
+    onExpensePress: () => void;
 };
 
-const ExpenseItem = ({expName, expAmount, currency, catData}: ExpenseItemProps) => {
+const ExpenseItem = ({
+    expName,
+    expAmount,
+    currency,
+    catData,
+    onExpensePress,
+}: ExpenseItemProps) => {
     return (
-        <ExpenseItemContainer onPress={() => console.log(expName)}>
+        <ExpenseItemContainer onPress={onExpensePress}>
             <ExpenseInfoContainer>
                 <IconDot color={catData.color} Icon={catData.icon} />
                 <ExpenseName>{expName}</ExpenseName>

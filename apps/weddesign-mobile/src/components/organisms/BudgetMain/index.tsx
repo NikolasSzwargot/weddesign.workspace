@@ -26,6 +26,7 @@ import {useExpensesByCategories} from '../../../api/Budget/useExpensesByCategori
 import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
 import {useRouting} from '../../providers';
+import {useUpdateExpense} from '../../../api/Budget/useUpdateExpense';
 
 import {
     Container,
@@ -43,6 +44,7 @@ const BudgetMain = () => {
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
     >(ExpenseGroupingMode.Categories);
     const [listData, setListData] = useState([]);
+    const {mutate: updateExpense, isLoading: isUpdating} = useUpdateExpense();
 
     const {
         data: mainLimitData,
@@ -171,7 +173,7 @@ const BudgetMain = () => {
                         />
                         <IconButton
                             Icon={Icons.Plus}
-                            onPress={() => console.log('clicked AddGuest')}
+                            onPress={() => router.navigate(ExpenseListRoutes.ADD)}
                             fillColor={Colors.LightGreen}
                         />
                     </SearchBarWrapper>
@@ -186,6 +188,10 @@ const BudgetMain = () => {
                                 expAmount={item.amount}
                                 currency={t('currency')}
                                 catData={getBudgetCategoryData(item.categoryId)}
+                                onExpensePress={() => {
+                                    console.log({item});
+                                    router.navigate(ExpenseListRoutes.ADD, item);
+                                }}
                             />
                         )}
                         renderSectionHeader={CustomSectionHeader}

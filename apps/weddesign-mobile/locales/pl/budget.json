@@ -12,9 +12,9 @@
     "presents": "Prezenty",
     "outfits": "Stroje",
     "beauty": "Wygląd",
-    "accessories": "Akcesoria",
+    "accesories": "Akcesoria",
     "rings": "Obrączki",
-    "accommodation": "Noclegi",
+    "accomodation": "Noclegi",
     "legal": "Prawne",
     "transport": "Transport",
     "other": "Inne"
@@ -22,5 +22,10 @@
   "searchPlaceholder": "Szukaj",
   "loading": "Ładowanie budżetu...",
   "total": "LIMIT",
-  "noLimit": "Brak limitu"
+  "noLimit": "Brak limitu",
+  "budgetForm": {
+    "save": "Zapisz",
+    "add": "Dodaj",
+    "cancel": "Cofnij"
+  }
 }

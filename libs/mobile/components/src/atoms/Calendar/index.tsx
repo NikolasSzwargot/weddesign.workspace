@@ -10,6 +10,7 @@ type CalendarProps = {
     date: DateType;
     onDateChange: (date: DateType) => void;
     locale?: string;
+    selectedColor?: Colors;
 };
 
 const Calendar = ({
@@ -19,6 +20,7 @@ const Calendar = ({
     minDate,
     maxDate,
     locale = 'en',
+    selectedColor = Colors.PinkDark,
 }: CalendarProps) => {
     return (
         <DatePicker
@@ -27,7 +29,7 @@ const Calendar = ({
             onChange={(event) => onDateChange(event.date)}
             minDate={minDate}
             maxDate={maxDate}
-            selectedItemColor={Colors.PinkDark}
+            selectedItemColor={selectedColor}
             calendarTextStyle={{color: Colors.Black}}
             headerTextStyle={{color: Colors.Black}}
             buttonPrevIcon={<Text.Regular>{'\u25C0'}</Text.Regular>}

@@ -7,7 +7,7 @@ import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
-import {useCatsData} from '../../../api/Budget/useCatsData';
+import {useCategoriesData} from '../../../api/Budget/useCategoriesData';
 import {useRouting} from '../../providers';
 
 import {
@@ -34,7 +34,7 @@ const BudgetLimits = () => {
         isLoading: isLoadingCats,
         isError: isErrorCats,
         isFetching: isFetchingCats,
-    } = useCatsData();
+    } = useCategoriesData();
 
     const renderItem = ({item}: any) => {
         const data = getBudgetCategoryData(item.id);
