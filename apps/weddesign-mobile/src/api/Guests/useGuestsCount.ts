@@ -1,7 +1,7 @@
 import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
 
-import {useUnauthorizedFetch} from '../useUnauthorizedFetch';
+import {useFetch} from '../useFetch';
 
 type UseGuestCountParams = {
     filter?: string;
@@ -14,7 +14,7 @@ type result = {
 };
 
 export const useGuestsCount = (params?: UseGuestCountParams) => {
-    const api = useUnauthorizedFetch();
+    const api = useFetch();
 
     return useQuery<number, Error>([ApiRoutes.GuestsCount, params], () => {
         return api
