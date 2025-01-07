@@ -1,4 +1,11 @@
-import React, {createContext, ReactNode, useContext, useMemo} from 'react';
+import React, {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useMemo,
+} from 'react';
+import {BackHandler} from 'react-native';
 import {Location, useLocation, useNavigate} from 'react-router-native';
 import {Route} from '@weddesign/enums';
 
@@ -68,6 +75,24 @@ export const RoutingProvider = ({children}: RoutingProviderProps) => {
         location,
         query,
     };
+
+    useEffect(() => {
+        const handleBackPress = () => {
+            if (location.pathname === '/home') {
+                BackHandler.exitApp();
+                return true;
+            } else {
+                navigateNative(-1);
+                return true;
+            }
+        };
+
+        BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+        return () => {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+        };
+    }, [location, navigateNative]);
 
     return (
         <RoutingContext.Provider value={{router}}>
