@@ -13,6 +13,7 @@ import {fetchWrapper} from '@weddesign/api';
 import {API_URL} from '@weddesign-mobile/config';
 import {ApiRoutes, AppRootRoutes, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {User} from '@weddesign/types';
+import {changeLanguage} from 'i18next';
 
 import {useRegister} from '../../api';
 import {RegisterDto, useLogin} from '../../api';
@@ -126,6 +127,7 @@ export const UserProvider = ({children}) => {
 
                     if (profile) {
                         setUser(profile);
+                        await changeLanguage(profile.language);
                         router.navigate(HomeRoutes.HOME);
                     }
                 } catch (error) {

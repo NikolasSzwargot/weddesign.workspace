@@ -5,6 +5,7 @@ export type User = {
     groomName: string;
     lastName: string;
     weddingDate: string;
+    language: string;
     iat: number;
     exp: number;
 };
