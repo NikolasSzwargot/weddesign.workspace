@@ -65,6 +65,7 @@ model User {
   ProviderCategory     ProviderCategory[]
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @default(now()) @updatedAt
+  Task                 Task[]
 
   @@map("users")
 }
@@ -153,4 +154,17 @@ model Provider {
   updatedAt   DateTime         @default(now()) @updatedAt
 
   @@map("providers")
+}
+
+model Task {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  deadline    DateTime?
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  @@map("tasks")
 }
