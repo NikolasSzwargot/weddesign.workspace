@@ -21,6 +21,7 @@
   },
   "searchPlaceholder": "Szukaj",
   "loading": "Ładowanie budżetu...",
+  "deleteMessage": "Czy na pewno chcesz usunąć {{expName}}?",
   "total": "LIMIT",
   "noLimit": "Brak limitu",
   "budgetForm": {

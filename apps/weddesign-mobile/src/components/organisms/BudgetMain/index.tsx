@@ -21,12 +21,16 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@weddesign-mobile/utils';
+import {ExpenseDto} from '@shared/dto';
 
-import {useExpensesByCategories} from '../../../api/Budget/useExpensesByCategories';
-import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
-import {useMainLimit} from '../../../api/Budget/useMainLimit';
+import {
+    useExpensesByCategories,
+    useExpensesByDate,
+    useMainLimit,
+    useDeleteExpense,
+} from '../../../api';
 import {useRouting} from '../../providers';
-import {useUpdateExpense} from '../../../api/Budget/useUpdateExpense';
+import {WeddesignConfirmationModal} from '../../molecules';
 
 import {
     Container,
@@ -43,8 +47,11 @@ const BudgetMain = () => {
     const [groupingMode, setGroupingMode] = useState<
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
     >(ExpenseGroupingMode.Categories);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [confirmationModalText, setConfirmationModalText] = useState('');
     const [listData, setListData] = useState([]);
-    const {mutate: updateExpense, isLoading: isUpdating} = useUpdateExpense();
+    const [selectedItem, setSelectedItem] = useState<ExpenseDto | null>(null);
+    const {mutate: deleteExpense, isLoading: isDeleting} = useDeleteExpense();
 
     const {
         data: mainLimitData,
@@ -64,6 +71,36 @@ const BudgetMain = () => {
         isError: isErrorByDate,
         isFetching: isFetchingByDate,
     } = useExpensesByDate();
+
+    const handleDelete = (exp: ExpenseDto) => {
+        setSelectedItem(exp);
+        setConfirmationModalText(
+            t('deleteMessage', {
+                expName: exp.name,
+            }),
+        );
+        setModalVisible(true);
+    };
+    const handleYes = () => {
+        const handleSuccess = () => {
+            console.log('Expense deleted successfully!');
+        };
+        const handleError = () => {
+            console.log('Error deleting expense!');
+            router.navigate(ErrorRoutes.GENERAL, 'budget');
+        };
+        setModalVisible(false);
+        deleteExpense(
+            {expenseId: selectedItem?.id},
+            {
+                onSuccess: handleSuccess,
+                onError: handleError,
+            },
+        );
+    };
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
 
     useEffect(() => {
         if (!isLoadingByDate && !isLoadingByCategories) {
@@ -184,13 +221,13 @@ const BudgetMain = () => {
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => (
                             <ExpenseItem
-                                expName={item.name}
-                                expAmount={item.amount}
+                                expense={item}
                                 currency={t('currency')}
                                 catData={getBudgetCategoryData(item.categoryId)}
                                 onExpensePress={() => {
                                     router.navigate(ExpenseListRoutes.ADD, item);
                                 }}
+                                onDeletePress={handleDelete}
                             />
                         )}
                         renderSectionHeader={CustomSectionHeader}
@@ -200,6 +237,13 @@ const BudgetMain = () => {
                         )}
                         showsVerticalScrollIndicator={true}
                     />
+                    <WeddesignConfirmationModal
+                        isVisible={isModalVisible}
+                        onBackdropPress={handleCancel}
+                        onYesPress={handleYes}
+                        onNoPress={handleCancel}
+                        message={confirmationModalText}
+                    ></WeddesignConfirmationModal>
                 </BudgetMainWrapper>
             </>
         );
