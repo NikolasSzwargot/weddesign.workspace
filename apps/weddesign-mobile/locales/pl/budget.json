@@ -30,5 +30,9 @@
     "cancel": "Cofnij",
     "isPaind": "Opłacono wydatek",
     "deadline": "Termin:"
+  },
+  "errors": {
+    "amount": "Kwota jest wymagana",
+    "name": "Nazwa jest wymagana"
   }
 }

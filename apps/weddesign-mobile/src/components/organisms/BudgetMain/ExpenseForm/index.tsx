@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import {useQueryClient} from 'react-query';
 import {useTranslation} from 'react-i18next';
-// import {Calendar, LocaleConfig} from 'react-native-calendars';
 import {
     BackgroundEllipse,
     BudgetFrame,
@@ -25,10 +23,13 @@ import dayjs from 'dayjs';
 import {formatDate, getBudgetCategoryData} from '@weddesign-mobile/utils';
 import {FlatList} from 'react-native';
 
-import {useMainLimit} from '../../../../api/Budget/useMainLimit';
-import {useCreateExpense} from '../../../../api/Budget/useCreateExpense';
-import {useUpdateExpense} from '../../../../api/Budget/useUpdateExpense';
-import {useCategoriesData} from '../../../../api/Budget/useCategoriesData';
+import {
+    useMainLimit,
+    useCreateExpense,
+    useUpdateExpense,
+    useCategoriesData,
+} from '../../../../api';
+import {ErrorArea} from '../../GuestList/GuestForm/styles';
 
 import {
     BudgetMainFrame,
@@ -50,7 +51,6 @@ const MAX_YEARS_FORWARD = 5;
 const ExpenseForm = () => {
     const {router} = useRouting();
     const {t, i18n} = useTranslation('budget');
-    const queryClient = useQueryClient();
     const [isDatepickerVisible, setDatepickerVisible] = useState(false);
     const [isCategoryPickVisible, setCategoryPickVisible] = useState(false);
     const {mutate: createExpense, isLoading: isLoadingCreate} = useCreateExpense();
@@ -79,10 +79,10 @@ const ExpenseForm = () => {
     }, [expense, setValue]);
 
     const {
-        data: catsData,
-        isLoading: isLoadingCats,
-        isError: isErrorCats,
-        isFetching: isFetchingCats,
+        data: categoriesData,
+        isLoading: isLoadingCategories,
+        isError: isErrorCategories,
+        isFetching: isFetchingCategories,
     } = useCategoriesData();
 
     const {
@@ -128,7 +128,7 @@ const ExpenseForm = () => {
             <BackgroundEllipse variant={'budget'} />
             <BudgetMainWrapper>
                 <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
-                {isLoadingMainLimit ? (
+                {isLoadingMainLimit || isLoadingCategories ? (
                     <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
                 ) : (
                     <>
@@ -172,21 +172,35 @@ const ExpenseForm = () => {
                                     <Controller
                                         control={control}
                                         name={'amount'}
+                                        rules={{
+                                            required:
+                                                t('errors.amount') ||
+                                                'Amount is required',
+                                        }}
                                         render={({
                                             field: {onChange, value},
                                             fieldState: {error},
                                         }) => (
-                                            <Input
-                                                style={{maxWidth: '75%'}}
-                                                value={value.toString()}
-                                                handleChange={(text) => {
-                                                    onChange(Number(text) || 0);
-                                                }}
-                                                placeholder={`0${t('currency')}`}
-                                                inputMode={'decimal'}
-                                                multiline={false}
-                                                maxLength={9}
-                                            />
+                                            <>
+                                                <Input
+                                                    style={{maxWidth: '75%'}}
+                                                    value={value.toString()}
+                                                    handleChange={(text) => {
+                                                        onChange(Number(text) || 0);
+                                                    }}
+                                                    placeholder={`0${t('currency')}`}
+                                                    inputMode={'decimal'}
+                                                    multiline={false}
+                                                    maxLength={9}
+                                                />
+                                                <ErrorArea>
+                                                    {error && (
+                                                        <Text.Error size={14}>
+                                                            {error.message}
+                                                        </Text.Error>
+                                                    )}
+                                                </ErrorArea>
+                                            </>
                                         )}
                                     />
                                 </Row>
@@ -195,17 +209,30 @@ const ExpenseForm = () => {
                                 <Controller
                                     control={control}
                                     name={'name'}
+                                    rules={{
+                                        required:
+                                            t('errors.name') || 'Name is required',
+                                    }}
                                     render={({
                                         field: {onChange, value},
                                         fieldState: {error},
                                     }) => (
-                                        <Input
-                                            value={value}
-                                            handleChange={onChange}
-                                            placeholder={`nazwa`}
-                                            inputMode={'text'}
-                                            maxLength={30}
-                                        />
+                                        <>
+                                            <Input
+                                                value={value}
+                                                handleChange={onChange}
+                                                placeholder={`nazwa`}
+                                                inputMode={'text'}
+                                                maxLength={30}
+                                            />
+                                            <ErrorArea>
+                                                {error && (
+                                                    <Text.Error size={14}>
+                                                        {error.message}
+                                                    </Text.Error>
+                                                )}
+                                            </ErrorArea>
+                                        </>
                                     )}
                                 />
                             </InputRow>
@@ -242,7 +269,6 @@ const ExpenseForm = () => {
                                         )}
                                     />
                                     <Text.SemiBold>
-                                        {/*@TODO - tlumaczenie*/}
                                         {t('budgetForm.isPaind')}
                                     </Text.SemiBold>
                                 </Row>
@@ -331,7 +357,7 @@ const ExpenseForm = () => {
                                         fieldState: {error},
                                     }) => (
                                         <FlatList
-                                            data={catsData}
+                                            data={categoriesData}
                                             renderItem={({item}: any) => {
                                                 const data = getBudgetCategoryData(
                                                     item.id,
