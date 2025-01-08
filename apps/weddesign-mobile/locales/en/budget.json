@@ -26,6 +26,8 @@
   "budgetForm": {
     "save": "Save",
     "add": "Add",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "isPaind": "Is Paid",
+    "deadline": "Deadline:"
   }
 }

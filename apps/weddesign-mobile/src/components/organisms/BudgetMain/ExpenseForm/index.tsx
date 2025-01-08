@@ -23,15 +23,19 @@ import {Controller, useForm} from 'react-hook-form';
 import {CreateExpenseDto, UpdateExpenseDto} from '@shared/dto';
 import dayjs from 'dayjs';
 import {formatDate, getBudgetCategoryData} from '@weddesign-mobile/utils';
+import {FlatList} from 'react-native';
 
 import {useMainLimit} from '../../../../api/Budget/useMainLimit';
 import {useCreateExpense} from '../../../../api/Budget/useCreateExpense';
 import {useUpdateExpense} from '../../../../api/Budget/useUpdateExpense';
+import {useCategoriesData} from '../../../../api/Budget/useCategoriesData';
 
 import {
     BudgetMainFrame,
     BudgetMainWrapper,
     CategoryContainer,
+    CategorypickerContainer,
+    CategorypickerItem,
     Container,
     DatepickerContainer,
     DatepickerOpenBox,
@@ -48,6 +52,7 @@ const ExpenseForm = () => {
     const {t, i18n} = useTranslation('budget');
     const queryClient = useQueryClient();
     const [isDatepickerVisible, setDatepickerVisible] = useState(false);
+    const [isCategoryPickVisible, setCategoryPickVisible] = useState(false);
     const {mutate: createExpense, isLoading: isLoadingCreate} = useCreateExpense();
     const {mutate: updateExpense, isLoading: isUpdating} = useUpdateExpense();
     const {control, handleSubmit, setValue} = useForm<CreateExpenseDto>({
@@ -73,23 +78,12 @@ const ExpenseForm = () => {
         }
     }, [expense, setValue]);
 
-    const dropdownData = Array.from({length: 16}, (_, index) =>
-        // {
-        //     const DotData = getBudgetCategoryData(index);
-        //     return {
-        //         label: index.toString(),
-        //         value: index,
-        //         color: DotData.color,
-        //         icon: DotData.icon,
-        //     };
-        // },
-        {
-            return {
-                label: index.toString(),
-                value: index,
-            };
-        },
-    );
+    const {
+        data: catsData,
+        isLoading: isLoadingCats,
+        isError: isErrorCats,
+        isFetching: isFetchingCats,
+    } = useCategoriesData();
 
     const {
         data: mainLimitData,
@@ -126,14 +120,7 @@ const ExpenseForm = () => {
 
     const handleCancel = () => {
         setDatepickerVisible(false);
-    };
-    const parseDate = (dateWithDots: string) => {
-        const dateParts = dateWithDots.split('.').reverse();
-        return [
-            dateParts[0],
-            dateParts[1].padStart(2, '0'),
-            dateParts[2].padStart(2, '0'),
-        ].join('-');
+        setCategoryPickVisible(false);
     };
 
     return (
@@ -161,8 +148,9 @@ const ExpenseForm = () => {
                         <FormInputWrapper>
                             <InputRow>
                                 <Row>
-                                    {/*    dropdown z kategorią */}
-                                    <CategoryContainer>
+                                    <CategoryContainer
+                                        onPress={() => setCategoryPickVisible(true)}
+                                    >
                                         {(() => {
                                             const data = getBudgetCategoryData(
                                                 control._formValues.categoryId,
@@ -174,24 +162,13 @@ const ExpenseForm = () => {
                                                 />
                                             );
                                         })()}
-                                        <Icons.ArrowRight />
+                                        <Icons.ArrowRight
+                                            width={20}
+                                            height={20}
+                                            rotation={90}
+                                        />
                                     </CategoryContainer>
-                                    {/*<Controller*/}
-                                    {/*    control={control}*/}
-                                    {/*    name={'categoryId'}*/}
-                                    {/*    render={({*/}
-                                    {/*        field: {onChange, value},*/}
-                                    {/*        fieldState: {error},*/}
-                                    {/*    }) => (*/}
-                                    {/*        <>*/}
-                                    {/*            <DropdownSelect*/}
-                                    {/*                value={value}*/}
-                                    {/*                data={dropdownData}*/}
-                                    {/*                onChange={onChange}*/}
-                                    {/*            />*/}
-                                    {/*        </>*/}
-                                    {/*    )}*/}
-                                    {/*/>*/}
+
                                     <Controller
                                         control={control}
                                         name={'amount'}
@@ -266,13 +243,15 @@ const ExpenseForm = () => {
                                     />
                                     <Text.SemiBold>
                                         {/*@TODO - tlumaczenie*/}
-                                        {'Opłacono wydatek'}
+                                        {t('budgetForm.isPaind')}
                                     </Text.SemiBold>
                                 </Row>
                             </InputRow>
                             <InputRow>
                                 <Row>
-                                    <Text.SemiBold>{'Deadline: '}</Text.SemiBold>
+                                    <Text.SemiBold>
+                                        {t('budgetForm.deadline')}
+                                    </Text.SemiBold>
                                     <DatepickerOpenBox
                                         onPress={() => setDatepickerVisible(true)}
                                     >
@@ -337,6 +316,56 @@ const ExpenseForm = () => {
                                     )}
                                 />
                             </DatepickerContainer>
+                        </CustomOverlay>
+
+                        <CustomOverlay
+                            isVisible={isCategoryPickVisible}
+                            variant={'center'}
+                        >
+                            <CategorypickerContainer>
+                                <Controller
+                                    control={control}
+                                    name={'categoryId'}
+                                    render={({
+                                        field: {onChange, value},
+                                        fieldState: {error},
+                                    }) => (
+                                        <FlatList
+                                            data={catsData}
+                                            renderItem={({item}: any) => {
+                                                const data = getBudgetCategoryData(
+                                                    item.id,
+                                                );
+                                                return (
+                                                    <CategorypickerItem
+                                                        onPress={() => {
+                                                            onChange(item.id);
+                                                            handleCancel();
+                                                        }}
+                                                    >
+                                                        <IconDot
+                                                            color={data.color}
+                                                            Icon={data.icon}
+                                                        />
+                                                        <Text.SemiBold>
+                                                            {t(
+                                                                `category.${item.name}`,
+                                                            )}
+                                                        </Text.SemiBold>
+                                                    </CategorypickerItem>
+                                                );
+                                            }}
+                                        />
+                                    )}
+                                />
+
+                                <Button
+                                    onPress={() => handleCancel()}
+                                    style={{width: '50%'}}
+                                >
+                                    {t('budgetForm.cancel')}
+                                </Button>
+                            </CategorypickerContainer>
                         </CustomOverlay>
                     </>
                 )}

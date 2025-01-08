@@ -189,7 +189,6 @@ const BudgetMain = () => {
                                 currency={t('currency')}
                                 catData={getBudgetCategoryData(item.categoryId)}
                                 onExpensePress={() => {
-                                    console.log({item});
                                     router.navigate(ExpenseListRoutes.ADD, item);
                                 }}
                             />

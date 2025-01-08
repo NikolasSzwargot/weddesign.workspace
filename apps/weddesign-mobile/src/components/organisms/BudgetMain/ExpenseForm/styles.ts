@@ -62,6 +62,27 @@ export const CategoryContainer = styled.TouchableOpacity`
     gap: 10px;
 `;
 
+export const CategorypickerContainer = styled.View`
+    background-color: ${Colors.White};
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 70%;
+    height: 60%;
+    border-radius: 15px;
+    padding: 20px;
+`;
+
+export const CategorypickerItem = styled.TouchableOpacity`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    gap: 10px;
+    margin-bottom: 6px;
+`;
+
 export const DatepickerOpenBox = styled.TouchableOpacity`
     background-color: ${Colors.LightGreen};
     border-radius: 5px;

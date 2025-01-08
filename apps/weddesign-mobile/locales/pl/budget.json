@@ -26,6 +26,8 @@
   "budgetForm": {
     "save": "Zapisz",
     "add": "Dodaj",
-    "cancel": "Cofnij"
+    "cancel": "Cofnij",
+    "isPaind": "Opłacono wydatek",
+    "deadline": "Termin:"
   }
 }
