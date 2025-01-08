@@ -11,9 +11,10 @@ import {
   ParseIntPipe,
   NotFoundException,
   Request,
+  ValidationPipe,
 } from '@nestjs/common';
 import { GuestsService } from './services/guests.service';
-import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
+import { CreateGuestDto, GuestFiltersDto, UpdateGuestDto } from '@shared/dto';
 import { GuestsStatusesService } from './services/guest-statuses.service';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Guest, GuestStatus } from '@prisma/client';
@@ -86,8 +87,11 @@ export class GuestsController {
   }
 
   @Get('grouped')
-  async getAllGuestsGrouped(@Request() req): Promise<{ data: Guest[]; title: string }[]> {
-    return await this.guestService.getGuestsGroupedByFirstLetter(req.user.userId);
+  async getAllGuestsGrouped(
+    @Request() req,
+    @Query(new ValidationPipe({ transform: true })) filters: GuestFiltersDto
+  ): Promise<{ data: Guest[]; title: string }[]> {
+    return await this.guestService.getGuestsGroupedByFirstLetter(req.user.userId, filters);
   }
 
   @Public()
