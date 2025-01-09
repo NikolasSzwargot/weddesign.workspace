@@ -58,3 +58,25 @@ export const StatusDot = styled.View<CatDotProps>`
     justify-content: center;
     align-items: center;
 `;
+
+export const ModalContainer = styled.View`
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 250px;
+    flex-direction: column;
+`;
+
+export const ModalRow = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    //width: 100%;
+    gap: 10px;
+    margin-bottom: 16px;
+`;
