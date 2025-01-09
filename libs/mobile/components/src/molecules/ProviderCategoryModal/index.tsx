@@ -28,8 +28,29 @@ const ProviderCategoryModal = ({
 }: ProviderCategoryModalProps) => {
     const [categoryName, setCategoryName] = useState('');
     const [selectedIconId, setSelectedIconId] = useState(16);
+
+    const resetState = () => {
+        setCategoryName('');
+        setSelectedIconId(16);
+    };
+
+    const handleClose = () => {
+        resetState();
+        onNoPress();
+    };
+
+    const handleBackdrop = () => {
+        resetState();
+        onBackdropPress();
+    };
+
+    const handleYes = () => {
+        onYesPress({iconId: selectedIconId, name: categoryName});
+        resetState();
+    };
+
     return (
-        <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
+        <Modal isVisible={isVisible} onBackdropPress={handleBackdrop}>
             <ModalContent>
                 <Text.Bold size={20} style={{textAlign: 'center'}}>
                     {message}
@@ -46,14 +67,8 @@ const ProviderCategoryModal = ({
                     />
                 </Row>
                 <ButtonContainer>
-                    <Button
-                        onPress={() =>
-                            onYesPress({iconId: selectedIconId, name: categoryName})
-                        }
-                    >
-                        {yesText}
-                    </Button>
-                    <Button onPress={onNoPress} variant="secondaryFilled">
+                    <Button onPress={() => handleYes()}>{yesText}</Button>
+                    <Button onPress={handleClose} variant="secondaryFilled">
                         {noText}
                     </Button>
                 </ButtonContainer>

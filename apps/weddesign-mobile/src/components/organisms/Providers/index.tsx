@@ -79,6 +79,9 @@ const ProvidersGrouped = () => {
     const handleCreate = (data: CreateProviderCategoryDto) => {
         setModalVisible(false);
         setCreateModalVisible(false);
+        if (!data.name || data.name === '') {
+            return;
+        }
         createCategory(data, {
             onSuccess: handleSuccess,
             onError: handleError,
