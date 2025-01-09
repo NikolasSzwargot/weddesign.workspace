@@ -3,11 +3,12 @@ import {Button, Input, Modal} from '../../atoms';
 import {Text} from '@weddesign/themes';
 import {useState} from 'react';
 import {ProviderIconDropdown} from '@weddesign/components';
+import {CreateProviderCategoryDto} from '@shared/dto';
 
 type ProviderCategoryModalProps = {
     isVisible: boolean;
     onBackdropPress: () => void;
-    onYesPress: () => void;
+    onYesPress: ({iconId, name}: CreateProviderCategoryDto) => void;
     onNoPress: () => void;
     yesText?: string;
     noText?: string;
@@ -45,7 +46,13 @@ const ProviderCategoryModal = ({
                     />
                 </Row>
                 <ButtonContainer>
-                    <Button onPress={onYesPress}>{yesText}</Button>
+                    <Button
+                        onPress={() =>
+                            onYesPress({iconId: selectedIconId, name: categoryName})
+                        }
+                    >
+                        {yesText}
+                    </Button>
                     <Button onPress={onNoPress} variant="secondaryFilled">
                         {noText}
                     </Button>

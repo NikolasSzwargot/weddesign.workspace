@@ -4,5 +4,11 @@
     "yesText": "Tak",
     "noText": "Nie",
     "message": "Czy na pewno chcesz kontynuować?"
+  },
+  "providerCategoryModal": {
+    "title": "Dodaj kategorię",
+    "placeholder": "Nazwa kategorii",
+    "ok": "OK",
+    "noText": "Nie"
   }
 }
