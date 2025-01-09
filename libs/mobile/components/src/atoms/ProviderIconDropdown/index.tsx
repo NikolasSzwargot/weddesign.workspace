@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {getProviderCategoryIconAndColor} from '../../molecules/ProvidersCategoryItem/getProviderCategoryIconAndColor';
@@ -11,8 +11,6 @@ type ProviderIconDropdownProps = {
 };
 
 const ProviderIconDropdown = ({value, onSelect}: ProviderIconDropdownProps) => {
-    // const [selectedId, setSelectedId] = useState(16);
-
     const data = Array.from({length: 16}, (_, i) => {
         const id = i + 1;
         const {icon: Icon, color} = getProviderCategoryIconAndColor(id);
