@@ -34,7 +34,10 @@ const ProviderCategoryModal = ({
                     {message}
                 </Text.Bold>
                 <Row>
-                    <ProviderIconDropdown onSelect={(id) => setSelectedIconId(id)} />
+                    <ProviderIconDropdown
+                        value={selectedIconId}
+                        onSelect={(id) => setSelectedIconId(id)}
+                    />
                     <Input
                         placeholder={placeholder}
                         value={categoryName}

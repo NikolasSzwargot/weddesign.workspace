@@ -6,11 +6,12 @@ import IconDot from '../IconDot';
 import {styles} from './styles';
 
 type ProviderIconDropdownProps = {
+    value: number;
     onSelect: (value: number) => void;
 };
 
-const ProviderIconDropdown = ({onSelect}: ProviderIconDropdownProps) => {
-    const [selectedId, setSelectedId] = useState(16);
+const ProviderIconDropdown = ({value, onSelect}: ProviderIconDropdownProps) => {
+    // const [selectedId, setSelectedId] = useState(16);
 
     const data = Array.from({length: 16}, (_, i) => {
         const id = i + 1;
@@ -29,15 +30,14 @@ const ProviderIconDropdown = ({onSelect}: ProviderIconDropdownProps) => {
             data={data}
             placeholder=""
             //@ts-expect-error Typescript doesn't understand his new library, but the component is working properly
-            value={selectedId}
+            value={value}
             onChange={(item) => {
-                setSelectedId(item.value);
                 onSelect(item.value);
             }}
             renderLeftIcon={() => {
-                if (selectedId) {
+                if (value) {
                     const {icon: Icon, color} =
-                        getProviderCategoryIconAndColor(selectedId);
+                        getProviderCategoryIconAndColor(value);
                     return <IconDot color={color} Icon={Icon} />;
                 }
                 return null;
