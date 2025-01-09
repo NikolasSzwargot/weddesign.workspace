@@ -1,0 +1,53 @@
+import React, {useState} from 'react';
+import {View} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import {getProviderCategoryIconAndColor} from '../../molecules/ProvidersCategoryItem/getProviderCategoryIconAndColor';
+import IconDot from '../IconDot';
+import {styles} from './styles';
+
+type ProviderIconDropdownProps = {
+    onSelect: (value: number) => void;
+};
+
+const ProviderIconDropdown = ({onSelect}: ProviderIconDropdownProps) => {
+    const [selectedId, setSelectedId] = useState(16);
+
+    const data = Array.from({length: 16}, (_, i) => {
+        const id = i + 1;
+        const {icon: Icon, color} = getProviderCategoryIconAndColor(id);
+
+        return {
+            label: '',
+            value: id,
+            icon: <IconDot color={color} Icon={Icon} />,
+        };
+    });
+
+    return (
+        <Dropdown
+            style={styles.dropdown}
+            data={data}
+            placeholder=""
+            //@ts-expect-error Typescript doesn't understand his new library, but the component is working properly
+            value={selectedId}
+            onChange={(item) => {
+                setSelectedId(item.value);
+                onSelect(item.value);
+            }}
+            renderLeftIcon={() => {
+                if (selectedId) {
+                    const {icon: Icon, color} =
+                        getProviderCategoryIconAndColor(selectedId);
+                    return <IconDot color={color} Icon={Icon} />;
+                }
+                return null;
+            }}
+            renderItem={(item) => (
+                <View style={styles.iconContainer}>{item.icon}</View>
+            )}
+            maxHeight={200}
+        />
+    );
+};
+
+export default ProviderIconDropdown;

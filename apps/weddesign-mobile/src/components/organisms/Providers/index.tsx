@@ -17,6 +17,7 @@ import {useRouting} from '../../providers';
 import {WeddesignConfirmationModal} from '../../molecules';
 import {useProvidersCategoriesAll} from '../../../api/Providers/useProvidersCategoriesAll';
 import {useDeleteCategory} from '../../../api/Providers/useDeleteCategory';
+import ProviderCategoryModal from '../../../../../../libs/mobile/components/src/molecules/ProviderCategoryModal';
 
 import {CategoriesWrapper, Container, ProvidersCategoriesWrapper} from './styles';
 
@@ -141,6 +142,13 @@ const ProvidersGrouped = () => {
                             message={confirmationModalText}
                             warning={t('deleteWarning')}
                         ></WeddesignConfirmationModal>
+
+                        <ProviderCategoryModal
+                            isVisible={true}
+                            onBackdropPress={handleCancel}
+                            onYesPress={() => console.log('test')}
+                            onNoPress={handleCancel}
+                        />
                     </>
                 )}
             </ProvidersCategoriesWrapper>
