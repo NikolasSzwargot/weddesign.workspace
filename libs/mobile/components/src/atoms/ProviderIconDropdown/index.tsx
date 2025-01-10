@@ -44,6 +44,7 @@ const ProviderIconDropdown = ({value, onSelect}: ProviderIconDropdownProps) => {
                 <View style={styles.iconContainer}>{item.icon}</View>
             )}
             maxHeight={200}
+            dropdownPosition={'bottom'}
         />
     );
 };
