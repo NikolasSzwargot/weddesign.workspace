@@ -96,11 +96,14 @@ const BudgetMain = () => {
 
     useEffect(() => {
         if (!isLoadingByDate && !isLoadingByCategories) {
-            setListData(
+            const rawData =
                 groupingMode === ExpenseGroupingMode.Categories
                     ? groupedByCategories
-                    : groupedByDate,
-            );
+                    : groupedByDate;
+
+            const translatedData = translateData(rawData);
+
+            setListData(translatedData);
         }
     }, [groupingMode, groupedByCategories, groupedByDate, router]);
 
@@ -208,7 +211,7 @@ const BudgetMain = () => {
                     </SearchBarWrapper>
 
                     <SectionList
-                        sections={translateData(listData)}
+                        sections={listData}
                         initialNumToRender={20}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => (
