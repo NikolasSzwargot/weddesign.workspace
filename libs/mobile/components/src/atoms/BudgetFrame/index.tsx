@@ -50,7 +50,7 @@ const BudgetFrame = ({
     const fontSize1 = scrollData
         ? scrollData.interpolate({
               inputRange: [0, 80],
-              outputRange: [40, 17],
+              outputRange: [36, 17],
               extrapolate: 'clamp',
           })
         : 17;
@@ -99,7 +99,7 @@ const BudgetFrame = ({
                     //@ts-expect-error this form works and is allowed by type, but build doesn't see it as correct one
                     text1Style,
                 ]}
-            >{`${current}${currency}`}</Animated.Text>
+            >{`${current.toFixed(2)}${currency}`}</Animated.Text>
             <Animated.Text
                 style={[
                     {
@@ -111,7 +111,7 @@ const BudgetFrame = ({
                     //@ts-expect-error this form works and is allowed by type, but build doesn't see it as correct one
                     text2Style,
                 ]}
-            >{`/ ${total}${currency}`}</Animated.Text>
+            >{`/ ${total.toFixed(2)}${currency}`}</Animated.Text>
         </Animated.View>
     );
 };

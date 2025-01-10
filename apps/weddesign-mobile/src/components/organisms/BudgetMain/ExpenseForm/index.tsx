@@ -92,6 +92,14 @@ const ExpenseForm = () => {
             console.log('Error saving expense!');
         };
 
+        if (typeof data.amount === 'string') {
+            data.amount = Number(Number(data.amount).toFixed(2));
+        }
+        if (typeof data.amount !== 'number' || isNaN(data.amount)) {
+            console.error('Invalid amount: Amount must be a number.');
+            return;
+        }
+
         if (expense) {
             updateExpense(
                 {
@@ -166,8 +174,18 @@ const ExpenseForm = () => {
                                             required:
                                                 t('errors.amount') ||
                                                 'Amount is required',
-                                            validate: (value) =>
-                                                value > 0 || t('errors.amount'),
+                                            validate: (value) => {
+                                                const numericValue = parseFloat(
+                                                    value
+                                                        .toString()
+                                                        .replace(',', '.'),
+                                                );
+                                                return (
+                                                    numericValue > 0 ||
+                                                    t('errors.amount') ||
+                                                    'Amount must be greater than 0'
+                                                );
+                                            },
                                         }}
                                         render={({
                                             field: {onChange, value},
@@ -177,10 +195,12 @@ const ExpenseForm = () => {
                                                 <Input
                                                     value={value.toString()}
                                                     handleChange={(text) => {
-                                                        onChange(Number(text) || 0);
+                                                        const formattedText =
+                                                            text.replace(',', '.');
+                                                        onChange(formattedText);
                                                     }}
                                                     placeholder={`0${t('currency')}`}
-                                                    inputMode={'numeric'}
+                                                    inputMode={'decimal'}
                                                     multiline={false}
                                                     maxLength={9}
                                                 />
