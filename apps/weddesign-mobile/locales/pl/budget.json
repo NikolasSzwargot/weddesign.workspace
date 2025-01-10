@@ -14,7 +14,7 @@
     "beauty": "Wygląd",
     "accesories": "Akcesoria",
     "rings": "Obrączki",
-    "accomodation": "Noclegi",
+    "accommodation": "Noclegi",
     "legal": "Prawne",
     "transport": "Transport",
     "other": "Inne"
@@ -28,7 +28,7 @@
     "save": "Zapisz",
     "add": "Dodaj",
     "cancel": "Cofnij",
-    "isPaind": "Opłacono wydatek",
+    "isPaid": "Opłacono wydatek",
     "deadline": "Termin:"
   },
   "errors": {

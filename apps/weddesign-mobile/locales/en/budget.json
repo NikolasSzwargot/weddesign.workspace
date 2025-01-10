@@ -14,7 +14,7 @@
     "beauty": "Appearance",
     "accesories": "Accessories",
     "rings": "Rings",
-    "accomodation": "Accommodation",
+    "accommodation": "Accommodation",
     "legal": "Legal",
     "transport": "Transportation",
     "other": "Other"
@@ -28,7 +28,7 @@
     "save": "Save",
     "add": "Add",
     "cancel": "Cancel",
-    "isPaind": "Is Paid",
+    "isPaid": "Is Paid",
     "deadline": "Deadline:"
   },
   "errors": {

@@ -14,8 +14,6 @@ import {Text} from '@weddesign/themes';
 
 type ExpenseItemProps = {
     expense: ExpenseDto;
-    // expName: string;
-    // expAmount: number;
     currency?: string;
     catData: categoryData;
     onExpensePress: () => void;

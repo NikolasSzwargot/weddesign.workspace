@@ -28,7 +28,10 @@ export const useUpdateExpense = () => {
                 queryClient.invalidateQueries([ApiRoutes.MainLimitStats]);
             },
             onError: (error) => {
-                console.error('Error updating expense:', error);
+                console.error(
+                    'An error occurred while updating the expense:',
+                    error,
+                );
             },
         },
     );

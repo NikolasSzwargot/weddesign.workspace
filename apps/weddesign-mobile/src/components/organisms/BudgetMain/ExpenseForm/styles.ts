@@ -24,7 +24,7 @@ export const BudgetMainFrame = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     gap: 18px;
-    padding: 10px 30px 0px 30px;
+    padding: 10px 30px 0 30px;
 `;
 
 export const FormInputWrapper = styled.View`
@@ -32,13 +32,16 @@ export const FormInputWrapper = styled.View`
     margin-top: 25px;
     padding-left: 20px;
     padding-right: 20px;
-    gap: 5px;
 `;
 
 export const InputRow = styled.View`
     margin-bottom: 12px;
     width: 100%;
     max-width: 100%;
+`;
+
+export const AmountRow = styled.View`
+    width: 75%;
 `;
 
 export const Row = styled.View`
@@ -59,17 +62,17 @@ export const CategoryContainer = styled.TouchableOpacity`
     padding: 0 20px 0 10px;
     align-items: center;
     width: 22%;
-    gap: 10px;
+    gap: 5px;
 `;
 
-export const CategorypickerContainer = styled.View`
+export const CategoryPickerContainer = styled.View`
     background-color: ${Colors.White};
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
     width: 70%;
-    height: 60%;
+    height: 75%;
     border-radius: 15px;
     padding: 20px;
 `;
@@ -80,7 +83,7 @@ export const CategorypickerItem = styled.TouchableOpacity`
     justify-content: space-between;
     max-width: 100%;
     gap: 10px;
-    margin-bottom: 6px;
+    margin: 0 25px 6px 0;
 `;
 
 export const DatepickerOpenBox = styled.TouchableOpacity`

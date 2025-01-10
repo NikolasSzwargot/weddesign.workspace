@@ -51,25 +51,22 @@ const BudgetMain = () => {
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const [listData, setListData] = useState([]);
     const [selectedItem, setSelectedItem] = useState<ExpenseDto | null>(null);
-    const {mutate: deleteExpense, isLoading: isDeleting} = useDeleteExpense();
+    const {mutate: deleteExpense} = useDeleteExpense();
 
     const {
         data: mainLimitData,
         isLoading: isLoadingMainLimit,
         isError: isErrorMainLimit,
-        isFetching: isFetchingMainLimit,
     } = useMainLimit();
     const {
         data: groupedByCategories,
         isLoading: isLoadingByCategories,
         isError: isErrorByCategories,
-        isFetching: isFetchingByCategories,
     } = useExpensesByCategories();
     const {
         data: groupedByDate,
         isLoading: isLoadingByDate,
         isError: isErrorByDate,
-        isFetching: isFetchingByDate,
     } = useExpensesByDate();
 
     const handleDelete = (exp: ExpenseDto) => {
@@ -82,18 +79,13 @@ const BudgetMain = () => {
         setModalVisible(true);
     };
     const handleYes = () => {
-        const handleSuccess = () => {
-            console.log('Expense deleted successfully!');
-        };
         const handleError = () => {
-            console.log('Error deleting expense!');
             router.navigate(ErrorRoutes.GENERAL, 'budget');
         };
         setModalVisible(false);
         deleteExpense(
             {expenseId: selectedItem?.id},
             {
-                onSuccess: handleSuccess,
                 onError: handleError,
             },
         );

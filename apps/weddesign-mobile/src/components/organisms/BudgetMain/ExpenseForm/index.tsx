@@ -29,23 +29,23 @@ import {
     useUpdateExpense,
     useCategoriesData,
 } from '../../../../api';
-import {ErrorArea} from '../../GuestList/GuestForm/styles';
 
 import {
+    AmountRow,
     BudgetMainFrame,
     BudgetMainWrapper,
     CategoryContainer,
-    CategorypickerContainer,
+    CategoryPickerContainer,
     CategorypickerItem,
     Container,
     DatepickerContainer,
     DatepickerOpenBox,
+    ErrorArea,
     FormInputWrapper,
     InputRow,
     Row,
 } from './styles';
 
-//@NOTE: Needed attribute: 5 Years max
 const MAX_YEARS_FORWARD = 5;
 
 const ExpenseForm = () => {
@@ -53,8 +53,8 @@ const ExpenseForm = () => {
     const {t, i18n} = useTranslation('budget');
     const [isDatepickerVisible, setDatepickerVisible] = useState(false);
     const [isCategoryPickVisible, setCategoryPickVisible] = useState(false);
-    const {mutate: createExpense, isLoading: isLoadingCreate} = useCreateExpense();
-    const {mutate: updateExpense, isLoading: isUpdating} = useUpdateExpense();
+    const {mutate: createExpense} = useCreateExpense();
+    const {mutate: updateExpense} = useUpdateExpense();
     const {control, handleSubmit, setValue} = useForm<CreateExpenseDto>({
         defaultValues: {
             amount: 0,
@@ -78,28 +78,18 @@ const ExpenseForm = () => {
         }
     }, [expense, setValue]);
 
-    const {
-        data: categoriesData,
-        isLoading: isLoadingCategories,
-        isError: isErrorCategories,
-        isFetching: isFetchingCategories,
-    } = useCategoriesData();
+    const {data: categoriesData, isLoading: isLoadingCategories} =
+        useCategoriesData();
 
-    const {
-        data: mainLimitData,
-        isLoading: isLoadingMainLimit,
-        isError: isErrorMainLimit,
-        isFetching: isFetchingMainLimit,
-    } = useMainLimit();
+    const {data: mainLimitData, isLoading: isLoadingMainLimit} = useMainLimit();
 
     const handleSave = (data: CreateExpenseDto | UpdateExpenseDto) => {
         const handleSuccess = () => {
-            console.log('Guest saved successfully!');
             router.navigate(ExpenseListRoutes.LIST);
         };
 
         const handleError = () => {
-            console.log('Error saving guest!');
+            console.log('Error saving expense!');
         };
 
         if (expense) {
@@ -176,20 +166,21 @@ const ExpenseForm = () => {
                                             required:
                                                 t('errors.amount') ||
                                                 'Amount is required',
+                                            validate: (value) =>
+                                                value > 0 || t('errors.amount'),
                                         }}
                                         render={({
                                             field: {onChange, value},
                                             fieldState: {error},
                                         }) => (
-                                            <>
+                                            <AmountRow>
                                                 <Input
-                                                    style={{maxWidth: '75%'}}
                                                     value={value.toString()}
                                                     handleChange={(text) => {
                                                         onChange(Number(text) || 0);
                                                     }}
                                                     placeholder={`0${t('currency')}`}
-                                                    inputMode={'decimal'}
+                                                    inputMode={'numeric'}
                                                     multiline={false}
                                                     maxLength={9}
                                                 />
@@ -200,7 +191,7 @@ const ExpenseForm = () => {
                                                         </Text.Error>
                                                     )}
                                                 </ErrorArea>
-                                            </>
+                                            </AmountRow>
                                         )}
                                     />
                                 </Row>
@@ -240,10 +231,7 @@ const ExpenseForm = () => {
                                 <Controller
                                     control={control}
                                     name={'description'}
-                                    render={({
-                                        field: {onChange, value},
-                                        fieldState: {error},
-                                    }) => (
+                                    render={({field: {onChange, value}}) => (
                                         <Input
                                             value={value}
                                             handleChange={onChange}
@@ -269,7 +257,7 @@ const ExpenseForm = () => {
                                         )}
                                     />
                                     <Text.SemiBold>
-                                        {t('budgetForm.isPaind')}
+                                        {t('budgetForm.isPaid')}
                                     </Text.SemiBold>
                                 </Row>
                             </InputRow>
@@ -290,10 +278,12 @@ const ExpenseForm = () => {
                                     </DatepickerOpenBox>
                                 </Row>
                             </InputRow>
+                            {/*eslint-disable-next-line react-native/no-inline-styles*/}
                             <InputRow style={{margin: 50}} />
                             <Row>
                                 <Button
                                     onPress={handleSubmit(handleSave)}
+                                    // eslint-disable-next-line react-native/no-inline-styles
                                     style={{width: '50%'}}
                                 >
                                     {expense
@@ -301,6 +291,7 @@ const ExpenseForm = () => {
                                         : t('budgetForm.add')}
                                 </Button>
                                 <Button
+                                    // eslint-disable-next-line react-native/no-inline-styles
                                     style={{width: '50%'}}
                                     variant={'secondaryFilled'}
                                     onPress={() => {
@@ -321,17 +312,17 @@ const ExpenseForm = () => {
                                 <Controller
                                     control={control}
                                     name={'deadline'}
-                                    render={({
-                                        field: {onChange, value},
-                                        fieldState: {error},
-                                    }) => (
+                                    render={({field: {onChange, value}}) => (
                                         <Calendar
                                             mode={'single'}
                                             onDateChange={(date) => {
                                                 onChange(dayjs(date).toDate());
                                             }}
                                             date={dayjs(value).format('YYYY-MM-DD')}
-                                            minDate={dayjs()}
+                                            minDate={dayjs().subtract(
+                                                MAX_YEARS_FORWARD,
+                                                'years',
+                                            )}
                                             maxDate={dayjs().add(
                                                 MAX_YEARS_FORWARD,
                                                 'years',
@@ -348,16 +339,14 @@ const ExpenseForm = () => {
                             isVisible={isCategoryPickVisible}
                             variant={'center'}
                         >
-                            <CategorypickerContainer>
+                            <CategoryPickerContainer>
                                 <Controller
                                     control={control}
                                     name={'categoryId'}
-                                    render={({
-                                        field: {onChange, value},
-                                        fieldState: {error},
-                                    }) => (
+                                    render={({field: {onChange}}) => (
                                         <FlatList
                                             data={categoriesData}
+                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                             renderItem={({item}: any) => {
                                                 const data = getBudgetCategoryData(
                                                     item.id,
@@ -387,11 +376,12 @@ const ExpenseForm = () => {
 
                                 <Button
                                     onPress={() => handleCancel()}
+                                    // eslint-disable-next-line react-native/no-inline-styles
                                     style={{width: '50%'}}
                                 >
                                     {t('budgetForm.cancel')}
                                 </Button>
-                            </CategorypickerContainer>
+                            </CategoryPickerContainer>
                         </CustomOverlay>
                     </>
                 )}

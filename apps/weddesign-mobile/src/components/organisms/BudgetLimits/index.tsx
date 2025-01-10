@@ -6,8 +6,7 @@ import {getBudgetCategoryData} from '@weddesign-mobile/utils';
 import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 
-import {useMainLimit} from '../../../api/Budget/useMainLimit';
-import {useCategoriesData} from '../../../api/Budget/useCategoriesData';
+import {useMainLimit, useCategoriesData} from '../../../api';
 import {useRouting} from '../../providers';
 
 import {
@@ -27,15 +26,14 @@ const BudgetLimits = () => {
         data: mainLimitData,
         isLoading: isLoadingMainLimit,
         isError: isErrorMainLimit,
-        isFetching: isFetchingMainLimit,
     } = useMainLimit();
     const {
-        data: catsData,
-        isLoading: isLoadingCats,
-        isError: isErrorCats,
-        isFetching: isFetchingCats,
+        data: categoriesData,
+        isLoading: isLoadingCategories,
+        isError: isErrorCategories,
     } = useCategoriesData();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderItem = ({item}: any) => {
         const data = getBudgetCategoryData(item.id);
         return (
@@ -57,15 +55,15 @@ const BudgetLimits = () => {
     };
 
     useEffect(() => {
-        if (isErrorCats || isErrorMainLimit) {
+        if (isErrorCategories || isErrorMainLimit) {
             router.navigate(ErrorRoutes.GENERAL, 'budget');
         }
-    }, [isErrorCats, isErrorMainLimit, router]);
+    }, [isErrorCategories, isErrorMainLimit, router]);
 
     return (
         <Container>
             <BackgroundEllipse variant={'budget'} />
-            {isLoadingMainLimit || isLoadingCats ? (
+            {isLoadingMainLimit || isLoadingCategories ? (
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             ) : (
                 <MainWrapper>
@@ -79,7 +77,7 @@ const BudgetLimits = () => {
                         </Text.SemiBold>
                     </TotalWrapper>
                     <FlatList
-                        data={catsData}
+                        data={categoriesData}
                         renderItem={renderItem}
                         keyExtractor={(item) => item.id.toString()}
                     />

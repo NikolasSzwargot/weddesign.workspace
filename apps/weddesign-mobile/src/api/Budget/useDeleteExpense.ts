@@ -4,10 +4,6 @@ import {ExpenseDto} from '@shared/dto';
 
 import {useFetch} from '../useFetch';
 
-type DeleteExpenseParams = {
-    expenseId: number;
-};
-
 export const useDeleteExpense = () => {
     const api = useFetch();
     const queryClient = useQueryClient();
@@ -15,8 +11,8 @@ export const useDeleteExpense = () => {
         return ApiRoutes.SingleExpense.replace(':id', id.toString()) as ApiRoutes;
     };
 
-    return useMutation<ExpenseDto, Error, DeleteExpenseParams>(
-        ({expenseId}: DeleteExpenseParams) => {
+    return useMutation<ExpenseDto, Error, {expenseId: number}>(
+        ({expenseId}) => {
             if (!expenseId) {
                 throw new Error('Expense ID is required to delete a expense');
             }

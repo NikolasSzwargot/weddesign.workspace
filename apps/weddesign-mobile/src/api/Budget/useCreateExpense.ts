@@ -21,7 +21,10 @@ export const useCreateExpense = () => {
                 queryClient.invalidateQueries([ApiRoutes.MainLimitStats]);
             },
             onError: (error) => {
-                console.error('Error creating expense:', error);
+                console.error(
+                    'An error occurred while creating the expense:',
+                    error,
+                );
             },
         },
     );
