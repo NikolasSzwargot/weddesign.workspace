@@ -3,16 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {getBudgetCategoryData} from '@weddesign-mobile/utils';
-import {
-    BackgroundEllipse,
-    Button,
-    CustomSlider,
-    Header,
-    IconDot,
-    Input,
-    LoadingSpinner,
-    Modal,
-} from '@weddesign/components';
+import {BudgetLimitEditionModal} from '@weddesign-mobile/components';
+import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {UpdateCategoryLimitDto} from '@shared/dto';
 
@@ -29,8 +21,6 @@ import {
     CategoryListItem,
     StatusDot,
     CategoryInfoContainer,
-    ModalContainer,
-    ModalRow,
 } from './styles';
 
 const BudgetLimits = () => {
@@ -172,79 +162,16 @@ const BudgetLimits = () => {
                         keyExtractor={(item) => item.categoryId.toString()}
                     />
 
-                    <Modal
+                    <BudgetLimitEditionModal
                         isVisible={isModalVisible}
                         onBackdropPress={() => setModalVisible(false)}
-                    >
-                        <ModalContainer>
-                            <Text.SemiBold size={20}>Ustaw limit</Text.SemiBold>
-                            <ModalRow>
-                                {(() => {
-                                    if (selectedItem) {
-                                        const data = getBudgetCategoryData(
-                                            selectedItem
-                                                ? selectedItem.categoryId
-                                                : 1,
-                                        );
-                                        return (
-                                            <IconDot
-                                                color={data.color}
-                                                Icon={data.icon}
-                                            ></IconDot>
-                                        );
-                                    } else {
-                                        return (
-                                            <Text.SemiBold>{`${t(
-                                                'total',
-                                            )}:`}</Text.SemiBold>
-                                        );
-                                    }
-                                })()}
-                                <Input
-                                    style={{width: '80%'}}
-                                    handleChange={(v) => {
-                                        const numericValue = v ? Number(v) : 0;
-                                        setModalValue(numericValue);
-                                    }}
-                                    value={modalValue && modalValue.toString()}
-                                    placeholder={t('Ustaw limit')}
-                                    inputMode={'numeric'}
-                                    multiline={false}
-                                    maxLength={12}
-                                    onFocus={() => console.log('focus')}
-                                    onBlur={() => console.log('blur')}
-                                />
-                            </ModalRow>
-                            <CustomSlider
-                                min={0}
-                                max={mainLimitData ? mainLimitData.limit : 100000}
-                                step={1000}
-                                value={modalValue}
-                                initialValue={modalValue}
-                                onValueChange={(value) => {
-                                    setModalValue(value);
-                                }}
-                                label="Ustaw limit"
-                                unit="$"
-                            />
-                            <ModalRow>
-                                <Button
-                                    style={{width: '50%'}}
-                                    variant="primary"
-                                    onPress={() => handleOK()}
-                                >
-                                    {t('OK')}
-                                </Button>
-                                <Button
-                                    style={{width: '50%'}}
-                                    variant="secondaryFilled"
-                                    onPress={() => handleDelete()}
-                                >
-                                    {t('USUŃ LIMIT')}
-                                </Button>
-                            </ModalRow>
-                        </ModalContainer>
-                    </Modal>
+                        modalValue={modalValue}
+                        setModalValue={setModalValue}
+                        selectedItem={selectedItem}
+                        handleOK={handleOK}
+                        handleDelete={handleDelete}
+                        mainLimit={mainLimitData.limit}
+                    />
                 </MainWrapper>
             )}
         </Container>
