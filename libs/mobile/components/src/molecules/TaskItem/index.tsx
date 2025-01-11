@@ -25,13 +25,27 @@ const TaskItem = ({
         <TaskInfoContainer>
             <TouchableOpacity onPress={() => onCheckboxPress(task)}>
                 <CheckBox
-                    checked={false}
+                    checked={task.isDone}
                     uncheckedColor={Colors.Black}
-                    checkedColor={Colors.Black}
+                    checkedColor={Colors.Gray}
+                    onPress={() => onCheckboxPress(task)}
                 />
             </TouchableOpacity>
             <TaskNameWrapper>
-                <Text.Regular size={14}>{task.name}</Text.Regular>
+                {task.isDone ? (
+                    <Text.Regular
+                        size={14}
+                        style={{
+                            color: 'gray',
+                            textDecorationLine: 'line-through',
+                            textDecorationColor: 'gray',
+                        }}
+                    >
+                        {task.name}
+                    </Text.Regular>
+                ) : (
+                    <Text.Regular size={14}>{task.name}</Text.Regular>
+                )}
             </TaskNameWrapper>
         </TaskInfoContainer>
         <IconButton Icon={Icons.X} onPress={() => onDeletePress(task)} />

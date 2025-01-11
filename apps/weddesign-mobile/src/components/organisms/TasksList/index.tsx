@@ -13,10 +13,10 @@ import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getDeadlineColor} from '@weddesign/utils';
-import {TaskDto} from '@shared/dto';
+import {TaskDto, UpdateTaskDto} from '@shared/dto';
 
 import {useRouting} from '../../providers';
-import {useDeleteTask, useGroupedTasks} from '../../../api';
+import {useDeleteTask, useGroupedTasks, useUpdateTask} from '../../../api';
 import {WeddesignConfirmationModal} from '../../molecules';
 
 import {Container, PageWrapper, TaskListWrapper, SearchBarWrapper} from './styles';
@@ -29,6 +29,7 @@ export const TasksList = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskDto>();
     const {mutateAsync: deleteMutation} = useDeleteTask();
+    const {mutate: updateMutation} = useUpdateTask();
 
     const onDeletePress = useCallback(
         (task: TaskDto) => {
@@ -42,6 +43,16 @@ export const TasksList = () => {
         await deleteMutation({taskId: selectedTask.id});
         setIsModalVisible(false);
     }, [selectedTask]);
+
+    const handleCheckbox = (task: TaskDto) => {
+        const updatedTask = {
+            isDone: !task.isDone,
+            name: task.name,
+            description: task.description,
+            deadline: task.deadline,
+        } as UpdateTaskDto;
+        updateMutation({id: task.id, data: updatedTask});
+    };
 
     return (
         <Container>
@@ -85,8 +96,10 @@ export const TasksList = () => {
                             renderItem={({item}) => (
                                 <TaskItem
                                     task={item}
-                                    onCheckboxPress={() => {}}
-                                    onGuestPress={() => {}}
+                                    onCheckboxPress={handleCheckbox}
+                                    onGuestPress={() => {
+                                        router.navigate(TasksRoutes.ADD, item);
+                                    }}
                                     onDeletePress={onDeletePress}
                                 />
                             )}

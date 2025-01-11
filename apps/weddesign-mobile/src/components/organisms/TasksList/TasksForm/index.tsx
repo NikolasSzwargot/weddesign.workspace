@@ -66,6 +66,10 @@ export const TaskForm = () => {
             router.navigate(ErrorRoutes.GENERAL, 'guests');
         };
 
+        if (isUnscheduled) {
+            data.deadline = undefined;
+        }
+
         if (task) {
             updateTask(
                 {
