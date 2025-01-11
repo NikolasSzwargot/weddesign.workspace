@@ -36,11 +36,12 @@ import {
     BudgetMainWrapper,
     CategoryContainer,
     CategoryPickerContainer,
-    CategorypickerItem,
+    CategoryPickerItem,
     Container,
-    DatepickerContainer,
-    DatepickerOpenBox,
+    DatePickerContainer,
+    DatePickerOpenBox,
     ErrorArea,
+    FirstRow,
     FormInputWrapper,
     InputRow,
     Row,
@@ -145,7 +146,7 @@ const ExpenseForm = () => {
                         </BudgetMainFrame>
                         <FormInputWrapper>
                             <InputRow>
-                                <Row>
+                                <FirstRow>
                                     <CategoryContainer
                                         onPress={() => setCategoryPickVisible(true)}
                                     >
@@ -214,7 +215,7 @@ const ExpenseForm = () => {
                                             </AmountRow>
                                         )}
                                     />
-                                </Row>
+                                </FirstRow>
                             </InputRow>
                             <InputRow>
                                 <Controller
@@ -232,7 +233,7 @@ const ExpenseForm = () => {
                                             <Input
                                                 value={value}
                                                 handleChange={onChange}
-                                                placeholder={`nazwa`}
+                                                placeholder={t('budgetForm.name')}
                                                 inputMode={'text'}
                                                 maxLength={30}
                                             />
@@ -255,7 +256,7 @@ const ExpenseForm = () => {
                                         <Input
                                             value={value}
                                             handleChange={onChange}
-                                            placeholder={`opis`}
+                                            placeholder={t(`budgetForm.description`)}
                                             inputMode={'text'}
                                             multiline={true}
                                             maxLength={400}
@@ -286,7 +287,7 @@ const ExpenseForm = () => {
                                     <Text.SemiBold>
                                         {t('budgetForm.deadline')}
                                     </Text.SemiBold>
-                                    <DatepickerOpenBox
+                                    <DatePickerOpenBox
                                         onPress={() => setDatepickerVisible(true)}
                                     >
                                         <Text.SemiBold>
@@ -295,15 +296,13 @@ const ExpenseForm = () => {
                                                 i18n.language,
                                             )}
                                         </Text.SemiBold>
-                                    </DatepickerOpenBox>
+                                    </DatePickerOpenBox>
                                 </Row>
                             </InputRow>
-                            {/*eslint-disable-next-line react-native/no-inline-styles*/}
-                            <InputRow style={{margin: 50}} />
+                            <InputRow />
                             <Row>
                                 <Button
                                     onPress={handleSubmit(handleSave)}
-                                    // eslint-disable-next-line react-native/no-inline-styles
                                     style={{width: '50%'}}
                                 >
                                     {expense
@@ -311,7 +310,6 @@ const ExpenseForm = () => {
                                         : t('budgetForm.add')}
                                 </Button>
                                 <Button
-                                    // eslint-disable-next-line react-native/no-inline-styles
                                     style={{width: '50%'}}
                                     variant={'secondaryFilled'}
                                     onPress={() => {
@@ -328,7 +326,7 @@ const ExpenseForm = () => {
                             variant={'bottom'}
                             onBackdropPress={() => handleCancel()}
                         >
-                            <DatepickerContainer>
+                            <DatePickerContainer>
                                 <Controller
                                     control={control}
                                     name={'deadline'}
@@ -348,11 +346,11 @@ const ExpenseForm = () => {
                                                 'years',
                                             )}
                                             locale={i18n.language}
-                                            selectedColor={Colors.LightGreen}
+                                            selectedItemColor={Colors.LightGreen}
                                         />
                                     )}
                                 />
-                            </DatepickerContainer>
+                            </DatePickerContainer>
                         </CustomOverlay>
 
                         <CustomOverlay
@@ -366,13 +364,12 @@ const ExpenseForm = () => {
                                     render={({field: {onChange}}) => (
                                         <FlatList
                                             data={categoriesData}
-                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                            renderItem={({item}: any) => {
+                                            renderItem={({item}) => {
                                                 const data = getBudgetCategoryData(
                                                     item.id,
                                                 );
                                                 return (
-                                                    <CategorypickerItem
+                                                    <CategoryPickerItem
                                                         onPress={() => {
                                                             onChange(item.id);
                                                             handleCancel();
@@ -387,7 +384,7 @@ const ExpenseForm = () => {
                                                                 `category.${item.name}`,
                                                             )}
                                                         </Text.SemiBold>
-                                                    </CategorypickerItem>
+                                                    </CategoryPickerItem>
                                                 );
                                             }}
                                         />
@@ -396,7 +393,6 @@ const ExpenseForm = () => {
 
                                 <Button
                                     onPress={() => handleCancel()}
-                                    // eslint-disable-next-line react-native/no-inline-styles
                                     style={{width: '50%'}}
                                 >
                                     {t('budgetForm.cancel')}

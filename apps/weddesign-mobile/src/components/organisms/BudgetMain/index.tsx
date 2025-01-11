@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Animated, SectionList} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {Animated, SectionList, TextStyle} from 'react-native';
 import {
     BudgetFrame,
     CustomSectionHeader,
@@ -21,7 +21,7 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@weddesign-mobile/utils';
-import {ExpenseDto} from '@shared/dto';
+import {ExpenseDto, ExpensesByCategoryDto, ExpensesByDateDto} from '@shared/dto';
 
 import {
     useExpensesByCategories,
@@ -94,6 +94,18 @@ const BudgetMain = () => {
         setModalVisible(false);
     };
 
+    const translateData = useCallback(
+        (list: ExpensesByCategoryDto[] | ExpensesByDateDto[]) => {
+            return groupingMode === ExpenseGroupingMode.Categories
+                ? list.map((item: ExpensesByCategoryDto | ExpensesByDateDto) => ({
+                      ...item,
+                      title: t(`category.${item.title}`),
+                  }))
+                : list;
+        },
+        [groupingMode, t],
+    );
+
     useEffect(() => {
         if (!isLoadingByDate && !isLoadingByCategories) {
             const rawData =
@@ -105,7 +117,15 @@ const BudgetMain = () => {
 
             setListData(translatedData);
         }
-    }, [groupingMode, groupedByCategories, groupedByDate, router]);
+    }, [
+        groupingMode,
+        groupedByCategories,
+        groupedByDate,
+        router,
+        isLoadingByDate,
+        isLoadingByCategories,
+        translateData,
+    ]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const infoTextAnimation = {
@@ -120,15 +140,14 @@ const BudgetMain = () => {
             extrapolate: 'clamp',
         }),
     };
-
-    const translateData = (lista) => {
-        return groupingMode === ExpenseGroupingMode.Categories
-            ? lista.map((item) => ({
-                  ...item,
-                  title: t(`category.${item.title}`),
-              }))
-            : lista;
-    };
+    const animatedTextStyle: Animated.WithAnimatedObject<TextStyle> = useMemo(
+        () => ({
+            fontSize: 14,
+            fontWeight: '500',
+            textAlign: 'center',
+        }),
+        [],
+    );
 
     useEffect(() => {
         if (isErrorByCategories || isErrorMainLimit || isErrorByDate) {
@@ -166,20 +185,16 @@ const BudgetMain = () => {
                     </BudgetMainFrame>
                     <InfoTextWrapper>
                         <Animated.Text
-                            style={[
-                                infoTextAnimation,
-                                {
-                                    fontSize: 14,
-                                    fontWeight: 500,
-                                    textAlign: 'center',
-                                },
-                            ]}
-                        >{`${t('mainProgressbarText', {
-                            percent: Math.round(
-                                (mainLimitData.totalPlanned / mainLimitData.limit) *
-                                    100,
-                            ),
-                        })}`}</Animated.Text>
+                            style={[infoTextAnimation, animatedTextStyle]}
+                        >
+                            {mainLimitData.totalPercent
+                                ? t('mainProgressbarText', {
+                                      percent: Math.round(
+                                          mainLimitData.totalPercent,
+                                      ),
+                                  })
+                                : t('pressToSetLimit')}
+                        </Animated.Text>
                     </InfoTextWrapper>
 
                     <SearchBarWrapper>

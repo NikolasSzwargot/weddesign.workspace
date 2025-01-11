@@ -18,7 +18,7 @@ export const BudgetMainWrapper = styled.View`
     margin-top: 20px;
 `;
 
-export const BudgetMainFrame = styled.TouchableOpacity`
+export const BudgetMainFrame = styled.View`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,6 +53,10 @@ export const Row = styled.View`
     margin-bottom: 6px;
 `;
 
+export const FirstRow = styled(Row)`
+    align-items: flex-start;
+`;
+
 export const ErrorArea = styled.View`
     min-height: 20px;
 `;
@@ -63,6 +67,7 @@ export const CategoryContainer = styled.TouchableOpacity`
     align-items: center;
     width: 22%;
     gap: 5px;
+    margin-top: 5px;
 `;
 
 export const CategoryPickerContainer = styled.View`
@@ -77,22 +82,22 @@ export const CategoryPickerContainer = styled.View`
     padding: 20px;
 `;
 
-export const CategorypickerItem = styled.TouchableOpacity`
+export const CategoryPickerItem = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     max-width: 100%;
     gap: 10px;
-    margin: 0 25px 6px 0;
+    margin: 0 30px 6px 20px;
 `;
 
-export const DatepickerOpenBox = styled.TouchableOpacity`
+export const DatePickerOpenBox = styled.TouchableOpacity`
     background-color: ${Colors.LightGreen};
     border-radius: 5px;
     padding: 5px;
 `;
 
-export const DatepickerContainer = styled.View`
+export const DatePickerContainer = styled.View`
     background-color: ${Colors.White};
     padding: 0 20px 20px 20px;
     flex-direction: column;

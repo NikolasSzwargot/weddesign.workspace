@@ -96,7 +96,6 @@ const BudgetFrame = ({
                         position: 'absolute',
                         fontSize: fontSize1,
                     },
-                    //@ts-expect-error this form works and is allowed by type, but build doesn't see it as correct one
                     text1Style,
                 ]}
             >{`${current.toFixed(2)}${currency}`}</Animated.Text>
@@ -108,7 +107,6 @@ const BudgetFrame = ({
                         position: 'absolute',
                         fontSize: fontSize2,
                     },
-                    //@ts-expect-error this form works and is allowed by type, but build doesn't see it as correct one
                     text2Style,
                 ]}
             >{`/ ${total.toFixed(2)}${currency}`}</Animated.Text>

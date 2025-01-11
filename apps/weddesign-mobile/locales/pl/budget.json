@@ -1,5 +1,6 @@
 {
   "mainProgressbarText": "Wykorzystano {{percent}}% zaplanowanego budżetu",
+  "pressToSetLimit": "Naciśnij w ramkę, aby ustawić główny limit",
   "currency": "zł",
   "category": {
     "food": "Jedzenie i picie",
@@ -12,7 +13,7 @@
     "presents": "Prezenty",
     "outfits": "Stroje",
     "beauty": "Wygląd",
-    "accesories": "Akcesoria",
+    "accessories": "Akcesoria",
     "rings": "Obrączki",
     "accommodation": "Noclegi",
     "legal": "Prawne",
@@ -28,6 +29,8 @@
     "save": "Zapisz",
     "add": "Dodaj",
     "cancel": "Cofnij",
+    "name": "Nazwa",
+    "description": "Opis",
     "isPaid": "Opłacono wydatek",
     "deadline": "Termin:"
   },

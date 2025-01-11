@@ -33,8 +33,7 @@ const BudgetLimits = () => {
         isError: isErrorCategories,
     } = useCategoriesData();
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const renderItem = ({item}: any) => {
+    const renderItem = ({item}) => {
         const data = getBudgetCategoryData(item.id);
         return (
             <CategoryListItem onPress={() => console.log('edit:', item.name)}>

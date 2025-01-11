@@ -1,5 +1,6 @@
 {
   "mainProgressbarText": "{{percent}}% of planned budget have been used",
+  "pressToSetLimit": "Press the frame above to set the main limit",
   "currency": "$",
   "category": {
     "food": "Food and Drink",
@@ -12,7 +13,7 @@
     "presents": "Gifts",
     "outfits": "Outfits",
     "beauty": "Appearance",
-    "accesories": "Accessories",
+    "accessories": "Accessories",
     "rings": "Rings",
     "accommodation": "Accommodation",
     "legal": "Legal",
@@ -28,6 +29,8 @@
     "save": "Save",
     "add": "Add",
     "cancel": "Cancel",
+    "name": "Name",
+    "description": "Description",
     "isPaid": "Is Paid",
     "deadline": "Deadline:"
   },
