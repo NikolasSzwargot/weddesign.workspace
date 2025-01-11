@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Request, Post, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Request, Post } from '@nestjs/common';
 import { BudgetService } from './services/budget.service';
 import { BudgetLimitDto, CreateBudgetLimitDto, GetBudgetLimitsDto, UpdateBudgetLimitDto } from '@shared/dto';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
@@ -20,12 +20,8 @@ export class LimitBudgetController {
     return await this.budgetService.createBudgetLimit(req.user.userId, createBudgetLimitDto);
   }
 
-  @Patch(':id')
-  async update(
-    @Request() req,
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateBudgetLimit: UpdateBudgetLimitDto
-  ): Promise<BudgetLimitDto> {
-    return await this.budgetService.updateBudgetLimit(req.user.userId, id, updateBudgetLimit);
+  @Patch()
+  async update(@Request() req, @Body() updateBudgetLimit: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
+    return await this.budgetService.updateBudgetLimit(req.user.userId, updateBudgetLimit);
   }
 }
