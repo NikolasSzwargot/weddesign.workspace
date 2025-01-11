@@ -63,7 +63,7 @@ export const TaskForm = () => {
         };
 
         const handleError = () => {
-            router.navigate(ErrorRoutes.GENERAL, 'guests');
+            router.navigate(ErrorRoutes.GENERAL, 'tasks');
         };
 
         if (task) {

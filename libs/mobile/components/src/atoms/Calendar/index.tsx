@@ -30,6 +30,7 @@ const Calendar = ({
         <DatePicker
             date={date}
             mode={mode}
+            //@ts-expect-error React error caused by library any error. Can be fixed in future patches. im not the author tho
             onChange={(event) => {
                 if (!disabled) {
                     onDateChange(event.date);

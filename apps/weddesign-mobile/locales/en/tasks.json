@@ -1,6 +1,6 @@
 {
   "loading": "Loading tasks...",
-  "bezterminowo": "unscheduled",
+  "unscheduled": "unscheduled",
   "searchPlaceholder": "Search",
   "deleteMessage": "Are you sure, you want to delete task: {{name}}?",
   "form": {

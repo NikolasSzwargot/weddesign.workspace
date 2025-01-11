@@ -1,6 +1,6 @@
 {
   "loading": "Pobieranie zadań...",
-  "bezterminowo": "unscheduled",
+  "unscheduled": "bezterminowo",
   "searchPlaceholder": "Wyszukaj",
   "deleteMessage": "Czy na pewno chcesz usunąć zadanie: {{name}}?",
   "form": {

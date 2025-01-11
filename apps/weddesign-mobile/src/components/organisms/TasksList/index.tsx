@@ -105,7 +105,11 @@ export const TasksList = () => {
                             )}
                             renderSectionHeader={(item) => (
                                 <CustomSectionHeader
-                                    section={item.section}
+                                    section={
+                                        item.section.data[0]?.deadline
+                                            ? item.section
+                                            : {title: t('unscheduled')}
+                                    }
                                     color={getDeadlineColor(
                                         item.section.data[0]?.deadline,
                                     )}
