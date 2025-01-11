@@ -36,3 +36,8 @@ export enum ProvidersScreens {
     LIST = '/list',
     ADD = '/add',
 }
+
+export enum TasksScreens {
+    LIST = '/list',
+    ADD = '/add',
+}

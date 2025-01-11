@@ -1,0 +1,16 @@
+{
+  "loading": "Pobieranie zadań...",
+  "bezterminowo": "unscheduled",
+  "searchPlaceholder": "Wyszukaj",
+  "deleteMessage": "Czy na pewno chcesz usunąć zadanie: {{name}}?",
+  "form": {
+    "name": "Nazwa zadania",
+    "description": "Opis",
+    "confirm": "OK",
+    "cancel": "Anuluj",
+    "isUnscheduled": "Zadanie bezterminowe"
+  },
+  "errors": {
+    "name": "Nazwa jest wymagana"
+  }
+}

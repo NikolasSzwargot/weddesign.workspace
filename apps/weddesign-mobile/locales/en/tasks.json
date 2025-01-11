@@ -1,0 +1,16 @@
+{
+  "loading": "Loading tasks...",
+  "bezterminowo": "unscheduled",
+  "searchPlaceholder": "Search",
+  "deleteMessage": "Are you sure, you want to delete task: {{name}}?",
+  "form": {
+    "name": "Task name",
+    "description": "description",
+    "confirm": "OK",
+    "cancel": "Cancel",
+    "isUnscheduled": "Unscheduled task"
+  },
+  "errors": {
+    "name": "Name is required"
+  }
+}

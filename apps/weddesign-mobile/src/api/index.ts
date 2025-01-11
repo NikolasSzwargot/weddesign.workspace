@@ -6,3 +6,7 @@ export * from './Guests/useGuestsCount';
 export * from './Guests/useGuestsGrouped';
 export * from './Guests/useGuestsStatistics';
 export * from './Guests/useUpdateGuest';
+export * from './Tasks/useGroupedTasks';
+export * from './Tasks/useDeleteTask';
+export * from './Tasks/useCreateTask';
+export * from './Tasks/useUpdateTask';

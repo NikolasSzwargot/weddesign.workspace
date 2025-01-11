@@ -71,6 +71,7 @@ const Login = () => {
                                 handleChange={(val) => setEmail(val)}
                                 value={email}
                                 placeholder={t('loginScreen.email_placeholder')}
+                                keyboardType={'email-address'}
                             />
                             <TextInput
                                 value={password}
