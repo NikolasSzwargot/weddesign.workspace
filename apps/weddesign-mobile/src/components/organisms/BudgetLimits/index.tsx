@@ -6,6 +6,7 @@ import {getBudgetCategoryData} from '@weddesign-mobile/utils';
 import {
     BackgroundEllipse,
     Button,
+    CustomSlider,
     Header,
     IconDot,
     Input,
@@ -13,11 +14,13 @@ import {
     Modal,
 } from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
-import {ExpenseCategoryDto} from '@shared/dto';
+import {UpdateCategoryLimitDto} from '@shared/dto';
 
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
 import {useCatsData} from '../../../api/Budget/useCatsData';
 import {useRouting} from '../../providers';
+import {useUpdateCategoryLimit} from '../../../api';
+import {useCategoriesLimits} from '../../../api/Budget/useCategoriesLimits';
 
 import {
     Container,
@@ -33,11 +36,15 @@ import {
 const BudgetLimits = () => {
     const {t} = useTranslation('budget');
     const {router} = useRouting();
+    const [resultListData, setResultListData] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const [modalValue, setModalValue] = useState(0);
-    const [selectedItem, setSelectedItem] = useState<ExpenseCategoryDto | null>(
-        null,
-    );
+    // const [selectedItem, setSelectedItem] = useState<
+    //     CategoryLimitDto | ExpenseCategoryDto | null
+    // >(null);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const {mutate: updateLimit, isLoading: isLoadingUpdate} =
+        useUpdateCategoryLimit();
 
     const {
         data: mainLimitData,
@@ -51,10 +58,44 @@ const BudgetLimits = () => {
         isError: isErrorCats,
         isFetching: isFetchingCats,
     } = useCatsData();
+    const {
+        data: categoriesLimits,
+        isLoading: isLoadingLimits,
+        isError: isErrorLimits,
+        isFetching: isFetchingLimits,
+    } = useCategoriesLimits();
+
+    useEffect(() => {
+        if (!isLoadingCats && !isLoadingLimits) {
+            const updatedResultListData = categoriesLimits
+                .map((limitItem) => {
+                    const firstItem = catsData.find(
+                        (dataItem) => dataItem.id === limitItem.categoryId,
+                    );
+                    return {
+                        categoryId: limitItem.categoryId,
+                        name: firstItem?.name,
+                        limit: limitItem.limit,
+                    };
+                })
+                .sort((a, b) => a.categoryId - b.categoryId);
+            setResultListData(updatedResultListData);
+        }
+    }, [categoriesLimits, catsData]);
 
     const handleOK = () => {
         setModalVisible(false);
-        console.log('zmiana', selectedItem.name, 'na', modalValue.toString());
+        if (selectedItem) {
+            console.log('zmiana', selectedItem.name, 'na', modalValue.toString());
+            updateLimit({
+                categoryId: selectedItem.categoryId,
+                updateCategoryLimitDto: {
+                    limit: modalValue,
+                } as UpdateCategoryLimitDto,
+            });
+        } else {
+            console.log('main limit update');
+        }
         // setStatusModalVisible(false);
     };
 
@@ -65,7 +106,7 @@ const BudgetLimits = () => {
     };
 
     const renderItem = ({item}: any) => {
-        const data = getBudgetCategoryData(item.id);
+        const data = getBudgetCategoryData(item.categoryId);
         return (
             <CategoryListItem
                 onPress={() => {
@@ -92,7 +133,7 @@ const BudgetLimits = () => {
     };
 
     useEffect(() => {
-        if (isErrorCats || isErrorMainLimit) {
+        if (isErrorCats || isErrorMainLimit || isErrorLimits) {
             router.navigate(ErrorRoutes.GENERAL, 'budget');
         }
     }, [isErrorCats, isErrorMainLimit, router]);
@@ -100,12 +141,19 @@ const BudgetLimits = () => {
     return (
         <Container>
             <BackgroundEllipse variant={'budget'} />
-            {isLoadingMainLimit || isLoadingCats ? (
+            {isLoadingMainLimit || isLoadingCats || isLoadingLimits ? (
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             ) : (
                 <MainWrapper>
                     <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
-                    <TotalWrapper onPress={() => console.log('edit: MAIN')}>
+                    <TotalWrapper
+                        onPress={() => {
+                            console.log('edit: MAIN');
+                            setSelectedItem(null);
+                            setModalValue(mainLimitData.limit);
+                            setModalVisible(true);
+                        }}
+                    >
                         {/* eslint-disable-next-line react-native/no-raw-text */}
                         <Text.Bold size={24}>{`${t('total')}:`}</Text.Bold>
                         <Text.SemiBold size={24}>
@@ -114,9 +162,9 @@ const BudgetLimits = () => {
                         </Text.SemiBold>
                     </TotalWrapper>
                     <FlatList
-                        data={catsData}
+                        data={resultListData}
                         renderItem={renderItem}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item) => item.categoryId.toString()}
                     />
 
                     <Modal
@@ -124,34 +172,56 @@ const BudgetLimits = () => {
                         onBackdropPress={() => setModalVisible(false)}
                     >
                         <ModalContainer>
-                            <Text.Bold size={14}>Ustaw limit</Text.Bold>
+                            <Text.SemiBold size={20}>Ustaw limit</Text.SemiBold>
                             <ModalRow>
                                 {(() => {
-                                    const data = getBudgetCategoryData(
-                                        selectedItem ? selectedItem.id : 1,
-                                    );
-                                    return (
-                                        <IconDot
-                                            color={data.color}
-                                            Icon={data.icon}
-                                        ></IconDot>
-                                    );
+                                    if (selectedItem) {
+                                        const data = getBudgetCategoryData(
+                                            selectedItem
+                                                ? selectedItem.categoryId
+                                                : 1,
+                                        );
+                                        return (
+                                            <IconDot
+                                                color={data.color}
+                                                Icon={data.icon}
+                                            ></IconDot>
+                                        );
+                                    } else {
+                                        return (
+                                            <Text.SemiBold>{`${t(
+                                                'total',
+                                            )}:`}</Text.SemiBold>
+                                        );
+                                    }
                                 })()}
                                 <Input
-                                    style={{width: '60%'}}
+                                    style={{width: '80%'}}
                                     handleChange={(v) => {
-                                        setModalValue(v ? valueOf(v) : 0);
+                                        const numericValue = v ? Number(v) : 0;
+                                        setModalValue(numericValue);
                                     }}
                                     value={modalValue && modalValue.toString()}
                                     placeholder={t('Ustaw limit')}
                                     inputMode={'numeric'}
                                     multiline={false}
-                                    maxLength={400}
+                                    maxLength={12}
                                     onFocus={() => console.log('focus')}
                                     onBlur={() => console.log('blur')}
                                 />
                             </ModalRow>
-                            <Text.Bold size={14}>'suwaczek'</Text.Bold>
+                            <CustomSlider
+                                min={0}
+                                max={100000}
+                                step={1000}
+                                value={modalValue}
+                                initialValue={modalValue}
+                                onValueChange={(value) => {
+                                    setModalValue(value);
+                                }}
+                                label="Ustaw limit"
+                                unit="$"
+                            />
                             <ModalRow>
                                 <Button
                                     style={{width: '50%'}}

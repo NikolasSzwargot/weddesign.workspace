@@ -15,7 +15,10 @@ export enum ApiRoutes {
     ExpensesByCategory = '/budget/expense/groupedByCategory',
     ExpensesByDate = '/budget/expense/groupedByDate',
     MainLimitStats = '/budget/limit',
+    MainLimitEdit = '/budget/limit/:id',
     CategoriesData = '/budget/categories',
+    CategoriesLimits = '/budget/categories/limit',
+    CategoriesLimitsSingle = '/budget/categories/limit/:categoryId',
 
     ProvidersCategories = '/providers/categories',
     ProvidersCategoriesDelete = '/providers/categories/:id',

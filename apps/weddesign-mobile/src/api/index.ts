@@ -6,3 +6,4 @@ export * from './Guests/useGuestsCount';
 export * from './Guests/useGuestsGrouped';
 export * from './Guests/useGuestsStatistics';
 export * from './Guests/useUpdateGuest';
+export * from './Budget/useUpdateCategoryLimit';

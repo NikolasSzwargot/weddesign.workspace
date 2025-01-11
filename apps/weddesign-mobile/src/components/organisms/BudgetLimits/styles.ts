@@ -68,15 +68,14 @@ export const ModalContainer = styled.View`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 250px;
+    height: 320px;
     flex-direction: column;
+    gap: 10px;
 `;
 
 export const ModalRow = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    //width: 100%;
     gap: 10px;
-    margin-bottom: 16px;
 `;
