@@ -8,7 +8,7 @@
   "providerCategoryModal": {
     "title": "Add category",
     "placeholder": "Category name",
-    "ok": "OK",
+    "confirm": "OK",
     "noText": "No"
   }
 }
