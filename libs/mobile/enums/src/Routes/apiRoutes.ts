@@ -24,6 +24,8 @@ export enum ApiRoutes {
     ProvidersDelete = '/providers/:id',
     // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     ProvidersUpdate = '/providers/:id',
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+    ProvidersCategoryCreate = '/providers/categories',
 
     TasksGrouped = '/tasks/groupedDeadline',
     TasksDelete = '/tasks/:id',

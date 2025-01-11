@@ -11,12 +11,16 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Colors, ErrorRoutes, ProvidersRoutes, HomeRoutes} from '@weddesign/enums';
 import {Icons} from '@weddesign/assets';
-import {CategoryToSummaryDto} from '@shared/dto';
+import {CategoryToSummaryDto, CreateProviderCategoryDto} from '@shared/dto';
 
 import {useRouting} from '../../providers';
-import {WeddesignConfirmationModal} from '../../molecules';
+import {
+    WeddesignConfirmationModal,
+    WeddesignProviderCategoryModal,
+} from '../../molecules';
 import {useProvidersCategoriesAll} from '../../../api/Providers/useProvidersCategoriesAll';
 import {useDeleteCategory} from '../../../api/Providers/useDeleteCategory';
+import {useCreateProviderCategory} from '../../../api/Providers/useCreateProviderCategory';
 
 import {CategoriesWrapper, Container, ProvidersCategoriesWrapper} from './styles';
 
@@ -25,21 +29,21 @@ const ProvidersGrouped = () => {
     const {t} = useTranslation('providers');
 
     const [isModalVisible, setModalVisible] = useState(false);
+    const [isCreateModalVisible, setCreateModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<CategoryToSummaryDto | null>(
         null,
     );
     const [confirmationModalText, setConfirmationModalText] = useState('');
 
     const {mutate: deleteCategory, isLoading: isDeleting} = useDeleteCategory();
+    const {mutate: createCategory, isLoading: isCreating} =
+        useCreateProviderCategory();
     const {
         data: categoriesAll,
         isLoading,
         isError,
         isFetching,
     } = useProvidersCategoriesAll();
-
-    //@TODO: Add option to add categories
-    const isAdding = false;
 
     const handleSuccess = () => {
         console.log('Success');
@@ -60,6 +64,7 @@ const ProvidersGrouped = () => {
     };
     const handleYes = () => {
         setModalVisible(false);
+        setCreateModalVisible(false);
         deleteCategory(
             {categoryId: selectedItem.id},
             {
@@ -68,9 +73,23 @@ const ProvidersGrouped = () => {
             },
         );
     };
+    const handleCreateModal = () => {
+        setCreateModalVisible(!isCreateModalVisible);
+    };
+    const handleCreate = (data: CreateProviderCategoryDto) => {
+        setModalVisible(false);
+        setCreateModalVisible(false);
+        if (!data.name || data.name === '') {
+            return;
+        }
+        createCategory(data, {
+            onSuccess: handleSuccess,
+            onError: handleError,
+        });
+    };
     const handleCancel = () => {
         setModalVisible(false);
-        console.log('No');
+        setCreateModalVisible(false);
     };
 
     useEffect(() => {
@@ -120,12 +139,12 @@ const ProvidersGrouped = () => {
                         <IconButton
                             Icon={Icons.Plus}
                             fillColor={Colors.LightPurple}
-                            onPress={() => console.log('dodawanie kategorii')}
+                            onPress={handleCreateModal}
                             variant={'roundFloating'}
                         />
 
                         <CustomOverlay
-                            isVisible={isDeleting || isAdding || isFetching}
+                            isVisible={isDeleting || isCreating || isFetching}
                             variant={'center'}
                         >
                             <LoadingSpinner
@@ -141,6 +160,13 @@ const ProvidersGrouped = () => {
                             message={confirmationModalText}
                             warning={t('deleteWarning')}
                         ></WeddesignConfirmationModal>
+
+                        <WeddesignProviderCategoryModal
+                            isVisible={isCreateModalVisible}
+                            onBackdropPress={handleCancel}
+                            onYesPress={handleCreate}
+                            onNoPress={handleCancel}
+                        />
                     </>
                 )}
             </ProvidersCategoriesWrapper>
