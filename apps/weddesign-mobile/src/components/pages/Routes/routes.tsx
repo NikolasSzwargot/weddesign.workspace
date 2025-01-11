@@ -7,6 +7,7 @@ import {
     LoginScreens,
     ProvidersScreens,
     Route,
+    TasksScreens,
 } from '@weddesign/enums';
 
 import {
@@ -16,6 +17,7 @@ import {
     LoginPage,
     ProvidersPage,
     BudgetMainPage,
+    TasksPage,
 } from '../index';
 
 export const LoginRoutingRoutes: Route[] = [
@@ -114,6 +116,19 @@ export const ProvidersRoutingRoutes: Route[] = [
     },
 ];
 
+export const TasksRoutingRoutes: Route[] = [
+    {
+        route: AppRootRoutes.TASKS,
+        screen: TasksScreens.LIST,
+        element: <TasksPage screen={TasksScreens.LIST} />,
+    },
+    {
+        route: AppRootRoutes.TASKS,
+        screen: TasksScreens.ADD,
+        element: <TasksPage screen={TasksScreens.ADD} />,
+    },
+];
+
 export const WeddesignRoutingRoutes: Route[] = [
     ...LoginRoutingRoutes,
     ...HomeRoutingRoutes,
@@ -121,4 +136,5 @@ export const WeddesignRoutingRoutes: Route[] = [
     ...BudgetRoutingRoutes,
     ...ErrorRoutingRoutes,
     ...ProvidersRoutingRoutes,
+    ...TasksRoutingRoutes,
 ];

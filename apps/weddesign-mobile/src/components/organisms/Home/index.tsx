@@ -11,6 +11,7 @@ import {
     GuestListRoutes,
     HomeRoutes,
     ProvidersRoutes,
+    TasksRoutes,
 } from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
@@ -42,7 +43,11 @@ const Home = () => {
             label: t('buttons.providers'),
             onPress: () => router.navigate(ProvidersRoutes.GROUPED),
         },
-        {color: Colors.StatusInvited, label: t('buttons.tasks')},
+        {
+            color: Colors.StatusInvited,
+            label: t('buttons.tasks'),
+            onPress: () => router.navigate(TasksRoutes.LIST),
+        },
     ];
 
     return (

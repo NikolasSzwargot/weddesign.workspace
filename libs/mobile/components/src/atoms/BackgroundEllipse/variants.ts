@@ -37,4 +37,13 @@ export const variantDefaults = {
         ],
         angle: 90,
     },
+    tasks: {
+        rx: 280,
+        ry: 150,
+        gradientColors: [
+            {offset: '75%', color: Colors.LightYellow, opacity: 1},
+            {offset: '100%', color: Colors.DarkYellow, opacity: 1},
+        ],
+        angle: 90,
+    },
 };
