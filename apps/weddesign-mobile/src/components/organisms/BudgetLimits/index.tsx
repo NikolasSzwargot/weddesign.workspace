@@ -8,8 +8,7 @@ import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
 import {UpdateBudgetLimitDto, UpdateCategoryLimitDto} from '@shared/dto';
 
-import {useMainLimit} from '../../../api/Budget/useMainLimit';
-import {useCatsData} from '../../../api/Budget/useCatsData';
+import {useMainLimit, useCategoriesData} from '../../../api';
 import {useRouting} from '../../providers';
 import {useUpdateMainLimit} from '../../../api';
 import {useUpdateCategoryLimit} from '../../../api';
@@ -40,10 +39,10 @@ const BudgetLimits = () => {
         isError: isErrorMainLimit,
     } = useMainLimit();
     const {
-        data: catsData,
-        isLoading: isLoadingCats,
-        isError: isErrorCats,
-    } = useCatsData();
+        data: categoriesData,
+        isLoading: isLoadingCategories,
+        isError: isErrorCategories,
+    } = useCategoriesData();
     const {
         data: categoriesLimits,
         isLoading: isLoadingLimits,
@@ -51,10 +50,10 @@ const BudgetLimits = () => {
     } = useCategoriesLimits();
 
     useEffect(() => {
-        if (!isLoadingCats && !isLoadingLimits) {
+        if (!isLoadingCategories && !isLoadingLimits) {
             const updatedResultListData = categoriesLimits
                 .map((limitItem) => {
-                    const firstItem = catsData.find(
+                    const firstItem = categoriesData.find(
                         (dataItem) => dataItem.id === limitItem.categoryId,
                     );
                     return {
@@ -66,7 +65,7 @@ const BudgetLimits = () => {
                 .sort((a, b) => a.categoryId - b.categoryId);
             setResultListData(updatedResultListData);
         }
-    }, [categoriesLimits, catsData, isLoadingCats, isLoadingLimits]);
+    }, [categoriesLimits, categoriesData, isLoadingCategories, isLoadingLimits]);
 
     const handleOK = () => {
         setModalVisible(false);
@@ -136,15 +135,15 @@ const BudgetLimits = () => {
     };
 
     useEffect(() => {
-        if (isErrorCats || isErrorMainLimit || isErrorLimits) {
+        if (isErrorCategories || isErrorMainLimit || isErrorLimits) {
             router.navigate(ErrorRoutes.GENERAL, 'budget');
         }
-    }, [isErrorCats, isErrorMainLimit, isErrorLimits, router]);
+    }, [isErrorCategories, isErrorMainLimit, isErrorLimits, router]);
 
     return (
         <Container>
             <BackgroundEllipse variant={'budget'} />
-            {isLoadingMainLimit || isLoadingCats || isLoadingLimits ? (
+            {isLoadingMainLimit || isLoadingCategories || isLoadingLimits ? (
                 <LoadingSpinner color={Colors.LightGreen} msg={t('loading')} />
             ) : (
                 <MainWrapper>

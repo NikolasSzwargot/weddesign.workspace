@@ -4,7 +4,7 @@ import {ExpenseCategoryDto} from '@shared/dto';
 
 import {useFetch} from '../useFetch';
 
-export const useCatsData = () => {
+export const useCategoriesData = () => {
     const api = useFetch();
 
     return useQuery<ExpenseCategoryDto[], Error>([ApiRoutes.CategoriesData], () =>
