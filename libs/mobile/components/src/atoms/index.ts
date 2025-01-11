@@ -19,3 +19,4 @@ export {default as CustomSlider} from './CustomSlider';
 export {default as CustomSwitch} from './CustomSwitch';
 export {default as GuestStatusDot} from './GuestStatusDot';
 export {default as Calendar} from './Calendar';
+export {default as ProviderIconDropdown} from './ProviderIconDropdown';
