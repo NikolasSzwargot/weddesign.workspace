@@ -39,9 +39,6 @@ const BudgetLimits = () => {
     const [resultListData, setResultListData] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const [modalValue, setModalValue] = useState(0);
-    // const [selectedItem, setSelectedItem] = useState<
-    //     CategoryLimitDto | ExpenseCategoryDto | null
-    // >(null);
     const [selectedItem, setSelectedItem] = useState(null);
     const {mutate: updateLimit, isLoading: isLoadingUpdate} =
         useUpdateCategoryLimit();
@@ -96,13 +93,21 @@ const BudgetLimits = () => {
         } else {
             console.log('main limit update');
         }
-        // setStatusModalVisible(false);
     };
 
     const handleDelete = () => {
         setModalVisible(false);
-        console.log('usunięcie', selectedItem.name);
-        // setStatusModalVisible(false);
+        if (selectedItem) {
+            console.log('usunięcie', selectedItem.name);
+            updateLimit({
+                categoryId: selectedItem.categoryId,
+                updateCategoryLimitDto: {
+                    limit: 0,
+                } as UpdateCategoryLimitDto,
+            });
+        } else {
+            console.log('main limit clearing');
+        }
     };
 
     const renderItem = ({item}: any) => {
@@ -212,7 +217,7 @@ const BudgetLimits = () => {
                             </ModalRow>
                             <CustomSlider
                                 min={0}
-                                max={100000}
+                                max={mainLimitData ? mainLimitData.limit : 100000}
                                 step={1000}
                                 value={modalValue}
                                 initialValue={modalValue}
