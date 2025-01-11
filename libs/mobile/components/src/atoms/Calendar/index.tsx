@@ -10,7 +10,9 @@ type CalendarProps = {
     date: DateType;
     onDateChange: (date: DateType) => void;
     locale?: string;
-    selectedColor?: Colors;
+    selectedItemColor?: Colors;
+    calendarTextColor?: Colors;
+    disabled?: boolean;
 };
 
 const Calendar = ({
@@ -20,18 +22,25 @@ const Calendar = ({
     minDate,
     maxDate,
     locale = 'en',
-    selectedColor = Colors.PinkDark,
+    selectedItemColor = Colors.PinkDark,
+    calendarTextColor = Colors.Black,
+    disabled = false,
 }: CalendarProps) => {
     return (
         <DatePicker
             date={date}
             mode={mode}
-            onChange={(event) => onDateChange(event.date)}
+            //@ts-expect-error React error caused by library any error. Can be fixed in future patches. im not the author tho
+            onChange={(event) => {
+                if (!disabled) {
+                    onDateChange(event.date);
+                }
+            }}
             minDate={minDate}
             maxDate={maxDate}
-            selectedItemColor={selectedColor}
-            calendarTextStyle={{color: Colors.Black}}
-            headerTextStyle={{color: Colors.Black}}
+            selectedItemColor={disabled ? Colors.Gray : selectedItemColor}
+            calendarTextStyle={{color: disabled ? Colors.Gray : calendarTextColor}}
+            headerTextStyle={{color: disabled ? Colors.Gray : Colors.Black}}
             buttonPrevIcon={<Text.Regular>{'\u25C0'}</Text.Regular>}
             buttonNextIcon={<Text.Regular>{'\u25B6'}</Text.Regular>}
             locale={locale}

@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 type VariantProps = {
-    variant: 'home' | 'guests' | 'budget' | 'providers';
+    variant: 'home' | 'guests' | 'budget' | 'providers' | 'tasks';
 };
 
 export const EllipseContainer = styled.View<VariantProps>`

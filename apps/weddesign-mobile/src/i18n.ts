@@ -16,6 +16,8 @@ import enLogin from '../locales/en/login.json';
 import plLogin from '../locales/pl/login.json';
 import enProviders from '../locales/en/providers.json';
 import plProviders from '../locales/pl/providers.json';
+import enTasks from '../locales/en/tasks.json';
+import plTasks from '../locales/pl/tasks.json';
 
 const resources = {
     en: {
@@ -26,6 +28,7 @@ const resources = {
         shared: enShared,
         login: enLogin,
         providers: enProviders,
+        tasks: enTasks,
     },
     pl: {
         errors: plErrors,
@@ -35,6 +38,7 @@ const resources = {
         shared: plShared,
         login: plLogin,
         providers: plProviders,
+        tasks: plTasks,
     },
 };
 
@@ -42,7 +46,15 @@ const options: InitOptions = {
     compatibilityJSON: 'v3',
     fallbackLng: 'pl',
     resources,
-    ns: ['mainScreen', 'errors', 'budget', 'guestList', 'shared', 'providers'],
+    ns: [
+        'mainScreen',
+        'errors',
+        'budget',
+        'guestList',
+        'shared',
+        'providers',
+        'tasks',
+    ],
     defaultNS: 'mainScreen',
     interpolation: {
         escapeValue: false,

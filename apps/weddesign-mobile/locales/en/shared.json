@@ -4,5 +4,11 @@
     "yesText": "Yes",
     "noText": "No",
     "message": "Are you sure you want to proceed?"
+  },
+  "providerCategoryModal": {
+    "title": "Add category",
+    "placeholder": "Category name",
+    "confirm": "OK",
+    "noText": "No"
   }
 }
