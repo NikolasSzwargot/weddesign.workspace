@@ -6,11 +6,12 @@ import {getBudgetCategoryData} from '@weddesign-mobile/utils';
 import {BudgetLimitEditionModal} from '@weddesign-mobile/components';
 import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
-import {UpdateCategoryLimitDto} from '@shared/dto';
+import {UpdateBudgetLimitDto, UpdateCategoryLimitDto} from '@shared/dto';
 
 import {useMainLimit} from '../../../api/Budget/useMainLimit';
 import {useCatsData} from '../../../api/Budget/useCatsData';
 import {useRouting} from '../../providers';
+import {useUpdateMainLimit} from '../../../api';
 import {useUpdateCategoryLimit} from '../../../api';
 import {useCategoriesLimits} from '../../../api/Budget/useCategoriesLimits';
 
@@ -30,26 +31,23 @@ const BudgetLimits = () => {
     const [isModalVisible, setModalVisible] = useState(false);
     const [modalValue, setModalValue] = useState(0);
     const [selectedItem, setSelectedItem] = useState(null);
-    const {mutate: updateLimit, isLoading: isLoadingUpdate} =
-        useUpdateCategoryLimit();
+    const {mutate: updateMainLimit} = useUpdateMainLimit();
+    const {mutate: updateLimit} = useUpdateCategoryLimit();
 
     const {
         data: mainLimitData,
         isLoading: isLoadingMainLimit,
         isError: isErrorMainLimit,
-        isFetching: isFetchingMainLimit,
     } = useMainLimit();
     const {
         data: catsData,
         isLoading: isLoadingCats,
         isError: isErrorCats,
-        isFetching: isFetchingCats,
     } = useCatsData();
     const {
         data: categoriesLimits,
         isLoading: isLoadingLimits,
         isError: isErrorLimits,
-        isFetching: isFetchingLimits,
     } = useCategoriesLimits();
 
     useEffect(() => {
@@ -68,7 +66,7 @@ const BudgetLimits = () => {
                 .sort((a, b) => a.categoryId - b.categoryId);
             setResultListData(updatedResultListData);
         }
-    }, [categoriesLimits, catsData]);
+    }, [categoriesLimits, catsData, isLoadingCats, isLoadingLimits]);
 
     const handleOK = () => {
         setModalVisible(false);
@@ -82,6 +80,11 @@ const BudgetLimits = () => {
             });
         } else {
             console.log('main limit update');
+            updateMainLimit({
+                updateMainLimitDto: {
+                    limit: modalValue,
+                } as UpdateBudgetLimitDto,
+            });
         }
     };
 
@@ -97,10 +100,15 @@ const BudgetLimits = () => {
             });
         } else {
             console.log('main limit clearing');
+            updateMainLimit({
+                updateMainLimitDto: {
+                    limit: 0,
+                } as UpdateBudgetLimitDto,
+            });
         }
     };
 
-    const renderItem = ({item}: any) => {
+    const renderItem = ({item}) => {
         const data = getBudgetCategoryData(item.categoryId);
         return (
             <CategoryListItem
@@ -131,7 +139,7 @@ const BudgetLimits = () => {
         if (isErrorCats || isErrorMainLimit || isErrorLimits) {
             router.navigate(ErrorRoutes.GENERAL, 'budget');
         }
-    }, [isErrorCats, isErrorMainLimit, router]);
+    }, [isErrorCats, isErrorMainLimit, isErrorLimits, router]);
 
     return (
         <Container>
@@ -149,11 +157,9 @@ const BudgetLimits = () => {
                             setModalVisible(true);
                         }}
                     >
-                        {/* eslint-disable-next-line react-native/no-raw-text */}
-                        <Text.Bold size={24}>{`${t('total')}:`}</Text.Bold>
+                        <Text.Bold size={24}>{t('total') + ':'}</Text.Bold>
                         <Text.SemiBold size={24}>
-                            {/* eslint-disable-next-line react-native/no-raw-text */}
-                            {`${mainLimitData.limit} ${t('currency')}`}
+                            {`${mainLimitData.limit}` + t('currency')}
                         </Text.SemiBold>
                     </TotalWrapper>
                     <FlatList

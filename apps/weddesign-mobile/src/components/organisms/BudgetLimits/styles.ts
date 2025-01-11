@@ -9,14 +9,13 @@ export const Container = styled.View`
 `;
 
 export const MainWrapper = styled.View`
+    flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
     width: 100vw;
-    height: 100%;
     margin-top: 20px;
     gap: 20px;
 `;
@@ -57,25 +56,4 @@ export const StatusDot = styled.View<CatDotProps>`
     border-radius: 20px;
     justify-content: center;
     align-items: center;
-`;
-
-export const ModalContainer = styled.View`
-    flex: 1;
-    background-color: white;
-    padding: 20px;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 320px;
-    flex-direction: column;
-    gap: 10px;
-`;
-
-export const ModalRow = styled.View`
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
 `;
