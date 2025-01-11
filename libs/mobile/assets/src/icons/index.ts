@@ -28,6 +28,7 @@ import ArrowRightGray from './ArrowRightGray.svg';
 import ProviderReserved from './ProviderReserved.svg';
 import Instagram from './Instagram.svg';
 import Website from './Website.svg';
+import Add from './Add.svg';
 
 export const Icons = {
     Camera,
@@ -60,4 +61,5 @@ export const Icons = {
     ProviderReserved,
     Instagram,
     Website,
+    Add,
 };

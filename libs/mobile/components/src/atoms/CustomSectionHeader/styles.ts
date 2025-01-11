@@ -8,31 +8,31 @@ export const UniversalSeparatorContainer = styled.View`
     padding-right: 15px;
 `;
 
-export const StartSeparatorLine = styled.View`
+export const StartSeparatorLine = styled.View<{color?: string}>`
     width: 40px;
     height: 1px;
-    background-color: ${Colors.LightGray};
+    background-color: ${({color}) => color || Colors.LightGray};
     margin-right: 10px;
 `;
 
-export const MiddleSeparatorLine = styled.View`
+export const MiddleSeparatorLine = styled.View<{color?: string}>`
     flex: 1;
     height: 1px;
-    background-color: ${Colors.LightGray};
+    background-color: ${({color}) => color || Colors.LightGray};
     margin-left: 10px;
     margin-right: 10px;
 `;
 
-export const EndSeparatorLine = styled.View`
+export const EndSeparatorLine = styled.View<{color?: string}>`
     width: 26px;
     height: 1px;
-    background-color: ${Colors.LightGray};
+    background-color: ${({color}) => color || Colors.LightGray};
     margin-left: 10px;
 `;
 
-export const LongSeparatorLine = styled.View`
+export const LongSeparatorLine = styled.View<{color?: string}>`
     flex: 1;
     height: 1px;
-    background-color: ${Colors.LightGray};
+    background-color: ${({color}) => color || Colors.LightGray};
     margin-left: 10px;
 `;
