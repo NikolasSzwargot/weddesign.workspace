@@ -21,7 +21,7 @@ type CustomSectionHeaderProps = {
 const CustomSectionHeader = ({
     section: {title, subtitle},
     titlePrefix,
-    color = Colors.StatusRejected,
+    color = Colors.GraySection,
 }: CustomSectionHeaderProps) => (
     <UniversalSeparatorContainer>
         <StartSeparatorLine color={color} />
