@@ -161,6 +161,7 @@ model Task {
   name        String
   description String?
   deadline    DateTime?
+  isDone      Boolean   @default(false)
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
   createdAt   DateTime  @default(now())
