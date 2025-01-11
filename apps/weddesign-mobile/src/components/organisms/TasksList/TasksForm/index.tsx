@@ -226,7 +226,7 @@ export const TaskForm = () => {
                         isVisible={isLoadingCreate || isLoadingUpdate}
                         variant={'center'}
                     >
-                        <LoadingSpinner color={Colors.LightBlue} />
+                        <LoadingSpinner color={Colors.DarkYellow} />
                     </CustomOverlay>
                 </Container>
             </ScrollView>
