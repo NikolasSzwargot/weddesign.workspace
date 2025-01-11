@@ -66,20 +66,26 @@ export const TaskForm = () => {
             router.navigate(ErrorRoutes.GENERAL, 'guests');
         };
 
-        if (isUnscheduled) {
-            data.deadline = undefined;
-        }
-
         if (task) {
+            const updatedTask = {
+                ...data,
+                deadline: isUnscheduled ? null : data.deadline,
+            };
+
             updateTask(
                 {
                     id: task.id,
-                    data: data as UpdateTaskDto,
+                    data: updatedTask as UpdateTaskDto,
                 },
                 {onSuccess: handleSuccess, onError: handleError},
             );
         } else {
-            createTask(data as CreateTaskDto, {
+            const createdTask = {
+                ...data,
+                deadline: isUnscheduled ? null : data.deadline,
+            };
+
+            createTask(createdTask as CreateTaskDto, {
                 onSuccess: handleSuccess,
                 onError: handleError,
             });
