@@ -19,7 +19,7 @@ const CustomSearchBar = ({
             <SearchBar
                 style={{
                     flex: 1,
-                    height: 48,
+                    height: 44,
                     borderColor: Colors.LightGray,
                     borderWidth: 1,
                     borderRadius: 5,

@@ -44,7 +44,6 @@ const BudgetMain = () => {
     const {router} = useRouting();
     const {t} = useTranslation('budget');
     const [searchQuery, setSearchQuery] = useState('');
-    // const [debouncedQuery] = useDebounce(searchQuery, 2000);
     const [groupingMode, setGroupingMode] = useState<
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
     >(ExpenseGroupingMode.Categories);
