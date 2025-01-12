@@ -16,6 +16,8 @@ export enum ApiRoutes {
     ExpensesByDate = '/budget/expense/groupedByDate',
     MainLimitStats = '/budget/limit',
     CategoriesData = '/budget/categories',
+    ExpenseCreate = '/budget/expense',
+    SingleExpense = '/budget/expense/:id',
 
     ProvidersCategories = '/providers/categories',
     ProvidersCategoriesDelete = '/providers/categories/:id',
@@ -24,4 +26,12 @@ export enum ApiRoutes {
     ProvidersDelete = '/providers/:id',
     // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     ProvidersUpdate = '/providers/:id',
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+    ProvidersCategoryCreate = '/providers/categories',
+
+    TasksGrouped = '/tasks/groupedDeadline',
+    TasksDelete = '/tasks/:id',
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
+    TasksUpdate = '/tasks/:id',
+    TasksCreate = '/tasks',
 }

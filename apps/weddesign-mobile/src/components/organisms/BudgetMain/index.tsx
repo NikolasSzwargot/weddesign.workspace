@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {Animated, SectionList} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {Animated, SectionList, TextStyle} from 'react-native';
 import {
     BudgetFrame,
     CustomSectionHeader,
@@ -21,11 +21,16 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getBudgetCategoryData} from '@weddesign-mobile/utils';
+import {ExpenseDto, ExpensesByCategoryDto, ExpensesByDateDto} from '@shared/dto';
 
-import {useExpensesByCategories} from '../../../api/Budget/useExpensesByCategories';
-import {useExpensesByDate} from '../../../api/Budget/useExpensesByDate';
-import {useMainLimit} from '../../../api/Budget/useMainLimit';
+import {
+    useExpensesByCategories,
+    useExpensesByDate,
+    useMainLimit,
+    useDeleteExpense,
+} from '../../../api';
 import {useRouting} from '../../providers';
+import {WeddesignConfirmationModal} from '../../molecules';
 
 import {
     Container,
@@ -42,36 +47,85 @@ const BudgetMain = () => {
     const [groupingMode, setGroupingMode] = useState<
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
     >(ExpenseGroupingMode.Categories);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [confirmationModalText, setConfirmationModalText] = useState('');
     const [listData, setListData] = useState([]);
+    const [selectedItem, setSelectedItem] = useState<ExpenseDto | null>(null);
+    const {mutate: deleteExpense} = useDeleteExpense();
 
     const {
         data: mainLimitData,
         isLoading: isLoadingMainLimit,
         isError: isErrorMainLimit,
-        isFetching: isFetchingMainLimit,
     } = useMainLimit();
     const {
         data: groupedByCategories,
         isLoading: isLoadingByCategories,
         isError: isErrorByCategories,
-        isFetching: isFetchingByCategories,
     } = useExpensesByCategories();
     const {
         data: groupedByDate,
         isLoading: isLoadingByDate,
         isError: isErrorByDate,
-        isFetching: isFetchingByDate,
     } = useExpensesByDate();
+
+    const handleDelete = (exp: ExpenseDto) => {
+        setSelectedItem(exp);
+        setConfirmationModalText(
+            t('deleteMessage', {
+                expName: exp.name,
+            }),
+        );
+        setModalVisible(true);
+    };
+    const handleYes = () => {
+        const handleError = () => {
+            router.navigate(ErrorRoutes.GENERAL, 'budget');
+        };
+        setModalVisible(false);
+        deleteExpense(
+            {expenseId: selectedItem?.id},
+            {
+                onError: handleError,
+            },
+        );
+    };
+    const handleCancel = () => {
+        setModalVisible(false);
+    };
+
+    const translateData = useCallback(
+        (list: ExpensesByCategoryDto[] | ExpensesByDateDto[]) => {
+            return groupingMode === ExpenseGroupingMode.Categories
+                ? list.map((item: ExpensesByCategoryDto | ExpensesByDateDto) => ({
+                      ...item,
+                      title: t(`category.${item.title}`),
+                  }))
+                : list;
+        },
+        [groupingMode, t],
+    );
 
     useEffect(() => {
         if (!isLoadingByDate && !isLoadingByCategories) {
-            setListData(
+            const rawData =
                 groupingMode === ExpenseGroupingMode.Categories
                     ? groupedByCategories
-                    : groupedByDate,
-            );
+                    : groupedByDate;
+
+            const translatedData = translateData(rawData);
+
+            setListData(translatedData);
         }
-    }, [groupingMode, groupedByCategories, groupedByDate, router]);
+    }, [
+        groupingMode,
+        groupedByCategories,
+        groupedByDate,
+        router,
+        isLoadingByDate,
+        isLoadingByCategories,
+        translateData,
+    ]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const infoTextAnimation = {
@@ -86,15 +140,14 @@ const BudgetMain = () => {
             extrapolate: 'clamp',
         }),
     };
-
-    const translateData = (lista) => {
-        return groupingMode === ExpenseGroupingMode.Categories
-            ? lista.map((item) => ({
-                  ...item,
-                  title: t(`category.${item.title}`),
-              }))
-            : lista;
-    };
+    const animatedTextStyle: Animated.WithAnimatedObject<TextStyle> = useMemo(
+        () => ({
+            fontSize: 14,
+            fontWeight: '500',
+            textAlign: 'center',
+        }),
+        [],
+    );
 
     useEffect(() => {
         if (isErrorByCategories || isErrorMainLimit || isErrorByDate) {
@@ -132,20 +185,16 @@ const BudgetMain = () => {
                     </BudgetMainFrame>
                     <InfoTextWrapper>
                         <Animated.Text
-                            style={[
-                                infoTextAnimation,
-                                {
-                                    fontSize: 14,
-                                    fontWeight: 500,
-                                    textAlign: 'center',
-                                },
-                            ]}
-                        >{`${t('mainProgressbarText', {
-                            percent: Math.round(
-                                (mainLimitData.totalPlanned / mainLimitData.limit) *
-                                    100,
-                            ),
-                        })}`}</Animated.Text>
+                            style={[infoTextAnimation, animatedTextStyle]}
+                        >
+                            {mainLimitData.totalPercent
+                                ? t('mainProgressbarText', {
+                                      percent: Math.round(
+                                          mainLimitData.totalPercent,
+                                      ),
+                                  })
+                                : t('pressToSetLimit')}
+                        </Animated.Text>
                     </InfoTextWrapper>
 
                     <SearchBarWrapper>
@@ -171,21 +220,24 @@ const BudgetMain = () => {
                         />
                         <IconButton
                             Icon={Icons.Plus}
-                            onPress={() => console.log('clicked AddGuest')}
+                            onPress={() => router.navigate(ExpenseListRoutes.ADD)}
                             fillColor={Colors.LightGreen}
                         />
                     </SearchBarWrapper>
 
                     <SectionList
-                        sections={translateData(listData)}
+                        sections={listData}
                         initialNumToRender={20}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({item}) => (
                             <ExpenseItem
-                                expName={item.name}
-                                expAmount={item.amount}
+                                expense={item}
                                 currency={t('currency')}
                                 catData={getBudgetCategoryData(item.categoryId)}
+                                onExpensePress={() => {
+                                    router.navigate(ExpenseListRoutes.ADD, item);
+                                }}
+                                onDeletePress={handleDelete}
                             />
                         )}
                         renderSectionHeader={CustomSectionHeader}
@@ -195,6 +247,13 @@ const BudgetMain = () => {
                         )}
                         showsVerticalScrollIndicator={true}
                     />
+                    <WeddesignConfirmationModal
+                        isVisible={isModalVisible}
+                        onBackdropPress={handleCancel}
+                        onYesPress={handleYes}
+                        onNoPress={handleCancel}
+                        message={confirmationModalText}
+                    ></WeddesignConfirmationModal>
                 </BudgetMainWrapper>
             </>
         );

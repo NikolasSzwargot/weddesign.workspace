@@ -7,7 +7,8 @@ export enum Colors {
     Mango = '#FBBC05',
     Yellow = '#ffff00',
     TurquoiseLight = '#91D5C9',
-    asd = '#91BEE8',
+    LightYellow = '#FEF3D5',
+    DarkYellow = '#F6D36F',
     White = '#ffffff',
     ButtonGray = '#f4f4f4',
     WhiteDark = '#aaaaaa',
@@ -20,11 +21,13 @@ export enum Colors {
     LightGray = '#e0e0e0',
     Gray = '#cccccc',
     GrayOut = '#00000070',
+    GraySection = '#E4E4E4',
     StatusCreated = '#dadada',
     StatusInvited = '#f6d36f',
     StatusAccepted = '#b6d79d',
     StatusRejected = '#ed6055',
     BananaGold = '#f4d16e',
     WhiteSmoke = '#f7f7f7',
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     WhiteSmokeDarker = '#f4f4f4',
 }

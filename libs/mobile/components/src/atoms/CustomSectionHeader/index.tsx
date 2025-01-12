@@ -7,6 +7,7 @@ import {
 } from './styles';
 
 import {Text} from '@weddesign/themes';
+import {Colors} from '@weddesign/enums';
 
 type CustomSectionHeaderProps = {
     section: {
@@ -14,24 +15,30 @@ type CustomSectionHeaderProps = {
         subtitle?: string;
     };
     titlePrefix?: string;
+    color?: Colors;
 };
 
 const CustomSectionHeader = ({
     section: {title, subtitle},
     titlePrefix,
+    color = Colors.GraySection,
 }: CustomSectionHeaderProps) => (
     <UniversalSeparatorContainer>
-        <StartSeparatorLine />
-        {titlePrefix && <Text.RegularGray>{titlePrefix} </Text.RegularGray>}
-        <Text.RegularGray>{title}</Text.RegularGray>
+        <StartSeparatorLine color={color} />
+        {titlePrefix && (
+            <Text.RegularGray style={{color: color}}>{titlePrefix}</Text.RegularGray>
+        )}
+        <Text.RegularGray style={{color: color}}>{title}</Text.RegularGray>
         {subtitle ? (
             <>
-                <MiddleSeparatorLine />
-                <Text.RegularGray>{subtitle}</Text.RegularGray>
-                <EndSeparatorLine />
+                <MiddleSeparatorLine color={color} />
+                <Text.RegularGray style={{color: color}}>
+                    {subtitle}
+                </Text.RegularGray>
+                <EndSeparatorLine color={color} />
             </>
         ) : (
-            <LongSeparatorLine />
+            <LongSeparatorLine color={color} />
         )}
     </UniversalSeparatorContainer>
 );
