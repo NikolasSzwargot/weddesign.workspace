@@ -45,9 +45,8 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
             <View style={styles.header}>
                 <Text style={styles.label}>{label}</Text>
                 <Text style={styles.value}>
+                    {(value ?? 0).toLocaleString()} {unit} - {max.toLocaleString()}{' '}
                     {unit}
-                    {(value ?? 0).toLocaleString()} - {unit}
-                    {max.toLocaleString()}
                 </Text>
             </View>
             <Slider

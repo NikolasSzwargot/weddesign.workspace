@@ -77,6 +77,7 @@ export const CategoryPickerContainer = styled.View`
     justify-content: center;
     gap: 10px;
     width: 70%;
+    min-width: 275px;
     height: 75%;
     border-radius: 15px;
     padding: 20px;
@@ -86,7 +87,7 @@ export const CategoryPickerItem = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    max-width: 100%;
+    max-width: 80%;
     gap: 10px;
     margin: 0 30px 6px 20px;
 `;

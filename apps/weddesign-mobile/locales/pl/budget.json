@@ -1,6 +1,6 @@
 {
   "mainProgressbarText": "Wykorzystano {{percent}}% zaplanowanego budżetu",
-  "pressToSetLimit": "Naciśnij w ramkę, aby ustawić główny limit",
+  "pressToSetLimit": "Naciśnij ramkę, aby ustawić główny limit",
   "currency": "zł",
   "category": {
     "food": "Jedzenie i picie",

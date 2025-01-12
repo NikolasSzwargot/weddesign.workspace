@@ -31,7 +31,7 @@ const BudgetLimitEditionModal = ({
 
     return (
         <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
-            <ModalContainer>
+            <ModalContainer height={!selectedItem && '250px'}>
                 <Text.SemiBold size={20}>{t('limitModal.setLimit')}</Text.SemiBold>
                 <ModalRow>
                     {selectedItem ? (
@@ -62,18 +62,20 @@ const BudgetLimitEditionModal = ({
                         maxLength={12}
                     />
                 </ModalRow>
-                <CustomSlider
-                    min={0}
-                    max={mainLimit || 100000}
-                    step={1000}
-                    value={modalValue}
-                    initialValue={modalValue}
-                    onValueChange={(value) => {
-                        setModalValue(value);
-                    }}
-                    label={t('limitModal.setLimit')}
-                    unit={t('currency')}
-                />
+                {selectedItem && (
+                    <CustomSlider
+                        min={0}
+                        max={mainLimit || 100000}
+                        step={1000}
+                        value={modalValue}
+                        initialValue={modalValue}
+                        onValueChange={(value) => {
+                            setModalValue(value);
+                        }}
+                        label={t('limitModal.setLimit')}
+                        unit={t('currency')}
+                    />
+                )}
                 <ModalRow>
                     <Button
                         style={{width: '50%'}}

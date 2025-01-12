@@ -2,7 +2,10 @@ import {Text} from '@weddesign/themes';
 import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import {useTranslation} from 'react-i18next';
-import {getBudgetCategoryData} from '@weddesign-mobile/utils';
+import {
+    formatNumberWithSpaces,
+    getBudgetCategoryData,
+} from '@weddesign-mobile/utils';
 import {BudgetLimitEditionModal} from '@weddesign-mobile/components';
 import {BackgroundEllipse, Header, LoadingSpinner} from '@weddesign/components';
 import {Colors, ErrorRoutes, HomeRoutes} from '@weddesign/enums';
@@ -123,7 +126,9 @@ const BudgetLimits = () => {
                 </CategoryInfoContainer>
 
                 <Text.Bold size={14}>
-                    {item.limit ? `${item.limit}${t('currency')}` : t('noLimit')}
+                    {item.limit
+                        ? `${formatNumberWithSpaces(item.limit)} ${t('currency')}`
+                        : t('noLimit')}
                 </Text.Bold>
             </CategoryListItem>
         );
@@ -152,7 +157,8 @@ const BudgetLimits = () => {
                     >
                         <Text.Bold size={24}>{t('total') + ':'}</Text.Bold>
                         <Text.SemiBold size={24}>
-                            {`${mainLimitData.limit}` + t('currency')}
+                            {`${formatNumberWithSpaces(mainLimitData.limit)} ` +
+                                t('currency')}
                         </Text.SemiBold>
                     </TotalWrapper>
                     <FlatList
