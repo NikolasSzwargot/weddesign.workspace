@@ -57,8 +57,10 @@ export const TasksList = () => {
     };
 
     useEffect(() => {
-        setListData(searchByQuery(tasks, searchQuery));
-    }, [searchQuery, tasks]);
+        if (!isLoading) {
+            setListData(searchByQuery(tasks, searchQuery));
+        }
+    }, [searchQuery, isLoading, tasks]);
 
     return (
         <Container>
