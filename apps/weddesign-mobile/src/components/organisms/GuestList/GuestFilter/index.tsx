@@ -7,13 +7,14 @@ import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {GuestFiltersDto} from '@shared/dto';
 import {CheckBox} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native';
 
 import {
     Container,
     FormInputWrapper,
     GuestFormWrapper,
-    InputRow,
     Row,
+    TitleRow,
 } from './styles';
 
 const GuestForm = () => {
@@ -47,28 +48,52 @@ const GuestForm = () => {
         // router.navigate(GuestListRoutes.LIST, data);
     };
 
+    const handleReset = () => {
+        setValue('guestStatusId', undefined);
+        setValue('overnight', undefined);
+        setValue('canGetThere', undefined);
+        setValue('isChild', undefined);
+        setValue('isCompanion', undefined);
+        setValue('isVege', undefined);
+    };
+
     return (
         <Container>
             <BackgroundEllipse variant={'guests'} />
             <GuestFormWrapper>
                 <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <FormInputWrapper>
-                    <InputRow>
-                        {/*<Controller*/}
-                        {/*    name="guestStatusId"*/}
-                        {/*    control={control}*/}
-                        {/*    render={({field: {onChange, value}}) => (*/}
-                        {/*        //@TODO: dropdown*/}
-                        {/*        <Input*/}
-                        {/*            value={value}*/}
-                        {/*            handleChange={onChange}*/}
-                        {/*            placeholder={t('guestForm.firstName')}*/}
-                        {/*            inputMode={'text'}*/}
-                        {/*            maxLength={10}*/}
-                        {/*        />*/}
-                        {/*    )}*/}
-                        {/*/>*/}
-                    </InputRow>
+                    {/*<Controller*/}
+                    {/*    name="guestStatusId"*/}
+                    {/*    control={control}*/}
+                    {/*    render={({field: {onChange, value}}) => (*/}
+                    {/*        //@TODO: dropdown*/}
+                    {/*        <Input*/}
+                    {/*            value={value}*/}
+                    {/*            handleChange={onChange}*/}
+                    {/*            placeholder={t('guestForm.firstName')}*/}
+                    {/*            inputMode={'text'}*/}
+                    {/*            maxLength={10}*/}
+                    {/*        />*/}
+                    {/*    )}*/}
+                    {/*/>*/}
+
+                    <TitleRow>
+                        <Text.Bold size={24}>{t('filter.filter')}</Text.Bold>
+                        <TouchableOpacity onPress={handleReset}>
+                            <Text.Regular style={{color: Colors.Pink}}>
+                                {t('filter.reset')}
+                            </Text.Regular>
+                        </TouchableOpacity>
+                    </TitleRow>
+
+                    <Text.Bold size={16} style={{color: Colors.FilterGray}}>
+                        {t('filter.status')}
+                    </Text.Bold>
+
+                    <Text.Bold size={16} style={{color: Colors.FilterGray}}>
+                        {t('filter.options')}
+                    </Text.Bold>
 
                     <Row>
                         <Controller

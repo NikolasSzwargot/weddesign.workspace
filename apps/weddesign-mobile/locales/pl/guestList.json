@@ -30,6 +30,8 @@
   },
   "filter": {
     "filter": "Filtrowanie",
-    "status": "Status"
+    "status": "Status",
+    "reset": "Restartuj wszystkie",
+    "options": "Opcje"
   }
 }

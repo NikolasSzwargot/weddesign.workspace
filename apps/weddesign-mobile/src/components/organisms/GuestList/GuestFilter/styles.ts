@@ -24,9 +24,11 @@ export const FormInputWrapper = styled.View`
     padding-right: 20px;
 `;
 
-export const InputRow = styled.View`
-    margin-bottom: 12px;
-    width: 100%;
+export const TitleRow = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
 `;
 
 export const Row = styled.View`
