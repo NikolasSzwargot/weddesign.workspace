@@ -27,5 +27,9 @@
   "errors": {
     "firstName": "Imię jest wymagane",
     "lastName": "Nazwisko jest wymagane"
+  },
+  "filter": {
+    "filter": "Filtrowanie",
+    "status": "Status"
   }
 }

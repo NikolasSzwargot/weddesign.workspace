@@ -24,6 +24,7 @@ export enum GuestListRoutes {
     GUESTLIST = '/guests',
     LIST = '/guests/list',
     ADD = '/guests/add',
+    FILTER = '/guests/filter',
 }
 
 export enum ExpenseListRoutes {

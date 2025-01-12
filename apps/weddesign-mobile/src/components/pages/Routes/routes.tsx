@@ -70,6 +70,11 @@ export const GuestsRoutingRoutes: Route[] = [
         screen: GuestsScreens.ADD,
         element: <GuestListPage screen={GuestsScreens.ADD} />,
     },
+    {
+        route: AppRootRoutes.GUESTLIST,
+        screen: GuestsScreens.FILTER,
+        element: <GuestListPage screen={GuestsScreens.FILTER} />,
+    },
 ];
 
 export const BudgetRoutingRoutes: Route[] = [
