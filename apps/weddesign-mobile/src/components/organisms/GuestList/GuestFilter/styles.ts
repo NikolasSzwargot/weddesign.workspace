@@ -34,6 +34,8 @@ export const TitleRow = styled.View`
 export const Row = styled.View`
     flex-direction: row;
     align-items: center;
-    //gap: 10px;
-    //margin-bottom: 16px;
+`;
+
+export const StatusRow = styled.View`
+    margin-bottom: 16px;
 `;

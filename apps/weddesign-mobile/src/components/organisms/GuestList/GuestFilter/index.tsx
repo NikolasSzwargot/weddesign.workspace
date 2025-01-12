@@ -1,8 +1,13 @@
 import React from 'react';
-import {useForm, Controller} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 import {useRouting} from '@weddesign-mobile/components';
-import {BackgroundEllipse, Button, Header} from '@weddesign/components';
-import {Colors, HomeRoutes} from '@weddesign/enums';
+import {
+    BackgroundEllipse,
+    Button,
+    DropdownSelect,
+    Header,
+} from '@weddesign/components';
+import {Colors, GuestStatuses, HomeRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {GuestFiltersDto} from '@shared/dto';
@@ -14,10 +19,11 @@ import {
     FormInputWrapper,
     GuestFormWrapper,
     Row,
+    StatusRow,
     TitleRow,
 } from './styles';
 
-const GuestForm = () => {
+const GuestFilter = () => {
     const {router} = useRouting();
     const {t} = useTranslation('guestList');
     const {control, handleSubmit, setValue} = useForm<GuestFiltersDto>({
@@ -57,27 +63,20 @@ const GuestForm = () => {
         setValue('isVege', undefined);
     };
 
+    const dropdownData = [
+        {label: 'None', value: undefined},
+        {label: 'Created', value: GuestStatuses.Created},
+        {label: 'Invited', value: GuestStatuses.Invited},
+        {label: 'Accepted', value: GuestStatuses.Accepted},
+        {label: 'Rejected', value: GuestStatuses.Rejected},
+    ];
+
     return (
         <Container>
             <BackgroundEllipse variant={'guests'} />
             <GuestFormWrapper>
                 <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <FormInputWrapper>
-                    {/*<Controller*/}
-                    {/*    name="guestStatusId"*/}
-                    {/*    control={control}*/}
-                    {/*    render={({field: {onChange, value}}) => (*/}
-                    {/*        //@TODO: dropdown*/}
-                    {/*        <Input*/}
-                    {/*            value={value}*/}
-                    {/*            handleChange={onChange}*/}
-                    {/*            placeholder={t('guestForm.firstName')}*/}
-                    {/*            inputMode={'text'}*/}
-                    {/*            maxLength={10}*/}
-                    {/*        />*/}
-                    {/*    )}*/}
-                    {/*/>*/}
-
                     <TitleRow>
                         <Text.Bold size={24}>{t('filter.filter')}</Text.Bold>
                         <TouchableOpacity onPress={handleReset}>
@@ -90,6 +89,21 @@ const GuestForm = () => {
                     <Text.Bold size={16} style={{color: Colors.FilterGray}}>
                         {t('filter.status')}
                     </Text.Bold>
+
+                    <StatusRow>
+                        <Controller
+                            name="guestStatusId"
+                            control={control}
+                            render={({field: {onChange, value}}) => (
+                                <DropdownSelect
+                                    data={dropdownData}
+                                    value={value}
+                                    onChange={onChange}
+                                    autoScroll={false}
+                                />
+                            )}
+                        />
+                    </StatusRow>
 
                     <Text.Bold size={16} style={{color: Colors.FilterGray}}>
                         {t('filter.options')}
@@ -172,4 +186,4 @@ const GuestForm = () => {
     );
 };
 
-export default GuestForm;
+export default GuestFilter;
