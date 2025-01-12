@@ -9,11 +9,12 @@ import {
     TaskItem,
 } from '@weddesign/components';
 import {Colors, HomeRoutes, TasksRoutes} from '@weddesign/enums';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getDeadlineColor} from '@weddesign/utils';
 import {TaskDto, UpdateTaskDto} from '@shared/dto';
+import {searchByQuery} from '@weddesign-mobile/utils';
 
 import {useRouting} from '../../providers';
 import {useDeleteTask, useGroupedTasks, useUpdateTask} from '../../../api';
@@ -25,6 +26,7 @@ export const TasksList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('tasks');
     const [searchQuery, setSearchQuery] = useState('');
+    const [listData, setListData] = useState([]);
     const {data: tasks, isLoading} = useGroupedTasks();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskDto>();
@@ -53,6 +55,10 @@ export const TasksList = () => {
         } as UpdateTaskDto;
         updateMutation({id: task.id, data: updatedTask});
     };
+
+    useEffect(() => {
+        setListData(searchByQuery(tasks, searchQuery));
+    }, [searchQuery, tasks]);
 
     return (
         <Container>
@@ -90,7 +96,7 @@ export const TasksList = () => {
                             </PageWrapper>
                         </TouchableWithoutFeedback>
                         <SectionList
-                            sections={tasks}
+                            sections={listData}
                             initialNumToRender={20}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (

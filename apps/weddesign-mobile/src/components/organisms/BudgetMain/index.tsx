@@ -20,7 +20,7 @@ import {
 } from '@weddesign/enums';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
-import {getBudgetCategoryData} from '@weddesign-mobile/utils';
+import {getBudgetCategoryData, searchByQuery} from '@weddesign-mobile/utils';
 import {ExpenseDto, ExpensesByCategoryDto, ExpensesByDateDto} from '@shared/dto';
 
 import {
@@ -44,6 +44,7 @@ const BudgetMain = () => {
     const {router} = useRouting();
     const {t} = useTranslation('budget');
     const [searchQuery, setSearchQuery] = useState('');
+    // const [debouncedQuery] = useDebounce(searchQuery, 2000);
     const [groupingMode, setGroupingMode] = useState<
         ExpenseGroupingMode.Categories | ExpenseGroupingMode.Dates
     >(ExpenseGroupingMode.Categories);
@@ -114,8 +115,9 @@ const BudgetMain = () => {
                     : groupedByDate;
 
             const translatedData = translateData(rawData);
+            const filteredData = searchByQuery(translatedData, searchQuery);
 
-            setListData(translatedData);
+            setListData(filteredData);
         }
     }, [
         groupingMode,
@@ -125,6 +127,7 @@ const BudgetMain = () => {
         isLoadingByDate,
         isLoadingByCategories,
         translateData,
+        searchQuery,
     ]);
 
     const scrollY = useRef(new Animated.Value(0)).current;
