@@ -32,7 +32,7 @@ const BudgetLimitEditionModal = ({
     return (
         <Modal isVisible={isVisible} onBackdropPress={onBackdropPress}>
             <ModalContainer>
-                <Text.SemiBold size={20}>{t('Ustaw limit')}</Text.SemiBold>
+                <Text.SemiBold size={20}>{t('limitModal.setLimit')}</Text.SemiBold>
                 <ModalRow>
                     {selectedItem ? (
                         (() => {
@@ -50,19 +50,16 @@ const BudgetLimitEditionModal = ({
                         <Text.SemiBold>{t('total') + ':'}</Text.SemiBold>
                     )}
                     <Input
-                        // eslint-disable-next-line react-native/no-inline-styles
                         style={{width: '80%'}}
                         handleChange={(v) => {
                             const numericValue = v ? Number(v) : 0;
                             setModalValue(numericValue);
                         }}
                         value={modalValue && modalValue.toString()}
-                        placeholder={t('Ustaw limit')}
+                        placeholder={t('limitModal.setLimit')}
                         inputMode={'numeric'}
                         multiline={false}
                         maxLength={12}
-                        onFocus={() => console.log('focus')}
-                        onBlur={() => console.log('blur')}
                     />
                 </ModalRow>
                 <CustomSlider
@@ -74,12 +71,11 @@ const BudgetLimitEditionModal = ({
                     onValueChange={(value) => {
                         setModalValue(value);
                     }}
-                    label="Ustaw limit"
-                    unit="$"
+                    label={t('limitModal.setLimit')}
+                    unit={t('currency')}
                 />
                 <ModalRow>
                     <Button
-                        // eslint-disable-next-line react-native/no-inline-styles
                         style={{width: '50%'}}
                         variant="primary"
                         onPress={handleOK}
@@ -87,12 +83,11 @@ const BudgetLimitEditionModal = ({
                         {t('OK')}
                     </Button>
                     <Button
-                        // eslint-disable-next-line react-native/no-inline-styles
                         style={{width: '50%'}}
                         variant="secondaryFilled"
                         onPress={handleDelete}
                     >
-                        {t('USUŃ LIMIT')}
+                        {t('limitModal.deleteLimit')}
                     </Button>
                 </ModalRow>
             </ModalContainer>

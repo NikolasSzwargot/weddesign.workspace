@@ -27,12 +27,11 @@ const CustomSlider: React.FC<CustomSliderProps> = ({
 }) => {
     const [value, setValue] = useState(initialValue);
 
-    // Synchronizacja wewnętrznego stanu z wartością zewnętrzną
     useEffect(() => {
         if (externalValue !== undefined && externalValue !== value) {
             setValue(externalValue);
         }
-    }, [externalValue]);
+    }, [externalValue, value]);
 
     const handleValueChange = (sliderValue: number) => {
         setValue(sliderValue);

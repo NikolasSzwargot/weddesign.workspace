@@ -70,7 +70,6 @@ const BudgetLimits = () => {
     const handleOK = () => {
         setModalVisible(false);
         if (selectedItem) {
-            console.log('zmiana', selectedItem.name, 'na', modalValue.toString());
             updateLimit({
                 categoryId: selectedItem.categoryId,
                 updateCategoryLimitDto: {
@@ -78,7 +77,6 @@ const BudgetLimits = () => {
                 } as UpdateCategoryLimitDto,
             });
         } else {
-            console.log('main limit update');
             updateMainLimit({
                 updateMainLimitDto: {
                     limit: modalValue,
@@ -90,7 +88,6 @@ const BudgetLimits = () => {
     const handleDelete = () => {
         setModalVisible(false);
         if (selectedItem) {
-            console.log('usunięcie', selectedItem.name);
             updateLimit({
                 categoryId: selectedItem.categoryId,
                 updateCategoryLimitDto: {
@@ -98,7 +95,6 @@ const BudgetLimits = () => {
                 } as UpdateCategoryLimitDto,
             });
         } else {
-            console.log('main limit clearing');
             updateMainLimit({
                 updateMainLimitDto: {
                     limit: 0,
@@ -112,7 +108,6 @@ const BudgetLimits = () => {
         return (
             <CategoryListItem
                 onPress={() => {
-                    console.log('edit:', item.name);
                     setSelectedItem(item);
                     setModalValue(selectedItem && item.limit);
                     setModalVisible(true);
@@ -150,7 +145,6 @@ const BudgetLimits = () => {
                     <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                     <TotalWrapper
                         onPress={() => {
-                            console.log('edit: MAIN');
                             setSelectedItem(null);
                             setModalValue(mainLimitData.limit);
                             setModalVisible(true);

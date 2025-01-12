@@ -34,6 +34,10 @@
     "isPaid": "Opłacono wydatek",
     "deadline": "Termin:"
   },
+  "limitModal": {
+    "setLimit": "Ustaw limit",
+    "deleteLimit": "USUŃ LIMIT"
+  },
   "errors": {
     "amount": "Kwota jest wymagana",
     "name": "Nazwa jest wymagana"
