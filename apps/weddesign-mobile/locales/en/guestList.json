@@ -19,6 +19,7 @@
   },
   "statusModal": {
     "title": "Change status",
+    "none": "Not choosen",
     "created": "Waits for invitation",
     "invited": "Invitation sent",
     "accepted": "Accepted",

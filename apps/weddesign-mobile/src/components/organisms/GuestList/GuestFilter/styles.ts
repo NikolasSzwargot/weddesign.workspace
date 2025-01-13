@@ -19,7 +19,7 @@ export const GuestFormWrapper = styled.View`
 
 export const FormInputWrapper = styled.View`
     justify-content: flex-start;
-    margin-top: 25%;
+    margin-top: 10%;
     padding-left: 20px;
     padding-right: 20px;
 `;
@@ -38,4 +38,9 @@ export const Row = styled.View`
 
 export const StatusRow = styled.View`
     margin-bottom: 16px;
+`;
+
+export const CloseIcon = styled.View`
+    justify-content: flex-start;
+    align-items: flex-end;
 `;

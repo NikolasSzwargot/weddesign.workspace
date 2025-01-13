@@ -3,18 +3,27 @@ import {Controller, useForm} from 'react-hook-form';
 import {useRouting} from '@weddesign-mobile/components';
 import {
     BackgroundEllipse,
-    Button,
     DropdownSelect,
     Header,
+    IconButton,
 } from '@weddesign/components';
-import {Colors, GuestStatuses, HomeRoutes} from '@weddesign/enums';
+import {
+    ApiRoutes,
+    Colors,
+    GuestListRoutes,
+    GuestStatuses,
+    HomeRoutes,
+} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
 import {GuestFiltersDto} from '@shared/dto';
 import {CheckBox} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native';
+import {Icons} from '@weddesign/assets';
+import {useQueryClient} from 'react-query';
 
 import {
+    CloseIcon,
     Container,
     FormInputWrapper,
     GuestFormWrapper,
@@ -26,6 +35,7 @@ import {
 const GuestFilter = () => {
     const {router} = useRouting();
     const {t} = useTranslation('guestList');
+    const queryClient = useQueryClient();
     const {control, handleSubmit, setValue} = useForm<GuestFiltersDto>({
         defaultValues: {
             guestStatusId: undefined,
@@ -50,8 +60,10 @@ const GuestFilter = () => {
     }, [filter, setValue]);
 
     const handleSave = (data: GuestFiltersDto) => {
-        console.log(data);
-        // router.navigate(GuestListRoutes.LIST, data);
+        queryClient.invalidateQueries([ApiRoutes.GuestsGrouped]);
+        queryClient.invalidateQueries([ApiRoutes.GuestsCount]);
+
+        router.navigate(GuestListRoutes.LIST, data);
     };
 
     const handleReset = () => {
@@ -64,11 +76,16 @@ const GuestFilter = () => {
     };
 
     const dropdownData = [
-        {label: 'None', value: undefined},
-        {label: 'Created', value: GuestStatuses.Created},
-        {label: 'Invited', value: GuestStatuses.Invited},
-        {label: 'Accepted', value: GuestStatuses.Accepted},
-        {label: 'Rejected', value: GuestStatuses.Rejected},
+        {
+            value: undefined,
+            label: t('statusModal.none'),
+        },
+        ...Object.keys(GuestStatuses)
+            .filter((key) => isNaN(Number(key)))
+            .map((label) => ({
+                value: GuestStatuses[label as keyof typeof GuestStatuses],
+                label: t(`statusModal.${label.toLowerCase()}`),
+            })),
     ];
 
     return (
@@ -77,6 +94,12 @@ const GuestFilter = () => {
             <GuestFormWrapper>
                 <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
                 <FormInputWrapper>
+                    <CloseIcon>
+                        <IconButton
+                            Icon={Icons.BlackX}
+                            onPress={handleSubmit(handleSave)}
+                        />
+                    </CloseIcon>
                     <TitleRow>
                         <Text.Bold size={24}>{t('filter.filter')}</Text.Bold>
                         <TouchableOpacity onPress={handleReset}>
@@ -176,10 +199,6 @@ const GuestFilter = () => {
                         />
                         <Text.Regular>{t('guestForm.vege')}</Text.Regular>
                     </Row>
-
-                    <Button onPress={handleSubmit(handleSave)}>
-                        {t('guestForm.save')}
-                    </Button>
                 </FormInputWrapper>
             </GuestFormWrapper>
         </Container>

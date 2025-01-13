@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
 import {
     BackgroundEllipse,
@@ -15,7 +15,7 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {Colors, ErrorRoutes, GuestListRoutes, HomeRoutes} from '@weddesign/enums';
-import {GuestDto} from '@shared/dto';
+import {GuestDto, GuestFiltersDto} from '@shared/dto';
 
 import {useDeleteGuest} from '../../../api';
 import {StatusChangeModal, WeddesignConfirmationModal} from '../../molecules';
@@ -42,12 +42,20 @@ const GuestList = () => {
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
     const {mutate: updateGuest, isLoading: isUpdating} = useUpdateGuest();
+
+    const filter: GuestFiltersDto = router.location.state;
+    const isFiltered = useMemo(() => {
+        return filter
+            ? !Object.values(filter).every((value) => value === undefined)
+            : false;
+    }, [filter]);
+
     const {
         data: groupedGuests,
         isLoading: isLoadingGrouped,
         isError: isErrorGrouped,
         isFetching: isFetchingGrouped,
-    } = useGuestsGrouped();
+    } = useGuestsGrouped(filter);
     const {
         countStatuses,
         countTotal,
@@ -165,9 +173,16 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.Filter}
-                                        fillColor={Colors.WhiteSmokeDarker}
+                                        fillColor={
+                                            isFiltered
+                                                ? Colors.LightBlue
+                                                : Colors.WhiteSmokeDarker
+                                        }
                                         onPress={() =>
-                                            router.navigate(GuestListRoutes.FILTER)
+                                            router.navigate(
+                                                GuestListRoutes.FILTER,
+                                                filter,
+                                            )
                                         }
                                     />
                                     <IconButton

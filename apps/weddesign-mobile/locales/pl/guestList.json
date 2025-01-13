@@ -19,6 +19,7 @@
   },
   "statusModal": {
     "title": "Zmień status",
+    "none": "Nie wybrano",
     "created": "Czeka na zaproszenie",
     "invited": "Zaproszenie wysłane",
     "accepted": "Potwierdzono",
