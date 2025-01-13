@@ -7,7 +7,7 @@ export const Container = styled.View`
     align-items: center;
 `;
 
-export const GuestFormWrapper = styled.View`
+export const GuestFilterWrapper = styled.View`
     position: relative;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@ export const GuestFormWrapper = styled.View`
     margin-top: 20px;
 `;
 
-export const FormInputWrapper = styled.View`
+export const FilterInputWrapper = styled.View`
     justify-content: flex-start;
     margin-top: 10%;
     padding-left: 20px;

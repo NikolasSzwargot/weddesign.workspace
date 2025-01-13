@@ -25,8 +25,8 @@ import {useQueryClient} from 'react-query';
 import {
     CloseIcon,
     Container,
-    FormInputWrapper,
-    GuestFormWrapper,
+    FilterInputWrapper,
+    GuestFilterWrapper,
     Row,
     StatusRow,
     TitleRow,
@@ -91,9 +91,9 @@ const GuestFilter = () => {
     return (
         <Container>
             <BackgroundEllipse variant={'guests'} />
-            <GuestFormWrapper>
+            <GuestFilterWrapper>
                 <Header onTitlePress={() => router.navigate(HomeRoutes.HOME)} />
-                <FormInputWrapper>
+                <FilterInputWrapper>
                     <CloseIcon>
                         <IconButton
                             Icon={Icons.BlackX}
@@ -199,8 +199,8 @@ const GuestFilter = () => {
                         />
                         <Text.Regular>{t('guestForm.vege')}</Text.Regular>
                     </Row>
-                </FormInputWrapper>
-            </GuestFormWrapper>
+                </FilterInputWrapper>
+            </GuestFilterWrapper>
         </Container>
     );
 };
