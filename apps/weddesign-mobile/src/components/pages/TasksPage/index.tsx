@@ -1,7 +1,8 @@
 import React from 'react';
 import {TasksScreens} from '@weddesign/enums';
 
-import {TaskForm, TasksList} from '../../organisms';
+import {TaskForm, TasksFilter, TasksList} from '../../organisms';
+import {TasksProvider} from '../../providers';
 
 type TasksPageProps = {
     screen?: TasksScreens;
@@ -9,9 +10,23 @@ type TasksPageProps = {
 const TasksPage = ({screen}: TasksPageProps) => {
     switch (screen) {
         case TasksScreens.ADD:
-            return <TaskForm />;
+            return (
+                <TasksProvider>
+                    <TaskForm />
+                </TasksProvider>
+            );
         case TasksScreens.LIST:
-            return <TasksList />;
+            return (
+                <TasksProvider>
+                    <TasksList />
+                </TasksProvider>
+            );
+        case TasksScreens.FILTER:
+            return (
+                <TasksProvider>
+                    <TasksFilter />
+                </TasksProvider>
+            );
     }
 };
 

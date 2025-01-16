@@ -127,6 +127,11 @@ export const TasksRoutingRoutes: Route[] = [
         screen: TasksScreens.ADD,
         element: <TasksPage screen={TasksScreens.ADD} />,
     },
+    {
+        route: AppRootRoutes.TASKS,
+        screen: TasksScreens.FILTER,
+        element: <TasksPage screen={TasksScreens.FILTER} />,
+    },
 ];
 
 export const WeddesignRoutingRoutes: Route[] = [

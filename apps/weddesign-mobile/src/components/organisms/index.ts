@@ -7,3 +7,4 @@ export {default as ErrorGeneral} from './Errors';
 export {default as ProvidersGrouped} from './Providers';
 export * from './TasksList';
 export * from './TasksList/TasksForm';
+export * from './TasksList/TasksFilter';

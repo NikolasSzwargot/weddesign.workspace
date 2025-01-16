@@ -40,4 +40,5 @@ export enum ProvidersScreens {
 export enum TasksScreens {
     LIST = '/list',
     ADD = '/add',
+    FILTER = '/filter',
 }
