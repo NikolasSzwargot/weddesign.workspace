@@ -7,33 +7,38 @@ import {
 } from './styles';
 
 import {categoryData} from '@weddesign/types';
+import {ExpenseDto} from '@shared/dto';
 import {Icons} from '@weddesign/assets';
 import {IconButton, IconDot} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
 
 type ExpenseItemProps = {
-    expName: string;
-    expAmount: number;
+    expense: ExpenseDto;
     currency?: string;
     catData: categoryData;
+    onExpensePress: () => void;
+    onDeletePress: (expense: ExpenseDto) => void;
 };
 
-const ExpenseItem = ({expName, expAmount, currency, catData}: ExpenseItemProps) => {
+const ExpenseItem = ({
+    expense,
+    currency,
+    catData,
+    onExpensePress,
+    onDeletePress,
+}: ExpenseItemProps) => {
     return (
-        <ExpenseItemContainer onPress={() => console.log(expName)}>
+        <ExpenseItemContainer onPress={onExpensePress}>
             <ExpenseInfoContainer>
                 <IconDot color={catData.color} Icon={catData.icon} />
-                <ExpenseName>{expName}</ExpenseName>
+                <ExpenseName>{expense.name}</ExpenseName>
             </ExpenseInfoContainer>
             <ExpenseRightContainer>
                 <Text.Bold style={{fontSize: 14}}>
-                    {expAmount}
+                    {expense.amount}
                     {currency}
                 </Text.Bold>
-                <IconButton
-                    Icon={Icons.X}
-                    onPress={() => console.log(`delete ${expName}`)}
-                />
+                <IconButton Icon={Icons.X} onPress={() => onDeletePress(expense)} />
             </ExpenseRightContainer>
         </ExpenseItemContainer>
     );

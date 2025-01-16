@@ -1,5 +1,6 @@
 {
   "mainProgressbarText": "{{percent}}% of planned budget have been used",
+  "pressToSetLimit": "Press the frame above to set the main limit",
   "currency": "$",
   "category": {
     "food": "Food and Drink",
@@ -21,6 +22,20 @@
   },
   "searchPlaceholder": "Search",
   "loading": "Loading budget page...",
+  "deleteMessage": "Are you sure you want to delete {{expName}}?",
   "total": "TOTAL",
-  "noLimit": "Not set"
+  "noLimit": "Not set",
+  "budgetForm": {
+    "save": "Save",
+    "add": "Add",
+    "cancel": "Cancel",
+    "name": "Name",
+    "description": "Description",
+    "isPaid": "Is Paid",
+    "deadline": "Deadline:"
+  },
+  "errors": {
+    "amount": "Amount is required",
+    "name": "Name is required"
+  }
 }

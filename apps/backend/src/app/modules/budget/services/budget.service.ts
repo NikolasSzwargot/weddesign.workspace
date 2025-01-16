@@ -206,14 +206,10 @@ export class BudgetService {
     return this.prisma.mainBudgetLimit.create({ data: { ...newBudgetLimit, userId } });
   }
 
-  async updateBudgetLimit(
-    userId: number,
-    id: number,
-    updateBudgetLimitDto: UpdateBudgetLimitDto
-  ): Promise<BudgetLimitDto> {
+  async updateBudgetLimit(userId: number, updateBudgetLimitDto: UpdateBudgetLimitDto): Promise<BudgetLimitDto> {
     try {
       return this.prisma.mainBudgetLimit.update({
-        where: { id, userId },
+        where: { userId },
         data: updateBudgetLimitDto,
       });
     } catch (e) {

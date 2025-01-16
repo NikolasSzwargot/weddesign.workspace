@@ -14,6 +14,7 @@ export const StatusBarContainer = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
     width: 100%;
     height: 16px;
     border-radius: 8px;
