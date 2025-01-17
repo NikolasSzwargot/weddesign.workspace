@@ -15,6 +15,7 @@ import {Icons} from '@weddesign/assets';
 import {Colors, ErrorRoutes, HomeRoutes, ProvidersRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {ProviderDto} from '@shared/dto';
+import {searchByQuery} from '@weddesign-mobile/utils';
 
 import {WeddesignConfirmationModal} from '../../../molecules';
 import {useRouting} from '../../../providers';
@@ -32,6 +33,7 @@ const ProvidersList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('providers');
     const [searchQuery, setSearchQuery] = useState('');
+    const [listData, setListData] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const {mutate: deleteProvider, isLoading: isDeleting} = useDeleteProvider();
     const [selectedItem, setSelectedItem] = useState<ProviderDto | null>(null);
@@ -79,6 +81,12 @@ const ProvidersList = () => {
         setModalVisible(false);
         console.log('No');
     };
+
+    useEffect(() => {
+        if (!isLoading) {
+            setListData(searchByQuery(providersGroupedByStars, searchQuery));
+        }
+    }, [searchQuery, isLoading, providersGroupedByStars]);
 
     useEffect(() => {
         if (isError) {
@@ -135,7 +143,7 @@ const ProvidersList = () => {
                         </TouchableWithoutFeedback>
 
                         <SectionList
-                            sections={providersGroupedByStars}
+                            sections={listData}
                             initialNumToRender={20}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (

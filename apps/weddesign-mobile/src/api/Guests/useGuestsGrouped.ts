@@ -4,7 +4,7 @@ import {GuestDto, GuestFiltersDto} from '@shared/dto';
 
 import {useFetch} from '../useFetch';
 
-type GuestsGroupedProps = {
+export type GuestsGroupedProps = {
     title: string;
     data: GuestDto[];
 };

@@ -16,6 +16,7 @@ import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {Colors, ErrorRoutes, GuestListRoutes, HomeRoutes} from '@weddesign/enums';
 import {GuestDto, GuestFiltersDto} from '@shared/dto';
+import {searchByQuery} from '@weddesign-mobile/utils';
 
 import {useDeleteGuest} from '../../../api';
 import {StatusChangeModal, WeddesignConfirmationModal} from '../../molecules';
@@ -36,6 +37,7 @@ const GuestList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
+    const [listData, setListData] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isStatusModalVisible, setStatusModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
@@ -117,6 +119,12 @@ const GuestList = () => {
     };
 
     useEffect(() => {
+        if (!isLoadingGrouped) {
+            setListData(searchByQuery(groupedGuests, searchQuery));
+        }
+    }, [searchQuery, isLoadingGrouped, groupedGuests]);
+
+    useEffect(() => {
         if (isError || isErrorGrouped) {
             router.navigate(ErrorRoutes.GENERAL, 'guests');
         }
@@ -196,7 +204,7 @@ const GuestList = () => {
                             </View>
                         </TouchableWithoutFeedback>
                         <SectionList
-                            sections={groupedGuests}
+                            sections={listData}
                             initialNumToRender={20}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (
