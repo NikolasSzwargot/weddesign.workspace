@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateGuestDto, UpdateGuestDto } from '@shared/dto';
+import { CreateGuestDto, GuestFiltersDto, UpdateGuestDto } from '@shared/dto';
 import { Guest, PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -80,8 +80,11 @@ export class GuestsService {
     return this.prisma.guest.delete({ where: { id, userId } });
   }
 
-  async getGuestsGroupedByFirstLetter(userId: number): Promise<{ data: Guest[]; title: string }[]> {
-    const guests = await this.findAll(userId);
+  async getGuestsGroupedByFirstLetter(
+    userId: number,
+    filters: GuestFiltersDto
+  ): Promise<{ data: Guest[]; title: string }[]> {
+    const guests = await this.prisma.guest.findMany({ where: { userId, ...filters } });
 
     const groupedGuests: Record<string, Guest[]> = {};
 

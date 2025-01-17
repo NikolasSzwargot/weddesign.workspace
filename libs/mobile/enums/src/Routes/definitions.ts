@@ -19,6 +19,7 @@ export enum LoginScreens {
 export enum GuestsScreens {
     LIST = '/list',
     ADD = '/add',
+    FILTER = '/filter',
 }
 
 export enum ExpensesScreens {
