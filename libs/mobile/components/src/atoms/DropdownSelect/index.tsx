@@ -13,6 +13,7 @@ type LanguageDropdownProps<T> = {
     onChange: (value: T) => void;
     placeholder?: string;
     data: DropdownData<T>[];
+    autoScroll?: boolean;
 };
 
 const DropdownSelect = <T,>({
@@ -20,6 +21,7 @@ const DropdownSelect = <T,>({
     onChange,
     placeholder,
     data,
+    autoScroll = true,
 }: LanguageDropdownProps<T>) => {
     return (
         <View style={styles.dropdownContainer}>
@@ -37,6 +39,7 @@ const DropdownSelect = <T,>({
                 containerStyle={styles.dropdownListContainer}
                 itemTextStyle={styles.itemTextStyle}
                 maxHeight={200}
+                autoScroll={autoScroll}
             />
         </View>
     );
