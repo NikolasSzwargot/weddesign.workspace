@@ -9,14 +9,13 @@ export const Container = styled.View`
 `;
 
 export const MainWrapper = styled.View`
+    flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-
     width: 100vw;
-    height: 100%;
     margin-top: 20px;
     gap: 20px;
 `;
