@@ -79,4 +79,11 @@ export class TasksService {
 
     return groupedTasks;
   }
+
+  async getUpcomingTask(userId: number): Promise<TaskDto> {
+    return this.prisma.task.findFirst({
+      where: { userId, isDone: false, deadline: { gte: new Date() } },
+      orderBy: { deadline: { sort: 'asc', nulls: 'last' } },
+    });
+  }
 }
