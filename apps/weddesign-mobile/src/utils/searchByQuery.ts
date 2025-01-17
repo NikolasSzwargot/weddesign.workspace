@@ -36,13 +36,8 @@ export const searchByQuery = (
                         );
                     }
                     if ('firstName' in item && 'lastName' in item) {
-                        return (
-                            item.firstName
-                                ?.toLowerCase()
-                                .includes(query.toLowerCase()) ||
-                            item.lastName
-                                ?.toLowerCase()
-                                .includes(query.toLowerCase())
+                        return `${item.firstName?.toLowerCase()} ${item.lastName?.toLowerCase()}`.includes(
+                            query.toLowerCase(),
                         );
                     }
                     return false;

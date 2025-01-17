@@ -86,7 +86,7 @@ const ProvidersList = () => {
         if (!isLoading) {
             setListData(searchByQuery(providersGroupedByStars, searchQuery));
         }
-    }, [searchQuery, providersGroupedByStars]);
+    }, [searchQuery, isLoading, providersGroupedByStars]);
 
     useEffect(() => {
         if (isError) {
