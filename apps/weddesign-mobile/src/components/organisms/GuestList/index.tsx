@@ -111,8 +111,10 @@ const GuestList = () => {
     };
 
     useEffect(() => {
-        setListData(searchByQuery(groupedGuests, searchQuery));
-    }, [searchQuery, groupedGuests]);
+        if (!isLoadingGrouped) {
+            setListData(searchByQuery(groupedGuests, searchQuery));
+        }
+    }, [searchQuery, isLoadingGrouped, groupedGuests]);
 
     useEffect(() => {
         if (isError || isErrorGrouped) {
