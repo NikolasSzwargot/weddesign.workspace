@@ -34,6 +34,10 @@
     "isPaid": "Is Paid",
     "deadline": "Deadline:"
   },
+  "limitModal": {
+    "setLimit": "Set limit",
+    "deleteLimit": "DELETE LIMIT"
+  },
   "errors": {
     "amount": "Amount is required",
     "name": "Name is required"
