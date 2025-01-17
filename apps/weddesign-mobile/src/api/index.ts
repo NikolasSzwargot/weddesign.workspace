@@ -13,6 +13,8 @@ export * from './Budget/useExpensesByCategories';
 export * from './Budget/useExpensesByDate';
 export * from './Budget/useMainLimit';
 export * from './Budget/useUpdateExpense';
+export * from './Budget/useUpdateCategoryLimit';
+export * from './Budget/useUpdateMainLimit';
 export * from './Tasks/useGroupedTasks';
 export * from './Tasks/useDeleteTask';
 export * from './Tasks/useCreateTask';
