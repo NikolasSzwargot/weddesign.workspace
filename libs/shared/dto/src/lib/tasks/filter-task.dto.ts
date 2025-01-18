@@ -1,9 +1,9 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class FilterTaskDto {
-  @ApiPropertyOptional()
+  @ApiProperty()
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
   showDoneTasks: boolean;
