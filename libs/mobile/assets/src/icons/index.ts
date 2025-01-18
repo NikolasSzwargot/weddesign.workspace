@@ -29,6 +29,7 @@ import ProviderReserved from './ProviderReserved.svg';
 import Instagram from './Instagram.svg';
 import Website from './Website.svg';
 import Add from './Add.svg';
+import BlackX from './BlackX.svg';
 
 export const Icons = {
     Camera,
@@ -62,4 +63,5 @@ export const Icons = {
     Instagram,
     Website,
     Add,
+    BlackX,
 };

@@ -19,6 +19,7 @@
   },
   "statusModal": {
     "title": "Change status",
+    "none": "Not choosen",
     "created": "Waits for invitation",
     "invited": "Invitation sent",
     "accepted": "Accepted",
@@ -27,5 +28,11 @@
   "errors": {
     "firstName": "First name is required",
     "lastName": "Last name is required"
+  },
+  "filter": {
+    "filter": "Filter",
+    "status": "Status",
+    "reset": "Reset all",
+    "options": "Options"
   }
 }
