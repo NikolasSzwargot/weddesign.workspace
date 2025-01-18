@@ -1,14 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class FilterTaskDto {
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
   showDoneTasks: boolean;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
   deadline: {
     after: boolean;
@@ -16,17 +16,17 @@ export class FilterTaskDto {
     without: boolean;
   }
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
   @IsDateString()
   minDate: Date;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
   @IsDateString()
   maxDate: Date;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
   @Transform(({ value }) => (value !== null && value !== undefined ? Number(value) : undefined)) // string to number for swagger
