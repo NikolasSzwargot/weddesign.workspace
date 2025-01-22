@@ -57,32 +57,28 @@ export class TasksService {
       conditions.isDone = false;
     }
 
-    if (filterDto.deadline) {
-      const orConditions = [];
+    const orConditions = [];
 
-      switch (true) {
-        case filterDto.deadline.after:
-          orConditions.push({
-            deadline: { gt: new Date() },
-          });
-          break;
+    if (filterDto.beforeDeadline) {
+      orConditions.push({
+        deadline: { lt: new Date() },
+      });
+    }
 
-        case filterDto.deadline.before:
-          orConditions.push({
-            deadline: { lt: new Date() },
-          });
-          break;
+    if (filterDto.afterDeadline) {
+      orConditions.push({
+        deadline: { gt: new Date() },
+      });
+    }
 
-        case filterDto.deadline.without:
-          orConditions.push({
-            deadline: null,
-          });
-          break;
-      }
+    if (filterDto.withoutDeadline) {
+      orConditions.push({
+        deadline: null,
+      });
+    }
 
-      if (orConditions.length > 0 && orConditions.length < 3) {
-        conditions.OR = orConditions;
-      }
+    if (orConditions.length > 0 && orConditions.length < 3) {
+      conditions.OR = orConditions;
     }
 
     if (filterDto.minDate) {

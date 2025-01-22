@@ -10,11 +10,21 @@ export class FilterTaskDto {
 
   @ApiPropertyOptional()
   @IsOptional()
-  deadline: {
-    after: boolean;
-    before: boolean;
-    without: boolean;
-  }
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
+  afterDeadline: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
+  beforeDeadline: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
+  withoutDeadline: boolean;
 
   @ApiPropertyOptional()
   @IsOptional()
