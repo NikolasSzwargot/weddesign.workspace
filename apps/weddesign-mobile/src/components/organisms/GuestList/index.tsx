@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Keyboard, SectionList, TouchableWithoutFeedback, View} from 'react-native';
 import {
     BackgroundEllipse,
@@ -15,7 +15,8 @@ import {
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {Colors, ErrorRoutes, GuestListRoutes, HomeRoutes} from '@weddesign/enums';
-import {GuestDto} from '@shared/dto';
+import {GuestDto, GuestFiltersDto} from '@shared/dto';
+import {searchByQuery} from '@weddesign-mobile/utils';
 
 import {useDeleteGuest} from '../../../api';
 import {StatusChangeModal, WeddesignConfirmationModal} from '../../molecules';
@@ -36,18 +37,27 @@ const GuestList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('guestList');
     const [searchQuery, setSearchQuery] = useState('');
+    const [listData, setListData] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isStatusModalVisible, setStatusModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState<GuestDto | null>(null);
     const [confirmationModalText, setConfirmationModalText] = useState('');
     const {mutate: deleteGuest, isLoading: isDeleting} = useDeleteGuest();
     const {mutate: updateGuest, isLoading: isUpdating} = useUpdateGuest();
+
+    const filter: GuestFiltersDto = router.location.state;
+    const isFiltered = useMemo(() => {
+        return filter
+            ? !Object.values(filter).every((value) => value === undefined)
+            : false;
+    }, [filter]);
+
     const {
         data: groupedGuests,
         isLoading: isLoadingGrouped,
         isError: isErrorGrouped,
         isFetching: isFetchingGrouped,
-    } = useGuestsGrouped();
+    } = useGuestsGrouped(filter);
     const {
         countStatuses,
         countTotal,
@@ -109,6 +119,12 @@ const GuestList = () => {
     };
 
     useEffect(() => {
+        if (!isLoadingGrouped) {
+            setListData(searchByQuery(groupedGuests, searchQuery));
+        }
+    }, [searchQuery, isLoadingGrouped, groupedGuests]);
+
+    useEffect(() => {
         if (isError || isErrorGrouped) {
             router.navigate(ErrorRoutes.GENERAL, 'guests');
         }
@@ -165,8 +181,17 @@ const GuestList = () => {
                                     />
                                     <IconButton
                                         Icon={Icons.Filter}
-                                        fillColor={Colors.WhiteSmokeDarker}
-                                        onPress={() => console.log('clicked Filter')}
+                                        fillColor={
+                                            isFiltered
+                                                ? Colors.LightBlue
+                                                : Colors.WhiteSmokeDarker
+                                        }
+                                        onPress={() =>
+                                            router.navigate(
+                                                GuestListRoutes.FILTER,
+                                                filter,
+                                            )
+                                        }
                                     />
                                     <IconButton
                                         Icon={Icons.AddPerson}
@@ -179,7 +204,7 @@ const GuestList = () => {
                             </View>
                         </TouchableWithoutFeedback>
                         <SectionList
-                            sections={groupedGuests}
+                            sections={listData}
                             initialNumToRender={20}
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({item}) => (

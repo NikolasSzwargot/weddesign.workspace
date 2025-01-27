@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.White,
-        width: 265,
+        width: 270,
         borderWidth: 4,
         borderColor: Colors.BananaGold,
         borderRadius: 15,

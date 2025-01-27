@@ -1,19 +1,18 @@
 import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
-import {GuestDto} from '@shared/dto';
+import {GuestDto, GuestFiltersDto} from '@shared/dto';
 
 import {useFetch} from '../useFetch';
 
-type guestsGroupedProps = {
+export type GuestsGroupedProps = {
     title: string;
     data: GuestDto[];
 };
 
-export const useGuestsGrouped = () => {
+export const useGuestsGrouped = (filter: GuestFiltersDto) => {
     const api = useFetch();
 
-    return useQuery<{title: string; data: GuestDto[]}[], Error>(
-        [ApiRoutes.GuestsGrouped],
-        () => api.GET<guestsGroupedProps[]>(ApiRoutes.GuestsGrouped),
+    return useQuery<GuestsGroupedProps[], Error>([ApiRoutes.GuestsGrouped], () =>
+        api.GET<GuestsGroupedProps[]>(ApiRoutes.GuestsGrouped, {params: filter}),
     );
 };

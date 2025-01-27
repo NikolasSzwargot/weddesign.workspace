@@ -4,7 +4,7 @@ import {ProviderDto} from '@shared/dto';
 
 import {useFetch} from '../useFetch';
 
-type providersByStarsProps = {
+export type ProvidersByStarsProps = {
     title: string;
     data: ProviderDto[];
 };
@@ -18,10 +18,10 @@ export const useProvidersByStarsInCategory = (categoryId: number) => {
         ) as ApiRoutes;
     };
 
-    return useQuery<providersByStarsProps[], Error>(
+    return useQuery<ProvidersByStarsProps[], Error>(
         [ApiRoutes.ProvidersGroupedByStarsInCategory],
         () =>
-            api.GET<providersByStarsProps[]>(
+            api.GET<ProvidersByStarsProps[]>(
                 getProvidersGroupedByStarsUrl(categoryId),
             ),
     );

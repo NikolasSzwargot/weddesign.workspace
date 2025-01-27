@@ -1,6 +1,7 @@
-import {Animated} from 'react-native';
+import {Animated, TextStyle} from 'react-native';
 import styles from './styles';
 import {Colors} from '@weddesign/enums';
+import {formatNumberWithSpaces} from '@weddesign-mobile/utils';
 
 type BudgetFrameProps = {
     total: number;
@@ -23,7 +24,7 @@ const BudgetFrame = ({
           })
         : 40;
 
-    const text1Style = {
+    const text1Style: Animated.WithAnimatedObject<TextStyle> = {
         transform: [
             {
                 translateX: scrollData
@@ -54,7 +55,7 @@ const BudgetFrame = ({
               extrapolate: 'clamp',
           })
         : 17;
-    const text2Style = {
+    const text2Style: Animated.WithAnimatedObject<TextStyle> = {
         transform: [
             {
                 translateX: scrollData
@@ -89,6 +90,8 @@ const BudgetFrame = ({
     return (
         <Animated.View style={[styles.MainView, {height: rectangleHeight}]}>
             <Animated.Text
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
                 style={[
                     {
                         fontWeight: 'bold',
@@ -98,8 +101,12 @@ const BudgetFrame = ({
                     },
                     text1Style,
                 ]}
-            >{`${current.toFixed(2)}${currency}`}</Animated.Text>
+            >{`${formatNumberWithSpaces(
+                current.toFixed(2),
+            )} ${currency}`}</Animated.Text>
             <Animated.Text
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
                 style={[
                     {
                         fontWeight: 600,
@@ -109,7 +116,9 @@ const BudgetFrame = ({
                     },
                     text2Style,
                 ]}
-            >{`/ ${total.toFixed(2)}${currency}`}</Animated.Text>
+            >{`/ ${formatNumberWithSpaces(
+                total.toFixed(2),
+            )} ${currency}`}</Animated.Text>
         </Animated.View>
     );
 };
