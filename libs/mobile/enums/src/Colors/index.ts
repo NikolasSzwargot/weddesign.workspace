@@ -31,4 +31,5 @@ export enum Colors {
     // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     WhiteSmokeDarker = '#f4f4f4',
     FilterGray = '#98A0B4',
+    GrayFilter = '#4B4B4B',
 }

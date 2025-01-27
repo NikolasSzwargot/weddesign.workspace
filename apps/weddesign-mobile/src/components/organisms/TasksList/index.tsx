@@ -16,8 +16,8 @@ import {getDeadlineColor} from '@weddesign/utils';
 import {TaskDto, UpdateTaskDto} from '@shared/dto';
 import {searchByQuery} from '@weddesign-mobile/utils';
 
-import {useRouting, useTasks} from '../../providers';
-import {useDeleteTask, useUpdateTask} from '../../../api';
+import {useRouting} from '../../providers';
+import {useDeleteTask, useGroupedTasks, useUpdateTask} from '../../../api';
 import {WeddesignConfirmationModal} from '../../molecules';
 
 import {Container, PageWrapper, TaskListWrapper, SearchBarWrapper} from './styles';
@@ -27,7 +27,7 @@ export const TasksList = () => {
     const {t} = useTranslation('tasks');
     const [searchQuery, setSearchQuery] = useState('');
     const [listData, setListData] = useState([]);
-    const {tasks, isLoading, filterTasks} = useTasks();
+    const {data: tasks, isLoading} = useGroupedTasks();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskDto>();
     const {mutateAsync: deleteMutation} = useDeleteTask();
