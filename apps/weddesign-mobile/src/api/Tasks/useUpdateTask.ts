@@ -22,6 +22,7 @@ export const useUpdateTask = () => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([ApiRoutes.TasksGrouped]);
+                queryClient.invalidateQueries([ApiRoutes.TasksUpcomingTask]);
             },
             onError: (error) => {
                 console.error('Error updating guest:', error);

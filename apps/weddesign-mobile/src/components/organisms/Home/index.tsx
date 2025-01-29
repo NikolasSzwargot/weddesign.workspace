@@ -73,6 +73,8 @@ const Home = () => {
                         })}
                     </Text.SemiBold>
                     <TaskFrame
+                        title={t('nextTask')}
+                        noTaskLabel={t('noTask')}
                         taskLabel={upcomingTask?.name}
                         taskDate={upcomingTask?.deadline}
                     />
