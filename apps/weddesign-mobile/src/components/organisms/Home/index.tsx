@@ -19,6 +19,7 @@ import {getDaysDifference} from '@weddesign/utils';
 
 import {useRouting} from '../../providers';
 import {useUser} from '../../providers/UserProvider';
+import {useUpcomingTask} from '../../../api';
 
 import {ButtonRow, Container, HomeWrapper, MainFrame} from './styles';
 
@@ -26,6 +27,7 @@ const Home = () => {
     const {t} = useTranslation('home');
     const {router} = useRouting();
     const {user} = useUser();
+    const {data: upcomingTask} = useUpcomingTask();
 
     const buttons = [
         {
@@ -70,7 +72,10 @@ const Home = () => {
                             ),
                         })}
                     </Text.SemiBold>
-                    <TaskFrame />
+                    <TaskFrame
+                        taskLabel={upcomingTask?.name}
+                        taskDate={upcomingTask?.deadline}
+                    />
                 </MainFrame>
                 <ButtonRow>
                     {buttons.map((buttonProps, index) => (
