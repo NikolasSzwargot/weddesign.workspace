@@ -41,3 +41,8 @@ export const Row = styled.View`
     gap: 10px;
     margin-bottom: 16px;
 `;
+
+export const IconWrapper = styled.View`
+    display: flex;
+    align-items: flex-end;
+`;

@@ -1,8 +1,9 @@
 import {BackgroundEllipse, CustomSwitch, Header} from '@weddesign/components';
 import React from 'react';
-import {Colors, HomeRoutes} from '@weddesign/enums';
+import {Colors, HomeRoutes, TasksRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
 import {useTranslation} from 'react-i18next';
+import {Icons} from '@weddesign/assets';
 
 import {useRouting, useTaskFilter} from '../../../providers';
 import {TasksDeadlines} from '../../../molecules';
@@ -11,6 +12,7 @@ import {TasksFilterDateRange} from '../../../molecules';
 import {
     Container,
     FormWrapper,
+    IconWrapper,
     Row,
     TasksFilterWrapper,
     TitleWrapper,
@@ -39,6 +41,11 @@ export const TasksFilter = () => {
                             {t('filters.reset')}
                         </Text.Regular>
                     </TitleWrapper>
+                    <IconWrapper>
+                        <Icons.BlackX
+                            onPress={() => router.navigate(TasksRoutes.LIST)}
+                        />
+                    </IconWrapper>
                     <Row>
                         <CustomSwitch
                             value={filter.showDoneTasks}
