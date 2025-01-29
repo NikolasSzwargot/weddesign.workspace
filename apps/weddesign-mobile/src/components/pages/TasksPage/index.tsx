@@ -2,7 +2,7 @@ import React from 'react';
 import {TasksScreens} from '@weddesign/enums';
 
 import {TaskForm, TasksFilter, TasksList} from '../../organisms';
-import {TasksProvider} from '../../providers';
+import {TaskFilterProvider} from '../../providers';
 
 type TasksPageProps = {
     screen?: TasksScreens;
@@ -11,21 +11,21 @@ const TasksPage = ({screen}: TasksPageProps) => {
     switch (screen) {
         case TasksScreens.ADD:
             return (
-                <TasksProvider>
+                <TaskFilterProvider>
                     <TaskForm />
-                </TasksProvider>
+                </TaskFilterProvider>
             );
         case TasksScreens.LIST:
             return (
-                <TasksProvider>
+                <TaskFilterProvider>
                     <TasksList />
-                </TasksProvider>
+                </TaskFilterProvider>
             );
         case TasksScreens.FILTER:
             return (
-                <TasksProvider>
+                <TaskFilterProvider>
                     <TasksFilter />
-                </TasksProvider>
+                </TaskFilterProvider>
             );
     }
 };

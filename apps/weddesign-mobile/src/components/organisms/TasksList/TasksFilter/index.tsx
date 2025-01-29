@@ -1,9 +1,11 @@
 import {BackgroundEllipse, CustomSwitch, Header} from '@weddesign/components';
-import React, {useState} from 'react';
+import React from 'react';
 import {Colors, HomeRoutes} from '@weddesign/enums';
 import {Text} from '@weddesign/themes';
+import {useTranslation} from 'react-i18next';
 
-import {useRouting} from '../../../providers';
+import {useRouting, useTaskFilter} from '../../../providers';
+import {TasksDeadlines} from '../../../molecules';
 
 import {
     Container,
@@ -15,7 +17,8 @@ import {
 
 export const TasksFilter = () => {
     const {router} = useRouting();
-    const [showFinished, setShowFinished] = useState(false);
+    const {filter, setFilter} = useTaskFilter();
+    const {t} = useTranslation('tasks');
 
     return (
         <Container>
@@ -25,20 +28,30 @@ export const TasksFilter = () => {
                 <FormWrapper>
                     <TitleWrapper>
                         <Text.Bold style={{color: Colors.GrayFilter}} size={20}>
-                            {'Filtrowanie'}
+                            {t('filters.filtering')}
                         </Text.Bold>
-                        <Text.Regular style={{color: Colors.Pink}} size={14}>
-                            {'Restartuj wszystkie'}
+                        <Text.Regular
+                            style={{color: Colors.Pink}}
+                            size={14}
+                            onPress={() => setFilter({showDoneTasks: true})}
+                        >
+                            {t('filters.reset')}
                         </Text.Regular>
                     </TitleWrapper>
                     <Row>
                         <CustomSwitch
-                            value={showFinished}
-                            onChange={() => setShowFinished(!showFinished)}
+                            value={filter.showDoneTasks}
+                            onChange={() =>
+                                setFilter((current) => ({
+                                    ...current,
+                                    showDoneTasks: !current.showDoneTasks,
+                                }))
+                            }
                             onColor={Colors.DarkYellow}
                         />
-                        <Text.Regular>{'Pokaż ukończone zadania'}</Text.Regular>
+                        <Text.Regular>{t('filters.showFinished')}</Text.Regular>
                     </Row>
+                    <TasksDeadlines filter={filter} setFilter={setFilter} />
                 </FormWrapper>
             </TasksFilterWrapper>
         </Container>

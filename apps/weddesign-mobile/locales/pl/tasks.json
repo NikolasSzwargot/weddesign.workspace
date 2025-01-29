@@ -10,6 +10,15 @@
     "cancel": "Anuluj",
     "isUnscheduled": "Zadanie bezterminowe"
   },
+  "filters": {
+    "filtering": "Filtrowanie",
+    "reset": "Resetuj wszystkie",
+    "showFinished": "Pokaż ukończone zadania",
+    "deadline": "Termin",
+    "unscheduled": "Bezterminowe",
+    "afterDeadline": "Po terminie",
+    "beforeDeadline": "Przed terminem"
+  },
   "errors": {
     "name": "Nazwa jest wymagana"
   }
