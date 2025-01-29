@@ -38,4 +38,9 @@ export class TasksController {
   async getAllProvidersInCategoryGrouped(@Request() req): Promise<{ title: string; data: TaskDto[] }[]> {
     return this.tasksService.getTasksGrouped(req.user.userId);
   }
+
+  @Get('upcomingTask')
+  async getUpcomingTask(@Request() req): Promise<TaskDto> {
+    return this.tasksService.getUpcomingTask(req.user.userId);
+  }
 }
