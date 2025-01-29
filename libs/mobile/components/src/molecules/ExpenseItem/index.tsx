@@ -11,6 +11,7 @@ import {ExpenseDto} from '@shared/dto';
 import {Icons} from '@weddesign/assets';
 import {IconButton, IconDot} from '@weddesign/components';
 import {Text} from '@weddesign/themes';
+import {formatNumberWithSpaces} from '@weddesign-mobile/utils';
 
 type ExpenseItemProps = {
     expense: ExpenseDto;
@@ -35,8 +36,7 @@ const ExpenseItem = ({
             </ExpenseInfoContainer>
             <ExpenseRightContainer>
                 <Text.Bold style={{fontSize: 14}}>
-                    {expense.amount}
-                    {currency}
+                    {`${formatNumberWithSpaces(expense.amount)} ` + currency}
                 </Text.Bold>
                 <IconButton Icon={Icons.X} onPress={() => onDeletePress(expense)} />
             </ExpenseRightContainer>

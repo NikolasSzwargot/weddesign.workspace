@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from 'react-native-platform-searchbar';
 import {SearchBarContainer} from './styles';
+import {Colors} from '@weddesign/enums';
 
 type CustomSearchBarProps = {
     searchQuery: string;
@@ -16,7 +17,13 @@ const CustomSearchBar = ({
     return (
         <SearchBarContainer>
             <SearchBar
-                style={{flex: 1, height: 44}}
+                style={{
+                    flex: 1,
+                    height: 44,
+                    borderColor: Colors.LightGray,
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }}
                 placeholder={placeholder}
                 value={searchQuery}
                 onChangeText={setSearchQuery}

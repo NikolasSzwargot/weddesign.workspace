@@ -200,7 +200,9 @@ const ExpenseForm = () => {
                                                             text.replace(',', '.');
                                                         onChange(formattedText);
                                                     }}
-                                                    placeholder={`0${t('currency')}`}
+                                                    placeholder={`0 ${t(
+                                                        'currency',
+                                                    )}`}
                                                     inputMode={'decimal'}
                                                     multiline={false}
                                                     maxLength={9}

@@ -19,6 +19,7 @@
   },
   "statusModal": {
     "title": "Zmień status",
+    "none": "Nie wybrano",
     "created": "Czeka na zaproszenie",
     "invited": "Zaproszenie wysłane",
     "accepted": "Potwierdzono",
@@ -27,5 +28,11 @@
   "errors": {
     "firstName": "Imię jest wymagane",
     "lastName": "Nazwisko jest wymagane"
+  },
+  "filter": {
+    "filter": "Filtrowanie",
+    "status": "Status",
+    "reset": "Restartuj wszystkie",
+    "options": "Opcje"
   }
 }
