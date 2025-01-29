@@ -34,4 +34,5 @@ export enum ApiRoutes {
     // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     TasksUpdate = '/tasks/:id',
     TasksCreate = '/tasks',
+    TasksUpcomingTask = '/tasks/upcomingTask',
 }

@@ -1,7 +1,8 @@
 {
   "welcome": "Cześć {{groomName}} i {{brideName}}",
   "counter": "Do wielkiego dnia zostało {{days}} dni",
-  "nextTask": "Następne zadanie",
+  "nextTask": "Następne zadanie:",
+  "noTask": "Brak zadań na teraz!",
   "buttons": {
     "guests": "Lista gości",
     "budget": "Budżet",

@@ -14,6 +14,7 @@ export const useCreateTask = () => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([ApiRoutes.TasksGrouped]);
+                queryClient.invalidateQueries([ApiRoutes.TasksUpcomingTask]);
             },
             onError: (error) => {
                 console.error('Error creating guest:', error);

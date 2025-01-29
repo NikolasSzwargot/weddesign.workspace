@@ -25,6 +25,7 @@ export const useDeleteTask = () => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries([ApiRoutes.TasksGrouped]);
+                queryClient.invalidateQueries([ApiRoutes.TasksUpcomingTask]);
             },
             onError: (error) => {
                 console.error('Failed to delete task:', error.message);

@@ -1,6 +1,18 @@
 import { TasksService } from './services/tasks.service';
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Request } from '@nestjs/common';
-import { CreateTaskDto, TaskDto, UpdateTaskDto } from '@shared/dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
+  Request,
+  ValidationPipe,
+} from '@nestjs/common';
+import { CreateTaskDto, FilterTaskDto, TaskDto, UpdateTaskDto } from '@shared/dto';
 import { ApiGlobalDecorators } from '../../../decorators/swagger.decorators';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -35,7 +47,15 @@ export class TasksController {
   }
 
   @Get('groupedDeadline')
-  async getAllProvidersInCategoryGrouped(@Request() req): Promise<{ title: string; data: TaskDto[] }[]> {
-    return this.tasksService.getTasksGrouped(req.user.userId);
+  async getAllProvidersInCategoryGrouped(
+    @Request() req,
+    @Query(new ValidationPipe({ transform: true })) filter: FilterTaskDto
+  ): Promise<{ title: string; data: TaskDto[] }[]> {
+    return this.tasksService.getTasksGrouped(req.user.userId, filter);
+  }
+
+  @Get('upcomingTask')
+  async getUpcomingTask(@Request() req): Promise<TaskDto> {
+    return this.tasksService.getUpcomingTask(req.user.userId);
   }
 }

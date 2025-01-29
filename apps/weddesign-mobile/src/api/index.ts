@@ -19,3 +19,4 @@ export * from './Tasks/useGroupedTasks';
 export * from './Tasks/useDeleteTask';
 export * from './Tasks/useCreateTask';
 export * from './Tasks/useUpdateTask';
+export * from './Tasks/useUpcomingTask';

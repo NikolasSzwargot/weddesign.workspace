@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTaskDto, TaskDto, UpdateTaskDto } from '@shared/dto';
+import { CreateTaskDto, FilterTaskDto, TaskDto, UpdateTaskDto } from '@shared/dto';
 import { PrismaService } from '../../../prisma-client.service';
 
 @Injectable()
@@ -48,11 +48,84 @@ export class TasksService {
     }
   }
 
-  async getTasksGrouped(userId: number): Promise<{ title: string; data: TaskDto[] }[]> {
-    const tasks = await this.prisma.task.findMany({
-      where: { userId },
+  private getFilteredTasks(userId: number, filterDto: FilterTaskDto): Promise<TaskDto[]> {
+    const conditions: any = {
+      userId,
+    };
+
+    if (!filterDto.showDoneTasks) {
+      conditions.isDone = false;
+    }
+
+    const orConditions = [];
+
+    if (filterDto.beforeDeadline) {
+      orConditions.push({
+        deadline: { lt: new Date() },
+      });
+    }
+
+    if (filterDto.afterDeadline) {
+      orConditions.push({
+        deadline: { gt: new Date() },
+      });
+    }
+
+    if (filterDto.withoutDeadline) {
+      orConditions.push({
+        deadline: null,
+      });
+    }
+
+    if (orConditions.length > 0 && orConditions.length < 3) {
+      conditions.OR = orConditions;
+    }
+
+    if (filterDto.minDate) {
+      conditions.deadline = { ...conditions.deadline, gt: new Date(filterDto.minDate) };
+    }
+    if (filterDto.maxDate) {
+      conditions.deadline = { ...conditions.deadline, lt: new Date(filterDto.maxDate) };
+    }
+
+    if (filterDto.showFor !== undefined) {
+      const today = new Date();
+      let futureDate: Date;
+
+      switch (filterDto.showFor) {
+        case 0:
+          futureDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
+          break;
+
+        case 1:
+          futureDate = new Date(today.getFullYear(), today.getMonth() + 6, today.getDate());
+          break;
+
+        case 2:
+          futureDate = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+          break;
+
+        default:
+          futureDate = null;
+          break;
+      }
+
+      if (futureDate) {
+        conditions.deadline = {
+          ...conditions.deadline,
+          lte: futureDate,
+        };
+      }
+    }
+
+    return this.prisma.task.findMany({
+      where: conditions,
       orderBy: { createdAt: 'asc' },
     });
+  }
+
+  async getTasksGrouped(userId: number, filterDto: FilterTaskDto): Promise<{ title: string; data: TaskDto[] }[]> {
+    const tasks = await this.getFilteredTasks(userId, filterDto);
 
     const groupedTasks = tasks.reduce(
       (acc, task) => {
@@ -78,5 +151,12 @@ export class TasksService {
     });
 
     return groupedTasks;
+  }
+
+  async getUpcomingTask(userId: number): Promise<TaskDto> {
+    return this.prisma.task.findFirst({
+      where: { userId, isDone: false, deadline: { gte: new Date() } },
+      orderBy: { deadline: { sort: 'asc', nulls: 'last' } },
+    });
   }
 }
