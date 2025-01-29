@@ -13,7 +13,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Icons} from '@weddesign/assets';
 import {getDeadlineColor} from '@weddesign/utils';
-import {TaskDto, UpdateTaskDto} from '@shared/dto';
+import {FilterTaskDto, TaskDto, UpdateTaskDto} from '@shared/dto';
 import {searchByQuery} from '@weddesign-mobile/utils';
 
 import {useRouting} from '../../providers';
@@ -22,12 +22,18 @@ import {WeddesignConfirmationModal} from '../../molecules';
 
 import {Container, PageWrapper, TaskListWrapper, SearchBarWrapper} from './styles';
 
+const filter = {
+    showDoneTasks: false,
+};
+
 export const TasksList = () => {
     const {router} = useRouting();
     const {t} = useTranslation('tasks');
     const [searchQuery, setSearchQuery] = useState('');
     const [listData, setListData] = useState([]);
-    const {data: tasks, isLoading} = useGroupedTasks();
+    const [filter, setFilter] = useState<FilterTaskDto>({showDoneTasks: true});
+
+    const {data: tasks, isLoading} = useGroupedTasks(filter);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskDto>();
     const {mutateAsync: deleteMutation} = useDeleteTask();

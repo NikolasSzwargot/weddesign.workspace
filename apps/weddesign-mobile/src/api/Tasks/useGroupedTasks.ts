@@ -1,6 +1,6 @@
+import {FilterTaskDto, TaskDto} from '@shared/dto';
 import {useQuery} from 'react-query';
 import {ApiRoutes} from '@weddesign/enums';
-import {TaskDto} from '@shared/dto';
 
 import {useFetch} from '../useFetch';
 
@@ -9,10 +9,10 @@ export type GroupedTasksDto = {
     data: TaskDto[];
 };
 
-export const useGroupedTasks = () => {
+export const useGroupedTasks = (filter: FilterTaskDto) => {
     const api = useFetch();
 
     return useQuery<GroupedTasksDto[], Error>([ApiRoutes.TasksGrouped], () =>
-        api.GET<GroupedTasksDto[]>(ApiRoutes.TasksGrouped),
+        api.GET<GroupedTasksDto[]>(ApiRoutes.TasksGrouped, {params: filter}),
     );
 };
