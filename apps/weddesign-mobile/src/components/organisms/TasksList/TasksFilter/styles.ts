@@ -1,10 +1,13 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView.attrs(() => ({
+    contentContainerStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: 805,
+    },
+}))`
     flex: 1;
-    min-height: 805px;
-    justify-content: center;
-    align-items: center;
 `;
 
 export const TasksFilterWrapper = styled.View`

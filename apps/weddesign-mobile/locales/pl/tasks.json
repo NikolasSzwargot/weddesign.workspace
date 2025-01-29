@@ -17,7 +17,11 @@
     "deadline": "Termin",
     "unscheduled": "Bezterminowe",
     "afterDeadline": "Po terminie",
-    "beforeDeadline": "Przed terminem"
+    "beforeDeadline": "Przed terminem",
+    "dateRange": "Zakres dat",
+    "months": "Pokaż na 3 miesiące",
+    "halfYear": "Pokaż na pół roku",
+    "year": "Pokaż na rok"
   },
   "errors": {
     "name": "Nazwa jest wymagana"

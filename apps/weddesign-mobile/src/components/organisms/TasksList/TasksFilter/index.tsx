@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next';
 
 import {useRouting, useTaskFilter} from '../../../providers';
 import {TasksDeadlines} from '../../../molecules';
+import {TasksFilterDateRange} from '../../../molecules';
 
 import {
     Container,
@@ -52,6 +53,7 @@ export const TasksFilter = () => {
                         <Text.Regular>{t('filters.showFinished')}</Text.Regular>
                     </Row>
                     <TasksDeadlines filter={filter} setFilter={setFilter} />
+                    <TasksFilterDateRange />
                 </FormWrapper>
             </TasksFilterWrapper>
         </Container>
