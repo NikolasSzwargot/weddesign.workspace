@@ -75,6 +75,13 @@ For fetching to work, you need to edit `apps/mobile/android/app/src/main/res/xml
 <domain includeSubdomains="true">10.0.2.2</domain>
 ```
 
+You also need to create a directory and a file `apps/weddesign-mobile/src/config/index.ts` for setting up your IP address. The content should look like that:
+
+```ts
+// local - CHANGE API_URL ip to yours
+export const API_URL = 'http://your_ip:3000' as const;
+```
+
 ### Backend
 - #### Build Backend Application:
 
