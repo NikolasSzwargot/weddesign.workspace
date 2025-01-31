@@ -10,6 +10,19 @@
     "cancel": "Cancel",
     "isUnscheduled": "Unscheduled task"
   },
+  "filters": {
+    "filtering": "Filtering",
+    "reset": "Reset filters",
+    "showFinished": "Show finished tasks",
+    "deadline": "Deadline",
+    "unscheduled": "Unscheduled",
+    "afterDeadline": "After deadline",
+    "beforeDeadline": "Before deadline",
+    "dateRange": "Date range",
+    "months": "Show for 3 months",
+    "halfYear": "Show for half a year",
+    "year": "Show for a year"
+  },
   "errors": {
     "name": "Name is required"
   }

@@ -10,7 +10,8 @@
     "expo": "*",
     "react": "*",
     "react-native-svg": "*",
-    "expo-secure-store": "*"
+    "expo-secure-store": "*",
+    "react-native-date-picker": "*"
   },
   "scripts": {
     "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/weddesign-mobile",

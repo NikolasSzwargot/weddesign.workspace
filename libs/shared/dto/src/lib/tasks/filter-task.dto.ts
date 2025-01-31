@@ -12,33 +12,33 @@ export class FilterTaskDto {
   @IsOptional()
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
-  afterDeadline: boolean;
+  afterDeadline?: boolean;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
-  beforeDeadline: boolean;
+  beforeDeadline?: boolean;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
-  withoutDeadline: boolean;
+  withoutDeadline?: boolean;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsDateString()
-  minDate: Date;
+  minDate?: Date;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsDateString()
-  maxDate: Date;
+  maxDate?: Date;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
   @Transform(({ value }) => (value !== null && value !== undefined ? Number(value) : undefined)) // string to number for swagger
-  showFor: number;
+  showFor?: number;
 }

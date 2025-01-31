@@ -48,6 +48,7 @@ export enum ProvidersRoutes {
 export enum TasksRoutes {
     LIST = '/tasks/list',
     ADD = '/tasks/add',
+    FILTER = '/tasks/filter',
 }
 
 export type WeddesignRoutes =

@@ -16,7 +16,7 @@ import {getDeadlineColor} from '@weddesign/utils';
 import {TaskDto, UpdateTaskDto} from '@shared/dto';
 import {searchByQuery} from '@weddesign-mobile/utils';
 
-import {useRouting} from '../../providers';
+import {useRouting, useTaskFilter} from '../../providers';
 import {useDeleteTask, useGroupedTasks, useUpdateTask} from '../../../api';
 import {WeddesignConfirmationModal} from '../../molecules';
 
@@ -27,7 +27,9 @@ export const TasksList = () => {
     const {t} = useTranslation('tasks');
     const [searchQuery, setSearchQuery] = useState('');
     const [listData, setListData] = useState([]);
-    const {data: tasks, isLoading} = useGroupedTasks();
+    const {filter} = useTaskFilter();
+
+    const {data: tasks, isLoading} = useGroupedTasks(filter);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [selectedTask, setSelectedTask] = useState<TaskDto>();
     const {mutateAsync: deleteMutation} = useDeleteTask();
@@ -70,74 +72,78 @@ export const TasksList = () => {
                 {isLoading ? (
                     <LoadingSpinner color={Colors.DarkYellow} msg={t('loading')} />
                 ) : (
-                    <>
-                        <TouchableWithoutFeedback
-                            onPress={Keyboard.dismiss}
-                            accessible={false}
-                        >
-                            <PageWrapper>
-                                <SearchBarWrapper>
-                                    <CustomSearchBar
-                                        searchQuery={searchQuery}
-                                        setSearchQuery={setSearchQuery}
-                                        placeholder={t('searchPlaceholder')}
+                    tasks && (
+                        <>
+                            <TouchableWithoutFeedback
+                                onPress={Keyboard.dismiss}
+                                accessible={false}
+                            >
+                                <PageWrapper>
+                                    <SearchBarWrapper>
+                                        <CustomSearchBar
+                                            searchQuery={searchQuery}
+                                            setSearchQuery={setSearchQuery}
+                                            placeholder={t('searchPlaceholder')}
+                                        />
+                                        <IconButton
+                                            Icon={Icons.Filter}
+                                            fillColor={Colors.WhiteSmokeDarker}
+                                            onPress={() => {
+                                                router.navigate(TasksRoutes.FILTER);
+                                            }}
+                                        />
+                                        <IconButton
+                                            Icon={Icons.Add}
+                                            fillColor={Colors.StatusInvited}
+                                            onPress={() =>
+                                                router.navigate(TasksRoutes.ADD)
+                                            }
+                                        />
+                                    </SearchBarWrapper>
+                                </PageWrapper>
+                            </TouchableWithoutFeedback>
+                            <SectionList
+                                sections={listData}
+                                initialNumToRender={20}
+                                keyExtractor={(item) => item.id.toString()}
+                                renderItem={({item}) => (
+                                    <TaskItem
+                                        task={item}
+                                        onCheckboxPress={handleCheckbox}
+                                        onGuestPress={() => {
+                                            router.navigate(TasksRoutes.ADD, item);
+                                        }}
+                                        onDeletePress={onDeletePress}
                                     />
-                                    <IconButton
-                                        Icon={Icons.Filter}
-                                        fillColor={Colors.WhiteSmokeDarker}
-                                        onPress={() => console.log('clicked Filter')}
-                                    />
-                                    <IconButton
-                                        Icon={Icons.Add}
-                                        fillColor={Colors.StatusInvited}
-                                        onPress={() =>
-                                            router.navigate(TasksRoutes.ADD)
+                                )}
+                                renderSectionHeader={(item) => (
+                                    <CustomSectionHeader
+                                        section={
+                                            item.section.data[0]?.deadline
+                                                ? item.section
+                                                : {title: t('unscheduled')}
                                         }
+                                        color={getDeadlineColor(
+                                            item.section.data[0]?.deadline,
+                                        )}
                                     />
-                                </SearchBarWrapper>
-                            </PageWrapper>
-                        </TouchableWithoutFeedback>
-                        <SectionList
-                            sections={listData}
-                            initialNumToRender={20}
-                            keyExtractor={(item) => item.id.toString()}
-                            renderItem={({item}) => (
-                                <TaskItem
-                                    task={item}
-                                    onCheckboxPress={handleCheckbox}
-                                    onGuestPress={() => {
-                                        router.navigate(TasksRoutes.ADD, item);
-                                    }}
-                                    onDeletePress={onDeletePress}
-                                />
-                            )}
-                            renderSectionHeader={(item) => (
-                                <CustomSectionHeader
-                                    section={
-                                        item.section.data[0]?.deadline
-                                            ? item.section
-                                            : {title: t('unscheduled')}
-                                    }
-                                    color={getDeadlineColor(
-                                        item.section.data[0]?.deadline,
-                                    )}
-                                />
-                            )}
-                            showsVerticalScrollIndicator={true}
-                        />
-
-                        {isModalVisible && (
-                            <WeddesignConfirmationModal
-                                isVisible={isModalVisible}
-                                onBackdropPress={() => setIsModalVisible(false)}
-                                onYesPress={handleYes}
-                                onNoPress={() => setIsModalVisible(false)}
-                                message={t('deleteMessage', {
-                                    name: selectedTask.name,
-                                })}
+                                )}
+                                showsVerticalScrollIndicator={true}
                             />
-                        )}
-                    </>
+
+                            {isModalVisible && (
+                                <WeddesignConfirmationModal
+                                    isVisible={isModalVisible}
+                                    onBackdropPress={() => setIsModalVisible(false)}
+                                    onYesPress={handleYes}
+                                    onNoPress={() => setIsModalVisible(false)}
+                                    message={t('deleteMessage', {
+                                        name: selectedTask.name,
+                                    })}
+                                />
+                            )}
+                        </>
+                    )
                 )}
             </TaskListWrapper>
         </Container>
