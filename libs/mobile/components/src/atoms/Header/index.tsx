@@ -1,5 +1,4 @@
 import {HeaderWrapper, ItemWrapper, TitleWrapper} from './styles';
-import {Icons} from '@weddesign/assets';
 import {Text} from '@weddesign/themes';
 
 type HeaderProps = {
@@ -10,7 +9,8 @@ const Header = ({onTitlePress}: HeaderProps) => {
     return (
         <HeaderWrapper>
             <ItemWrapper>
-                <Icons.More />
+                {/*//@TODO: Add functionality to burger*/}
+                {/*<Icons.More />*/}
             </ItemWrapper>
             <TitleWrapper onPress={onTitlePress}>
                 <Text.Bold size={20}>{'Weddesign'}</Text.Bold>
